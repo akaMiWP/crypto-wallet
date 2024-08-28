@@ -55,6 +55,10 @@
 		A1A207292C7CA6EB0093CE47 /* CryptoWallet */ = {
 			isa = PBXGroup;
 			children = (
+				A1B719CA2C7F725E0039D8D9 /* Activities */,
+				A1B719C92C7F72570039D8D9 /* Transaction */,
+				A1B719C82C7F72510039D8D9 /* Dashboard */,
+				A1B719C72C7F72440039D8D9 /* Authentication */,
 				A1A2072A2C7CA6EB0093CE47 /* CryptoWalletApp.swift */,
 				A1A2072C2C7CA6EB0093CE47 /* ContentView.swift */,
 				A1A2072E2C7CA6ED0093CE47 /* Assets.xcassets */,
@@ -69,6 +73,34 @@
 				A1A207312C7CA6ED0093CE47 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A1B719C72C7F72440039D8D9 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		A1B719C82C7F72510039D8D9 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		A1B719C92C7F72570039D8D9 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		A1B719CA2C7F725E0039D8D9 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Activities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
