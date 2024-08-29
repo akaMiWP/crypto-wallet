@@ -13,6 +13,7 @@
 		A1A2072D2C7CA6EB0093CE47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2072C2C7CA6EB0093CE47 /* ContentView.swift */; };
 		A1A2072F2C7CA6ED0093CE47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A2072E2C7CA6ED0093CE47 /* Assets.xcassets */; };
 		A1A207322C7CA6ED0093CE47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A207312C7CA6ED0093CE47 /* Preview Assets.xcassets */; };
+		A1B719D92C80C1F40039D8D9 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = A1B719D82C80C1F40039D8D9 /* web3swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 			files = (
 				A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */,
 				A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */,
+				A1B719D92C80C1F40039D8D9 /* web3swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +124,7 @@
 			packageProductDependencies = (
 				A13BBF482C7E194300D5B58F /* SwiftProtobuf */,
 				A13BBF4A2C7E194300D5B58F /* WalletCore */,
+				A1B719D82C80C1F40039D8D9 /* web3swift */,
 			);
 			productName = CryptoWallet;
 			productReference = A1A207272C7CA6EB0093CE47 /* CryptoWallet.app */;
@@ -154,6 +157,7 @@
 			mainGroup = A1A2071E2C7CA6EB0093CE47;
 			packageReferences = (
 				A13BBF472C7E194300D5B58F /* XCRemoteSwiftPackageReference "wallet-core" */,
+				A1B719D72C80C1F40039D8D9 /* XCRemoteSwiftPackageReference "web3swift" */,
 			);
 			productRefGroup = A1A207282C7CA6EB0093CE47 /* Products */;
 			projectDirPath = "";
@@ -396,6 +400,14 @@
 				kind = branch;
 			};
 		};
+		A1B719D72C80C1F40039D8D9 /* XCRemoteSwiftPackageReference "web3swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/skywinder/web3swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -408,6 +420,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A13BBF472C7E194300D5B58F /* XCRemoteSwiftPackageReference "wallet-core" */;
 			productName = WalletCore;
+		};
+		A1B719D82C80C1F40039D8D9 /* web3swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1B719D72C80C1F40039D8D9 /* XCRemoteSwiftPackageReference "web3swift" */;
+			productName = web3swift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
