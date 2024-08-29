@@ -14,6 +14,7 @@
 		A1A2072F2C7CA6ED0093CE47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A2072E2C7CA6ED0093CE47 /* Assets.xcassets */; };
 		A1A207322C7CA6ED0093CE47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A207312C7CA6ED0093CE47 /* Preview Assets.xcassets */; };
 		A1B719D92C80C1F40039D8D9 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = A1B719D82C80C1F40039D8D9 /* web3swift */; };
+		A1B719DB2C80C31D0039D8D9 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B719DA2C80C31D0039D8D9 /* AuthenticationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		A1A2072C2C7CA6EB0093CE47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1A2072E2C7CA6ED0093CE47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1A207312C7CA6ED0093CE47 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A1B719DA2C80C31D0039D8D9 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		A1B719C72C7F72440039D8D9 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				A1B719DA2C80C31D0039D8D9 /* AuthenticationView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			files = (
 				A1A2072D2C7CA6EB0093CE47 /* ContentView.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
+				A1B719DB2C80C31D0039D8D9 /* AuthenticationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
