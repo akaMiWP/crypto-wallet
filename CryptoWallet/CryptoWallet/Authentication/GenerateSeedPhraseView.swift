@@ -3,27 +3,32 @@
 import SwiftUI
 
 struct GenerateSeedPhraseView: View {
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
+    @State private var gridItems: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
         VStack {
-            Text("Create a password")
+            Text("Secret Recovery Phrase")
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .padding(.vertical, 8)
             
-            Text("This is for unlock your wallet")
+            Text("Do not lose the seed phrase. It's necessary to receover your entire wallets")
                 .font(.body)
+                .multilineTextAlignment(.center)
             
-            TextField("Password", text: $password)
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .clipShape(RoundedRectangle(cornerSize: .init(width: 8, height: 8)))
-            
-            TextField("Confirm Password", text: $confirmPassword)
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .clipShape(RoundedRectangle(cornerSize: .init(width: 8, height: 8)))
+            LazyVGrid(columns: gridItems) {
+                ForEach(0..<12) { index in
+                    Text("Word \(index + 1)")
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .border(Color.gray)
+                }
+            }
+            .blur(radius: 6)
+            .overlay {
+                Image(systemName: "eye.slash.fill")
+                    .resizable()
+                    .frame(width: 50, height: 40)
+            }
             
             Button(action: {}) {
                 Text("Continue")
