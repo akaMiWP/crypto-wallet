@@ -10,6 +10,7 @@
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */; };
+		A19734802C8323C300619D33 /* CongratsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197347F2C8323C300619D33 /* CongratsView.swift */; };
 		A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */; };
 		A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2072A2C7CA6EB0093CE47 /* CryptoWalletApp.swift */; };
 		A1A2072D2C7CA6EB0093CE47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2072C2C7CA6EB0093CE47 /* ContentView.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPassPhraseView.swift; sourceTree = "<group>"; };
+		A197347F2C8323C300619D33 /* CongratsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsView.swift; sourceTree = "<group>"; };
 		A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSeedPhraseView.swift; sourceTree = "<group>"; };
 		A1A207272C7CA6EB0093CE47 /* CryptoWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A2072A2C7CA6EB0093CE47 /* CryptoWalletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoWalletApp.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */,
 				A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */,
 				A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */,
+				A197347F2C8323C300619D33 /* CongratsView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1A2072D2C7CA6EB0093CE47 /* ContentView.swift in Sources */,
+				A19734802C8323C300619D33 /* CongratsView.swift in Sources */,
 				A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */,
 				A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
