@@ -80,8 +80,8 @@ private extension DashboardView {
         .onTapGesture { isSheetPresented = true }
         .sheet(isPresented: $isSheetPresented) {
             switch destination {
-            case .sendTokens: SendView()
-            case .receive: SendView()
+            case .sendTokens: SelectTokenView()
+            case .receive: SelectTokenView()
             }
         }
     }

@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct SendView: View {
+struct SelectTokenView: View {
     @State private var searchInput: String = ""
     
     var body: some View {
@@ -17,21 +17,9 @@ struct SendView: View {
 }
 
 // MARK: - Private
-private extension SendView {
+private extension SelectTokenView {
     func makeSearchComponentView() -> some View {
-        VStack(spacing: 24) {
-            ZStack {
-                Text("Select Token")
-                    .font(.headline)
-                
-                HStack {
-                    Button(action: {}) {
-                        Image(systemName: "xmark")
-                    }
-                    Spacer()
-                }
-            }
-            
+        TitleBarPresentedView(title: "Select Token") {
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -45,11 +33,9 @@ private extension SendView {
                     .font(.subheadline)
             }
         }
-        .padding()
-        .background(Color.blue.opacity(0.1))
     }
 }
 
 #Preview {
-    SendView()
+    SelectTokenView()
 }
