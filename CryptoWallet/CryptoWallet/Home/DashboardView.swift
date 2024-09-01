@@ -4,19 +4,23 @@ import SwiftUI
 
 struct DashboardView: View {
     
+    @State private var isSheetPresented: Bool = false
+    
     var body: some View {
-        makeTopBarView()
-        
-        ScrollView {
-            Text("$21.10")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+        NavigationStack {
+            makeTopBarView()
             
-            makeOperationViews()
-            
-            TokenListView()
-            
-            Spacer()
+            ScrollView {
+                Text("$21.10")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                
+                makeOperationViews()
+                
+                TokenListView()
+                
+                Spacer()
+            }
         }
     }
 }
@@ -25,7 +29,6 @@ struct DashboardView: View {
 private extension DashboardView {
     func makeTopBarView() -> some View {
         ZStack {
-            
             HStack {
                 Text("Account 1")
                     .font(.headline)
@@ -56,14 +59,14 @@ private extension DashboardView {
     
     func makeOperationViews() -> some View {
         HStack(spacing: 32) {
-            makeOperationView(imageName: "plus", actionName: "Receive")
+            makeOperationView(imageName: "plus", actionName: "Receive", destination: .receive)
             
-            makeOperationView(imageName: "paperplane", actionName: "Send")
+            makeOperationView(imageName: "paperplane", actionName: "Send", destination: .sendTokens)
         }
         .padding()
     }
     
-    func makeOperationView(imageName: String, actionName: String) -> some View {
+    func makeOperationView(imageName: String, actionName: String, destination: Destination) -> some View {
         VStack(spacing: 8) {
             Image(systemName: imageName)
                 .font(.title2)
@@ -74,6 +77,13 @@ private extension DashboardView {
         .frame(width: 100, height: 80)
         .background(Color.blue.opacity(0.2))
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
+        .onTapGesture { isSheetPresented = true }
+        .sheet(isPresented: $isSheetPresented) {
+            switch destination {
+            case .sendTokens: SendView()
+            case .receive: SendView()
+            }
+        }
     }
 }
 
