@@ -9,10 +9,10 @@ struct SendView: View {
         makeSearchComponentView()
         
         ScrollView {
+            TokenListView(shouldShowTotalAmount: false)
             
+            Spacer()
         }
-        
-        Spacer()
     }
 }
 
