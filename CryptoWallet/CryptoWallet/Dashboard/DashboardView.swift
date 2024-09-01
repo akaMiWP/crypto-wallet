@@ -4,11 +4,11 @@ import SwiftUI
 
 struct DashboardView: View {
     @State private var mocks: [TokenViewModel] = [
-        .init(name: "Ethereum", balance: "0.2 $ETH", totalAmount: "$500.12"),
-        .init(name: "Bitcoin", balance: "0.1 $BTC", totalAmount: "$5801.44"),
-        .init(name: "AAVE Protocol", balance: "17.2 $AAVE", totalAmount: "$2567.31"),
-        .init(name: "Uniswap", balance: "0.1 $UNI", totalAmount: "$10.77"),
-        .init(name: "Solana", balance: "17.8 $SOL", totalAmount: "$1890.66")
+        .init(name: "Ethereum", balance: "0.2 $ETH", totalAmount: 500.12),
+        .init(name: "Bitcoin", balance: "0.1 $BTC", totalAmount: 5801.44),
+        .init(name: "AAVE Protocol", balance: "17.2 $AAVE", totalAmount: 2567.31),
+        .init(name: "Uniswap", balance: "0.1 $UNI", totalAmount: 10.77),
+        .init(name: "Solana", balance: "17.8 $SOL", totalAmount: 1890.66)
     ]
     
     var body: some View {
@@ -111,7 +111,7 @@ private extension DashboardView {
             
             Spacer()
             
-            Text(viewModel.totalAmount)
+            Text(viewModel.formattedTotalAmount)
                 .font(.headline)
         }
     }

@@ -6,5 +6,9 @@ struct TokenViewModel: Identifiable {
     let id: UUID = .init()
     let name: String
     let balance: String
-    let totalAmount: String
+    let totalAmount: Double
+    
+    var formattedTotalAmount: String {
+        totalAmount.format(with: .tokenBalanceFormatter)
+    }
 }
