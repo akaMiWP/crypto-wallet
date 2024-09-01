@@ -14,6 +14,7 @@
 		A19734822C832DBF00619D33 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19734812C832DBF00619D33 /* DashboardView.swift */; };
 		A19734872C8404B100619D33 /* TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19734862C8404B100619D33 /* TokenViewModel.swift */; };
 		A197348B2C84078D00619D33 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197348A2C84078D00619D33 /* NumberFormatter.swift */; };
+		A197348D2C840BED00619D33 /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197348C2C840BED00619D33 /* SendView.swift */; };
 		A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */; };
 		A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2072A2C7CA6EB0093CE47 /* CryptoWalletApp.swift */; };
 		A1A2072D2C7CA6EB0093CE47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2072C2C7CA6EB0093CE47 /* ContentView.swift */; };
@@ -29,6 +30,7 @@
 		A19734812C832DBF00619D33 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		A19734862C8404B100619D33 /* TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewModel.swift; sourceTree = "<group>"; };
 		A197348A2C84078D00619D33 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		A197348C2C840BED00619D33 /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
 		A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSeedPhraseView.swift; sourceTree = "<group>"; };
 		A1A207272C7CA6EB0093CE47 /* CryptoWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A2072A2C7CA6EB0093CE47 /* CryptoWalletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoWalletApp.swift; sourceTree = "<group>"; };
@@ -115,7 +117,7 @@
 				A19734832C84049600619D33 /* Models */,
 				A1B719CA2C7F725E0039D8D9 /* Activities */,
 				A1B719C92C7F72570039D8D9 /* Transaction */,
-				A1B719C82C7F72510039D8D9 /* Dashboard */,
+				A1B719C82C7F72510039D8D9 /* Home */,
 				A1B719C72C7F72440039D8D9 /* Authentication */,
 				A1A2072A2C7CA6EB0093CE47 /* CryptoWalletApp.swift */,
 				A1A2072C2C7CA6EB0093CE47 /* ContentView.swift */,
@@ -144,12 +146,13 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		A1B719C82C7F72510039D8D9 /* Dashboard */ = {
+		A1B719C82C7F72510039D8D9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				A19734812C832DBF00619D33 /* DashboardView.swift */,
+				A197348C2C840BED00619D33 /* SendView.swift */,
 			);
-			path = Dashboard;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		A1B719C92C7F72570039D8D9 /* Transaction */ = {
@@ -254,6 +257,7 @@
 				A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
 				A197348B2C84078D00619D33 /* NumberFormatter.swift in Sources */,
+				A197348D2C840BED00619D33 /* SendView.swift in Sources */,
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
