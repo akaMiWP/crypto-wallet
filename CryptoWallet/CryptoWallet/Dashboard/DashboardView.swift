@@ -3,6 +3,14 @@
 import SwiftUI
 
 struct DashboardView: View {
+    @State private var mocks: [TokenViewModel] = [
+        .init(name: "Ethereum", balance: "0.2 $ETH", totalAmount: "$500.12"),
+        .init(name: "Bitcoin", balance: "0.1 $BTC", totalAmount: "$5801.44"),
+        .init(name: "AAVE Protocol", balance: "17.2 $AAVE", totalAmount: "$2567.31"),
+        .init(name: "Uniswap", balance: "0.1 $UNI", totalAmount: "$10.77"),
+        .init(name: "Solana", balance: "17.8 $SOL", totalAmount: "$1890.66")
+    ]
+    
     var body: some View {
         makeTopBarView()
         
@@ -76,8 +84,8 @@ private extension DashboardView {
     }
     
     func makeERC20TokensListView() -> some View {
-        ForEach(0..<12) { _ in
-            makeERC20TokenView()
+        ForEach(mocks, id: \.id) { viewModel in
+            makeERC20TokenView(viewModel: viewModel)
         }
         .frame(maxWidth: .infinity)
         .padding()
@@ -86,7 +94,7 @@ private extension DashboardView {
         .padding(.horizontal)
     }
     
-    func makeERC20TokenView() -> some View {
+    func makeERC20TokenView(viewModel: TokenViewModel) -> some View {
         HStack(alignment: .top) {
             Rectangle()
                 .fill(Color.blue)
@@ -94,16 +102,16 @@ private extension DashboardView {
                 .clipShape(Circle())
             
             VStack(alignment: .leading) {
-                Text("Token Name")
+                Text(viewModel.name)
                     .font(.headline)
                 
-                Text("0.123456 ETH")
+                Text(viewModel.balance)
                     .font(.subheadline)
             }
             
             Spacer()
             
-            Text("$1234")
+            Text(viewModel.totalAmount)
                 .font(.headline)
         }
     }
