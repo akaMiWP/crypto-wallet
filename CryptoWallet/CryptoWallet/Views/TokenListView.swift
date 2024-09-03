@@ -18,14 +18,16 @@ struct TokenListView: View {
     }
     
     var body: some View {
-        ForEach(mocks, id: \.id) { viewModel in
-            makeERC20TokenView(viewModel: viewModel)
+        VStack {
+            ForEach(mocks, id: \.id) { viewModel in
+                makeERC20TokenView(viewModel: viewModel)
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.blue.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
+            .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(Color.blue.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
-        .padding(.horizontal)
     }
 }
 
@@ -41,9 +43,11 @@ private extension TokenListView {
             VStack(alignment: .leading) {
                 Text(viewModel.name)
                     .font(.headline)
+                    .foregroundColor(.black)
                 
                 Text(viewModel.balance)
                     .font(.subheadline)
+                    .foregroundColor(.black)
             }
             
             Spacer()
@@ -51,6 +55,7 @@ private extension TokenListView {
             if shouldShowTotalAmount {
                 Text(viewModel.formattedTotalAmount)
                     .font(.headline)
+                    .foregroundColor(.black)
             }
         }
     }
