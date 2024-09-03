@@ -3,35 +3,52 @@
 import SwiftUI
 
 struct SelectTokenView: View {
-    @State private var searchInput: String = ""
+    @State private var addressInput: String = ""
     
     var body: some View {
-        makeSearchComponentView()
-        
-        ScrollView {
-            TokenListView(shouldShowTotalAmount: false)
+        VStack {
+            makeTopBarComponent()
+            
+            makeAddressComponent()
             
             Spacer()
+            
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Text("Next")
+                    .font(.headline)
+                    .foregroundColor(.white)
+            })
+            .frame(height: 48)
+            .frame(maxWidth: .infinity)
+            .background(Color.blue)
+            .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
+            .padding()
         }
     }
 }
 
 // MARK: - Private
 private extension SelectTokenView {
-    func makeSearchComponentView() -> some View {
-        TitleBarPresentedView(title: "Select Token") {
+    func makeTopBarComponent() -> some View {
+        TitleBarPresentedView(title: "Send $ETH", bottomView: { EmptyView() })
+    }
+    
+    func makeAddressComponent() -> some View {
+        VStack {
             HStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search...", text: $searchInput)
-                }
-                .padding(.all, 8)
-                .background(Color.blue.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
+                Text("To:")
+                    .font(.headline)
                 
-                Text("Cancel")
+                TextField("Name or address", text: $addressInput)
                     .font(.subheadline)
             }
+            .padding(.horizontal)
+            .padding(.vertical, 4)
+            
+            Rectangle()
+                .fill(.gray.opacity(0.2))
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
         }
     }
 }
