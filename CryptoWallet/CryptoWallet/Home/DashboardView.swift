@@ -59,14 +59,14 @@ private extension DashboardView {
     
     func makeOperationViews() -> some View {
         HStack(spacing: 32) {
-            makeOperationView(imageName: "plus", actionName: "Receive", destination: .receive)
+            makeOperationView(imageName: "plus", actionName: "Receive", destination: .receiveTokens)
             
             makeOperationView(imageName: "paperplane", actionName: "Send", destination: .sendTokens)
         }
         .padding()
     }
     
-    func makeOperationView(imageName: String, actionName: String, destination: Destination) -> some View {
+    func makeOperationView(imageName: String, actionName: String, destination: NavigationDestinations) -> some View {
         VStack(spacing: 8) {
             Image(systemName: imageName)
                 .font(.title2)
@@ -80,8 +80,9 @@ private extension DashboardView {
         .onTapGesture { isSheetPresented = true }
         .sheet(isPresented: $isSheetPresented) {
             switch destination {
-            case .sendTokens: SelectTokenView()
-            case .receive: SelectTokenView()
+            case .sendTokens: SelectTokensView()
+            case .receiveTokens: SelectTokensView()
+            default: EmptyView()
             }
         }
     }
