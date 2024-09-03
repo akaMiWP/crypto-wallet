@@ -4,10 +4,16 @@ import SwiftUI
 
 struct TitleBarPresentedView<BottomView: View>: View {
     private let title: String
+    private let imageSystemName: String
     private let bottomView: BottomView
     
-    init(title: String, @ViewBuilder bottomView: () -> BottomView) {
+    init(
+        title: String,
+        imageSystemName: String = "xmark",
+        @ViewBuilder bottomView: () -> BottomView
+    ) {
         self.title = title
+        self.imageSystemName = imageSystemName
         self.bottomView = bottomView()
     }
     
@@ -19,7 +25,7 @@ struct TitleBarPresentedView<BottomView: View>: View {
                 
                 HStack {
                     Button(action: {}) {
-                        Image(systemName: "xmark")
+                        Image(systemName: imageSystemName)
                     }
                     Spacer()
                 }

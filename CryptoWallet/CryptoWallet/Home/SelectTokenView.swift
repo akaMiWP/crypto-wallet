@@ -30,7 +30,11 @@ struct SelectTokenView: View {
 // MARK: - Private
 private extension SelectTokenView {
     func makeTopBarComponent() -> some View {
-        TitleBarPresentedView(title: "Send $ETH", bottomView: { EmptyView() })
+        TitleBarPresentedView(
+            title: "Send $ETH",
+            imageSystemName: "chevron.backward",
+            bottomView: { EmptyView() }
+        )
     }
     
     func makeAddressComponent() -> some View {
