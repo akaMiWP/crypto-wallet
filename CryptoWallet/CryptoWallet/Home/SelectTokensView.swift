@@ -4,9 +4,12 @@ import SwiftUI
 
 struct SelectTokensView: View {
     @State private var searchInput: String = ""
+    @State private var navigationPath = NavigationPath()
+    
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             makeSearchComponentView()
             
             ScrollView {
@@ -18,7 +21,9 @@ struct SelectTokensView: View {
             }
             .navigationDestination(for: NavigationDestinations.self) { screen in
                 switch screen {
-                case .sendToken: SelectTokenView().navigationBarHidden(true)
+                case .sendToken:
+                    SelectTokenView(navigationPath: $navigationPath)
+                        .navigationBarHidden(true)
                 default: EmptyView()
                 }
             }
@@ -42,7 +47,7 @@ private extension SelectTokensView {
                 Text("Cancel")
                     .font(.subheadline)
             }
-        }
+        } backCompletion: { dismiss() }
     }
 }
 

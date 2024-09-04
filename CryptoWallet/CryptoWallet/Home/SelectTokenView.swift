@@ -4,6 +4,7 @@ import SwiftUI
 
 struct SelectTokenView: View {
     @State private var addressInput: String = ""
+    @Binding var navigationPath: NavigationPath
     
     var body: some View {
         VStack {
@@ -33,7 +34,10 @@ private extension SelectTokenView {
         TitleBarPresentedView(
             title: "Send $ETH",
             imageSystemName: "chevron.backward",
-            bottomView: { EmptyView() }
+            bottomView: { EmptyView() },
+            backCompletion: {
+                navigationPath.removeLast()
+            }
         )
     }
     
@@ -58,5 +62,5 @@ private extension SelectTokenView {
 }
 
 #Preview {
-    SelectTokenView()
+    SelectTokenView(navigationPath: .constant(.init()))
 }
