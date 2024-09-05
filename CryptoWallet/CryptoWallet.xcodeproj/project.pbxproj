@@ -26,6 +26,7 @@
 		A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */; };
 		A1E3FFC02C875151007EB73D /* SelectTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */; };
 		A1E3FFC62C893558007EB73D /* ManageHDWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC52C893558007EB73D /* ManageHDWallet.swift */; };
+		A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenView.swift; sourceTree = "<group>"; };
 		A1E3FFC52C893558007EB73D /* ManageHDWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageHDWallet.swift; sourceTree = "<group>"; };
+		A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDWalletManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 		A1A207292C7CA6EB0093CE47 /* CryptoWallet */ = {
 			isa = PBXGroup;
 			children = (
+				A1E3FFC72C8937DC007EB73D /* Singleton */,
 				A1E3FFC42C893523007EB73D /* UseCases */,
 				A1B68E8F2C84AD66000509C9 /* Routing */,
 				A197348E2C840EA400619D33 /* Views */,
@@ -211,6 +214,14 @@
 				A1E3FFC52C893558007EB73D /* ManageHDWallet.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		A1E3FFC72C8937DC007EB73D /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */,
+			);
+			path = Singleton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,6 +316,7 @@
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
 				A197348B2C84078D00619D33 /* NumberFormatter.swift in Sources */,
 				A197348D2C840BED00619D33 /* SelectTokensView.swift in Sources */,
+				A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */,
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 				A1E3FFC62C893558007EB73D /* ManageHDWallet.swift in Sources */,
 			);

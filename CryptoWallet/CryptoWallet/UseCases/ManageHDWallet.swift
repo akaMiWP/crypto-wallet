@@ -13,6 +13,7 @@ final class ManageHDWalletUsecase: ManageHDWallet {
         guard let wallet = HDWallet(strength: strength, passphrase: "") else {
             throw ManageHDWalletUsecaseError.unableToCreateHDWallet
         }
+        HDWalletManager.shared.store(wallet: wallet)
         return wallet.mnemonic
     }
     
@@ -20,6 +21,7 @@ final class ManageHDWalletUsecase: ManageHDWallet {
         guard let wallet = HDWallet(mnemonic: mnemonic, passphrase: "") else {
             throw ManageHDWalletUsecaseError.unableToImportHDWallet
         }
+        HDWalletManager.shared.store(wallet: wallet)
     }
 }
 
