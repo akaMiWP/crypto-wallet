@@ -5,6 +5,7 @@ import WalletCore
 
 protocol ManageHDWallet {
     func createHDWallet(strength: Int32) throws -> String
+    func importHDWallet(mnemonic: String) throws
 }
 
 final class ManageHDWalletUsecase: ManageHDWallet {
@@ -14,13 +15,23 @@ final class ManageHDWalletUsecase: ManageHDWallet {
         }
         return wallet.mnemonic
     }
+    
+    func importHDWallet(mnemonic: String) throws {
+        guard let wallet = HDWallet(mnemonic: mnemonic, passphrase: "") else {
+            throw ManageHDWalletUsecaseError.unableToImportHDWallet
+        }
+    }
 }
 
 // MARK: - Private
 private enum ManageHDWalletUsecaseError: Error, LocalizedError {
     case unableToCreateHDWallet
+    case unableToImportHDWallet
     
     var errorDescription: String? {
-        return "Please try again"
+        switch self {
+        case .unableToCreateHDWallet: return "Please try again to create the wallet"
+        case .unableToImportHDWallet: return "Please try again to import the wallet"
+        }
     }
 }
