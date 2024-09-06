@@ -3,12 +3,12 @@
 import Foundation
 import WalletCore
 
-protocol ManageHDWallet {
+protocol ManageHDWalletUseCase {
     func createHDWallet(strength: Int32) throws -> String
     func importHDWallet(mnemonic: String) throws
 }
 
-final class ManageHDWalletUsecase: ManageHDWallet {
+final class ManageHDWalletImpl: ManageHDWalletUseCase {
     func createHDWallet(strength: Int32) throws -> String {
         guard let wallet = HDWallet(strength: strength, passphrase: "") else {
             throw ManageHDWalletUsecaseError.unableToCreateHDWallet
