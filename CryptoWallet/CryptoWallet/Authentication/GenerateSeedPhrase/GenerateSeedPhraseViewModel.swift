@@ -2,10 +2,23 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 final class GenerateSeedPhraseViewModel: ObservableObject {
     
     @Published var mnemonic: [String] = Array(repeating: "", count: 12)
+    @Published var error: Error?
+    
+    var showAlert: Binding<Bool> {
+        .init(
+            get: { self.error != nil },
+            set: { newValue in
+                if !newValue {
+                    self.error = nil
+                }
+            }
+        )
+    }
     
     private let manageHDWalletUseCase: ManageHDWalletUseCase
     private var cancellables = Set<AnyCancellable>()
@@ -22,7 +35,7 @@ final class GenerateSeedPhraseViewModel: ObservableObject {
             .map { $0.split(separator: " ").map { String($0) } }
             .sink(receiveCompletion: {
                 if case .failure(let error) = $0 {
-                    print(error)
+                    self.error = error
                 }
             }, receiveValue: {
                 self.mnemonic = $0

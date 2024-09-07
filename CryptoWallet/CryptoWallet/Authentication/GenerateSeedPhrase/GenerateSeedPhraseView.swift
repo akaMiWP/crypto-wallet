@@ -49,11 +49,20 @@ struct GenerateSeedPhraseView: View {
             .padding()
         }
         .padding(.horizontal)
+        .alert(
+            "Error",
+            isPresented: viewModel.showAlert,
+            presenting: viewModel.error,
+            actions: { _ in },
+            message: { _ in Text("Something went wrong") }
+        )
     }
 }
 
 #Preview {
     NavigationStack {
-        GenerateSeedPhraseView(viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl()))
+        let viewModel: GenerateSeedPhraseViewModel = .init(manageHDWalletUseCase: ManageHDWalletImpl())
+        viewModel.error = NSError(domain: "", code: 0)
+        return GenerateSeedPhraseView(viewModel: viewModel)
     }
 }
