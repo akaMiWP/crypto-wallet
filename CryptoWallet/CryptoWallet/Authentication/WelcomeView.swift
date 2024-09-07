@@ -4,7 +4,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     
-    @State private var navigationPath = [Destinations]()
+    @State private var navigationPath: NavigationPath = .init()
     
     enum Destinations {
         case createSeedPhrase
@@ -44,7 +44,10 @@ struct WelcomeView: View {
             .navigationDestination(for: Destinations.self) {
                 switch $0 {
                 case .createSeedPhrase:
-                    GenerateSeedPhraseView(viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl()))
+                    GenerateSeedPhraseView(
+                        viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl()),
+                        navigationPath: $navigationPath
+                    )
                 case .importSeedPhrase:
                     EnterPassPhraseView()
                 }

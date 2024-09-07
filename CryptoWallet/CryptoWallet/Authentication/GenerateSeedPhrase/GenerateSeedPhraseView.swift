@@ -7,9 +7,15 @@ struct GenerateSeedPhraseView: View {
     @State private var isBlurApplied: Bool = true
     
     @ObservedObject private var viewModel: GenerateSeedPhraseViewModel
+    private var navigationPath: Binding<NavigationPath>
     
-    init(viewModel: GenerateSeedPhraseViewModel) {
+    enum Destinations {
+        case showCongrats
+    }
+    
+    init(viewModel: GenerateSeedPhraseViewModel, navigationPath: Binding<NavigationPath>) {
         self.viewModel = viewModel
+        self.navigationPath = navigationPath
     }
     
     var body: some View {
@@ -23,8 +29,8 @@ struct GenerateSeedPhraseView: View {
                 .multilineTextAlignment(.center)
             
             LazyVGrid(columns: gridItems) {
-                ForEach(0..<12) { index in
-                    Text("Word \(index + 1)")
+                ForEach(viewModel.mnemonic, id: \.self) {
+                    Text($0)
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
                         .border(Color.gray)
@@ -41,16 +47,18 @@ struct GenerateSeedPhraseView: View {
             }
             .onTapGesture { isBlurApplied.toggle() }
             
-            Button(action: {}) {
+            Button(action: {
+                navigationPath.wrappedValue.append(Destinations.showCongrats)
+            }) {
                 Text("Continue")
                     .foregroundColor(.white)
                     .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 46)
+                    .background(Color.blue)
+                    .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
+                    .padding()
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 46)
-            .background(Color.blue)
-            .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
-            .padding()
         }
         .padding(.horizontal)
         .alert(
@@ -62,7 +70,13 @@ struct GenerateSeedPhraseView: View {
                 Text(viewModel.message)
             }
         )
+        .navigationDestination(for: Destinations.self) {
+            switch $0 {
+            case .showCongrats: CongratsView()
+            }
+        }
         .onAppear {
+            isBlurApplied = true
             viewModel.createSeedPhrase()
         }
     }
@@ -72,6 +86,6 @@ struct GenerateSeedPhraseView: View {
     NavigationStack {
         let viewModel: GenerateSeedPhraseViewModel = .init(manageHDWalletUseCase: ManageHDWalletImpl())
         viewModel.alertViewModel = .init()
-        return GenerateSeedPhraseView(viewModel: viewModel)
+        return GenerateSeedPhraseView(viewModel: viewModel, navigationPath: .constant(.init()))
     }
 }
