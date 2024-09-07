@@ -8,23 +8,26 @@ struct SelectTokensView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    enum Destinations {
+        case sendToken
+    }
+    
     var body: some View {
         NavigationStack(path: $navigationPath) {
             makeSearchComponentView()
             
             ScrollView {
-                NavigationLink(value: NavigationDestinations.sendToken) {
+                NavigationLink(value: Destinations.sendToken) {
                     TokenListView(shouldShowTotalAmount: false)
                 }
                 
                 Spacer()
             }
-            .navigationDestination(for: NavigationDestinations.self) { screen in
+            .navigationDestination(for: Destinations.self) { screen in
                 switch screen {
                 case .sendToken:
                     SelectTokenView(navigationPath: $navigationPath)
                         .navigationBarHidden(true)
-                default: EmptyView()
                 }
             }
         }
