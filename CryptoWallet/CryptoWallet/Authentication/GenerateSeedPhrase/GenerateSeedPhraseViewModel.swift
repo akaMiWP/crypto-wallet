@@ -6,7 +6,8 @@ import SwiftUI
 
 final class GenerateSeedPhraseViewModel: ObservableObject {
     
-    @Published var mnemonic: [String] = Array(repeating: "", count: 12)
+    @Published var state: ViewModelState = .loading
+    @Published var mnemonic: [String] = Array(repeating: "---", count: 12)
     @Published var alertViewModel: AlertViewModel?
     
     var showAlert: Binding<Bool> {

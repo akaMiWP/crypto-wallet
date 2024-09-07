@@ -28,7 +28,7 @@ struct GenerateSeedPhraseView: View {
                         .frame(maxWidth: .infinity)
                         .border(Color.gray)
                 }
-                .redacted(reason: .placeholder)
+                .redacted(reason: viewModel.state.redactionReasons)
             }
             .blur(radius: 6)
             .overlay {
