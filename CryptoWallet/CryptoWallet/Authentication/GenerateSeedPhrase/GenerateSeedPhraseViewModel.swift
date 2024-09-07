@@ -37,6 +37,9 @@ final class GenerateSeedPhraseViewModel: ObservableObject {
             .sink(receiveCompletion: {
                 if case .failure(let error) = $0 {
                     self.alertViewModel = .init(message: error.localizedDescription)
+                    self.state = .error
+                } else {
+                    self.state = .finished
                 }
             }, receiveValue: {
                 self.mnemonic = $0

@@ -4,6 +4,7 @@ import SwiftUI
 
 struct GenerateSeedPhraseView: View {
     @State private var gridItems: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+    @State private var isBlurApplied: Bool = true
     
     @ObservedObject private var viewModel: GenerateSeedPhraseViewModel
     
@@ -30,12 +31,15 @@ struct GenerateSeedPhraseView: View {
                 }
                 .redacted(reason: viewModel.state.redactionReasons)
             }
-            .blur(radius: 6)
+            .blur(radius: isBlurApplied ? 6 : 0)
             .overlay {
-                Image(systemName: "eye.slash.fill")
-                    .resizable()
-                    .frame(width: 50, height: 40)
+                if isBlurApplied {
+                    Image(systemName: "eye.slash.fill")
+                        .resizable()
+                        .frame(width: 50, height: 40)
+                }
             }
+            .onTapGesture { isBlurApplied.toggle() }
             
             Button(action: {}) {
                 Text("Continue")
@@ -58,6 +62,9 @@ struct GenerateSeedPhraseView: View {
                 Text(viewModel.message)
             }
         )
+        .onAppear {
+            viewModel.createSeedPhrase()
+        }
     }
 }
 
