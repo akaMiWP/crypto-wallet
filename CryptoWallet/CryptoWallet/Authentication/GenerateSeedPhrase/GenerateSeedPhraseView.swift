@@ -50,11 +50,13 @@ struct GenerateSeedPhraseView: View {
         }
         .padding(.horizontal)
         .alert(
-            "Error",
+            viewModel.alertViewModel?.title ?? "",
             isPresented: viewModel.showAlert,
-            presenting: viewModel.error,
+            presenting: viewModel.alertViewModel,
             actions: { _ in },
-            message: { _ in Text("Something went wrong") }
+            message: { viewModel in
+                Text(viewModel.message)
+            }
         )
     }
 }
@@ -62,7 +64,7 @@ struct GenerateSeedPhraseView: View {
 #Preview {
     NavigationStack {
         let viewModel: GenerateSeedPhraseViewModel = .init(manageHDWalletUseCase: ManageHDWalletImpl())
-        viewModel.error = NSError(domain: "", code: 0)
+        viewModel.alertViewModel = .init()
         return GenerateSeedPhraseView(viewModel: viewModel)
     }
 }

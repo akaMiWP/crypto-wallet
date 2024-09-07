@@ -8,7 +8,7 @@ struct AlertViewModel {
     let dismissAction: (() -> Void)?
     
     init(title: String = "Error",
-         message: String = "Something went wrong !, please try again",
+         message: String = "Something went wrong !\n Please try again",
          dismissAction: (() -> Void)? = nil
     ) {
         self.title = title

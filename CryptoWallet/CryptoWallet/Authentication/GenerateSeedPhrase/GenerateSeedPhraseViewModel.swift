@@ -7,14 +7,14 @@ import SwiftUI
 final class GenerateSeedPhraseViewModel: ObservableObject {
     
     @Published var mnemonic: [String] = Array(repeating: "", count: 12)
-    @Published var error: Error?
+    @Published var alertViewModel: AlertViewModel?
     
     var showAlert: Binding<Bool> {
         .init(
-            get: { self.error != nil },
+            get: { self.alertViewModel != nil },
             set: { newValue in
                 if !newValue {
-                    self.error = nil
+                    self.alertViewModel = nil
                 }
             }
         )
@@ -35,7 +35,7 @@ final class GenerateSeedPhraseViewModel: ObservableObject {
             .map { $0.split(separator: " ").map { String($0) } }
             .sink(receiveCompletion: {
                 if case .failure(let error) = $0 {
-                    self.error = error
+                    self.alertViewModel = .init(message: error.localizedDescription)
                 }
             }, receiveValue: {
                 self.mnemonic = $0
