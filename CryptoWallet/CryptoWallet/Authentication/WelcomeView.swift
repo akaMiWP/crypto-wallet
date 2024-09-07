@@ -3,8 +3,16 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    
+    @State private var navigationPath = [Destinations]()
+    
+    enum Destinations {
+        case createSeedPhrase
+        case importSeedPhrase
+    }
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             VStack {
                 
                 Rectangle()
@@ -13,25 +21,37 @@ struct WelcomeView: View {
                 
                 Spacer()
                 
-                Button("Create a seed phrase", action: { return })
-                    .padding(.vertical, 18)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .padding(.horizontal)
-                    .padding(.vertical, 4)
+                Button(action: { navigationPath.append(Destinations.createSeedPhrase) }, label: {
+                    Text("Create a seed phrase")
+                        .frame(height: 46)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .clipShape(RoundedRectangle(cornerSize: .init(width: 12, height: 12)))
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                        .padding(.vertical, 2)
+                })
                 
-                Button("Import a seed phrase", action: { return })
-                    .padding(.vertical, 18)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .padding(.horizontal)
-                    .padding(.vertical, 4)
+                Button(action: { navigationPath.append(Destinations.importSeedPhrase) }, label: {
+                    Text("Import a seed phrase")
+                        .frame(height: 46)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.blue)
+                        .padding(.horizontal)
+                        .padding(.vertical, 2)
+                })
             }
+            .navigationDestination(for: Destinations.self) {
+                switch $0 {
+                case .createSeedPhrase:
+                    GenerateSeedPhraseView(viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl()))
+                case .importSeedPhrase:
+                    EnterPassPhraseView()
+                }
+            }
+            .navigationTitle("Welcome !")
+            .navigationBarTitleDisplayMode(.large)
         }
-        .navigationTitle("Welcome !")
-        .navigationBarTitleDisplayMode(.large)
     }
 }
 
