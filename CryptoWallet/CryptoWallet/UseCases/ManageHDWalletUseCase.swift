@@ -1,20 +1,28 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
+import Combine
 import Foundation
 import WalletCore
 
 protocol ManageHDWalletUseCase {
-    func createHDWallet(strength: Int32) throws -> String
+    func createHDWalletPublisher(strength: Int32) -> AnyPublisher<String, Error>
     func importHDWallet(mnemonic: String) throws
 }
 
 final class ManageHDWalletImpl: ManageHDWalletUseCase {
-    func createHDWallet(strength: Int32) throws -> String {
-        guard let wallet = HDWallet(strength: strength, passphrase: "") else {
-            throw ManageHDWalletUsecaseError.unableToCreateHDWallet
+    func createHDWalletPublisher(strength: Int32) -> AnyPublisher<String, Error> {
+        Future { promise in
+            do {
+                guard let wallet = HDWallet(strength: strength, passphrase: "") else {
+                    throw ManageHDWalletUsecaseError.unableToCreateHDWallet
+                }
+                HDWalletManager.shared.store(wallet: wallet)
+                promise(.success(wallet.mnemonic))
+            } catch {
+                promise(.failure(error))
+            }
         }
-        HDWalletManager.shared.store(wallet: wallet)
-        return wallet.mnemonic
+        .eraseToAnyPublisher()
     }
     
     func importHDWallet(mnemonic: String) throws {

@@ -5,6 +5,12 @@ import SwiftUI
 struct GenerateSeedPhraseView: View {
     @State private var gridItems: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
+    @ObservedObject private var viewModel: GenerateSeedPhraseViewModel
+    
+    init(viewModel: GenerateSeedPhraseViewModel) {
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
         VStack {
             Text("Secret Recovery Phrase")
@@ -22,6 +28,7 @@ struct GenerateSeedPhraseView: View {
                         .frame(maxWidth: .infinity)
                         .border(Color.gray)
                 }
+                .redacted(reason: .placeholder)
             }
             .blur(radius: 6)
             .overlay {
@@ -47,6 +54,6 @@ struct GenerateSeedPhraseView: View {
 
 #Preview {
     NavigationStack {
-        GenerateSeedPhraseView()
+        GenerateSeedPhraseView(viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl()))
     }
 }
