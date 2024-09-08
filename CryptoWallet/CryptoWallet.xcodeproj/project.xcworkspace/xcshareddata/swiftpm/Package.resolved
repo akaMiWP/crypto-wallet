@@ -1,5 +1,5 @@
 {
-  "originHash" : "9dfef44c025646ebdcbf211d7a4168c7e0308808c8659c44be54bd8671f69f53",
+  "originHash" : "4139cc504c48c8f0bf12bbacd9f252ec2bf20c4f1777970ac648e37d9603b362",
   "pins" : [
     {
       "identity" : "bigint",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "039f56c5d7960f277087a0be51f5eb04ed0ec073",
         "version" : "1.5.1"
+      }
+    },
+    {
+      "identity" : "keychain-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/evgenyneu/keychain-swift",
+      "state" : {
+        "revision" : "5e1b02b6a9dac2a759a1d5dbc175c86bd192a608",
+        "version" : "24.0.0"
       }
     },
     {

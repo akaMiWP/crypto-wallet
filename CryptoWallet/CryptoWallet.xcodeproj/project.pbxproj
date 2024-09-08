@@ -23,6 +23,8 @@
 		A1A3757C2C8AF8A70012BF43 /* GenerateSeedPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A3757B2C8AF8A70012BF43 /* GenerateSeedPhraseViewModel.swift */; };
 		A1A375802C8C33440012BF43 /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A3757F2C8C33440012BF43 /* AlertViewModel.swift */; };
 		A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A375812C8C377E0012BF43 /* ViewModelState.swift */; };
+		A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A375872C8D84A10012BF43 /* KeychainManager.swift */; };
+		A1A3758B2C8D84D60012BF43 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A1A3758A2C8D84D60012BF43 /* KeychainSwift */; };
 		A1B68E912C84AD71000509C9 /* NavigationDestinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B68E902C84AD71000509C9 /* NavigationDestinations.swift */; };
 		A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */; };
 		A1B719D92C80C1F40039D8D9 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = A1B719D82C80C1F40039D8D9 /* web3swift */; };
@@ -48,6 +50,7 @@
 		A1A3757B2C8AF8A70012BF43 /* GenerateSeedPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSeedPhraseViewModel.swift; sourceTree = "<group>"; };
 		A1A3757F2C8C33440012BF43 /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		A1A375812C8C377E0012BF43 /* ViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelState.swift; sourceTree = "<group>"; };
+		A1A375872C8D84A10012BF43 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		A1B68E902C84AD71000509C9 /* NavigationDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinations.swift; sourceTree = "<group>"; };
 		A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarPresentedView.swift; sourceTree = "<group>"; };
 		A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -63,6 +66,7 @@
 			files = (
 				A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */,
 				A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */,
+				A1A3758B2C8D84D60012BF43 /* KeychainSwift in Frameworks */,
 				A1B719D92C80C1F40039D8D9 /* web3swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,6 +145,7 @@
 		A1A207292C7CA6EB0093CE47 /* CryptoWallet */ = {
 			isa = PBXGroup;
 			children = (
+				A1A375862C8D84960012BF43 /* Shared */,
 				A1E3FFC72C8937DC007EB73D /* Singleton */,
 				A1E3FFC42C893523007EB73D /* UseCases */,
 				A1B68E8F2C84AD66000509C9 /* Routing */,
@@ -173,6 +178,14 @@
 				A1A3757B2C8AF8A70012BF43 /* GenerateSeedPhraseViewModel.swift */,
 			);
 			path = GenerateSeedPhrase;
+			sourceTree = "<group>";
+		};
+		A1A375862C8D84960012BF43 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A1A375872C8D84A10012BF43 /* KeychainManager.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		A1B68E8F2C84AD66000509C9 /* Routing */ = {
@@ -261,6 +274,7 @@
 				A13BBF482C7E194300D5B58F /* SwiftProtobuf */,
 				A13BBF4A2C7E194300D5B58F /* WalletCore */,
 				A1B719D82C80C1F40039D8D9 /* web3swift */,
+				A1A3758A2C8D84D60012BF43 /* KeychainSwift */,
 			);
 			productName = CryptoWallet;
 			productReference = A1A207272C7CA6EB0093CE47 /* CryptoWallet.app */;
@@ -294,6 +308,7 @@
 			packageReferences = (
 				A13BBF472C7E194300D5B58F /* XCRemoteSwiftPackageReference "wallet-core" */,
 				A1B719D72C80C1F40039D8D9 /* XCRemoteSwiftPackageReference "web3swift" */,
+				A1A375892C8D84D60012BF43 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = A1A207282C7CA6EB0093CE47 /* Products */;
 			projectDirPath = "";
@@ -325,6 +340,7 @@
 				A1B68E912C84AD71000509C9 /* NavigationDestinations.swift in Sources */,
 				A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */,
 				A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */,
+				A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */,
 				A19734822C832DBF00619D33 /* DashboardView.swift in Sources */,
 				A1A3757C2C8AF8A70012BF43 /* GenerateSeedPhraseViewModel.swift in Sources */,
 				A19734872C8404B100619D33 /* TokenViewModel.swift in Sources */,
@@ -552,6 +568,14 @@
 				kind = branch;
 			};
 		};
+		A1A375892C8D84D60012BF43 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 24.0.0;
+			};
+		};
 		A1B719D72C80C1F40039D8D9 /* XCRemoteSwiftPackageReference "web3swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/skywinder/web3swift";
@@ -572,6 +596,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A13BBF472C7E194300D5B58F /* XCRemoteSwiftPackageReference "wallet-core" */;
 			productName = WalletCore;
+		};
+		A1A3758A2C8D84D60012BF43 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1A375892C8D84D60012BF43 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		A1B719D82C80C1F40039D8D9 /* web3swift */ = {
 			isa = XCSwiftPackageProductDependency;
