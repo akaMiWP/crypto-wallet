@@ -3,10 +3,13 @@
 import SwiftUI
 
 struct CongratsView: View {
-    @Binding var navigationPath: NavigationPath
+    @ObservedObject private var viewModel: CongratsViewModel
     
-    enum Destinations {
-        case dashboard
+    private var navigationPath: Binding<NavigationPath>
+    
+    init(viewModel: CongratsViewModel, navigationPath: Binding<NavigationPath>) {
+        self.viewModel = viewModel
+        self.navigationPath = navigationPath
     }
     
     var body: some View {
@@ -24,7 +27,8 @@ struct CongratsView: View {
                 .padding(.top, 8)
             
             Button(action: {
-                navigationPath.append(Destinations.dashboard)
+                navigationPath.wrappedValue = .init()
+                viewModel.didTapButton()
             }, label: {
                 Text("Get Started")
                     .font(.headline)
@@ -37,14 +41,9 @@ struct CongratsView: View {
                     .padding(.top, 24)
             })
         }
-        .navigationDestination(for: Destinations.self) {
-            switch $0 {
-            case .dashboard: DashboardView()
-            }
-        }
     }
 }
 
 #Preview {
-    CongratsView(navigationPath: .constant(.init()))
+    CongratsView(viewModel: .init(), navigationPath: .constant(.init()))
 }

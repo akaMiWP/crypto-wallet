@@ -7,15 +7,16 @@ enum UserDefaultKeys: String {
 }
 
 protocol UserDefaultUseCase {
-    var hasCreatedWallet: Bool { get set }
+    func retrieveHasCreatedWallet() -> Bool
+    func setHasCreatedWallet(_ hasCreatedWallet: Bool)
 }
 
 final class UserDefaultImp: UserDefaultUseCase {
-    var hasCreatedWallet: Bool {
-        get {
-            UserDefaults.standard.bool(forKey: UserDefaultKeys.hasCreatedWallet.rawValue)
-        } set {
-            UserDefaults.standard.setValue(newValue, forKey: UserDefaultKeys.hasCreatedWallet.rawValue)
-        }
+    func retrieveHasCreatedWallet() -> Bool {
+        UserDefaults.standard.bool(forKey: UserDefaultKeys.hasCreatedWallet.rawValue)
+    }
+    
+    func setHasCreatedWallet(_ hasCreatedWallet: Bool) {
+        UserDefaults.standard.setValue(hasCreatedWallet, forKey: UserDefaultKeys.hasCreatedWallet.rawValue)
     }
 }

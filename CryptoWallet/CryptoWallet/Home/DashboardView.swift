@@ -7,7 +7,7 @@ struct DashboardView: View {
     @State private var isSheetPresented: Bool = false
     
     var body: some View {
-        NavigationStack {
+        VStack {
             makeTopBarView()
             
             ScrollView {

@@ -4,16 +4,10 @@ import SwiftUI
 
 @main
 struct CryptoWalletApp: App {
-    @State private var navigationPath: NavigationPath = .init()
-    @StateObject private var viewModel: CryptoWalletAppViewModel = .init(userDefaultUseCase: UserDefaultImp())
     
     var body: some Scene {
         WindowGroup {
-            if viewModel.hasCreatedWallet() {
-                DashboardView()
-            } else {
-                WelcomeView(navigationPath: $navigationPath)
-            }
+            RootView(viewModel: .init(globalEventUseCase: GlobalEventImp(), userDefaultUseCase: UserDefaultImp()))
         }
     }
 }

@@ -22,13 +22,15 @@ final class GenerateSeedPhraseViewModel: ObservableObject {
     }
     
     private let manageHDWalletUseCase: ManageHDWalletUseCase
+    private var userDefaultUseCase: UserDefaultUseCase
     private var cancellables = Set<AnyCancellable>()
     
     private lazy var manageHDWalletPublisher = manageHDWalletUseCase
         .createHDWalletPublisher(strength: 128)
     
-    init(manageHDWalletUseCase: ManageHDWalletUseCase) {
+    init(manageHDWalletUseCase: ManageHDWalletUseCase, userDefaultUseCase: UserDefaultUseCase) {
         self.manageHDWalletUseCase = manageHDWalletUseCase
+        self.userDefaultUseCase = userDefaultUseCase
     }
     
     func createSeedPhrase() {
@@ -45,5 +47,9 @@ final class GenerateSeedPhraseViewModel: ObservableObject {
                 self.mnemonic = $0
             })
             .store(in: &cancellables)
+    }
+    
+    func didTapButton() {
+        userDefaultUseCase.setHasCreatedWallet(true)
     }
 }

@@ -49,6 +49,7 @@ struct GenerateSeedPhraseView: View {
             
             Button(action: {
                 navigationPath.wrappedValue.append(Destinations.showCongrats)
+                viewModel.didTapButton()
             }) {
                 Text("Continue")
                     .foregroundColor(.white)
@@ -72,7 +73,7 @@ struct GenerateSeedPhraseView: View {
         )
         .navigationDestination(for: Destinations.self) {
             switch $0 {
-            case .showCongrats: CongratsView(navigationPath: navigationPath)
+            case .showCongrats: CongratsView(viewModel: .init(), navigationPath: navigationPath)
             }
         }
         .onAppear {
@@ -84,7 +85,10 @@ struct GenerateSeedPhraseView: View {
 
 #Preview {
     NavigationStack {
-        let viewModel: GenerateSeedPhraseViewModel = .init(manageHDWalletUseCase: ManageHDWalletImpl())
+        let viewModel: GenerateSeedPhraseViewModel = .init(
+            manageHDWalletUseCase: ManageHDWalletImpl(),
+            userDefaultUseCase: UserDefaultImp()
+        )
         viewModel.alertViewModel = .init()
         return GenerateSeedPhraseView(viewModel: viewModel, navigationPath: .constant(.init()))
     }
