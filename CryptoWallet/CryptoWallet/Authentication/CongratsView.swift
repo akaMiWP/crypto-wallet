@@ -3,9 +3,14 @@
 import SwiftUI
 
 struct CongratsView: View {
+    @Binding var navigationPath: NavigationPath
+    
+    enum Destinations {
+        case dashboard
+    }
+    
     var body: some View {
         VStack {
-            
             Rectangle()
                 .frame(height: 200)
                 .padding(.horizontal)
@@ -18,21 +23,28 @@ struct CongratsView: View {
                 .font(.body)
                 .padding(.top, 8)
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Button(action: {
+                navigationPath.append(Destinations.dashboard)
+            }, label: {
                 Text("Get Started")
                     .font(.headline)
                     .foregroundColor(.white)
+                    .frame(height: 46)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
+                    .padding(.horizontal)
+                    .padding(.top, 24)
             })
-            .frame(height: 46)
-            .frame(maxWidth: .infinity)
-            .background(Color.blue)
-            .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
-            .padding(.horizontal)
-            .padding(.top, 24)
+        }
+        .navigationDestination(for: Destinations.self) {
+            switch $0 {
+            case .dashboard: DashboardView()
+            }
         }
     }
 }
 
 #Preview {
-    CongratsView()
+    CongratsView(navigationPath: .constant(.init()))
 }

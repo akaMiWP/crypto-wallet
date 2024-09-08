@@ -72,7 +72,7 @@ struct GenerateSeedPhraseView: View {
         )
         .navigationDestination(for: Destinations.self) {
             switch $0 {
-            case .showCongrats: CongratsView()
+            case .showCongrats: CongratsView(navigationPath: navigationPath)
             }
         }
         .onAppear {
