@@ -16,4 +16,16 @@ final class HDWalletManager {
     func retrieveWallet() -> HDWallet? {
         hdWallet
     }
+    
+    func restoreWallet() throws {
+        guard let mnemonic = KeychainManager.shared.get(String.self, for: .seedPhrase) else {
+            throw HDWalletManagerError.unableToRestoreWallet
+        }
+        hdWallet = .init(mnemonic: mnemonic, passphrase: "")
+    }
+}
+
+// MARK: - Private
+private enum HDWalletManagerError: Error {
+    case unableToRestoreWallet
 }
