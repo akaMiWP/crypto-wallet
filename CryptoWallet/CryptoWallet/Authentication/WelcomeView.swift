@@ -4,7 +4,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     
-    @State private var navigationPath: NavigationPath = .init()
+    @Binding var navigationPath: NavigationPath
     
     enum Destinations {
         case createSeedPhrase
@@ -60,6 +60,6 @@ struct WelcomeView: View {
 
 #Preview {
     NavigationStack {
-        WelcomeView()
+        WelcomeView(navigationPath: .constant(.init()))
     }
 }
