@@ -165,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				A1A375862C8D84960012BF43 /* Shared */,
-				A1E3FFC72C8937DC007EB73D /* Singleton */,
 				A1E3FFC42C893523007EB73D /* UseCases */,
 				A1B68E8F2C84AD66000509C9 /* Routing */,
 				A197348E2C840EA400619D33 /* Views */,
@@ -205,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				A1A375872C8D84A10012BF43 /* KeychainManager.swift */,
+				A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -267,14 +267,6 @@
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
 			);
 			path = UseCases;
-			sourceTree = "<group>";
-		};
-		A1E3FFC72C8937DC007EB73D /* Singleton */ = {
-			isa = PBXGroup;
-			children = (
-				A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */,
-			);
-			path = Singleton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

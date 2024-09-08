@@ -14,23 +14,14 @@ final class KeychainManager {
     
     private init() {}
     
-    func set<T: Codable>(_ value: T, for key: KeychainKey) {
-        do {
-            let data = try JSONEncoder().encode(value)
-            keychain.set(data, forKey: key.rawValue)
-        } catch {
-            print("Error: \(error)")
-        }
+    func set<T: Codable>(_ value: T, for key: KeychainKey) throws {
+        let data = try JSONEncoder().encode(value)
+        keychain.set(data, forKey: key.rawValue)
     }
     
-    func get<T: Codable>(_ type: T.Type, for key: KeychainKey) -> T? {
+    func get<T: Codable>(_ type: T.Type, for key: KeychainKey) throws -> T? {
         guard let data = keychain.getData(key.rawValue) else { return nil }
-        do {
-            let value = try JSONDecoder().decode(T.self, from: data)
-            return value
-        } catch {
-            print("Error: \(error)")
-            return nil
-        }
+        let value = try JSONDecoder().decode(T.self, from: data)
+        return value
     }
 }

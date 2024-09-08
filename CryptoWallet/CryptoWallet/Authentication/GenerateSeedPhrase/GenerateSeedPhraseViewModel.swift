@@ -51,5 +51,12 @@ final class GenerateSeedPhraseViewModel: ObservableObject {
     
     func didTapButton() {
         userDefaultUseCase.setHasCreatedWallet(true)
+        do {
+            let mnemonic = String(mnemonic.flatMap { $0 })
+            try manageHDWalletUseCase.encryptMnemonic(mnemonic)
+        } catch {
+            //TODO: Handle error
+            print(error)
+        }
     }
 }

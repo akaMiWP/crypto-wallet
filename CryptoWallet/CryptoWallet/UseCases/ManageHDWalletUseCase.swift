@@ -7,6 +7,7 @@ import WalletCore
 protocol ManageHDWalletUseCase {
     func createHDWalletPublisher(strength: Int32) -> AnyPublisher<String, Error>
     func importHDWallet(mnemonic: String) throws
+    func encryptMnemonic(_ mneumonic: String) throws
 }
 
 final class ManageHDWalletImpl: ManageHDWalletUseCase {
@@ -30,6 +31,10 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
             throw ManageHDWalletUsecaseError.unableToImportHDWallet
         }
         HDWalletManager.shared.store(wallet: wallet)
+    }
+    
+    func encryptMnemonic(_ mneumonic: String) throws {
+        try HDWalletManager.shared.encryptMnemonic(mneumonic)
     }
 }
 
