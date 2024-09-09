@@ -13,7 +13,7 @@ struct RootView: View {
     
     var body: some View {
         if viewModel.isSignedIn {
-            DashboardView()
+            DashboardView(viewModel: .init())
         } else {
             WelcomeView(navigationPath: $navigationPath)
                 .onAppear {

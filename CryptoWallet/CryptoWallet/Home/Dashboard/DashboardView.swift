@@ -5,6 +5,11 @@ import SwiftUI
 struct DashboardView: View {
     
     @State private var isSheetPresented: Bool = false
+    @ObservedObject private var viewModel: DashboardViewModel
+    
+    init(viewModel: DashboardViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         VStack {
@@ -89,5 +94,5 @@ private extension DashboardView {
 }
 
 #Preview {
-    DashboardView()
+    DashboardView(viewModel: .init())
 }
