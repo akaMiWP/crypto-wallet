@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
+		A167239D2C9238780089CE46 /* NetworkStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A167239C2C9238780089CE46 /* NetworkStack.swift */; };
+		A167239F2C9240370089CE46 /* NodeProviderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */; };
+		A16723A22C9241C80089CE46 /* JSONRPCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723A12C9241C80089CE46 /* JSONRPCRequest.swift */; };
+		A16723A42C9242120089CE46 /* JSONRPCResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723A32C9242120089CE46 /* JSONRPCResponse.swift */; };
+		A16723A62C92425C0089CE46 /* TokenBalancesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723A52C92425C0089CE46 /* TokenBalancesResponse.swift */; };
+		A16723A82C9244A90089CE46 /* AddressToTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723A72C9244A90089CE46 /* AddressToTokenModel.swift */; };
+		A16723AA2C9246D10089CE46 /* Hex+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723A92C9246D10089CE46 /* Hex+.swift */; };
 		A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */; };
 		A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180F5DD2C8F3AF900380EAE /* DashboardViewModel.swift */; };
 		A19734802C8323C300619D33 /* CongratsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197347F2C8323C300619D33 /* CongratsView.swift */; };
@@ -41,6 +48,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A167239C2C9238780089CE46 /* NetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStack.swift; sourceTree = "<group>"; };
+		A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeProviderUseCase.swift; sourceTree = "<group>"; };
+		A16723A12C9241C80089CE46 /* JSONRPCRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRPCRequest.swift; sourceTree = "<group>"; };
+		A16723A32C9242120089CE46 /* JSONRPCResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRPCResponse.swift; sourceTree = "<group>"; };
+		A16723A52C92425C0089CE46 /* TokenBalancesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalancesResponse.swift; sourceTree = "<group>"; };
+		A16723A72C9244A90089CE46 /* AddressToTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressToTokenModel.swift; sourceTree = "<group>"; };
+		A16723A92C9246D10089CE46 /* Hex+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hex+.swift"; sourceTree = "<group>"; };
 		A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPassPhraseView.swift; sourceTree = "<group>"; };
 		A180F5DD2C8F3AF900380EAE /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		A197347F2C8323C300619D33 /* CongratsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsView.swift; sourceTree = "<group>"; };
@@ -86,6 +100,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A167239A2C9237A90089CE46 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				A1B719C72C7F72440039D8D9 /* Authentication */,
+				A1B719C82C7F72510039D8D9 /* Home */,
+				A1B719C92C7F72570039D8D9 /* Transaction */,
+				A1B719CA2C7F725E0039D8D9 /* Activities */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		A167239B2C92385C0089CE46 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A167239C2C9238780089CE46 /* NetworkStack.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A16723A02C9241B90089CE46 /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				A16723A12C9241C80089CE46 /* JSONRPCRequest.swift */,
+				A16723A32C9242120089CE46 /* JSONRPCResponse.swift */,
+				A16723A52C92425C0089CE46 /* TokenBalancesResponse.swift */,
+			);
+			path = Contract;
+			sourceTree = "<group>";
+		};
 		A180F5DC2C8F3AEB00380EAE /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +141,7 @@
 		A19734832C84049600619D33 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A16723A02C9241B90089CE46 /* Contract */,
 				A19734852C84049F00619D33 /* Domain */,
 				A19734842C84049900619D33 /* Presentation */,
 			);
@@ -117,6 +161,7 @@
 		A19734852C84049F00619D33 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				A16723A72C9244A90089CE46 /* AddressToTokenModel.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -126,6 +171,7 @@
 			children = (
 				A1E3FFC12C87EAE2007EB73D /* Environment */,
 				A19734892C84078300619D33 /* Formatter */,
+				A16723A92C9246D10089CE46 /* Hex+.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -176,15 +222,13 @@
 			isa = PBXGroup;
 			children = (
 				A1A375862C8D84960012BF43 /* Shared */,
+				A167239B2C92385C0089CE46 /* Network */,
 				A1E3FFC42C893523007EB73D /* UseCases */,
 				A1B68E8F2C84AD66000509C9 /* Routing */,
+				A167239A2C9237A90089CE46 /* Modules */,
 				A197348E2C840EA400619D33 /* Views */,
 				A19734882C84077E00619D33 /* Utils */,
 				A19734832C84049600619D33 /* Models */,
-				A1B719CA2C7F725E0039D8D9 /* Activities */,
-				A1B719C92C7F72570039D8D9 /* Transaction */,
-				A1B719C82C7F72510039D8D9 /* Home */,
-				A1B719C72C7F72440039D8D9 /* Authentication */,
 				A1A2072A2C7CA6EB0093CE47 /* CryptoWalletApp.swift */,
 				A19BFFC52C8DDE3A00E646CD /* RootView.swift */,
 				A19BFFC72C8DE11800E646CD /* RootViewModel.swift */,
@@ -276,6 +320,7 @@
 				A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */,
 				A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */,
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
+				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -362,22 +407,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A167239F2C9240370089CE46 /* NodeProviderUseCase.swift in Sources */,
 				A19734802C8323C300619D33 /* CongratsView.swift in Sources */,
 				A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */,
 				A1B68E912C84AD71000509C9 /* NavigationDestinations.swift in Sources */,
 				A19BFFC82C8DE11800E646CD /* RootViewModel.swift in Sources */,
 				A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */,
 				A1A375912C8D8C2A0012BF43 /* UserDefaultUseCase.swift in Sources */,
+				A16723A42C9242120089CE46 /* JSONRPCResponse.swift in Sources */,
 				A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */,
 				A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */,
 				A19BFFCD2C8DE47900E646CD /* CongratsViewModel.swift in Sources */,
 				A19734822C832DBF00619D33 /* DashboardView.swift in Sources */,
+				A16723A62C92425C0089CE46 /* TokenBalancesResponse.swift in Sources */,
 				A1A3757C2C8AF8A70012BF43 /* GenerateSeedPhraseViewModel.swift in Sources */,
 				A19734872C8404B100619D33 /* TokenViewModel.swift in Sources */,
 				A1E3FFC02C875151007EB73D /* SelectTokenView.swift in Sources */,
+				A16723A82C9244A90089CE46 /* AddressToTokenModel.swift in Sources */,
 				A19BFFC62C8DDE3A00E646CD /* RootView.swift in Sources */,
+				A16723A22C9241C80089CE46 /* JSONRPCRequest.swift in Sources */,
 				A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */,
 				A19734902C840EBB00619D33 /* TokenListView.swift in Sources */,
+				A16723AA2C9246D10089CE46 /* Hex+.swift in Sources */,
 				A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */,
 				A19BFFCA2C8DE2EF00E646CD /* GlobalEventUseCase.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
@@ -387,6 +438,7 @@
 				A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */,
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 				A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */,
+				A167239D2C9238780089CE46 /* NetworkStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
