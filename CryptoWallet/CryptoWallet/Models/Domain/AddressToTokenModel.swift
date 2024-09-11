@@ -1,3 +1,6 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
-import Foundation
+struct AddressToTokenModel {
+    let address: String
+    let tokenBalance: Double
+}
