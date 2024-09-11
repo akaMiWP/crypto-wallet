@@ -21,9 +21,7 @@ struct DashboardView: View {
                     .fontWeight(.bold)
                 
                 makeOperationViews()
-                
                 TokenListView()
-                
                 Spacer()
             }
         }
