@@ -25,6 +25,9 @@ struct DashboardView: View {
                 Spacer()
             }
         }
+        .onAppear {
+            viewModel.fetchTokenBalances()
+        }
     }
 }
 
@@ -92,5 +95,5 @@ private extension DashboardView {
 }
 
 #Preview {
-    DashboardView(viewModel: .init())
+    DashboardView(viewModel: .init(nodeProviderUseCase: NodeProviderImpl(networkStack: .init())))
 }

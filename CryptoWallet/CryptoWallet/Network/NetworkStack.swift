@@ -23,7 +23,8 @@ final class NetworkStack {
         }
         var urlRequest: URLRequest = .init(url: url)
         urlRequest.httpMethod = "POST"
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue("application/json", forHTTPHeaderField: "accept")
+        urlRequest.setValue("application/json", forHTTPHeaderField: "content-type")
         
         let request: JSONRPCRequest = .init(id: 1, jsonrpc: "2.0", method: method.rawValue, params: params)
         do {
@@ -32,7 +33,7 @@ final class NetworkStack {
             return Fail(error: error).eraseToAnyPublisher()
         }
         
-        return session.publisher(for: url)
+        return session.publisher(for: urlRequest)
             .decode(type: T.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
@@ -40,12 +41,12 @@ final class NetworkStack {
 }
 
 protocol NetworkSession {
-    func publisher(for url: URL) -> AnyPublisher<Data, URLError>
+    func publisher(for urlRequest: URLRequest) -> AnyPublisher<Data, URLError>
 }
 
 extension URLSession: NetworkSession {
-    func publisher(for url: URL) -> AnyPublisher<Data, URLError> {
-        return self.dataTaskPublisher(for: url)
+    func publisher(for urlRequest: URLRequest) -> AnyPublisher<Data, URLError> {
+        DataTaskPublisher(request: urlRequest, session: self)
             .map(\.data)
             .eraseToAnyPublisher()
     }
