@@ -51,3 +51,7 @@ extension URLSession: NetworkSession {
             .eraseToAnyPublisher()
     }
 }
+
+enum NetworkError: Error {
+    case jsonRPCError(code: Int, message: String)
+}
