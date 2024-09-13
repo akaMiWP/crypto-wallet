@@ -18,7 +18,8 @@ final class NetworkStack {
     }
     
     func fetchServiceProviderAPI<T>(method: Method, params: [String]) -> AnyPublisher<T, any Error> where T: Decodable {
-        guard let url: URL = .init(string: "https://eth-mainnet.g.alchemy.com/v2/docs-demo") else {
+        guard let baseURLInString = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String,
+              let url: URL = .init(string: baseURLInString.replacingOccurrences(of: "%%", with: "//")) else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         var urlRequest: URLRequest = .init(url: url)
