@@ -62,15 +62,7 @@ struct GenerateSeedPhraseView: View {
             }
         }
         .padding(.horizontal)
-        .alert(
-            viewModel.alertViewModel?.title ?? "",
-            isPresented: viewModel.showAlert,
-            presenting: viewModel.alertViewModel,
-            actions: { _ in },
-            message: { viewModel in
-                Text(viewModel.message)
-            }
-        )
+        .modifier(AlertModifier(viewModel: viewModel))
         .navigationDestination(for: Destinations.self) {
             switch $0 {
             case .showCongrats: CongratsView(viewModel: .init(), navigationPath: navigationPath)

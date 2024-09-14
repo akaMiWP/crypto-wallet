@@ -3,7 +3,6 @@
 import SwiftUI
 
 protocol Alertable: ObservableObject {
-    var showAlert: Bool { get set }
     var alertViewModel: AlertViewModel? { get set }
 }
 
@@ -28,10 +27,10 @@ struct AlertModifier<ViewModel: Alertable>: ViewModifier {
 private extension AlertModifier {
     var isPresented: Binding<Bool> {
         .init(
-            get: { viewModel.showAlert},
+            get: { viewModel.alertViewModel != nil },
             set: { newValue in
                 if !newValue {
-                    viewModel.showAlert = false
+                    viewModel.alertViewModel = nil
                 }
             }
         )

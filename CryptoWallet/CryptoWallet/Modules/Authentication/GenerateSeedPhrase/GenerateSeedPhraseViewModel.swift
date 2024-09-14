@@ -4,22 +4,11 @@ import Combine
 import Foundation
 import SwiftUI
 
-final class GenerateSeedPhraseViewModel: ObservableObject {
+final class GenerateSeedPhraseViewModel: Alertable {
     
     @Published var state: ViewModelState = .loading
     @Published var mnemonic: [String] = Array(repeating: "---", count: 12)
     @Published var alertViewModel: AlertViewModel?
-    
-    var showAlert: Binding<Bool> {
-        .init(
-            get: { self.alertViewModel != nil },
-            set: { newValue in
-                if !newValue {
-                    self.alertViewModel = nil
-                }
-            }
-        )
-    }
     
     private let manageHDWalletUseCase: ManageHDWalletUseCase
     private var userDefaultUseCase: UserDefaultUseCase
