@@ -16,6 +16,7 @@
 		A16723A62C92425C0089CE46 /* TokenBalancesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723A52C92425C0089CE46 /* TokenBalancesResponse.swift */; };
 		A16723A82C9244A90089CE46 /* AddressToTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723A72C9244A90089CE46 /* AddressToTokenModel.swift */; };
 		A16723AA2C9246D10089CE46 /* Hex+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723A92C9246D10089CE46 /* Hex+.swift */; };
+		A16723B12C948E040089CE46 /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16723B02C948E040089CE46 /* AlertModifier.swift */; };
 		A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */; };
 		A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180F5DD2C8F3AF900380EAE /* DashboardViewModel.swift */; };
 		A19734802C8323C300619D33 /* CongratsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197347F2C8323C300619D33 /* CongratsView.swift */; };
@@ -58,6 +59,7 @@
 		A16723AB2C943A8F0089CE46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A16723AD2C9443320089CE46 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		A16723AE2C94438A0089CE46 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		A16723B02C948E040089CE46 /* AlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
 		A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPassPhraseView.swift; sourceTree = "<group>"; };
 		A180F5DD2C8F3AF900380EAE /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		A197347F2C8323C300619D33 /* CongratsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsView.swift; sourceTree = "<group>"; };
@@ -141,6 +143,14 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		A16723AF2C948DF80089CE46 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				A16723B02C948E040089CE46 /* AlertModifier.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
 		A180F5DC2C8F3AEB00380EAE /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +209,7 @@
 		A197348E2C840EA400619D33 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A16723AF2C948DF80089CE46 /* Modifiers */,
 				A197348F2C840EBB00619D33 /* TokenListView.swift */,
 				A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */,
 			);
@@ -440,6 +451,7 @@
 				A16723A82C9244A90089CE46 /* AddressToTokenModel.swift in Sources */,
 				A19BFFC62C8DDE3A00E646CD /* RootView.swift in Sources */,
 				A16723A22C9241C80089CE46 /* JSONRPCRequest.swift in Sources */,
+				A16723B12C948E040089CE46 /* AlertModifier.swift in Sources */,
 				A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */,
 				A19734902C840EBB00619D33 /* TokenListView.swift in Sources */,
 				A16723AA2C9246D10089CE46 /* Hex+.swift in Sources */,
