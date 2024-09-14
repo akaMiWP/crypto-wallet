@@ -44,8 +44,7 @@ final class GenerateSeedPhraseViewModel: Alertable {
             let mnemonic = String(mnemonic.flatMap { $0 })
             try manageHDWalletUseCase.encryptMnemonic(mnemonic)
         } catch {
-            //TODO: Handle error
-            print(error)
+            alertViewModel = .init(message: error.localizedDescription)
         }
     }
 }
