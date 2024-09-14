@@ -17,8 +17,8 @@ final class NodeProviderImpl: NodeProviderUseCase {
     }
     
     func fetchTokenBalances(address: String) -> AnyPublisher<[AddressToTokenModel], Error> {
-        let tokenBalancesResponsePublisher: AnyPublisher<JSONRPCResponse<TokenBalancesResponse>, Error> = networkStack
-            .fetchServiceProviderAPI(method: .tokenBalances, params: [address])
+        let tokenBalancesResponsePublisher: AnyPublisher<JSONRPCResponse<TokenBalancesResponse>, Error>
+        = networkStack.fetchServiceProviderAPI(method: .tokenBalances, params: [address])
         
         let modelsPublisher = tokenBalancesResponsePublisher
             .flatMap { output in
@@ -28,13 +28,11 @@ final class NodeProviderImpl: NodeProviderUseCase {
                 }
                 return Just(output).setFailureType(to: Error.self).eraseToAnyPublisher()
             }
-            .map { response in
-                var models: [AddressToTokenModel] = []
-                if let result = response.result {
-                    models = result.tokenBalances.compactMap {
-                        guard let tokenBalance = convertHexToDouble(hexString: $0.tokenBalance) else { return nil }
-                        return .init(address: $0.contractAddress, tokenBalance: tokenBalance)
-                    }
+            .tryMap { response in
+                guard let result = response.result else { throw NodeProviderUseCaseError.missingJSONRPCResult }
+                let models: [AddressToTokenModel] = result.tokenBalances.compactMap {
+                    guard let tokenBalance = convertHexToDouble(hexString: $0.tokenBalance) else { return nil }
+                    return .init(address: $0.contractAddress, tokenBalance: tokenBalance)
                 }
                 return models
             }
