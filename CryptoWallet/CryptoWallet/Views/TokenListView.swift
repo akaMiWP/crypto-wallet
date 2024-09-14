@@ -3,23 +3,25 @@
 import SwiftUI
 
 struct TokenListView: View {
-    @State private var mocks: [TokenViewModel] = [
-        .init(name: "Ethereum", balance: "0.2 $ETH", totalAmount: 500.12),
-        .init(name: "Bitcoin", balance: "0.1 $BTC", totalAmount: 5801.44),
-        .init(name: "AAVE Protocol", balance: "17.2 $AAVE", totalAmount: 2567.31),
-        .init(name: "Uniswap", balance: "0.1 $UNI", totalAmount: 10.77),
-        .init(name: "Solana", balance: "17.8 $SOL", totalAmount: 1890.66)
-    ]
+//    @State private var mocks: [TokenViewModel] = [
+//        .init(name: "Ethereum", balance: "0.2 $ETH", totalAmount: 500.12),
+//        .init(name: "Bitcoin", balance: "0.1 $BTC", totalAmount: 5801.44),
+//        .init(name: "AAVE Protocol", balance: "17.2 $AAVE", totalAmount: 2567.31),
+//        .init(name: "Uniswap", balance: "0.1 $UNI", totalAmount: 10.77),
+//        .init(name: "Solana", balance: "17.8 $SOL", totalAmount: 1890.66)
+//    ]
+    private let viewModels: [TokenViewModel]
     
     let shouldShowTotalAmount: Bool
     
-    init(shouldShowTotalAmount: Bool = true) {
+    init(viewModels: [TokenViewModel], shouldShowTotalAmount: Bool = true) {
+        self.viewModels = viewModels
         self.shouldShowTotalAmount = shouldShowTotalAmount
     }
     
     var body: some View {
         VStack {
-            ForEach(mocks, id: \.id) { viewModel in
+            ForEach(viewModels, id: \.id) { viewModel in
                 makeERC20TokenView(viewModel: viewModel)
             }
             .frame(maxWidth: .infinity)
@@ -45,7 +47,7 @@ private extension TokenListView {
                     .font(.headline)
                     .foregroundColor(.black)
                 
-                Text(viewModel.balance)
+                Text("\(viewModel.balance)")
                     .font(.subheadline)
                     .foregroundColor(.black)
             }
@@ -62,5 +64,5 @@ private extension TokenListView {
 }
 
 #Preview {
-    TokenListView()
+    TokenListView(viewModels: [])
 }

@@ -18,7 +18,7 @@ struct SelectTokensView: View {
             
             ScrollView {
                 NavigationLink(value: Destinations.sendToken) {
-                    TokenListView(shouldShowTotalAmount: false)
+                    TokenListView(viewModels: [], shouldShowTotalAmount: false)
                 }
                 
                 Spacer()

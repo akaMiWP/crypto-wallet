@@ -1,6 +1,6 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
-struct AddressToTokenModel {
+struct AddressToTokenModel: Hashable {
     let address: String
-    let tokenBalance: Double
+    let tokenBalance: String
 }

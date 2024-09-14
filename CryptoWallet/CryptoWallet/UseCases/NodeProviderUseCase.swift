@@ -31,8 +31,7 @@ final class NodeProviderImpl: NodeProviderUseCase {
             .tryMap { response in
                 guard let result = response.result else { throw NodeProviderUseCaseError.missingJSONRPCResult }
                 let models: [AddressToTokenModel] = result.tokenBalances.compactMap {
-                    guard let tokenBalance = convertHexToDouble(hexString: $0.tokenBalance) else { return nil }
-                    return .init(address: $0.contractAddress, tokenBalance: tokenBalance)
+                    return .init(address: $0.contractAddress, tokenBalance: $0.tokenBalance)
                 }
                 return models
             }

@@ -21,7 +21,7 @@ struct DashboardView: View {
                     .fontWeight(.bold)
                 
                 makeOperationViews()
-                TokenListView()
+                TokenListView(viewModels: viewModel.tokenViewModels)
                 Spacer()
             }
         }
