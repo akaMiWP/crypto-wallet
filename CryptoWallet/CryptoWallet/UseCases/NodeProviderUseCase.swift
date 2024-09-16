@@ -54,14 +54,14 @@ final class NodeProviderImpl: NodeProviderUseCase {
             .tryMap { response in
                 guard let result = response.result,
                       let decimals = result.decimals,
-                      let logo = result.logo,
                       let name = result.name,
                       let symbol = result.symbol else {
                     throw NodeProviderUseCaseError.missingTokenMetadataFields
                 }
+                let logo: URL? = result.logo.flatMap { .init(string: $0) }
                 let model: TokenMetadataModel = .init(
                     decimals: decimals,
-                    logo: .init(string: logo),
+                    logo: logo,
                     name: name,
                     symbol: symbol
                 )
