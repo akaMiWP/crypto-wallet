@@ -14,3 +14,13 @@ struct TokenViewModel: Identifiable {
         totalAmount.format(with: .tokenBalanceFormatter)
     }
 }
+
+extension TokenViewModel {
+    static var placeholders: [TokenViewModel] {
+        [.init(name: "------------", symbol: "", logo: nil, balance: 1000, totalAmount: 0),
+         .init(name: "-------", symbol: "", logo: nil, balance: 10, totalAmount: 0),
+         .init(name: "--------------", symbol: "", logo: nil, balance: 10, totalAmount: 0),
+         .init(name: "-----------", symbol: "", logo: nil, balance: 100, totalAmount: 0),
+         .init(name: "-----", symbol: "", logo: nil, balance: 1000, totalAmount: 0)]
+    }
+}

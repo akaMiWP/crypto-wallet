@@ -3,20 +3,15 @@
 import SwiftUI
 
 struct TokenListView: View {
-//    @State private var mocks: [TokenViewModel] = [
-//        .init(name: "Ethereum", balance: "0.2 $ETH", totalAmount: 500.12),
-//        .init(name: "Bitcoin", balance: "0.1 $BTC", totalAmount: 5801.44),
-//        .init(name: "AAVE Protocol", balance: "17.2 $AAVE", totalAmount: 2567.31),
-//        .init(name: "Uniswap", balance: "0.1 $UNI", totalAmount: 10.77),
-//        .init(name: "Solana", balance: "17.8 $SOL", totalAmount: 1890.66)
-//    ]
     private let viewModels: [TokenViewModel]
+    private let isLoading: Bool
     
     let shouldShowTotalAmount: Bool
     
-    init(viewModels: [TokenViewModel], shouldShowTotalAmount: Bool = true) {
+    init(viewModels: [TokenViewModel], shouldShowTotalAmount: Bool = true, isLoading: Bool = false) {
         self.viewModels = viewModels
         self.shouldShowTotalAmount = shouldShowTotalAmount
+        self.isLoading = isLoading
     }
     
     var body: some View {
@@ -60,6 +55,7 @@ private extension TokenListView {
                     .foregroundColor(.black)
             }
         }
+        .redacted(reason: isLoading ? .placeholder : [])
     }
 }
 

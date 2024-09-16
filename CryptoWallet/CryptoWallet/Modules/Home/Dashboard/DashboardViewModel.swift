@@ -5,11 +5,13 @@ import Foundation
 
 final class DashboardViewModel: Alertable {
     
-    @Published var tokenViewModels: [TokenViewModel] = .init()
+    @Published var state: ViewModelState = .loading
+    @Published var tokenViewModels: [TokenViewModel] = TokenViewModel.placeholders
     @Published var alertViewModel: AlertViewModel?
     
     private var addressToTokenModelsDict:
     PassthroughSubject<[AddressToTokenModel: TokenMetadataModel], Never> = .init()
+    private var shouldLoadMore: Bool = false
     private var cancellables: Set<AnyCancellable> = .init()
     
     private let nodeProviderUseCase: NodeProviderUseCase
@@ -33,11 +35,12 @@ final class DashboardViewModel: Alertable {
                     tokenViewModels.append(tokenViewModel)
                 }
                 self?.tokenViewModels = tokenViewModels
+                self?.state = .finished
             }
             .store(in: &cancellables)
     }
     
-    func fetchTokenBalances() {
+    func fetchTokenBalances() { //TODO: Implement Pagination
         nodeProviderUseCase
             .fetchTokenBalances(address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
             .flatMap { [weak self] models -> AnyPublisher<[AddressToTokenModel: TokenMetadataModel], Never> in
@@ -82,6 +85,7 @@ private extension DashboardViewModel {
     func handleError(completion: Subscribers.Completion<any Error>) {
         if case .failure(let error) = completion {
             self.alertViewModel = .init(message: error.localizedDescription)
+            self.state = .error
         }
     }
 }

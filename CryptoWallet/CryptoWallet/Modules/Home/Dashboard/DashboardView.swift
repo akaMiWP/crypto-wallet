@@ -19,9 +19,14 @@ struct DashboardView: View {
                 Text("$21.10")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .redacted(reason: viewModel.state.redactionReasons)
                 
                 makeOperationViews()
-                TokenListView(viewModels: viewModel.tokenViewModels)
+                TokenListView(
+                    viewModels: viewModel.tokenViewModels,
+                    isLoading: viewModel.state.redactionReasons == .placeholder
+                )
+                    
                 Spacer()
             }
         }
@@ -95,5 +100,11 @@ private extension DashboardView {
 }
 
 #Preview {
-    DashboardView(viewModel: .init(nodeProviderUseCase: NodeProviderImpl(networkStack: .init())))
+    let viewModel: DashboardViewModel = .init(
+        nodeProviderUseCase: NodeProviderImpl(
+            networkStack: .init()
+        )
+    )
+    viewModel.state = .loading
+    return DashboardView(viewModel: viewModel)
 }
