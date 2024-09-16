@@ -1,6 +1,7 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
 import Combine
+import Foundation
 
 final class DashboardViewModel: Alertable {
     
@@ -39,10 +40,38 @@ final class DashboardViewModel: Alertable {
     func fetchTokenBalances() {
         nodeProviderUseCase
             .fetchTokenBalances(address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
+            .flatMap { [weak self] models -> AnyPublisher<[AddressToTokenModel: TokenMetadataModel], Never> in
+                guard let self = self else { return Just([:]).eraseToAnyPublisher() }
+                let delayPublisher = Timer.publish(every: 0.1, on: .main, in: .common)
+                    .autoconnect()
+                let metadataPublishers = models.enumerated().map { index, model in
+                    delayPublisher
+                        .dropFirst(index)
+                        .prefix(1)
+                        .flatMap { _ in
+                            self.nodeProviderUseCase
+                                .fetchTokenMetadata(address: model.address)
+                                .map { metadata -> (AddressToTokenModel, TokenMetadataModel) in
+                                    return (model, metadata)
+                                }
+                                .catch { _ in
+                                    Just(nil).eraseToAnyPublisher()
+                                }
+                        }
+                }
+                
+                return Publishers.MergeMany(metadataPublishers)
+                    .compactMap { $0 }
+                    .collect()
+                    .map { tuples in
+                        Dictionary(uniqueKeysWithValues: tuples)
+                    }
+                    .eraseToAnyPublisher()
+            }
             .sink { [weak self] in
                 self?.handleError(completion: $0)
-            } receiveValue: { [weak self] models in
-                models.forEach { self?.subscribeTokenMetadata(model: $0) }
+            } receiveValue: { [weak self] dict in
+                self?.addressToTokenModelsDict.send(dict)
             }
             .store(in: &cancellables)
     }
@@ -50,17 +79,6 @@ final class DashboardViewModel: Alertable {
 
 // MARK: - Private
 private extension DashboardViewModel {
-    func subscribeTokenMetadata(model: AddressToTokenModel) {
-        nodeProviderUseCase
-            .fetchTokenMetadata(address: model.address)
-            .sink { [weak self] in
-                self?.handleError(completion: $0)
-            } receiveValue: { model in
-                print(model)
-            }
-            .store(in: &cancellables)
-    }
-    
     func handleError(completion: Subscribers.Completion<any Error>) {
         if case .failure(let error) = completion {
             self.alertViewModel = .init(message: error.localizedDescription)
