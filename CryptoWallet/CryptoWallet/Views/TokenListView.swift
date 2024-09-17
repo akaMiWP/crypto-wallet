@@ -21,7 +21,7 @@ struct TokenListView: View {
     }
     
     var body: some View {
-        VStack {
+        LazyVStack {
             ForEach(viewModels, id: \.id) { viewModel in
                 makeERC20TokenView(viewModel: viewModel)
                     .onAppear {
