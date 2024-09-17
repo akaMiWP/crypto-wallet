@@ -18,10 +18,70 @@ final class DashboardViewModel: Alertable {
     
     init(nodeProviderUseCase: NodeProviderUseCase) {
         self.nodeProviderUseCase = nodeProviderUseCase
+        subscribeToAddressToTokenModelDict()
+    }
+    
+    func fetchTokenBalances() { //TODO: Implement Pagination
+        nodeProviderUseCase
+            .fetchTokenBalances(address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
+            .sink(receiveCompletion: { [weak self] in
+                self?.handleError(completion: $0)
+            }, receiveValue: { [weak self] models in
+                self?.allTokens = models
+                self?.fetchNextTokens()
+            })
+            .store(in: &cancellables)
+    }
+    
+    private var allTokens: [AddressToTokenModel] = []
+    private var offset: Int = 0
+    private var pageSize: Int = 12
+    
+    func fetchNextTokens() {
+        guard offset < allTokens.count else { return }
+        state = .loading
+        let range = offset..<min(offset + pageSize, allTokens.count)
+        let targetedTokens = allTokens[range]
+        offset += pageSize
         
+        let delayPublisher = Timer.publish(every: 0.1, on: .main, in: .common)
+            .autoconnect()
+        let metadataPublishers = targetedTokens.enumerated().map { index, model in
+            delayPublisher
+                .dropFirst(index)
+                .prefix(1)
+                .flatMap { _ in
+                    self.nodeProviderUseCase
+                        .fetchTokenMetadata(address: model.address)
+                        .map { metadata -> (AddressToTokenModel, TokenMetadataModel) in
+                            return (model, metadata)
+                        }
+                        .catch { _ in
+                            Just(nil).eraseToAnyPublisher()
+                        }
+                }
+        }
+        
+        Publishers.MergeMany(metadataPublishers)
+            .compactMap { $0 }
+            .collect()
+            .map { tuples in
+                Dictionary(uniqueKeysWithValues: tuples)
+            }
+            .sink { [weak self] dict in
+                self?.addressToTokenModelsDict.send(dict)
+            }
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - Private
+private extension DashboardViewModel {
+    func subscribeToAddressToTokenModelDict() {
         addressToTokenModelsDict
             .sink { [weak self] dict in
-                var tokenViewModels: [TokenViewModel] = []
+                guard let self = self else { return }
+                var tokenViewModels: [TokenViewModel] = self.tokenViewModels
                 dict.forEach { key, value in
                     guard let balance = convertHexToDouble(hexString: key.tokenBalance, decimals: value.decimals)
                     else { return }
@@ -34,54 +94,12 @@ final class DashboardViewModel: Alertable {
                     )
                     tokenViewModels.append(tokenViewModel)
                 }
-                self?.tokenViewModels = tokenViewModels
-                self?.state = .finished
+                self.tokenViewModels = tokenViewModels
+                self.state = .finished
             }
             .store(in: &cancellables)
     }
     
-    func fetchTokenBalances() { //TODO: Implement Pagination
-        nodeProviderUseCase
-            .fetchTokenBalances(address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
-            .flatMap { [weak self] models -> AnyPublisher<[AddressToTokenModel: TokenMetadataModel], Never> in
-                guard let self = self else { return Just([:]).eraseToAnyPublisher() }
-                let delayPublisher = Timer.publish(every: 0.1, on: .main, in: .common)
-                    .autoconnect()
-                let metadataPublishers = models.enumerated().map { index, model in
-                    delayPublisher
-                        .dropFirst(index)
-                        .prefix(1)
-                        .flatMap { _ in
-                            self.nodeProviderUseCase
-                                .fetchTokenMetadata(address: model.address)
-                                .map { metadata -> (AddressToTokenModel, TokenMetadataModel) in
-                                    return (model, metadata)
-                                }
-                                .catch { _ in
-                                    Just(nil).eraseToAnyPublisher()
-                                }
-                        }
-                }
-                
-                return Publishers.MergeMany(metadataPublishers)
-                    .compactMap { $0 }
-                    .collect()
-                    .map { tuples in
-                        Dictionary(uniqueKeysWithValues: tuples)
-                    }
-                    .eraseToAnyPublisher()
-            }
-            .sink { [weak self] in
-                self?.handleError(completion: $0)
-            } receiveValue: { [weak self] dict in
-                self?.addressToTokenModelsDict.send(dict)
-            }
-            .store(in: &cancellables)
-    }
-}
-
-// MARK: - Private
-private extension DashboardViewModel {
     func handleError(completion: Subscribers.Completion<any Error>) {
         if case .failure(let error) = completion {
             self.alertViewModel = .init(message: error.localizedDescription)

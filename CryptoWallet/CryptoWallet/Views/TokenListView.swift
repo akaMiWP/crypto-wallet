@@ -5,19 +5,30 @@ import SwiftUI
 struct TokenListView: View {
     private let viewModels: [TokenViewModel]
     private let isLoading: Bool
+    private let didScrollToBottom: (() -> Void)?
     
     let shouldShowTotalAmount: Bool
     
-    init(viewModels: [TokenViewModel], shouldShowTotalAmount: Bool = true, isLoading: Bool = false) {
+    init(viewModels: [TokenViewModel],
+         shouldShowTotalAmount: Bool = true,
+         isLoading: Bool = false,
+         didScrollToBottom: (() -> Void)? = nil
+    ) {
         self.viewModels = viewModels
         self.shouldShowTotalAmount = shouldShowTotalAmount
         self.isLoading = isLoading
+        self.didScrollToBottom = didScrollToBottom
     }
     
     var body: some View {
         VStack {
             ForEach(viewModels, id: \.id) { viewModel in
                 makeERC20TokenView(viewModel: viewModel)
+                    .onAppear {
+                        if viewModel == viewModels.last {
+                            didScrollToBottom?()
+                        }
+                    }
             }
             .frame(maxWidth: .infinity)
             .padding()

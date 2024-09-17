@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct TokenViewModel: Identifiable {
+struct TokenViewModel: Identifiable, Equatable {
     let id: UUID = .init()
     let name: String
     let symbol: String
