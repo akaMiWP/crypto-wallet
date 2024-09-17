@@ -6,12 +6,15 @@ import Foundation
 final class DashboardViewModel: Alertable {
     
     @Published var state: ViewModelState = .loading
-    @Published var tokenViewModels: [TokenViewModel] = TokenViewModel.placeholders
+    @Published var tokenViewModels: [TokenViewModel] = []
     @Published var alertViewModel: AlertViewModel?
+    
+    private let pageSize: Int = 12
+    private var allTokens: [AddressToTokenModel] = []
+    private var offset: Int = 0
     
     private var addressToTokenModelsDict:
     PassthroughSubject<[AddressToTokenModel: TokenMetadataModel], Never> = .init()
-    private var shouldLoadMore: Bool = false
     private var cancellables: Set<AnyCancellable> = .init()
     
     private let nodeProviderUseCase: NodeProviderUseCase
@@ -21,7 +24,8 @@ final class DashboardViewModel: Alertable {
         subscribeToAddressToTokenModelDict()
     }
     
-    func fetchTokenBalances() { //TODO: Implement Pagination
+    func fetchTokenBalances() {
+        tokenViewModels += TokenViewModel.placeholders
         nodeProviderUseCase
             .fetchTokenBalances(address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
             .sink(receiveCompletion: { [weak self] in
@@ -33,13 +37,9 @@ final class DashboardViewModel: Alertable {
             .store(in: &cancellables)
     }
     
-    private var allTokens: [AddressToTokenModel] = []
-    private var offset: Int = 0
-    private var pageSize: Int = 12
-    
     func fetchNextTokens() {
         guard offset < allTokens.count else { return }
-        state = .loading
+        if offset != 0 { tokenViewModels += TokenViewModel.placeholders }
         let range = offset..<min(offset + pageSize, allTokens.count)
         let targetedTokens = allTokens[range]
         offset += pageSize
@@ -94,7 +94,7 @@ private extension DashboardViewModel {
                     )
                     tokenViewModels.append(tokenViewModel)
                 }
-                self.tokenViewModels = tokenViewModels
+                self.tokenViewModels = tokenViewModels.filter { $0.redactedReason != .placeholder }
                 self.state = .finished
             }
             .store(in: &cancellables)

@@ -24,7 +24,7 @@ struct DashboardView: View {
                 makeOperationViews()
                 TokenListView(
                     viewModels: viewModel.tokenViewModels,
-                    isLoading: viewModel.state.redactionReasons == .placeholder,
+                    shouldShowTotalAmount: false,
                     didScrollToBottom: { viewModel.fetchNextTokens() }
                 )
                     
