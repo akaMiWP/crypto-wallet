@@ -40,8 +40,7 @@ struct TokenListView: View {
 private extension TokenListView {
     func makeERC20TokenView(viewModel: TokenViewModel) -> some View {
         HStack(alignment: .top) {
-            Rectangle()
-                .fill(Color.blue)
+            AsyncImage(url: viewModel.logo)
                 .frame(width: 40, height: 40)
                 .clipShape(Circle())
             
