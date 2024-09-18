@@ -16,7 +16,7 @@ struct DashboardView: View {
             makeTopBarView()
             
             ScrollView {
-                Text("$21.10")
+                Text("$0.00")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .redacted(reason: viewModel.state.redactionReasons)
@@ -31,6 +31,7 @@ struct DashboardView: View {
                 Spacer()
             }
         }
+        .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.fetchTokenBalances()
         }
