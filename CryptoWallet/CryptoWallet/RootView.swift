@@ -13,7 +13,7 @@ struct RootView: View {
     
     var body: some View {
         if viewModel.isSignedIn {
-            DashboardView(viewModel: .init(nodeProviderUseCase: NodeProviderImpl(networkStack: .init())))
+            BiometricView(navigationPath: $navigationPath)
         } else {
             WelcomeView(navigationPath: $navigationPath)
                 .onAppear {
