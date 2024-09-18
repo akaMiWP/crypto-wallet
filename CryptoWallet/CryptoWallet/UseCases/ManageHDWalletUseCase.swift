@@ -7,7 +7,8 @@ import WalletCore
 protocol ManageHDWalletUseCase {
     func createHDWalletPublisher(strength: Int32) -> AnyPublisher<String, Error>
     func importHDWallet(mnemonic: String) throws
-    func encryptMnemonic(_ mneumonic: String) throws
+    func encryptMnemonic(_ mneumonic: String) -> AnyPublisher<Void, Error>
+    func restoreWallet() -> AnyPublisher<HDWallet, Error>
 }
 
 final class ManageHDWalletImpl: ManageHDWalletUseCase {
@@ -33,8 +34,28 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
         HDWalletManager.shared.store(wallet: wallet)
     }
     
-    func encryptMnemonic(_ mneumonic: String) throws {
-        try HDWalletManager.shared.encryptMnemonic(mneumonic)
+    func encryptMnemonic(_ mneumonic: String) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            do {
+                try HDWalletManager.shared.encryptMnemonic(mneumonic)
+                promise(.success(()))
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func restoreWallet() -> AnyPublisher<HDWallet, Error> {
+        Future<HDWallet, Error> { promise in
+            do {
+                let wallet = try HDWalletManager.shared.restoreWallet()
+                promise(.success(wallet))
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
 

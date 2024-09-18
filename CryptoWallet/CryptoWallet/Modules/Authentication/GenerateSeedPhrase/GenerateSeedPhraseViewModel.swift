@@ -39,12 +39,17 @@ final class GenerateSeedPhraseViewModel: Alertable {
     }
     
     func didTapButton() {
-        userDefaultUseCase.setHasCreatedWallet(true)
-        do {
-            let mnemonic = String(mnemonic.flatMap { $0 })
-            try manageHDWalletUseCase.encryptMnemonic(mnemonic)
-        } catch {
-            alertViewModel = .init(message: error.localizedDescription)
-        }
+        let mnemonic = String(mnemonic.joined(separator: " "))
+        manageHDWalletUseCase
+            .encryptMnemonic(mnemonic)
+            .sink { [weak self] in
+                if case .failure(let error) = $0 {
+                    self?.alertViewModel = .init(message: error.localizedDescription)
+                }
+            } receiveValue: { [weak self] _ in
+                self?.userDefaultUseCase.setHasCreatedWallet(true)
+            }
+            .store(in: &cancellables)
+
     }
 }

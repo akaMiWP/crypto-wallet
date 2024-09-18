@@ -17,9 +17,13 @@ final class HDWalletManager {
         hdWallet
     }
     
-    func restoreWallet() throws -> HDWallet? {
-        guard let mneumonic = try KeychainManager.shared.get(String.self, for: .seedPhrase) else { return nil }
-        hdWallet = .init(mnemonic: mneumonic, passphrase: "")
+    func restoreWallet() throws -> HDWallet {
+        guard let mneumonic = try KeychainManager.shared.get(String.self, for: .seedPhrase),
+              let hdWallet: HDWallet = .init(mnemonic: mneumonic, passphrase: "")
+        else {
+            throw HDWalletManagerError.unableToRestoreWallet
+        }
+        store(wallet: hdWallet)
         return hdWallet
     }
     
