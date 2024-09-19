@@ -3,8 +3,8 @@
 import Foundation
 
 enum NavigationDestinations: String, Hashable {
+    case switchNetwork
+    case switchAccount
     case sendTokens
     case receiveTokens
-    case sendToken //TODO: Add associate type
-    case receiveToken //TODO: Add associate type
 }

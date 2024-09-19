@@ -4,7 +4,7 @@ import SwiftUI
 
 struct DashboardView: View {
     
-    @State private var isSheetPresented: Bool = false
+    @State private var destination: NavigationDestinations?
     @ObservedObject private var viewModel: DashboardViewModel
     
     init(viewModel: DashboardViewModel) {
@@ -33,6 +33,15 @@ struct DashboardView: View {
         }
         .navigationBarBackButtonHidden()
         .modifier(AlertModifier(viewModel: viewModel))
+        .sheet(isPresented: isPresented) {
+            switch destination {
+            case .switchNetwork: EmptyView()
+            case .switchAccount: EmptyView()
+            case .sendTokens: SelectTokensView()
+            case .receiveTokens: SelectTokensView()
+            case nil: EmptyView()
+            }
+        }
         .onAppear {
             viewModel.fetchTokenBalances()
         }
@@ -41,6 +50,15 @@ struct DashboardView: View {
 
 // MARK: - Private
 private extension DashboardView {
+    var isPresented: Binding<Bool> {
+        .init(
+            get: { destination != nil },
+            set: { newValue in
+                if !newValue { destination = nil }
+            }
+        )
+    }
+    
     func makeTopBarView() -> some View {
         ZStack {
             HStack {
@@ -48,6 +66,9 @@ private extension DashboardView {
                     .font(.headline)
                 
                 Image(systemName: "chevron.down")
+            }
+            .onTapGesture {
+                self.destination = .switchAccount
             }
             
             HStack {
@@ -64,6 +85,9 @@ private extension DashboardView {
                 .padding(.trailing, 12)
                 .background(Color.blue.opacity(0.2))
                 .clipShape(RoundedRectangle(cornerSize: .init(width: 32, height: 32)))
+                .onTapGesture {
+                    self.destination = .switchNetwork
+                }
                 
                 Spacer()
             }
@@ -91,13 +115,8 @@ private extension DashboardView {
         .frame(width: 100, height: 80)
         .background(Color.blue.opacity(0.2))
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
-        .onTapGesture { isSheetPresented = true }
-        .sheet(isPresented: $isSheetPresented) {
-            switch destination {
-            case .sendTokens: SelectTokensView()
-            case .receiveTokens: SelectTokensView()
-            default: EmptyView()
-            }
+        .onTapGesture {
+            self.destination = destination
         }
     }
 }
