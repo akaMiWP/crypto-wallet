@@ -43,6 +43,7 @@
 		A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A375872C8D84A10012BF43 /* KeychainManager.swift */; };
 		A1A3758B2C8D84D60012BF43 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A1A3758A2C8D84D60012BF43 /* KeychainSwift */; };
 		A1A375912C8D8C2A0012BF43 /* UserDefaultUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */; };
+		A1AC217D2C9BE41F00374C83 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AC217C2C9BE41F00374C83 /* String+.swift */; };
 		A1B68E912C84AD71000509C9 /* NavigationDestinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B68E902C84AD71000509C9 /* NavigationDestinations.swift */; };
 		A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */; };
 		A1B719D92C80C1F40039D8D9 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = A1B719D82C80C1F40039D8D9 /* web3swift */; };
@@ -90,6 +91,7 @@
 		A1A375812C8C377E0012BF43 /* ViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelState.swift; sourceTree = "<group>"; };
 		A1A375872C8D84A10012BF43 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultUseCase.swift; sourceTree = "<group>"; };
+		A1AC217C2C9BE41F00374C83 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		A1B68E902C84AD71000509C9 /* NavigationDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinations.swift; sourceTree = "<group>"; };
 		A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarPresentedView.swift; sourceTree = "<group>"; };
 		A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				A1E3FFC12C87EAE2007EB73D /* Environment */,
 				A19734892C84078300619D33 /* Formatter */,
 				A16723A92C9246D10089CE46 /* Hex+.swift */,
+				A1AC217C2C9BE41F00374C83 /* String+.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				A16723B12C948E040089CE46 /* AlertModifier.swift in Sources */,
 				A161A95D2C99A2B000BED797 /* BiometricViewModel.swift in Sources */,
 				A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */,
+				A1AC217D2C9BE41F00374C83 /* String+.swift in Sources */,
 				A19734902C840EBB00619D33 /* TokenListView.swift in Sources */,
 				A16723AA2C9246D10089CE46 /* Hex+.swift in Sources */,
 				A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */,
