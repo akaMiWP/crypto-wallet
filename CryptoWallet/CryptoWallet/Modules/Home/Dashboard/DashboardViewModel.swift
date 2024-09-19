@@ -8,7 +8,7 @@ import Foundation
 final class DashboardViewModel: Alertable {
     
     @Published var state: ViewModelState = .loading
-    @Published var derivatedAddress: String?
+    @Published var derivatedAddress: String = ""
     @Published var tokenViewModels: [TokenViewModel] = []
     @Published var alertViewModel: AlertViewModel?
     
@@ -35,8 +35,9 @@ final class DashboardViewModel: Alertable {
         manageHDWalletUseCase.restoreWallet()
             .flatMap { [weak self] wallet -> AnyPublisher<[AddressToTokenModel], Error> in
                 guard let self = self else { return Just([]).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                //wallet.getKey(coin: .ethereum, derivationPath: "m/44\'/60\'/1\'/0/0")
                 let address = wallet.getAddressForCoin(coin: .ethereum)
-                self.derivatedAddress = address
+                self.derivatedAddress = address.maskedWalletAddress()
                 return self.nodeProviderUseCase.fetchTokenBalances(address: address)
             }
             .sink { [weak self] in

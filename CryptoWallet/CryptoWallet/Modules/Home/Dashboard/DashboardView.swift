@@ -61,14 +61,20 @@ private extension DashboardView {
     
     func makeTopBarView() -> some View {
         ZStack {
-            HStack {
-                Text("Account 1")
-                    .font(.headline)
+            VStack {
+                HStack {
+                    Text("Account 1")
+                        .font(.headline)
+                    
+                    Image(systemName: "chevron.down")
+                        .clipShape(Circle())
+                }
+                .onTapGesture {
+                    self.destination = .switchAccount
+                }
                 
-                Image(systemName: "chevron.down")
-            }
-            .onTapGesture {
-                self.destination = .switchAccount
+                Text(viewModel.derivatedAddress)
+                    .font(.subheadline)
             }
             
             HStack {
@@ -81,6 +87,7 @@ private extension DashboardView {
                         .clipShape(Circle())
                     
                     Image(systemName: "chevron.down")
+                        .clipShape(Circle())
                 }
                 .padding(.trailing, 12)
                 .background(Color.blue.opacity(0.2))
@@ -93,6 +100,7 @@ private extension DashboardView {
             }
         }
         .padding(.horizontal)
+        .redacted(reason: viewModel.state.redactionReasons)
     }
     
     func makeOperationViews() -> some View {
@@ -129,5 +137,6 @@ private extension DashboardView {
         manageHDWalletUseCase: ManageHDWalletImpl()
     )
     viewModel.state = .loading
+    viewModel.derivatedAddress = "0x99900dddddddddddddddddddddddddddddddddddd".maskedWalletAddress()
     return DashboardView(viewModel: viewModel)
 }
