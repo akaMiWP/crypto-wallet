@@ -32,6 +32,7 @@ struct DashboardView: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .modifier(AlertModifier(viewModel: viewModel))
         .onAppear {
             viewModel.fetchTokenBalances()
         }
@@ -105,7 +106,8 @@ private extension DashboardView {
     let viewModel: DashboardViewModel = .init(
         nodeProviderUseCase: NodeProviderImpl(
             networkStack: .init()
-        )
+        ),
+        manageHDWalletUseCase: ManageHDWalletImpl()
     )
     viewModel.state = .loading
     return DashboardView(viewModel: viewModel)

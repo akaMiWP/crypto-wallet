@@ -3,9 +3,12 @@
 import Combine
 import Foundation
 
+// 0xd8da6bf26964af9d7eed9e03e53415d37aa96045: a sample address
+
 final class DashboardViewModel: Alertable {
     
     @Published var state: ViewModelState = .loading
+    @Published var derivatedAddress: String?
     @Published var tokenViewModels: [TokenViewModel] = []
     @Published var alertViewModel: AlertViewModel?
     
@@ -18,22 +21,31 @@ final class DashboardViewModel: Alertable {
     private var cancellables: Set<AnyCancellable> = .init()
     
     private let nodeProviderUseCase: NodeProviderUseCase
+    private let manageHDWalletUseCase: ManageHDWalletUseCase
     
-    init(nodeProviderUseCase: NodeProviderUseCase) {
+    init(nodeProviderUseCase: NodeProviderUseCase, manageHDWalletUseCase: ManageHDWalletUseCase) {
         self.nodeProviderUseCase = nodeProviderUseCase
+        self.manageHDWalletUseCase = manageHDWalletUseCase
         subscribeToAddressToTokenModelDict()
     }
     
     func fetchTokenBalances() {
         tokenViewModels += TokenViewModel.placeholders
-        nodeProviderUseCase
-            .fetchTokenBalances(address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
-            .sink(receiveCompletion: { [weak self] in
+        
+        manageHDWalletUseCase.restoreWallet()
+            .flatMap { [weak self] wallet -> AnyPublisher<[AddressToTokenModel], Error> in
+                guard let self = self else { return Just([]).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                let address = wallet.getAddressForCoin(coin: .ethereum)
+                self.derivatedAddress = address
+                return self.nodeProviderUseCase.fetchTokenBalances(address: address)
+            }
+            .sink { [weak self] in
                 self?.handleError(completion: $0)
-            }, receiveValue: { [weak self] models in
-                self?.allTokens = models
-                self?.fetchNextTokens()
-            })
+            } receiveValue: { [weak self] models in
+                guard let self = self else { return }
+                self.allTokens = models
+                self.fetchNextTokens()
+            }
             .store(in: &cancellables)
     }
     

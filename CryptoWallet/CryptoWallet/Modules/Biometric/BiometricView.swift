@@ -23,7 +23,12 @@ struct BiometricView: View {
                 .navigationDestination(for: Destinations.self) {
                     switch $0 {
                     case .dashboard:
-                        DashboardView(viewModel: .init(nodeProviderUseCase: NodeProviderImpl(networkStack: .init())))
+                        DashboardView(
+                            viewModel: .init(
+                                nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
+                                manageHDWalletUseCase: ManageHDWalletImpl()
+                            )
+                        )
                     }
                 }
         }
