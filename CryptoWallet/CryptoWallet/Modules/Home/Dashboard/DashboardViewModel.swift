@@ -33,10 +33,16 @@ final class DashboardViewModel: Alertable {
         tokenViewModels += TokenViewModel.placeholders
         
         manageHDWalletUseCase.restoreWallet()
-            .flatMap { [weak self] wallet -> AnyPublisher<[AddressToTokenModel], Error> in
+            .flatMap {  [weak self] wallet -> AnyPublisher<String, Never> in
+                guard let self = self else { return Just("").eraseToAnyPublisher() }
+                return manageHDWalletUseCase.getWalletAddressUsingDerivationPath(
+                    wallet: wallet,
+                    coinType: .ethereum,
+                    order: 0
+                )
+            }
+            .flatMap { [weak self] address -> AnyPublisher<[AddressToTokenModel], Error> in
                 guard let self = self else { return Just([]).setFailureType(to: Error.self).eraseToAnyPublisher() }
-                //wallet.getKey(coin: .ethereum, derivationPath: "m/44\'/60\'/1\'/0/0")
-                let address = wallet.getAddressForCoin(coin: .ethereum)
                 self.derivatedAddress = address.maskedWalletAddress()
                 return self.nodeProviderUseCase.fetchTokenBalances(address: address)
             }
