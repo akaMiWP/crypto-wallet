@@ -9,6 +9,11 @@ protocol ManageHDWalletUseCase {
     func importHDWallet(mnemonic: String) throws
     func encryptMnemonic(_ mneumonic: String) -> AnyPublisher<Void, Error>
     func restoreWallet() -> AnyPublisher<HDWallet, Error>
+    func getWalletAddressUsingDerivationPath(
+        wallet: HDWallet,
+        coinType: CoinType,
+        order: Int
+    ) -> AnyPublisher<String, Never>
 }
 
 final class ManageHDWalletImpl: ManageHDWalletUseCase {
@@ -57,6 +62,17 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
         }
         .eraseToAnyPublisher()
     }
+    
+    func getWalletAddressUsingDerivationPath(
+        wallet: HDWallet,
+        coinType: CoinType,
+        order: Int
+    ) -> AnyPublisher<String, Never> {
+        let deriviationPath = buildEthAddressUsingDeriviationPath(order: order)
+        let privateKey = wallet.getKey(coin: coinType, derivationPath: deriviationPath)
+        let walletAddress = coinType.deriveAddress(privateKey: privateKey)
+        return Just(walletAddress).eraseToAnyPublisher()
+    }
 }
 
 // MARK: - Private
@@ -69,5 +85,11 @@ private enum ManageHDWalletUsecaseError: Error, LocalizedError {
         case .unableToCreateHDWallet: return "Please try again to create the wallet"
         case .unableToImportHDWallet: return "Please try again to import the wallet"
         }
+    }
+}
+
+private extension ManageHDWalletUseCase {
+    func buildEthAddressUsingDeriviationPath(order: Int = 0) -> String {
+        "m/44\'/60\'/\(order)\'/0/0"
     }
 }
