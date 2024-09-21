@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10CC0F32C9EEEA7000329A6 /* SwitchAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC0F22C9EEEA7000329A6 /* SwitchAccountView.swift */; };
+		A10CC0F52C9EEEAF000329A6 /* SwitchAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC0F42C9EEEAF000329A6 /* SwitchAccountViewModel.swift */; };
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95A2C99A2A100BED797 /* BiometricView.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A10CC0F22C9EEEA7000329A6 /* SwitchAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountView.swift; sourceTree = "<group>"; };
+		A10CC0F42C9EEEAF000329A6 /* SwitchAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountViewModel.swift; sourceTree = "<group>"; };
 		A161A95A2C99A2A100BED797 /* BiometricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricView.swift; sourceTree = "<group>"; };
 		A161A95C2C99A2B000BED797 /* BiometricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricViewModel.swift; sourceTree = "<group>"; };
 		A167239C2C9238780089CE46 /* NetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStack.swift; sourceTree = "<group>"; };
@@ -115,6 +119,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A10CC0F12C9EEE98000329A6 /* SwitchAccount */ = {
+			isa = PBXGroup;
+			children = (
+				A10CC0F22C9EEEA7000329A6 /* SwitchAccountView.swift */,
+				A10CC0F42C9EEEAF000329A6 /* SwitchAccountViewModel.swift */,
+			);
+			path = SwitchAccount;
+			sourceTree = "<group>";
+		};
 		A161A9592C99A28400BED797 /* Biometric */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +347,7 @@
 		A1B719C82C7F72510039D8D9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				A10CC0F12C9EEE98000329A6 /* SwitchAccount */,
 				A180F5DC2C8F3AEB00380EAE /* Dashboard */,
 				A197348C2C840BED00619D33 /* SelectTokensView.swift */,
 				A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */,
@@ -459,6 +473,7 @@
 				A19734802C8323C300619D33 /* CongratsView.swift in Sources */,
 				A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */,
 				A1B68E912C84AD71000509C9 /* NavigationDestinations.swift in Sources */,
+				A10CC0F32C9EEEA7000329A6 /* SwitchAccountView.swift in Sources */,
 				A19BFFC82C8DE11800E646CD /* RootViewModel.swift in Sources */,
 				A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */,
 				A1A375912C8D8C2A0012BF43 /* UserDefaultUseCase.swift in Sources */,
@@ -478,6 +493,7 @@
 				A16723A22C9241C80089CE46 /* JSONRPCRequest.swift in Sources */,
 				A16723B12C948E040089CE46 /* AlertModifier.swift in Sources */,
 				A161A95D2C99A2B000BED797 /* BiometricViewModel.swift in Sources */,
+				A10CC0F52C9EEEAF000329A6 /* SwitchAccountViewModel.swift in Sources */,
 				A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */,
 				A1AC217D2C9BE41F00374C83 /* String+.swift in Sources */,
 				A19734902C840EBB00619D33 /* TokenListView.swift in Sources */,
