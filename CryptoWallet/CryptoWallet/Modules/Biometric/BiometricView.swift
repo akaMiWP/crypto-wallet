@@ -26,7 +26,8 @@ struct BiometricView: View {
                         DashboardView(
                             viewModel: .init(
                                 nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
-                                manageHDWalletUseCase: ManageHDWalletImpl()
+                                manageHDWalletUseCase: ManageHDWalletImpl(),
+                                globalEventUseCase: GlobalEventImp()
                             )
                         )
                     }

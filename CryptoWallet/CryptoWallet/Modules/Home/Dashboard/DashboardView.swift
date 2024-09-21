@@ -36,7 +36,7 @@ struct DashboardView: View {
         .sheet(isPresented: isPresented) {
             switch destination {
             case .switchNetwork: EmptyView()
-            case .switchAccount: SwitchAccountView(viewModel: .init())
+            case .switchAccount: SwitchAccountView(viewModel: .init(mangageHDWalletUseCase: ManageHDWalletImpl()))
             case .sendTokens: SelectTokensView()
             case .receiveTokens: SelectTokensView()
             case nil: EmptyView()
@@ -134,7 +134,8 @@ private extension DashboardView {
         nodeProviderUseCase: NodeProviderImpl(
             networkStack: .init()
         ),
-        manageHDWalletUseCase: ManageHDWalletImpl()
+        manageHDWalletUseCase: ManageHDWalletImpl(),
+        globalEventUseCase: GlobalEventImp()
     )
     viewModel.state = .loading
     viewModel.derivatedAddress = "0x99900dddddddddddddddddddddddddddddddddddd".maskedWalletAddress()

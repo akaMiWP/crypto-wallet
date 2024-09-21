@@ -10,6 +10,7 @@ final class DashboardViewModel: Alertable {
     @Published var state: ViewModelState = .loading
     @Published var derivatedAddress: String = ""
     @Published var tokenViewModels: [TokenViewModel] = []
+    @Published var shouldRefetchTokenBalances: Bool = false
     @Published var alertViewModel: AlertViewModel?
     
     private let pageSize: Int = 12
@@ -22,15 +23,21 @@ final class DashboardViewModel: Alertable {
     
     private let nodeProviderUseCase: NodeProviderUseCase
     private let manageHDWalletUseCase: ManageHDWalletUseCase
+    private let globalEventUseCase: GlobalEventUseCase
     
-    init(nodeProviderUseCase: NodeProviderUseCase, manageHDWalletUseCase: ManageHDWalletUseCase) {
+    init(nodeProviderUseCase: NodeProviderUseCase,
+         manageHDWalletUseCase: ManageHDWalletUseCase,
+         globalEventUseCase: GlobalEventUseCase
+    ) {
         self.nodeProviderUseCase = nodeProviderUseCase
         self.manageHDWalletUseCase = manageHDWalletUseCase
+        self.globalEventUseCase = globalEventUseCase
         subscribeToAddressToTokenModelDict()
+        subscribeToAccountChange()
     }
     
     func fetchTokenBalances() {
-        tokenViewModels += TokenViewModel.placeholders
+        tokenViewModels = TokenViewModel.placeholders
         
         manageHDWalletUseCase.restoreWallet()
             .flatMap {  [weak self] wallet -> AnyPublisher<String, Never> in
@@ -114,6 +121,16 @@ private extension DashboardViewModel {
                 }
                 self.tokenViewModels = tokenViewModels.filter { $0.redactedReason != .placeholder }
                 self.state = .finished
+            }
+            .store(in: &cancellables)
+    }
+    
+    func subscribeToAccountChange() {
+        globalEventUseCase.makeAccountChangePublisher()
+            .sink { [weak self] _ in
+                self?.offset = 0
+                self?.state = .loading
+                self?.fetchTokenBalances()
             }
             .store(in: &cancellables)
     }

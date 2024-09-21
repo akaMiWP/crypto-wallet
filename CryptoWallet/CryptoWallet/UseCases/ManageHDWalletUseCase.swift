@@ -13,6 +13,8 @@ protocol ManageHDWalletUseCase {
         wallet: HDWallet,
         coinType: CoinType
     ) -> AnyPublisher<String, Never>
+    
+    func createNewWallet()
 }
 
 final class ManageHDWalletImpl: ManageHDWalletUseCase {
@@ -70,6 +72,10 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
         let privateKey = wallet.getKey(coin: coinType, derivationPath: deriviationPath)
         let walletAddress = coinType.deriveAddress(privateKey: privateKey)
         return Just(walletAddress).eraseToAnyPublisher()
+    }
+    
+    func createNewWallet() {
+        HDWalletManager.shared.orderOfSelectedWallet += 1
     }
 }
 

@@ -50,5 +50,5 @@ struct SwitchAccountView: View {
 }
 
 #Preview {
-    SwitchAccountView(viewModel: .init())
+    SwitchAccountView(viewModel: .init(mangageHDWalletUseCase: ManageHDWalletImpl()))
 }

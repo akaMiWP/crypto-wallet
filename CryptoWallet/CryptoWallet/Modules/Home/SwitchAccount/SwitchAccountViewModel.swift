@@ -1,6 +1,7 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
 import Combine
+import Foundation
 
 struct WalletViewModel: Equatable {
     let name: String
@@ -16,9 +17,18 @@ final class SwitchAccountViewModel: ObservableObject {
         .init(name: "Account #3", address: "0x32345678", isSelected: false)
     ]
     
-    func createNewWallet() {}
+    private let mangageHDWalletUseCase: ManageHDWalletUseCase
+    
+    init(mangageHDWalletUseCase: ManageHDWalletUseCase) {
+        self.mangageHDWalletUseCase = mangageHDWalletUseCase
+    }
+    
+    func createNewWallet() {
+        mangageHDWalletUseCase.createNewWallet()
+        NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
+    }
     
     func selectWallet(wallet: WalletViewModel) {
-        
+        NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
     }
 }
