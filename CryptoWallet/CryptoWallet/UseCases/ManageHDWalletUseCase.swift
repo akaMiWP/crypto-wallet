@@ -11,8 +11,7 @@ protocol ManageHDWalletUseCase {
     func restoreWallet() -> AnyPublisher<HDWallet, Error>
     func getWalletAddressUsingDerivationPath(
         wallet: HDWallet,
-        coinType: CoinType,
-        order: Int
+        coinType: CoinType
     ) -> AnyPublisher<String, Never>
 }
 
@@ -65,10 +64,9 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
     
     func getWalletAddressUsingDerivationPath(
         wallet: HDWallet,
-        coinType: CoinType,
-        order: Int
+        coinType: CoinType
     ) -> AnyPublisher<String, Never> {
-        let deriviationPath = buildEthAddressUsingDeriviationPath(order: order)
+        let deriviationPath = buildEthAddressUsingDeriviationPath(order: HDWalletManager.shared.orderOfSelectedWallet)
         let privateKey = wallet.getKey(coin: coinType, derivationPath: deriviationPath)
         let walletAddress = coinType.deriveAddress(privateKey: privateKey)
         return Just(walletAddress).eraseToAnyPublisher()

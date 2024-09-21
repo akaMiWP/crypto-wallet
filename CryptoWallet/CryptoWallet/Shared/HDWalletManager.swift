@@ -7,7 +7,15 @@ final class HDWalletManager {
     static let shared: HDWalletManager = .init()
     private var hdWallet: HDWallet?
     
-    private init() {}
+    var orderOfSelectedWallet: Int
+    
+    private init() {
+        if let orderOfSelectedWallet = UserDefaults.standard.value(forKey: "orderOfSelectedWallet") as? Int {
+            self.orderOfSelectedWallet = orderOfSelectedWallet
+        } else {
+            self.orderOfSelectedWallet = 0
+        }
+    }
     
     func store(wallet: HDWallet) {
         self.hdWallet = wallet

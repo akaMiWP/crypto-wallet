@@ -5,6 +5,7 @@ import KeychainSwift
 
 enum KeychainKey: String {
     case seedPhrase
+    case walletAddresses
 }
 
 final class KeychainManager {

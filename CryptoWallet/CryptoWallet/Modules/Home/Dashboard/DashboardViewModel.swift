@@ -37,8 +37,7 @@ final class DashboardViewModel: Alertable {
                 guard let self = self else { return Just("").eraseToAnyPublisher() }
                 return manageHDWalletUseCase.getWalletAddressUsingDerivationPath(
                     wallet: wallet,
-                    coinType: .ethereum,
-                    order: 0
+                    coinType: .ethereum
                 )
             }
             .flatMap { [weak self] address -> AnyPublisher<[AddressToTokenModel], Error> in
