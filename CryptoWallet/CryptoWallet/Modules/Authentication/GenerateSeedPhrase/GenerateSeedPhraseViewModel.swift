@@ -11,14 +11,18 @@ final class GenerateSeedPhraseViewModel: Alertable {
     @Published var alertViewModel: AlertViewModel?
     
     private let manageHDWalletUseCase: ManageHDWalletUseCase
+    private let manageWalletsUseCase: ManageWalletsUseCase
     private var userDefaultUseCase: UserDefaultUseCase
     private var cancellables = Set<AnyCancellable>()
     
     private lazy var manageHDWalletPublisher = manageHDWalletUseCase
         .createHDWalletPublisher(strength: 128)
     
-    init(manageHDWalletUseCase: ManageHDWalletUseCase, userDefaultUseCase: UserDefaultUseCase) {
+    init(manageHDWalletUseCase: ManageHDWalletUseCase,
+         manageWalletsUseCase: ManageWalletsUseCase,
+         userDefaultUseCase: UserDefaultUseCase) {
         self.manageHDWalletUseCase = manageHDWalletUseCase
+        self.manageWalletsUseCase = manageWalletsUseCase
         self.userDefaultUseCase = userDefaultUseCase
     }
     
@@ -42,14 +46,17 @@ final class GenerateSeedPhraseViewModel: Alertable {
         let mnemonic = String(mnemonic.joined(separator: " "))
         manageHDWalletUseCase
             .encryptMnemonic(mnemonic)
-            .sink { [weak self] in
-                if case .failure(let error) = $0 {
-                    self?.alertViewModel = .init(message: error.localizedDescription)
-                }
-            } receiveValue: { [weak self] _ in
+            .flatMap { [weak self] _ -> AnyPublisher<Void, Error> in
+                guard let self = self else { return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                return self.manageWalletsUseCase.makeNewWalletModel(coinType: .ethereum)
+            }
+            .catch { error in
+                self.alertViewModel = .init(message: error.localizedDescription)
+                return Just(()).eraseToAnyPublisher()
+            }
+            .sink { [weak self] output in
                 self?.userDefaultUseCase.setHasCreatedWallet(true)
             }
             .store(in: &cancellables)
-
     }
 }

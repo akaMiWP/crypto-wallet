@@ -5,7 +5,7 @@ import WalletCore
 
 protocol ManageWalletsUseCase {
     func loadWalletsPublisher() ->  AnyPublisher<[WalletModel], Error>
-    func makeNewWalletModel(coinType: CoinType) throws
+    func makeNewWalletModel(coinType: CoinType) -> AnyPublisher<Void, Error>
 }
 
 final class ManageWalletsImpl: ManageWalletsUseCase {
@@ -19,14 +19,19 @@ final class ManageWalletsImpl: ManageWalletsUseCase {
             .eraseToAnyPublisher()
     }
     
-    func makeNewWalletModel(coinType: CoinType) throws {
-        guard let hdWallet = HDWalletManager.shared.retrieveWallet() else {
-            throw ManageWalletsUseCaseError.unableToRetrieveWallet
+    func makeNewWalletModel(coinType: CoinType) -> AnyPublisher<Void, Error> {
+        do {
+            guard let hdWallet = HDWalletManager.shared.retrieveWallet() else {
+                throw ManageWalletsUseCaseError.unableToRetrieveWallet
+            }
+            let newWalletIndex = HDWalletManager.shared.createdWalletModels.count
+            let address = getWalletAddressUsingDerivationPath(wallet: hdWallet, coinType: coinType, order: newWalletIndex)
+            let wallet: WalletModel = .init(name: "Account #\(newWalletIndex + 1)", address: address)
+            try saveNewWallet(wallet: wallet)
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } catch {
+            return Fail(error: error).eraseToAnyPublisher()
         }
-        let newWalletIndex = HDWalletManager.shared.createdWalletModels.count
-        let address = getWalletAddressUsingDerivationPath(wallet: hdWallet, coinType: coinType, order: newWalletIndex)
-        let wallet: WalletModel = .init(name: "Account #\(newWalletIndex + 1)", address: address)
-        try saveNewWallet(wallet: wallet)
     }
 }
 

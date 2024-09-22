@@ -79,6 +79,7 @@ struct GenerateSeedPhraseView: View {
     NavigationStack {
         let viewModel: GenerateSeedPhraseViewModel = .init(
             manageHDWalletUseCase: ManageHDWalletImpl(),
+            manageWalletsUseCase: ManageWalletsImpl(),
             userDefaultUseCase: UserDefaultImp()
         )
         viewModel.alertViewModel = .init()

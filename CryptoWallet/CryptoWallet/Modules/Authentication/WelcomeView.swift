@@ -45,7 +45,11 @@ struct WelcomeView: View {
                 switch $0 {
                 case .createSeedPhrase:
                     GenerateSeedPhraseView(
-                        viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl(), userDefaultUseCase: UserDefaultImp()),
+                        viewModel: .init(
+                            manageHDWalletUseCase: ManageHDWalletImpl(),
+                            manageWalletsUseCase: ManageWalletsImpl(),
+                            userDefaultUseCase: UserDefaultImp()
+                        ),
                         navigationPath: $navigationPath
                     )
                 case .importSeedPhrase:
