@@ -6,6 +6,7 @@ import WalletCore
 protocol ManageWalletsUseCase {
     func loadWalletsPublisher() ->  AnyPublisher<[WalletModel], Error>
     func makeNewWalletModel(coinType: CoinType) -> AnyPublisher<Void, Error>
+    func selectWallet(wallet: WalletModel) -> AnyPublisher<Void, Error>
 }
 
 final class ManageWalletsImpl: ManageWalletsUseCase {
@@ -28,6 +29,18 @@ final class ManageWalletsImpl: ManageWalletsUseCase {
             let address = getWalletAddressUsingDerivationPath(wallet: hdWallet, coinType: coinType, order: newWalletIndex)
             let wallet: WalletModel = .init(name: "Account #\(newWalletIndex + 1)", address: address)
             try saveNewWallet(wallet: wallet)
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } catch {
+            return Fail(error: error).eraseToAnyPublisher()
+        }
+    }
+    
+    func selectWallet(wallet: WalletModel) -> AnyPublisher<Void, Error> {
+        do {
+            guard let selectedWalletIndex = HDWalletManager.shared.createdWalletModels.firstIndex(of: wallet) else {
+                throw ManageWalletsUseCaseError.unableToSelectWallet
+            }
+            HDWalletManager.shared.orderOfSelectedWallet = selectedWalletIndex
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
         } catch {
             return Fail(error: error).eraseToAnyPublisher()
@@ -60,5 +73,6 @@ private extension ManageWalletsImpl {
 
 private enum ManageWalletsUseCaseError: Error {
     case unableToRetrieveWallet
+    case unableToSelectWallet
     case corruptedWalletModels
 }

@@ -66,7 +66,7 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
         wallet: HDWallet,
         coinType: CoinType
     ) -> AnyPublisher<String, Never> {
-        let deriviationPath = buildEthAddressUsingDeriviationPath(order: 0)
+        let deriviationPath = buildEthAddressUsingDeriviationPath(order: HDWalletManager.shared.orderOfSelectedWallet)
         let privateKey = wallet.getKey(coin: coinType, derivationPath: deriviationPath)
         let walletAddress = coinType.deriveAddress(privateKey: privateKey)
         return Just(walletAddress).eraseToAnyPublisher()

@@ -43,15 +43,33 @@ final class SwitchAccountViewModel: Alertable {
     }
     
     func createNewWallet() {
-        do {
-            try manageWalletsUseCase.makeNewWalletModel(coinType: .ethereum)
-            NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
-        } catch {
-            alertViewModel = .init(message: error.localizedDescription)
-        }
+        manageWalletsUseCase
+            .makeNewWalletModel(coinType: .ethereum)
+            .catch { [weak self] error -> AnyPublisher<Void, Never> in
+                guard let self = self else { return Just(()).eraseToAnyPublisher() }
+                self.alertViewModel = .init(message: error.localizedDescription)
+                return Just(()).eraseToAnyPublisher()
+            }
+            .sink { _ in
+                NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
+            }
+            .store(in: &cancellables)
     }
     
     func selectWallet(wallet: WalletViewModel) {
-        NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
+        Just(wallet)
+            .flatMap { [weak self] viewModel -> AnyPublisher<Void, Error> in
+                guard let self = self else { return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                let model: WalletModel = .init(name: viewModel.name, address: viewModel.address)
+                return self.manageWalletsUseCase.selectWallet(wallet: model)
+            }
+            .catch { [weak self] error -> AnyPublisher<Void, Never> in
+                self?.alertViewModel = .init(message: error.localizedDescription)
+                return Just(()).eraseToAnyPublisher()
+            }
+            .sink { _ in
+                NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
+            }
+            .store(in: &cancellables)
     }
 }

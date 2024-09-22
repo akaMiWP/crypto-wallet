@@ -8,9 +8,11 @@ final class HDWalletManager {
     private var hdWallet: HDWallet?
     
     var createdWalletModels: [WalletModel] = []
+    var orderOfSelectedWallet: Int = 0
     
     private init() {
-        try? loadCreatedWallets()
+        loadCreatedWallets()
+        loadOrderOfSelectedWallet()
     }
     
     func store(wallet: HDWallet) {
@@ -53,10 +55,15 @@ private enum HDWalletManagerError: Error {
 }
 
 private extension HDWalletManager {
-    func loadCreatedWallets() throws {
-        guard let walletModels = try? KeychainManager.shared.get([WalletModel].self, for: .walletModels) else {
-            throw HDWalletManagerError.unableToLoadCreatedWallets
+    func loadCreatedWallets() {
+        if let walletModels = try? KeychainManager.shared.get([WalletModel].self, for: .walletModels) {
+            self.createdWalletModels = walletModels
         }
-        self.createdWalletModels = walletModels
+    }
+    
+    func loadOrderOfSelectedWallet() {
+        if let orderOfSelectedWallet = try? KeychainManager.shared.get(Int.self, for: .orderOfSelectedWallet) {
+            self.orderOfSelectedWallet = orderOfSelectedWallet
+        }
     }
 }
