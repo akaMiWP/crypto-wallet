@@ -36,7 +36,7 @@ struct DashboardView: View {
         .sheet(isPresented: isPresented) {
             switch destination {
             case .switchNetwork: EmptyView()
-            case .switchAccount: SwitchAccountView(viewModel: .init(mangageHDWalletUseCase: ManageHDWalletImpl()))
+            case .switchAccount: SwitchAccountView(viewModel: .init(manageWalletsUseCase: ManageWalletsImpl()))
             case .sendTokens: SelectTokensView()
             case .receiveTokens: SelectTokensView()
             case nil: EmptyView()

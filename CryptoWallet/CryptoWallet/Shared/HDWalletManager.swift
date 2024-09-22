@@ -7,14 +7,10 @@ final class HDWalletManager {
     static let shared: HDWalletManager = .init()
     private var hdWallet: HDWallet?
     
-    var orderOfSelectedWallet: Int
+    var createdWalletModels: [WalletModel] = []
     
     private init() {
-        if let orderOfSelectedWallet = UserDefaults.standard.value(forKey: "orderOfSelectedWallet") as? Int {
-            self.orderOfSelectedWallet = orderOfSelectedWallet
-        } else {
-            self.orderOfSelectedWallet = 0
-        }
+        try? loadCreatedWallets()
     }
     
     func store(wallet: HDWallet) {
@@ -38,9 +34,29 @@ final class HDWalletManager {
     func encryptMnemonic(_ mneumonic: String) throws {
         try KeychainManager.shared.set(mneumonic, for: .seedPhrase)
     }
+    
+    func saveNewWallet(wallet: WalletModel) throws {
+        do {
+            createdWalletModels.append(wallet)
+            try KeychainManager.shared.set(createdWalletModels, for: .walletModels)
+        } catch {
+            throw HDWalletManagerError.unableToSaveNewWallet
+        }
+    }
 }
 
 // MARK: - Private
 private enum HDWalletManagerError: Error {
     case unableToRestoreWallet
+    case unableToLoadCreatedWallets
+    case unableToSaveNewWallet
+}
+
+private extension HDWalletManager {
+    func loadCreatedWallets() throws {
+        guard let walletModels = try? KeychainManager.shared.get([WalletModel].self, for: .walletModels) else {
+            throw HDWalletManagerError.unableToLoadCreatedWallets
+        }
+        self.createdWalletModels = walletModels
+    }
 }

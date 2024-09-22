@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A10CC0F32C9EEEA7000329A6 /* SwitchAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC0F22C9EEEA7000329A6 /* SwitchAccountView.swift */; };
 		A10CC0F52C9EEEAF000329A6 /* SwitchAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC0F42C9EEEAF000329A6 /* SwitchAccountViewModel.swift */; };
+		A10CC0F72C9F016D000329A6 /* ManageWalletsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */; };
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95A2C99A2A100BED797 /* BiometricView.swift */; };
@@ -58,6 +59,7 @@
 /* Begin PBXFileReference section */
 		A10CC0F22C9EEEA7000329A6 /* SwitchAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountView.swift; sourceTree = "<group>"; };
 		A10CC0F42C9EEEAF000329A6 /* SwitchAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccountViewModel.swift; sourceTree = "<group>"; };
+		A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageWalletsUseCase.swift; sourceTree = "<group>"; };
 		A161A95A2C99A2A100BED797 /* BiometricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricView.swift; sourceTree = "<group>"; };
 		A161A95C2C99A2B000BED797 /* BiometricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricViewModel.swift; sourceTree = "<group>"; };
 		A167239C2C9238780089CE46 /* NetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStack.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */,
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
 				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
+				A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				A1AC217D2C9BE41F00374C83 /* String+.swift in Sources */,
 				A19734902C840EBB00619D33 /* TokenListView.swift in Sources */,
 				A16723AA2C9246D10089CE46 /* Hex+.swift in Sources */,
+				A10CC0F72C9F016D000329A6 /* ManageWalletsUseCase.swift in Sources */,
 				A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */,
 				A19BFFCA2C8DE2EF00E646CD /* GlobalEventUseCase.swift in Sources */,
 				A16723B52C958BBB0089CE46 /* TokenMetadataModel.swift in Sources */,

@@ -44,11 +44,12 @@ struct SwitchAccountView: View {
             }, label: {
                 Text("Create a new wallet")
             })
-            
         }
+        .modifier(AlertModifier(viewModel: viewModel))
+        .onAppear { viewModel.loadWallets() }
     }
 }
 
 #Preview {
-    SwitchAccountView(viewModel: .init(mangageHDWalletUseCase: ManageHDWalletImpl()))
+    SwitchAccountView(viewModel: .init(manageWalletsUseCase: ManageWalletsImpl()))
 }

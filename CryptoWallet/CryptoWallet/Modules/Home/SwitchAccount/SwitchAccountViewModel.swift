@@ -9,23 +9,46 @@ struct WalletViewModel: Equatable {
     let isSelected: Bool
 }
 
-final class SwitchAccountViewModel: ObservableObject {
+struct WalletModel: Codable, Equatable {
+    let name: String
+    let address: String
+}
+
+final class SwitchAccountViewModel: Alertable {
     
-    let wallets: [WalletViewModel] = [
-        .init(name: "Account #1", address: "0x12345678", isSelected: true),
-        .init(name: "Account #2", address: "0x22345678", isSelected: false),
-        .init(name: "Account #3", address: "0x32345678", isSelected: false)
-    ]
+    @Published var wallets: [WalletViewModel] = []
+    @Published var alertViewModel: AlertViewModel?
     
-    private let mangageHDWalletUseCase: ManageHDWalletUseCase
+    private let manageWalletsUseCase: ManageWalletsUseCase
+    private var cancellables = Set<AnyCancellable>()
     
-    init(mangageHDWalletUseCase: ManageHDWalletUseCase) {
-        self.mangageHDWalletUseCase = mangageHDWalletUseCase
+    init(manageWalletsUseCase: ManageWalletsUseCase) {
+        self.manageWalletsUseCase = manageWalletsUseCase
+    }
+    
+    func loadWallets() {
+        manageWalletsUseCase
+            .loadWalletsPublisher()
+            .tryCatch { [weak self] error -> AnyPublisher<[WalletModel], Never> in
+                self?.alertViewModel = .init(message: error.localizedDescription)
+                return Just([]).eraseToAnyPublisher()
+            }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] models in
+                    self?.wallets = models.map { .init(name: $0.name, address: $0.address, isSelected: false) }
+                }
+            )
+            .store(in: &cancellables)
     }
     
     func createNewWallet() {
-        mangageHDWalletUseCase.createNewWallet()
-        NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
+        do {
+            try manageWalletsUseCase.makeNewWalletModel(coinType: .ethereum)
+            NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
+        } catch {
+            alertViewModel = .init(message: error.localizedDescription)
+        }
     }
     
     func selectWallet(wallet: WalletViewModel) {
