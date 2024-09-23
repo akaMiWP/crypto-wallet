@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct SelectTokensView: View {
+    @ObservedObject var viewModel: SelectTokensViewModel
+    
     @State private var searchInput: String = ""
     @State private var navigationPath = NavigationPath()
     
@@ -18,7 +20,7 @@ struct SelectTokensView: View {
             
             ScrollView {
                 NavigationLink(value: Destinations.sendToken) {
-                    TokenListView(viewModels: [], shouldShowTotalAmount: false)
+                    TokenListView(viewModels: viewModel.viewModels, shouldShowTotalAmount: false)
                 }
                 
                 Spacer()
@@ -55,5 +57,5 @@ private extension SelectTokensView {
 }
 
 #Preview {
-    SelectTokensView()
+    SelectTokensView(viewModel: .init(viewModels: []))
 }

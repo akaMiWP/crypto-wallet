@@ -37,8 +37,8 @@ struct DashboardView: View {
             switch destination {
             case .switchNetwork: EmptyView()
             case .switchAccount: SwitchAccountView(viewModel: .init(manageWalletsUseCase: ManageWalletsImpl()))
-            case .sendTokens: SelectTokensView()
-            case .receiveTokens: SelectTokensView()
+            case .sendTokens: SelectTokensView(viewModel: .init(viewModels: viewModel.tokenViewModels))
+            case .receiveTokens: SelectTokensView(viewModel: .init(viewModels: viewModel.tokenViewModels))
             case nil: EmptyView()
             }
         }
