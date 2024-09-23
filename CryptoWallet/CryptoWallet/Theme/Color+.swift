@@ -79,7 +79,6 @@ extension Color {
     static let neutral_70: Color = { .init(hex: "#c9c6e0") }()
     static let neutral_80: Color = { .init(hex: "#c0bdda") }()
     static let neutral_90: Color = { .init(hex: "#b7b4d5") }()
-    
 }
 
 // MARK: - Private
