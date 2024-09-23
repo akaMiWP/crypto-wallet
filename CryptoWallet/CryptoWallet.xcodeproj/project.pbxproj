@@ -141,6 +141,13 @@
 			path = SelectTokens;
 			sourceTree = "<group>";
 		};
+		A10CC0FB2CA166FE000329A6 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		A161A9592C99A28400BED797 /* Biometric */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,21 +300,22 @@
 		A1A207292C7CA6EB0093CE47 /* CryptoWallet */ = {
 			isa = PBXGroup;
 			children = (
-				A16723AC2C94431A0089CE46 /* Config */,
 				A16723AB2C943A8F0089CE46 /* Info.plist */,
-				A1A375862C8D84960012BF43 /* Shared */,
-				A167239B2C92385C0089CE46 /* Network */,
-				A1E3FFC42C893523007EB73D /* UseCases */,
-				A1B68E8F2C84AD66000509C9 /* Routing */,
-				A167239A2C9237A90089CE46 /* Modules */,
-				A197348E2C840EA400619D33 /* Views */,
-				A19734882C84077E00619D33 /* Utils */,
-				A19734832C84049600619D33 /* Models */,
 				A1A2072A2C7CA6EB0093CE47 /* CryptoWalletApp.swift */,
 				A19BFFC52C8DDE3A00E646CD /* RootView.swift */,
 				A19BFFC72C8DE11800E646CD /* RootViewModel.swift */,
 				A1A2072E2C7CA6ED0093CE47 /* Assets.xcassets */,
+				A16723AC2C94431A0089CE46 /* Config */,
+				A19734832C84049600619D33 /* Models */,
+				A167239A2C9237A90089CE46 /* Modules */,
+				A167239B2C92385C0089CE46 /* Network */,
 				A1A207302C7CA6ED0093CE47 /* Preview Content */,
+				A1B68E8F2C84AD66000509C9 /* Routing */,
+				A1A375862C8D84960012BF43 /* Shared */,
+				A10CC0FB2CA166FE000329A6 /* Theme */,
+				A1E3FFC42C893523007EB73D /* UseCases */,
+				A19734882C84077E00619D33 /* Utils */,
+				A197348E2C840EA400619D33 /* Views */,
 			);
 			path = CryptoWallet;
 			sourceTree = "<group>";
