@@ -8,7 +8,7 @@ import Foundation
 final class DashboardViewModel: Alertable {
     
     @Published var state: ViewModelState = .loading
-    @Published var derivatedAddress: String = ""
+    @Published var walletViewModel: WalletViewModel = .default
     @Published var tokenViewModels: [TokenViewModel] = []
     @Published var shouldRefetchTokenBalances: Bool = false
     @Published var alertViewModel: AlertViewModel?
@@ -23,14 +23,17 @@ final class DashboardViewModel: Alertable {
     
     private let nodeProviderUseCase: NodeProviderUseCase
     private let manageHDWalletUseCase: ManageHDWalletUseCase
+    private let manageWalletsUseCase: ManageWalletsUseCase
     private let globalEventUseCase: GlobalEventUseCase
     
     init(nodeProviderUseCase: NodeProviderUseCase,
          manageHDWalletUseCase: ManageHDWalletUseCase,
+         manageWalletsUseCase: ManageWalletsUseCase,
          globalEventUseCase: GlobalEventUseCase
     ) {
         self.nodeProviderUseCase = nodeProviderUseCase
         self.manageHDWalletUseCase = manageHDWalletUseCase
+        self.manageWalletsUseCase = manageWalletsUseCase
         self.globalEventUseCase = globalEventUseCase
         subscribeToAddressToTokenModelDict()
         subscribeToAccountChange()
@@ -40,17 +43,21 @@ final class DashboardViewModel: Alertable {
         tokenViewModels = TokenViewModel.placeholders
         
         manageHDWalletUseCase.restoreWallet()
-            .flatMap {  [weak self] wallet -> AnyPublisher<String, Never> in
-                guard let self = self else { return Just("").eraseToAnyPublisher() }
-                return manageHDWalletUseCase.getWalletAddressUsingDerivationPath(
-                    wallet: wallet,
-                    coinType: .ethereum
-                )
+            .flatMap { [weak self] _ -> AnyPublisher<WalletModel, Error> in
+                guard let self = self else {
+                    return Just(WalletModel(name: "", address: ""))
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                }
+                return self.manageWalletsUseCase.loadSelectedWalletPublisher()
             }
-            .flatMap { [weak self] address -> AnyPublisher<[AddressToTokenModel], Error> in
+            .map { model -> WalletViewModel in
+                .init(name: model.name, address: model.address, isSelected: true)
+            }
+            .flatMap { [weak self] model -> AnyPublisher<[AddressToTokenModel], Error> in
                 guard let self = self else { return Just([]).setFailureType(to: Error.self).eraseToAnyPublisher() }
-                self.derivatedAddress = address.maskedWalletAddress()
-                return self.nodeProviderUseCase.fetchTokenBalances(address: address)
+                self.walletViewModel = model
+                return self.nodeProviderUseCase.fetchTokenBalances(address: model.address)
             }
             .sink { [weak self] in
                 self?.handleError(completion: $0)
