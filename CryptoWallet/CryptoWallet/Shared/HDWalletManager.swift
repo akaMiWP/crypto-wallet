@@ -41,6 +41,7 @@ final class HDWalletManager {
         do {
             createdWalletModels.append(wallet)
             try KeychainManager.shared.set(createdWalletModels, for: .walletModels)
+            orderOfSelectedWallet = createdWalletModels.count - 1
         } catch {
             throw HDWalletManagerError.unableToSaveNewWallet
         }

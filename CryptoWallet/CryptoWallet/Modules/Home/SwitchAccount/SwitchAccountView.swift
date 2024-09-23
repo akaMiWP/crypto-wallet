@@ -13,29 +13,33 @@ struct SwitchAccountView: View {
                 .fontWeight(.bold)
                 .padding(.top)
             
-            ForEach(viewModel.wallets, id: \.address) { wallet in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(wallet.name)
-                            .fontWeight(.bold)
-                            .font(.subheadline)
-                        Text(wallet.maskedAddress)
-                            .font(.subheadline)
+            ScrollView {
+                LazyVStack {
+                    ForEach(viewModel.wallets, id: \.address) { wallet in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(wallet.name)
+                                    .fontWeight(.bold)
+                                    .font(.subheadline)
+                                Text(wallet.maskedAddress)
+                                    .font(.subheadline)
+                            }
+                            
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .padding(.horizontal)
+                        .background(.blue.opacity(0.7))
+                        .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
+                        .onTapGesture {
+                            viewModel.selectWallet(wallet: wallet)
+                            dismiss()
+                        }
                     }
-                    
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .padding(.horizontal)
-                .background(.blue.opacity(0.7))
-                .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
-                .onTapGesture {
-                    viewModel.selectWallet(wallet: wallet)
-                    dismiss()
+                    .foregroundColor(.white)
                 }
             }
-            .foregroundColor(.white)
             
             Spacer()
             
