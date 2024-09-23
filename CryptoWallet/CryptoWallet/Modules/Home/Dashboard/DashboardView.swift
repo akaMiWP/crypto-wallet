@@ -63,7 +63,7 @@ private extension DashboardView {
         ZStack {
             VStack {
                 HStack {
-                    Text("Account 1")
+                    Text(viewModel.walletViewModel.name)
                         .font(.headline)
                     
                     Image(systemName: "chevron.down")
@@ -73,7 +73,7 @@ private extension DashboardView {
                     self.destination = .switchAccount
                 }
                 
-                Text(viewModel.derivatedAddress)
+                Text(viewModel.walletViewModel.maskedAddress)
                     .font(.subheadline)
             }
             
@@ -135,9 +135,14 @@ private extension DashboardView {
             networkStack: .init()
         ),
         manageHDWalletUseCase: ManageHDWalletImpl(),
+        manageWalletsUseCase: ManageWalletsImpl(),
         globalEventUseCase: GlobalEventImp()
     )
     viewModel.state = .loading
-    viewModel.derivatedAddress = "0x99900dddddddddddddddddddddddddddddddddddd".maskedWalletAddress()
+    viewModel.walletViewModel = .init(
+        name: "Account #1",
+        address: "0x99900dddddddddddddddddddddddddddddddddddd",
+        isSelected: true
+    )
     return DashboardView(viewModel: viewModel)
 }
