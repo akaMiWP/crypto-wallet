@@ -20,7 +20,7 @@ final class BiometricViewModel: ObservableObject {
                 }
             }
         } else {
-            //TODO: Handle error
+            //TODO: Ask a user for password
         }
     }
 }
