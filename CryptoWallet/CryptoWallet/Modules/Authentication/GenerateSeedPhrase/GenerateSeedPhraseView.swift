@@ -63,6 +63,16 @@ struct GenerateSeedPhraseView: View {
             }
             .onTapGesture { isBlurApplied.toggle() }
             
+            HStack {
+                Image(.iconCopy)
+                Text("Copy")
+                    .font(.body)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primaryViolet1_900)
+            }
+            .padding(.top, 24)
+            .onTapGesture { viewModel.didTapCopyButton() }
+            
             Spacer()
             
             PrimaryButton(title: "Continue") {

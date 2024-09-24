@@ -42,6 +42,10 @@ final class GenerateSeedPhraseViewModel: Alertable {
             .store(in: &cancellables)
     }
     
+    func didTapCopyButton() {
+        UIPasteboard.general.string = mnemonic.joined(separator: " ")
+    }
+    
     func didTapButton() {
         let mnemonic = String(mnemonic.joined(separator: " "))
         manageHDWalletUseCase
