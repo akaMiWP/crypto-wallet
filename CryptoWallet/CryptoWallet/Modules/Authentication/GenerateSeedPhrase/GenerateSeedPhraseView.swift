@@ -22,7 +22,7 @@ struct GenerateSeedPhraseView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                ProgressBarView(totalSteps: 3, currentIndex: 0)
+                ProgressBarView(totalSteps: 3, currentIndex: 1)
             }
             .frame(maxWidth: .infinity)
             .overlay {

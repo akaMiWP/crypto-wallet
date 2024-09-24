@@ -14,23 +14,7 @@ struct CongratsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                ProgressBarView(totalSteps: 3, currentIndex: 0)
-            }
-            .frame(maxWidth: .infinity)
-            .overlay {
-                HStack {
-                    Button(action: {
-                        navigationPath.wrappedValue.removeLast()
-                    }, label: {
-                        Image(systemName: "chevron.backward")
-                            .foregroundColor(.primaryViolet1_900)
-                            .frame(width: 24, height: 24)
-                    })
-                    
-                    Spacer()
-                }
-            }
+            ProgressBarView(totalSteps: 3, currentIndex: 2)
             .padding(.top, 24)
             
             Spacer()

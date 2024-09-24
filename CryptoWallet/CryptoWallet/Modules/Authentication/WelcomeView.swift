@@ -14,11 +14,6 @@ struct WelcomeView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
-                
-                Rectangle()
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                
                 Spacer()
                 
                 PrimaryButton(
@@ -35,7 +30,13 @@ struct WelcomeView: View {
                 .padding(.vertical, 2)
                 
             }
-            .background(Color.primaryViolet1_900)
+            .background {
+                Image(.imageBackground)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
+            }
             .navigationDestination(for: Destinations.self) {
                 switch $0 {
                 case .createSeedPhrase:
@@ -52,8 +53,6 @@ struct WelcomeView: View {
                     EnterPassPhraseView()
                 }
             }
-            .navigationTitle("Welcome !")
-            .navigationBarTitleDisplayMode(.large)
         }
     }
 }
