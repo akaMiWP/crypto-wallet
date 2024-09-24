@@ -17,10 +17,11 @@ struct GenerateSeedPhraseView: View {
         self.viewModel = viewModel
         self.navigationPath = navigationPath
     }
-    
+     
     var body: some View {
         VStack(spacing: 0) {
             ProgressBarView(totalSteps: 3, currentIndex: 0)
+                .padding(.top)
             
             VStack(alignment: .leading, spacing: 10) {
                 Text("Secret Recovery Phrase")
@@ -73,6 +74,7 @@ struct GenerateSeedPhraseView: View {
         }
         .padding(.horizontal, 48)
         .modifier(AlertModifier(viewModel: viewModel))
+        .modifier(CardModifier())
         .navigationDestination(for: Destinations.self) {
             switch $0 {
             case .showCongrats: CongratsView(viewModel: .init(), navigationPath: navigationPath)
