@@ -21,8 +21,24 @@ struct GenerateSeedPhraseView: View {
      
     var body: some View {
         VStack(spacing: 0) {
-            ProgressBarView(totalSteps: 3, currentIndex: 0)
-                .padding(.top, 24)
+            HStack {
+                ProgressBarView(totalSteps: 3, currentIndex: 0)
+            }
+            .frame(maxWidth: .infinity)
+            .overlay {
+                HStack {
+                    Button(action: {
+                        navigationPath.wrappedValue.removeLast()
+                    }, label: {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.primaryViolet1_900)
+                            .frame(width: 24, height: 24)
+                    })
+                    
+                    Spacer()
+                }
+            }
+            .padding(.top, 24)
             
             VStack(alignment: .leading, spacing: 10) {
                 Text("Secret Recovery Phrase")

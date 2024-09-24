@@ -17,11 +17,10 @@ struct CardModifier: ViewModifier {
                     
                     Rectangle()
                         .fill(Color.white)
-                        .frame(width: .infinity, height: .infinity)
                         .clipShape(RoundedCornerShape(corners: [.topLeft, .topRight], radius: 50))
                         .edgesIgnoringSafeArea(.bottom)
                 }
-                .frame(width: .infinity, height: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
     }
 }
