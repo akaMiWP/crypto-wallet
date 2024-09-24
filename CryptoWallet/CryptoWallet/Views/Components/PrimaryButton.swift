@@ -26,7 +26,7 @@ struct PrimaryButton: View {
             Text(title)
                 .foregroundColor(type.foregroundColor)
         }
-        .frame(height: 46)
+        .frame(height: 50)
         .frame(maxWidth: .infinity)
         .background(type.backgroundColor)
         .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
@@ -45,6 +45,7 @@ struct PrimaryButton: View {
         PrimaryButton(title: "Secondary Green", type: .secondaryGreen, action: {})
     }
     .padding(.horizontal)
+    .background(Color.primaryViolet1_900)
 }
 
 // MARK: - Private
@@ -62,7 +63,7 @@ private extension PrimaryButton.`Type` {
         switch self {
         case .primaryPurple: return .primaryViolet1_500
         case .primaryGreen: return .secondaryGreen2_600
-        case .secondaryPurple, .secondaryGreen: return .white
+        case .secondaryPurple, .secondaryGreen: return .clear
         }
     }
     

@@ -21,26 +21,21 @@ struct WelcomeView: View {
                 
                 Spacer()
                 
-                Button(action: { navigationPath.append(Destinations.createSeedPhrase) }, label: {
-                    Text("Create a seed phrase")
-                        .frame(height: 46)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .clipShape(RoundedRectangle(cornerSize: .init(width: 12, height: 12)))
-                        .foregroundColor(.white)
-                        .padding(.horizontal)
-                        .padding(.vertical, 2)
-                })
+                PrimaryButton(
+                    title: "Create a seed phrase") {
+                        navigationPath.append(Destinations.createSeedPhrase)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 2)
                 
-                Button(action: { navigationPath.append(Destinations.importSeedPhrase) }, label: {
-                    Text("Import a seed phrase")
-                        .frame(height: 46)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(.blue)
-                        .padding(.horizontal)
-                        .padding(.vertical, 2)
-                })
+                PrimaryButton(title: "Import a seed phrase", type: .secondaryGreen) {
+                    navigationPath.append(Destinations.importSeedPhrase)
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 2)
+                
             }
+            .background(Color.primaryViolet1_900)
             .navigationDestination(for: Destinations.self) {
                 switch $0 {
                 case .createSeedPhrase:
