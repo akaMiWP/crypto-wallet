@@ -45,6 +45,7 @@ struct PrimaryButton: View {
         PrimaryButton(title: "Secondary Green", type: .secondaryGreen, action: {})
     }
     .padding(.horizontal)
+    .frame(maxHeight: .infinity)
     .background(Color.primaryViolet1_900)
 }
 

@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct GenerateSeedPhraseView: View {
-    @State private var gridItems: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+    @State private var gridItems: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     @State private var isBlurApplied: Bool = true
     
     @ObservedObject private var viewModel: GenerateSeedPhraseViewModel
@@ -19,24 +19,39 @@ struct GenerateSeedPhraseView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Secret Recovery Phrase")
-                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                .padding(.vertical, 8)
+        VStack(spacing: 0) {
+            ProgressBarView(totalSteps: 3, currentIndex: 0)
             
-            Text("Do not lose the seed phrase. It's necessary to receover your entire wallets")
-                .font(.body)
-                .multilineTextAlignment(.center)
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Secret Recovery Phrase")
+                    .foregroundColor(.primaryViolet1_800)
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .padding(.vertical, 8)
+                
+                Text("Do not lose the seed phrase. It's necessary to receover your entire wallets")
+                    .foregroundColor(.primaryViolet1_900)
+                    .font(.body)
+            }
+            .padding(.top, 70)
             
             LazyVGrid(columns: gridItems) {
-                ForEach(viewModel.mnemonic, id: \.self) {
-                    Text($0)
+                ForEach(Array(viewModel.mnemonic.enumerated()), id: \.offset) { index, word in
+                    Text("\(index + 1). \(word)")
+                        .font(.caption)
+                        .foregroundColor(Color.primaryViolet1_900)
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
-                        .border(Color.gray)
+                        .background(Color.primaryViolet1_50)
+                        .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
+                        .overlay {
+                            RoundedRectangle(cornerSize: .init(width: 10, height: 10))
+                                .stroke(lineWidth: 0)
+                        }
                 }
                 .redacted(reason: viewModel.state.redactionReasons)
             }
+            .padding(.top, 60)
             .blur(radius: isBlurApplied ? 6 : 0)
             .overlay {
                 if isBlurApplied {
@@ -47,21 +62,16 @@ struct GenerateSeedPhraseView: View {
             }
             .onTapGesture { isBlurApplied.toggle() }
             
-            Button(action: {
+            Spacer()
+            
+            PrimaryButton(title: "Continue") {
                 navigationPath.wrappedValue.append(Destinations.showCongrats)
                 viewModel.didTapButton()
-            }) {
-                Text("Continue")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 46)
-                    .background(Color.blue)
-                    .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
-                    .padding()
             }
+            .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
+            .padding(.bottom, 48)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 48)
         .modifier(AlertModifier(viewModel: viewModel))
         .navigationDestination(for: Destinations.self) {
             switch $0 {
@@ -82,7 +92,7 @@ struct GenerateSeedPhraseView: View {
             manageWalletsUseCase: ManageWalletsImpl(),
             userDefaultUseCase: UserDefaultImp()
         )
-        viewModel.alertViewModel = .init()
+//        viewModel.alertViewModel = .init()
         return GenerateSeedPhraseView(viewModel: viewModel, navigationPath: .constant(.init()))
     }
 }
