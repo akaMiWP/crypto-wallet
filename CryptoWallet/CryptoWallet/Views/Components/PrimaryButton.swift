@@ -25,9 +25,9 @@ struct PrimaryButton: View {
         Button(action: action) {
             Text(title)
                 .foregroundColor(type.foregroundColor)
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
         }
-        .frame(height: 50)
-        .frame(maxWidth: .infinity)
         .background(type.backgroundColor)
         .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
         .overlay(

@@ -89,25 +89,20 @@ struct GenerateSeedPhraseView: View {
             Spacer()
             
             PrimaryButton(title: "Continue") {
-                withAnimation {
-                    isBottomCardVisible = true
-                }
+                isBottomCardVisible = true
             }
             .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
             .padding(.bottom, 48)
         }
         .padding(.horizontal, 36)
-        .modifier(AlertModifier(viewModel: viewModel))
-        .modifier(CardModifier())
-        .modifier(
-            BottomCardModifier(
-                isVisible: $isBottomCardVisible,
-                injectedView: bottomCardView
-            )
-        )
+        .alertable(from: viewModel)
+        .cardStyle()
+        .bottomCard(isVisible: $isBottomCardVisible, injectedView: bottomCardView)
         .navigationDestination(for: Destinations.self) {
             switch $0 {
-            case .showCongrats: CongratsView(viewModel: .init(), navigationPath: navigationPath)
+            case .showCongrats:
+                CongratsView(viewModel: .init(), navigationPath: navigationPath)
+                    .navigationBarBackButtonHidden()
             }
         }
         .onAppear {
