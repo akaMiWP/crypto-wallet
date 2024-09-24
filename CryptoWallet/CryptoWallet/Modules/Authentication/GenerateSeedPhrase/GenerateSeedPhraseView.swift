@@ -49,7 +49,7 @@ struct GenerateSeedPhraseView: View {
                 
                 Text("Do not lose the seed phrase. It's necessary to receover your entire wallets")
                     .foregroundColor(.primaryViolet1_900)
-                    .font(.body)
+                    .font(.callout)
             }
             .padding(.top, 70)
             
@@ -79,7 +79,7 @@ struct GenerateSeedPhraseView: View {
             HStack {
                 Image(.iconCopy)
                 Text("Copy")
-                    .font(.body)
+                    .font(.callout)
                     .fontWeight(.semibold)
                     .foregroundColor(.primaryViolet1_900)
             }
@@ -138,13 +138,15 @@ private extension GenerateSeedPhraseView {
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.primaryViolet1_800)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("These Secret Recovery Phases are the only way to restore your wallet. Write it down on your paper and keep it in a safe place.")
-                    .font(.body)
+                    .font(.callout)
                     .foregroundColor(.primaryViolet1_900)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             
-            HStack {
+            HStack(spacing: 20) {
                 PrimaryButton(title: "Back", type: .secondaryPurple) {
                     isBottomCardVisible = false
                 }
@@ -154,6 +156,7 @@ private extension GenerateSeedPhraseView {
                     viewModel.didTapButton()
                 }
             }
+            .padding(.horizontal)
         }
     }
 }

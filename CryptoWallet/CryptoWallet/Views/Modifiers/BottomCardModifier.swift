@@ -28,28 +28,29 @@ struct BottomCardModifier<InjectedView: View>: ViewModifier {
                     Spacer()
                     
                     injectedView
-                    .padding(.horizontal, 48)
-                    .padding(.top, 12)
-                    .frame(maxWidth: .infinity)
-                    .background {
-                        RoundedCornerShape(corners: [.topLeft, .topRight], radius: 25)
-                            .fill(.white)
-                            .ignoresSafeArea()
-                    }
-                    .gesture(
-                        DragGesture(minimumDistance: 20)
-                            .onEnded { value in
-                                if value.translation.height > 40 {
-                                    withAnimation {
-                                        isVisible = false
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 48)
+                        .padding(.top, 12)
+                        .background {
+                            RoundedCornerShape(corners: [.topLeft, .topRight], radius: 25)
+                                .fill(.white)
+                                .ignoresSafeArea()
+                        }
+                        .gesture(
+                            DragGesture(minimumDistance: 20)
+                                .onEnded { value in
+                                    if value.translation.height > 40 {
+                                        withAnimation {
+                                            isVisible = false
+                                        }
                                     }
                                 }
-                            }
-                    )
+                        )
                 }
                 .transition(.move(edge: .bottom))
             }
         }
+        .animation(.easeOut, value: isVisible)
     }
 }
 
