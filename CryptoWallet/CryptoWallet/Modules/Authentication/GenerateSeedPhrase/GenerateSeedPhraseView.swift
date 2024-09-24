@@ -5,6 +5,7 @@ import SwiftUI
 struct GenerateSeedPhraseView: View {
     @State private var gridItems: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     @State private var isBlurApplied: Bool = true
+    @State private var isBottomCardVisible: Bool = false
     
     @ObservedObject private var viewModel: GenerateSeedPhraseViewModel
     private var navigationPath: Binding<NavigationPath>
@@ -21,7 +22,7 @@ struct GenerateSeedPhraseView: View {
     var body: some View {
         VStack(spacing: 0) {
             ProgressBarView(totalSteps: 3, currentIndex: 0)
-                .padding(.top)
+                .padding(.top, 24)
             
             VStack(alignment: .leading, spacing: 10) {
                 Text("Secret Recovery Phrase")
@@ -45,10 +46,6 @@ struct GenerateSeedPhraseView: View {
                         .frame(maxWidth: .infinity)
                         .background(Color.primaryViolet1_50)
                         .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
-                        .overlay {
-                            RoundedRectangle(cornerSize: .init(width: 10, height: 10))
-                                .stroke(lineWidth: 0)
-                        }
                 }
                 .redacted(reason: viewModel.state.redactionReasons)
             }
@@ -76,15 +73,22 @@ struct GenerateSeedPhraseView: View {
             Spacer()
             
             PrimaryButton(title: "Continue") {
-                navigationPath.wrappedValue.append(Destinations.showCongrats)
-                viewModel.didTapButton()
+                withAnimation {
+                    isBottomCardVisible = true
+                }
             }
             .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
             .padding(.bottom, 48)
         }
-        .padding(.horizontal, 48)
+        .padding(.horizontal, 36)
         .modifier(AlertModifier(viewModel: viewModel))
         .modifier(CardModifier())
+        .modifier(
+            BottomCardModifier(
+                isVisible: $isBottomCardVisible,
+                injectedView: bottomCardView
+            )
+        )
         .navigationDestination(for: Destinations.self) {
             switch $0 {
             case .showCongrats: CongratsView(viewModel: .init(), navigationPath: navigationPath)
@@ -104,7 +108,41 @@ struct GenerateSeedPhraseView: View {
             manageWalletsUseCase: ManageWalletsImpl(),
             userDefaultUseCase: UserDefaultImp()
         )
-//        viewModel.alertViewModel = .init()
         return GenerateSeedPhraseView(viewModel: viewModel, navigationPath: .constant(.init()))
+    }
+}
+
+// MARK: - Private
+private extension GenerateSeedPhraseView {
+    
+    @ViewBuilder
+    var bottomCardView: some View {
+        VStack(spacing: 16) {
+            RoundedRectangle(cornerSize: .init(width: 10, height: 10))
+                .fill(Color.primaryViolet1_50)
+                .frame(width: 52, height: 8)
+            
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Are you sure you want to continue?")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primaryViolet1_800)
+                
+                Text("These Secret Recovery Phases are the only way to restore your wallet. Write it down on your paper and keep it in a safe place.")
+                    .font(.body)
+                    .foregroundColor(.primaryViolet1_900)
+            }
+            
+            HStack {
+                PrimaryButton(title: "Back", type: .secondaryPurple) {
+                    isBottomCardVisible = false
+                }
+                
+                PrimaryButton(title: "Continue") {
+                    navigationPath.wrappedValue.append(Destinations.showCongrats)
+                    viewModel.didTapButton()
+                }
+            }
+        }
     }
 }

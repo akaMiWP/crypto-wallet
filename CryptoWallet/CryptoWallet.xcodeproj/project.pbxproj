@@ -15,6 +15,7 @@
 		A10CC1002CA17725000329A6 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC0FF2CA17725000329A6 /* PrimaryButton.swift */; };
 		A10CC1022CA26C75000329A6 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1012CA26C75000329A6 /* ProgressBarView.swift */; };
 		A10CC1062CA29D59000329A6 /* CardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1052CA29D59000329A6 /* CardModifier.swift */; };
+		A10CC1082CA2A5D8000329A6 /* BottomCardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1072CA2A5D8000329A6 /* BottomCardModifier.swift */; };
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95A2C99A2A100BED797 /* BiometricView.swift */; };
@@ -70,6 +71,7 @@
 		A10CC0FF2CA17725000329A6 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		A10CC1012CA26C75000329A6 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		A10CC1052CA29D59000329A6 /* CardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModifier.swift; sourceTree = "<group>"; };
+		A10CC1072CA2A5D8000329A6 /* BottomCardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCardModifier.swift; sourceTree = "<group>"; };
 		A161A95A2C99A2A100BED797 /* BiometricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricView.swift; sourceTree = "<group>"; };
 		A161A95C2C99A2B000BED797 /* BiometricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricViewModel.swift; sourceTree = "<group>"; };
 		A167239C2C9238780089CE46 /* NetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStack.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				A16723B02C948E040089CE46 /* AlertModifier.swift */,
+				A10CC1072CA2A5D8000329A6 /* BottomCardModifier.swift */,
 				A10CC1052CA29D59000329A6 /* CardModifier.swift */,
 			);
 			path = Modifiers;
@@ -512,6 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A167239F2C9240370089CE46 /* NodeProviderUseCase.swift in Sources */,
+				A10CC1082CA2A5D8000329A6 /* BottomCardModifier.swift in Sources */,
 				A19734802C8323C300619D33 /* CongratsView.swift in Sources */,
 				A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */,
 				A1B68E912C84AD71000509C9 /* NavigationDestinations.swift in Sources */,

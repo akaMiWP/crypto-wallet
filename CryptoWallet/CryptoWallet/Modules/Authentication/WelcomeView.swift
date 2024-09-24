@@ -47,6 +47,7 @@ struct WelcomeView: View {
                         ),
                         navigationPath: $navigationPath
                     )
+                    .navigationBarBackButtonHidden()
                 case .importSeedPhrase:
                     EnterPassPhraseView()
                 }
