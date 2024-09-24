@@ -13,34 +13,53 @@ struct CongratsView: View {
     }
     
     var body: some View {
-        VStack {
-            Rectangle()
-                .frame(height: 200)
-                .padding(.horizontal)
+        VStack(spacing: 0) {
+            HStack {
+                ProgressBarView(totalSteps: 3, currentIndex: 0)
+            }
+            .frame(maxWidth: .infinity)
+            .overlay {
+                HStack {
+                    Button(action: {
+                        navigationPath.wrappedValue.removeLast()
+                    }, label: {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.primaryViolet1_900)
+                            .frame(width: 24, height: 24)
+                    })
+                    
+                    Spacer()
+                }
+            }
+            .padding(.top, 24)
+            
+            Spacer()
+            
+            Image(.imageRocket)
             
             Text("You're all done!")
-                .font(.title)
+                .font(.headline)
+                .fontWeight(.bold)
+                .foregroundColor(.primaryViolet1_800)
                 .padding(.top, 16)
             
             Text("You can now fully enjoy your wallet")
-                .font(.body)
+                .font(.callout)
+                .foregroundColor(.primaryViolet1_900)
                 .padding(.top, 8)
             
-            Button(action: {
+            Spacer()
+            
+            PrimaryButton(title: "Get Started") {
                 navigationPath.wrappedValue = .init()
                 viewModel.didTapButton()
-            }, label: {
-                Text("Get Started")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(height: 46)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
-                    .padding(.horizontal)
-                    .padding(.top, 24)
-            })
+            }
+            .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
+            
+            Spacer()
         }
+        .padding(.horizontal, 36)
+        .cardStyle()
     }
 }
 
