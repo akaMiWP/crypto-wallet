@@ -4,10 +4,7 @@ import SwiftUI
 
 struct SelectTokensView: View {
     @ObservedObject var viewModel: SelectTokensViewModel
-    
-    @State private var searchInput: String = ""
     @State private var navigationPath = NavigationPath()
-    
     @Environment(\.dismiss) private var dismiss
     
     enum Destinations {
@@ -20,7 +17,7 @@ struct SelectTokensView: View {
             
             ScrollView {
                 NavigationLink(value: Destinations.sendToken) {
-                    TokenListView(viewModels: viewModel.viewModels, shouldShowTotalAmount: false)
+                    TokenListView(viewModels: viewModel.filteredViewModels, shouldShowTotalAmount: false)
                 }
                 
                 Spacer()
@@ -43,7 +40,7 @@ private extension SelectTokensView {
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
-                    TextField("Search...", text: $searchInput)
+                    TextField("Search...", text: $viewModel.searchInput)
                 }
                 .padding(.all, 8)
                 .background(Color.blue.opacity(0.1))
@@ -57,5 +54,16 @@ private extension SelectTokensView {
 }
 
 #Preview {
-    SelectTokensView(viewModel: .init(viewModels: []))
+    SelectTokensView(
+        viewModel: .init(
+            viewModels: [
+                .init(name: "ABCD", symbol: "XXXX", balance: 0, totalAmount: 0),
+                .init(name: "BCDE", symbol: "XXXX", balance: 0, totalAmount: 0),
+                .init(name: "CDEF", symbol: "XXXX", balance: 0, totalAmount: 0),
+                .init(name: "DEFG", symbol: "XXXX", balance: 0, totalAmount: 0),
+                .init(name: "EFGH", symbol: "XXXX", balance: 0, totalAmount: 0),
+                .init(name: "FGHI", symbol: "XXXX", balance: 0, totalAmount: 0),
+            ]
+        )
+    )
 }
