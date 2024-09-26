@@ -8,6 +8,7 @@ protocol ManageHDWalletUseCase {
     func createHDWalletPublisher(strength: Int32) -> AnyPublisher<String, Error>
     func importHDWallet(mnemonic: String) throws
     func encryptMnemonic(_ mneumonic: String) -> AnyPublisher<Void, Error>
+    func deletePreviousCreatedWalletModelsIfNeeded() -> AnyPublisher<Void, Error>
     func restoreWallet() -> AnyPublisher<HDWallet, Error>
     func getWalletAddressUsingDerivationPath(
         wallet: HDWallet,
@@ -42,6 +43,18 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
         Future<Void, Error> { promise in
             do {
                 try HDWalletManager.shared.encryptMnemonic(mneumonic)
+                promise(.success(()))
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func deletePreviousCreatedWalletModelsIfNeeded() -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            do {
+                try HDWalletManager.shared.removePreviousCreatedWalletModels()
                 promise(.success(()))
             } catch {
                 promise(.failure(error))

@@ -52,6 +52,10 @@ final class GenerateSeedPhraseViewModel: Alertable {
             .encryptMnemonic(mnemonic)
             .flatMap { [weak self] _ -> AnyPublisher<Void, Error> in
                 guard let self = self else { return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                return self.manageHDWalletUseCase.deletePreviousCreatedWalletModelsIfNeeded()
+            }
+            .flatMap { [weak self] _ -> AnyPublisher<Void, Error> in
+                guard let self = self else { return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
                 return self.manageWalletsUseCase.makeNewWalletModel(coinType: .ethereum)
             }
             .catch { error in
