@@ -19,6 +19,7 @@ struct DashboardView: View {
                 Text("$0.00")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .foregroundColor(.primaryViolet1_900)
                     .redacted(reason: viewModel.state.redactionReasons)
                 
                 makeOperationViews()
@@ -31,6 +32,7 @@ struct DashboardView: View {
                 Spacer()
             }
         }
+        .background(Color.primaryViolet1_50)
         .navigationBarBackButtonHidden()
         .modifier(AlertModifier(viewModel: viewModel))
         .sheet(isPresented: isPresented) {
@@ -65,9 +67,11 @@ private extension DashboardView {
                 HStack {
                     Text(viewModel.walletViewModel.name)
                         .font(.headline)
+                        .foregroundColor(.primaryViolet1_900)
                     
                     Image(systemName: "chevron.down")
                         .clipShape(Circle())
+                        .foregroundColor(.primaryViolet1_900)
                 }
                 .onTapGesture {
                     self.destination = .switchAccount
@@ -75,22 +79,24 @@ private extension DashboardView {
                 
                 Text(viewModel.walletViewModel.maskedAddress)
                     .font(.subheadline)
+                    .foregroundColor(.primaryViolet1_900)
             }
             
             HStack {
                 HStack {
                     Text("S")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primaryViolet1_50)
                         .padding(8)
-                        .background(Color.blue)
+                        .background(Color.primaryViolet1_700)
                         .clipShape(Circle())
                     
                     Image(systemName: "chevron.down")
                         .clipShape(Circle())
+                        .foregroundColor(.primaryViolet1_600)
                 }
                 .padding(.trailing, 12)
-                .background(Color.blue.opacity(0.2))
+                .background(Color.primaryViolet1_200)
                 .clipShape(RoundedRectangle(cornerSize: .init(width: 32, height: 32)))
                 .onTapGesture {
                     self.destination = .switchNetwork
@@ -116,12 +122,13 @@ private extension DashboardView {
         VStack(spacing: 8) {
             Image(systemName: imageName)
                 .font(.title2)
-                .foregroundColor(Color.blue)
+                .foregroundColor(.primaryViolet1_50)
             Text(actionName)
                 .font(.caption)
+                .foregroundColor(.primaryViolet1_50)
         }
         .frame(width: 100, height: 80)
-        .background(Color.blue.opacity(0.2))
+        .background(Color.primaryViolet1_200)
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
         .onTapGesture {
             self.destination = destination
