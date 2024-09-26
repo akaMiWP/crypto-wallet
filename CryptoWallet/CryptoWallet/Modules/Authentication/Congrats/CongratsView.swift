@@ -38,7 +38,7 @@ struct CongratsView: View {
                 navigationPath.wrappedValue = .init()
                 viewModel.didTapButton()
             }
-            .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
+            .dropShadow()
             
             Spacer()
         }

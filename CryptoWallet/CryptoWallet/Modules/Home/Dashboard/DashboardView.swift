@@ -94,6 +94,7 @@ private extension DashboardView {
                     Image(systemName: "chevron.down")
                         .clipShape(Circle())
                         .foregroundColor(.primaryViolet1_600)
+                        .dropShadow()
                 }
                 .padding(.trailing, 12)
                 .background(Color.primaryViolet1_200)

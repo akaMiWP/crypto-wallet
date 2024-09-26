@@ -43,6 +43,8 @@ private extension TokenListView {
             AsyncImage(url: viewModel.logo)
                 .frame(width: 40, height: 40)
                 .clipShape(Circle())
+                .dropShadow()
+                .padding(.trailing)
             
             VStack(alignment: .leading) {
                 Text(viewModel.name)

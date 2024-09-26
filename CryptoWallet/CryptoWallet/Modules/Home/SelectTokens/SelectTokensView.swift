@@ -13,22 +13,27 @@ struct SelectTokensView: View {
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            makeSearchComponentView()
-            
-            ScrollView {
-                NavigationLink(value: Destinations.sendToken) {
-                    TokenListView(viewModels: viewModel.filteredViewModels, shouldShowTotalAmount: false)
-                }
+            VStack(spacing: 0) {
+                makeSearchComponentView()
                 
-                Spacer()
-            }
-            .navigationDestination(for: Destinations.self) { screen in
-                switch screen {
-                case .sendToken:
-                    SelectTokenView(navigationPath: $navigationPath)
-                        .navigationBarHidden(true)
+                ScrollView {
+                    NavigationLink(value: Destinations.sendToken) {
+                        TokenListView(viewModels: viewModel.filteredViewModels, shouldShowTotalAmount: false)
+                    }
+                    
+                    Spacer()
+                }
+                .padding(.top)
+                .background(Color.primaryViolet1_100)
+                .navigationDestination(for: Destinations.self) { screen in
+                    switch screen {
+                    case .sendToken:
+                        SelectTokenView(navigationPath: $navigationPath)
+                            .navigationBarHidden(true)
+                    }
                 }
             }
+            .ignoresSafeArea(.all, edges: .bottom)
         }
     }
 }
@@ -43,11 +48,13 @@ private extension SelectTokensView {
                     TextField("Search...", text: $viewModel.searchInput)
                 }
                 .padding(.all, 8)
-                .background(Color.blue.opacity(0.1))
+                .foregroundColor(.primaryViolet1_900)
+                .background(Color.primaryViolet1_50)
                 .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                 
                 Text("Cancel")
                     .font(.subheadline)
+                    .foregroundColor(.primaryViolet1_50)
             }
         } backCompletion: { dismiss() }
     }
