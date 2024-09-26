@@ -26,4 +26,8 @@ final class KeychainManager {
         let value = try JSONDecoder().decode(T.self, from: data)
         return value
     }
+    
+    func delete(key: KeychainKey) throws {
+        keychain.delete(key.rawValue)
+    }
 }

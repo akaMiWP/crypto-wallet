@@ -34,6 +34,7 @@ final class HDWalletManager {
     }
     
     func encryptMnemonic(_ mneumonic: String) throws {
+        try KeychainManager.shared.delete(key: .walletModels)
         try KeychainManager.shared.set(mneumonic, for: .seedPhrase)
     }
     
