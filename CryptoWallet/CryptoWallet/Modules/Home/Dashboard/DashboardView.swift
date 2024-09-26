@@ -32,7 +32,6 @@ struct DashboardView: View {
                 Spacer()
             }
         }
-        .background(Color.primaryViolet1_50)
         .navigationBarBackButtonHidden()
         .modifier(AlertModifier(viewModel: viewModel))
         .sheet(isPresented: isPresented) {
@@ -86,18 +85,18 @@ private extension DashboardView {
                 HStack {
                     Text("S")
                         .font(.headline)
-                        .foregroundColor(.primaryViolet1_50)
+                        .foregroundColor(.primaryViolet1_900)
                         .padding(8)
-                        .background(Color.primaryViolet1_700)
+                        .background(Color.primaryViolet1_50)
                         .clipShape(Circle())
                     
                     Image(systemName: "chevron.down")
                         .clipShape(Circle())
-                        .foregroundColor(.primaryViolet1_600)
+                        .foregroundColor(.primaryViolet1_50)
                         .dropShadow()
                 }
                 .padding(.trailing, 12)
-                .background(Color.primaryViolet1_200)
+                .background(Color.primaryViolet2_400)
                 .clipShape(RoundedRectangle(cornerSize: .init(width: 32, height: 32)))
                 .onTapGesture {
                     self.destination = .switchNetwork
@@ -129,7 +128,7 @@ private extension DashboardView {
                 .foregroundColor(.primaryViolet1_50)
         }
         .frame(width: 100, height: 80)
-        .background(Color.primaryViolet1_200)
+        .background(Color.primaryViolet2_400)
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
         .onTapGesture {
             self.destination = destination

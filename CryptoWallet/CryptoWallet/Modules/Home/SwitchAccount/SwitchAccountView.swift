@@ -11,6 +11,7 @@ struct SwitchAccountView: View {
             Text("Select an account")
                 .font(.title2)
                 .fontWeight(.bold)
+                .foregroundColor(.primaryViolet1_900)
                 .padding(.top)
             
             ScrollView {
@@ -30,7 +31,7 @@ struct SwitchAccountView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .padding(.horizontal)
-                        .background(.blue.opacity(0.7))
+                        .background(Color.primaryViolet2_400)
                         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                         .onTapGesture {
                             viewModel.selectWallet(wallet: wallet)
@@ -54,7 +55,7 @@ struct SwitchAccountView: View {
             })
             .frame(height: 46)
             .frame(maxWidth: .infinity)
-            .background(Color.blue)
+            .background(Color.primaryViolet1_500)
             .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
         }
         .padding(.horizontal)

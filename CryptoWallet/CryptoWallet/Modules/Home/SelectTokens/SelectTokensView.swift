@@ -24,7 +24,6 @@ struct SelectTokensView: View {
                     Spacer()
                 }
                 .padding(.top)
-                .background(Color.primaryViolet1_100)
                 .navigationDestination(for: Destinations.self) { screen in
                     switch screen {
                     case .sendToken:
