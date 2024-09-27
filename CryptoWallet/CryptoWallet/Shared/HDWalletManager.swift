@@ -9,6 +9,7 @@ final class HDWalletManager {
     
     var createdWalletModels: [WalletModel] = []
     var orderOfSelectedWallet: Int = 0
+    var selectedNetwork: SupportedNetwork = .mainnet(.ethereum)
     
     private init() {
         loadCreatedWallets()

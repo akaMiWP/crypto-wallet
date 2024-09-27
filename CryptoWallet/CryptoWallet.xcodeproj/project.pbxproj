@@ -18,6 +18,7 @@
 		A10CC1082CA2A5D8000329A6 /* BottomCardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1072CA2A5D8000329A6 /* BottomCardModifier.swift */; };
 		A10CC10A2CA2BE5F000329A6 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1092CA2BE5F000329A6 /* View+.swift */; };
 		A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC10F2CA52D2F000329A6 /* Shadow+.swift */; };
+		A10CC1122CA5A432000329A6 /* SupportedNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */; };
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95A2C99A2A100BED797 /* BiometricView.swift */; };
@@ -59,6 +60,8 @@
 		A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */; };
 		A1B719D92C80C1F40039D8D9 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = A1B719D82C80C1F40039D8D9 /* web3swift */; };
 		A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */; };
+		A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */; };
+		A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */; };
 		A1E3FFC02C875151007EB73D /* SelectTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */; };
 		A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */; };
 		A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */; };
@@ -76,6 +79,7 @@
 		A10CC1072CA2A5D8000329A6 /* BottomCardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCardModifier.swift; sourceTree = "<group>"; };
 		A10CC1092CA2BE5F000329A6 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		A10CC10F2CA52D2F000329A6 /* Shadow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shadow+.swift"; sourceTree = "<group>"; };
+		A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedNetwork.swift; sourceTree = "<group>"; };
 		A161A95A2C99A2A100BED797 /* BiometricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricView.swift; sourceTree = "<group>"; };
 		A161A95C2C99A2B000BED797 /* BiometricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricViewModel.swift; sourceTree = "<group>"; };
 		A167239C2C9238780089CE46 /* NetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStack.swift; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 		A1B68E902C84AD71000509C9 /* NavigationDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinations.swift; sourceTree = "<group>"; };
 		A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarPresentedView.swift; sourceTree = "<group>"; };
 		A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkView.swift; sourceTree = "<group>"; };
+		A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkViewModel.swift; sourceTree = "<group>"; };
 		A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenView.swift; sourceTree = "<group>"; };
 		A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageHDWalletUseCase.swift; sourceTree = "<group>"; };
 		A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDWalletManager.swift; sourceTree = "<group>"; };
@@ -266,6 +272,7 @@
 			children = (
 				A16723A72C9244A90089CE46 /* AddressToTokenModel.swift */,
 				A16723B42C958BBB0089CE46 /* TokenMetadataModel.swift */,
+				A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -400,6 +407,7 @@
 				A180F5DC2C8F3AEB00380EAE /* Dashboard */,
 				A10CC0F82CA160B1000329A6 /* SelectTokens */,
 				A10CC0F12C9EEE98000329A6 /* SwitchAccount */,
+				A1E1559D2CA6EE0200BC968F /* SwitchNetwork */,
 				A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */,
 			);
 			path = Home;
@@ -419,6 +427,15 @@
 			path = Activities;
 			sourceTree = "<group>";
 		};
+		A1E1559D2CA6EE0200BC968F /* SwitchNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */,
+				A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */,
+			);
+			path = SwitchNetwork;
+			sourceTree = "<group>";
+		};
 		A1E3FFC12C87EAE2007EB73D /* Environment */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,10 +447,10 @@
 			isa = PBXGroup;
 			children = (
 				A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */,
+				A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */,
+				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
 				A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */,
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
-				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
-				A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -563,12 +580,15 @@
 				A16723B52C958BBB0089CE46 /* TokenMetadataModel.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
 				A1A375802C8C33440012BF43 /* AlertViewModel.swift in Sources */,
+				A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */,
+				A10CC1122CA5A432000329A6 /* SupportedNetwork.swift in Sources */,
 				A197348B2C84078D00619D33 /* NumberFormatter.swift in Sources */,
 				A197348D2C840BED00619D33 /* SelectTokensView.swift in Sources */,
 				A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */,
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 				A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */,
 				A167239D2C9238780089CE46 /* NetworkStack.swift in Sources */,
+				A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

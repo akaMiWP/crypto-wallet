@@ -10,10 +10,6 @@ protocol ManageHDWalletUseCase {
     func encryptMnemonic(_ mneumonic: String) -> AnyPublisher<Void, Error>
     func deletePreviousCreatedWalletModelsIfNeeded() -> AnyPublisher<Void, Error>
     func restoreWallet() -> AnyPublisher<HDWallet, Error>
-    func getWalletAddressUsingDerivationPath(
-        wallet: HDWallet,
-        coinType: CoinType
-    ) -> AnyPublisher<String, Never>
 }
 
 final class ManageHDWalletImpl: ManageHDWalletUseCase {
@@ -73,16 +69,6 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
             }
         }
         .eraseToAnyPublisher()
-    }
-    
-    func getWalletAddressUsingDerivationPath(
-        wallet: HDWallet,
-        coinType: CoinType
-    ) -> AnyPublisher<String, Never> {
-        let deriviationPath = buildEthAddressUsingDeriviationPath(order: HDWalletManager.shared.orderOfSelectedWallet)
-        let privateKey = wallet.getKey(coin: coinType, derivationPath: deriviationPath)
-        let walletAddress = coinType.deriveAddress(privateKey: privateKey)
-        return Just(walletAddress).eraseToAnyPublisher()
     }
 }
 
