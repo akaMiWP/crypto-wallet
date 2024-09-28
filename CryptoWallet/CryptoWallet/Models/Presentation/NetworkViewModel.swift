@@ -15,3 +15,19 @@ struct NetworkViewModel: Identifiable {
         self.isSelected = isSelected
     }
 }
+
+struct NetworkSection {
+    let title: String
+    let viewModels: [NetworkViewModel]
+}
+
+struct SupportedNetworkViewModel {
+    let sections: [NetworkSection]
+    
+    init(mainnetViewModels: [NetworkViewModel], testnetViewModels: [NetworkViewModel]) {
+        self.sections = [
+            .init(title: "Mainnet networks", viewModels: mainnetViewModels),
+            .init(title: "Testnet networks", viewModels: testnetViewModels)
+        ]
+    }
+}

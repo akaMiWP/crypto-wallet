@@ -9,7 +9,7 @@ struct SwitchNetworkView: View {
     @State private var searchInput: String = ""
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             TitleBarPresentedView(title: "Select a network") {
                 HStack {
                     HStack {
@@ -29,27 +29,23 @@ struct SwitchNetworkView: View {
                 dismiss()
             }
             
-            ScrollView {
-                ForEach(viewModel.supportedNetworks) { viewModel in
-                    HStack(spacing: 18) {
-                        Image(systemName: "circle")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                        
-                        Text(viewModel.name)
-                            .font(.headline)
-                            .foregroundColor(.primaryViolet1_900)
+            List {
+                ForEach(viewModel.supportedNetworkViewModel.sections, id: \.title) { section in
+                    Section(section.title) {
+                        ForEach(section.viewModels) { viewModel in
+                            HStack(spacing: 18) {
+                                Image(systemName: "circle")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                
+                                Text(viewModel.name)
+                                    .font(.headline)
+                                    .foregroundColor(.primaryViolet1_900)
+                            }
+                        }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .background(viewModel.isSelected ? Color.secondaryGreen2_100 : nil)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(viewModel.isSelected ? overlayRoundedRectangle : nil)
                 }
-                .padding(.horizontal)
             }
-            
-            Spacer()
         }
         .onAppear {
             viewModel.fetchSupportedNetworks()
@@ -59,10 +55,15 @@ struct SwitchNetworkView: View {
 
 #Preview {
     let viewModel: SwitchNetworkViewModel = .init(supportNetworksUseCase: SupportedNetworkImp())
-    viewModel.supportedNetworks = [
-        .init(name: "Ethereum", isSelected: true),
-        .init(name: "Zksync", isSelected: false),
-    ]
+    viewModel.supportedNetworkViewModel = .init(
+        mainnetViewModels: [
+            .init(name: "Ethereum", isSelected: false),
+            .init(name: "Zksync", isSelected: false)
+        ],
+        testnetViewModels: [
+            .init(name: "Sepolia", isSelected: true)
+        ]
+    )
     return SwitchNetworkView(viewModel: viewModel)
 }
 

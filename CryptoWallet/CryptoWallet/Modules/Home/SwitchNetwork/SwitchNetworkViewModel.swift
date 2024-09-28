@@ -3,7 +3,7 @@
 import Combine
 
 final class SwitchNetworkViewModel: ObservableObject {
-    @Published var supportedNetworks: [NetworkViewModel] = []
+    @Published var supportedNetworkViewModel: SupportedNetworkViewModel = .init(mainnetViewModels: [], testnetViewModels: [])
     
     private var supportNetworksUseCase: SupportNetworksUseCase
     private var cancellables: Set<AnyCancellable> = .init()
@@ -15,16 +15,16 @@ final class SwitchNetworkViewModel: ObservableObject {
     func fetchSupportedNetworks() {
         supportNetworksUseCase
             .makeNetworkModelsPublisher()
-            .map { networkModels in
+            .map { networkModels -> SupportedNetworkViewModel in
                 let mainnetViewModels: [NetworkViewModel] = networkModels.mainnets.compactMap { model in
                     return .init(name: model.chainName)
                 }
                 let testnetViewModels: [NetworkViewModel] = networkModels.testnets.compactMap { model in
                     return .init(name: model.chainName)
                 }
-                return mainnetViewModels + testnetViewModels
+                return .init(mainnetViewModels: mainnetViewModels, testnetViewModels: testnetViewModels)
             }
-            .assign(to: \.supportedNetworks, on: self)
+            .assign(to: \.supportedNetworkViewModel, on: self)
             .store(in: &cancellables)
     }
     
