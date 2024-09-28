@@ -7,6 +7,13 @@ struct NetworkViewModel: Identifiable {
     
     let image: UIImage?
     let name: String
+    let isSelected: Bool
+    
+    init(image: UIImage? = nil, name: String, isSelected: Bool = false) {
+        self.image = image
+        self.name = name
+        self.isSelected = isSelected
+    }
 }
 
 struct SwitchNetworkView: View {
@@ -15,11 +22,11 @@ struct SwitchNetworkView: View {
     @State private var searchInput: String = ""
     
     private let supportedNetworks: [NetworkViewModel] = [
-        .init(image: nil, name: "Circle"),
-        .init(image: nil, name: "Circle"),
-        .init(image: nil, name: "Circle"),
-        .init(image: nil, name: "Circle"),
-        .init(image: nil, name: "Circle")
+        .init(name: "Circle"),
+        .init(name: "Circle", isSelected: true),
+        .init(name: "Circle"),
+        .init(name: "Circle"),
+        .init(name: "Circle")
     ]
     
     var body: some View {
@@ -45,12 +52,22 @@ struct SwitchNetworkView: View {
             
             ScrollView {
                 ForEach(supportedNetworks) { viewModel in
-                    HStack {
+                    HStack(spacing: 18) {
                         Image(systemName: "circle")
+                            .resizable()
+                            .frame(width: 40, height: 40)
                         
                         Text(viewModel.name)
+                            .font(.headline)
+                            .foregroundColor(.primaryViolet1_900)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                    .background(viewModel.isSelected ? Color.primaryViolet2_50 : nil)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .overlay(viewModel.isSelected ? overlayRoundedRectangle : nil)
                 }
+                .padding(.horizontal)
             }
             
             Spacer()
@@ -60,4 +77,17 @@ struct SwitchNetworkView: View {
 
 #Preview {
     SwitchNetworkView()
+}
+
+// MARK: - Private
+private extension SwitchNetworkView {
+    var overlayRoundedRectangle: some View {
+        HStack {
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.primaryViolet1_200)
+                .frame(width: 10)
+            
+            Spacer()
+        }
+    }
 }
