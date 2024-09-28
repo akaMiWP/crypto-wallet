@@ -17,10 +17,10 @@ final class SwitchNetworkViewModel: ObservableObject {
             .makeNetworkModelsPublisher()
             .map { networkModels -> SupportedNetworkViewModel in
                 let mainnetViewModels: [NetworkViewModel] = networkModels.mainnets.compactMap { model in
-                    return .init(name: model.chainName)
+                    return .init(name: model.chainName, chainId: model.chainId)
                 }
                 let testnetViewModels: [NetworkViewModel] = networkModels.testnets.compactMap { model in
-                    return .init(name: model.chainName)
+                    return .init(name: model.chainName, chainId: model.chainId)
                 }
                 return .init(mainnetViewModels: mainnetViewModels, testnetViewModels: testnetViewModels)
             }

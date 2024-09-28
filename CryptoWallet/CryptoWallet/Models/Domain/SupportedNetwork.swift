@@ -31,4 +31,11 @@ enum MainnetNetwork: CaseIterable {
 enum SupportedNetwork: Hashable {
     case testnet(TestNetwork)
     case mainnet(MainnetNetwork)
+    
+    var coinType: CoinType {
+        switch self {
+        case .testnet(let testNetwork): return testNetwork.coinType
+        case .mainnet(let mainnetNetwork): return mainnetNetwork.coinType
+        }
+    }
 }

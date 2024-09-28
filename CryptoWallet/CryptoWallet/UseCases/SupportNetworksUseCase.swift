@@ -19,8 +19,8 @@ final class SupportedNetworkImp: SupportNetworksUseCase {
             let chainId: String
             switch network {
             case .sepolia:
-                chainName = "Sepolia"
-                chainId = "11155111"
+                chainName = ChainNameConstants.sepolia
+                chainId = ChainIdConstants.sepolia
             }
             return .init(chainName: chainName, chainId: chainId, coinType: network.coinType)
             
@@ -29,6 +29,18 @@ final class SupportedNetworkImp: SupportNetworksUseCase {
         let models: NetworkModels = .init(mainnets: mainnets, testnets: testnets)
         return Just(models).eraseToAnyPublisher()
     }
+}
+
+struct ChainNameConstants {
+    static let sepolia = "Sepolia"
+}
+
+struct ChainIdConstants {
+    static let ethereum = "1"
+    static let optimism = "10"
+    static let zkSync = "324"
+    static let arbitrumOne = "42161"
+    static let sepolia = "11155111"
 }
 
 import WalletCore

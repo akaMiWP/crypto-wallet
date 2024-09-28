@@ -34,7 +34,7 @@ struct SwitchNetworkView: View {
                     Section(section.title) {
                         ForEach(section.viewModels) { viewModel in
                             HStack(spacing: 18) {
-                                Image(systemName: "circle")
+                                Image(uiImage: viewModel.image)
                                     .resizable()
                                     .frame(width: 40, height: 40)
                                 
@@ -55,15 +55,6 @@ struct SwitchNetworkView: View {
 
 #Preview {
     let viewModel: SwitchNetworkViewModel = .init(supportNetworksUseCase: SupportedNetworkImp())
-    viewModel.supportedNetworkViewModel = .init(
-        mainnetViewModels: [
-            .init(name: "Ethereum", isSelected: false),
-            .init(name: "Zksync", isSelected: false)
-        ],
-        testnetViewModels: [
-            .init(name: "Sepolia", isSelected: true)
-        ]
-    )
     return SwitchNetworkView(viewModel: viewModel)
 }
 
