@@ -24,9 +24,11 @@ final class SwitchNetworkViewModel: ObservableObject {
                 }
                 return mainnetViewModels + testnetViewModels
             }
-            .sink { [weak self] viewModels in
-                self?.supportedNetworks = viewModels
-            }
+            .assign(to: \.supportedNetworks, on: self)
             .store(in: &cancellables)
+    }
+    
+    func didSelect(viewModel: NetworkViewModel) {
+        
     }
 }
