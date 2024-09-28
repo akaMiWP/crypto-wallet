@@ -62,6 +62,8 @@
 		A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */; };
 		A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */; };
 		A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */; };
+		A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */; };
+		A1E155A52CA79F5900BC968F /* NetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A42CA79F5900BC968F /* NetworkViewModel.swift */; };
 		A1E3FFC02C875151007EB73D /* SelectTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */; };
 		A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */; };
 		A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */; };
@@ -123,6 +125,8 @@
 		A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkView.swift; sourceTree = "<group>"; };
 		A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkViewModel.swift; sourceTree = "<group>"; };
+		A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportNetworksUseCase.swift; sourceTree = "<group>"; };
+		A1E155A42CA79F5900BC968F /* NetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewModel.swift; sourceTree = "<group>"; };
 		A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenView.swift; sourceTree = "<group>"; };
 		A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageHDWalletUseCase.swift; sourceTree = "<group>"; };
 		A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDWalletManager.swift; sourceTree = "<group>"; };
@@ -260,8 +264,9 @@
 		A19734842C84049900619D33 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				A19734862C8404B100619D33 /* TokenViewModel.swift */,
 				A1A3757F2C8C33440012BF43 /* AlertViewModel.swift */,
+				A1E155A42CA79F5900BC968F /* NetworkViewModel.swift */,
+				A19734862C8404B100619D33 /* TokenViewModel.swift */,
 				A1A375812C8C377E0012BF43 /* ViewModelState.swift */,
 			);
 			path = Presentation;
@@ -271,8 +276,8 @@
 			isa = PBXGroup;
 			children = (
 				A16723A72C9244A90089CE46 /* AddressToTokenModel.swift */,
-				A16723B42C958BBB0089CE46 /* TokenMetadataModel.swift */,
 				A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */,
+				A16723B42C958BBB0089CE46 /* TokenMetadataModel.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -451,6 +456,7 @@
 				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
 				A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */,
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
+				A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -557,6 +563,7 @@
 				A16723A62C92425C0089CE46 /* TokenBalancesResponse.swift in Sources */,
 				A1A3757C2C8AF8A70012BF43 /* GenerateSeedPhraseViewModel.swift in Sources */,
 				A19734872C8404B100619D33 /* TokenViewModel.swift in Sources */,
+				A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */,
 				A16723B32C958AC30089CE46 /* TokenMetadataResponse.swift in Sources */,
 				A10CC1022CA26C75000329A6 /* ProgressBarView.swift in Sources */,
 				A1E3FFC02C875151007EB73D /* SelectTokenView.swift in Sources */,
@@ -585,6 +592,7 @@
 				A197348B2C84078D00619D33 /* NumberFormatter.swift in Sources */,
 				A197348D2C840BED00619D33 /* SelectTokensView.swift in Sources */,
 				A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */,
+				A1E155A52CA79F5900BC968F /* NetworkViewModel.swift in Sources */,
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 				A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */,
 				A167239D2C9238780089CE46 /* NetworkStack.swift in Sources */,

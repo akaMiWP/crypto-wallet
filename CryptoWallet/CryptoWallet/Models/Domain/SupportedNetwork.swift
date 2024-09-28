@@ -2,10 +2,10 @@
 
 import WalletCore
 
-enum TestNetwork {
+enum TestNetwork: CaseIterable {
     case sepolia
     
-    var network: CoinType {
+    var coinType: CoinType {
         switch self {
         case .sepolia: return .ethereum
         }
@@ -18,7 +18,7 @@ enum MainnetNetwork: CaseIterable {
     case arbitrum
     case optimism
     
-    var network: CoinType {
+    var coinType: CoinType {
         switch self {
         case .ethereum: return .ethereum
         case .zksync: return .zksync

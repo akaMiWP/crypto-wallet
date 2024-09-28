@@ -2,32 +2,11 @@
 
 import SwiftUI
 
-struct NetworkViewModel: Identifiable {
-    var id: String { name }
-    
-    let image: UIImage?
-    let name: String
-    let isSelected: Bool
-    
-    init(image: UIImage? = nil, name: String, isSelected: Bool = false) {
-        self.image = image
-        self.name = name
-        self.isSelected = isSelected
-    }
-}
-
 struct SwitchNetworkView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @ObservedObject var viewModel: SwitchNetworkViewModel
     @State private var searchInput: String = ""
-    
-    private let supportedNetworks: [NetworkViewModel] = [
-        .init(name: "Circle"),
-        .init(name: "Circle", isSelected: true),
-        .init(name: "Circle"),
-        .init(name: "Circle"),
-        .init(name: "Circle")
-    ]
     
     var body: some View {
         VStack {
@@ -51,7 +30,7 @@ struct SwitchNetworkView: View {
             }
             
             ScrollView {
-                ForEach(supportedNetworks) { viewModel in
+                ForEach(viewModel.supportedNetworks) { viewModel in
                     HStack(spacing: 18) {
                         Image(systemName: "circle")
                             .resizable()
@@ -63,7 +42,7 @@ struct SwitchNetworkView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                    .background(viewModel.isSelected ? Color.primaryViolet2_50 : nil)
+                    .background(viewModel.isSelected ? Color.secondaryGreen2_100 : nil)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(viewModel.isSelected ? overlayRoundedRectangle : nil)
                 }
@@ -72,11 +51,19 @@ struct SwitchNetworkView: View {
             
             Spacer()
         }
+        .onAppear {
+            viewModel.fetchSupportedNetworks()
+        }
     }
 }
 
 #Preview {
-    SwitchNetworkView()
+    let viewModel: SwitchNetworkViewModel = .init(supportNetworksUseCase: SupportedNetworkImp())
+    viewModel.supportedNetworks = [
+        .init(name: "Ethereum", isSelected: true),
+        .init(name: "Zksync", isSelected: false),
+    ]
+    return SwitchNetworkView(viewModel: viewModel)
 }
 
 // MARK: - Private
@@ -84,7 +71,7 @@ private extension SwitchNetworkView {
     var overlayRoundedRectangle: some View {
         HStack {
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.primaryViolet1_200)
+                .fill(Color.secondaryGreen2_600)
                 .frame(width: 10)
             
             Spacer()
