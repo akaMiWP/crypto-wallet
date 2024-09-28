@@ -36,7 +36,7 @@ struct DashboardView: View {
         .modifier(AlertModifier(viewModel: viewModel))
         .sheet(isPresented: isPresented) {
             switch destination {
-            case .switchNetwork: EmptyView()
+            case .switchNetwork: SwitchNetworkView(viewModel: .init(supportNetworksUseCase: SupportedNetworkImp()))
             case .switchAccount: SwitchAccountView(viewModel: .init(manageWalletsUseCase: ManageWalletsImpl()))
             case .sendTokens: SelectTokensView(viewModel: .init(viewModels: viewModel.tokenViewModels))
             case .receiveTokens: SelectTokensView(viewModel: .init(viewModels: viewModel.tokenViewModels))

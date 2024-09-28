@@ -3,15 +3,21 @@
 import Combine
 
 protocol SupportNetworksUseCase {
-    func makeNetworkModelsPublisher() -> AnyPublisher<NetworkModels, Never>
+    func fetchSelectedChainIdPublisher() -> AnyPublisher<String, Never>
+    func makeNetworkModelsPublisher(from selectedChainId: String) -> AnyPublisher<NetworkModels, Never>
 }
 
 final class SupportedNetworkImp: SupportNetworksUseCase {
-    func makeNetworkModelsPublisher() -> AnyPublisher<NetworkModels, Never> {
+    func makeNetworkModelsPublisher(from selectedChainId: String) -> AnyPublisher<NetworkModels, Never> {
         let mainnets: [NetworkModel] = MainnetNetwork.allCases.compactMap { network -> NetworkModel in
             let coinType = network.coinType
             let chainName = CoinTypeConfiguration.getName(type: coinType)
-            return .init(chainName: chainName, chainId: coinType.chainId, coinType: coinType)
+            return .init(
+                chainName: chainName,
+                chainId: coinType.chainId,
+                coinType: coinType,
+                isSelected: selectedChainId == coinType.chainId
+            )
         }
         
         let testnets: [NetworkModel] = TestNetwork.allCases.compactMap { network -> NetworkModel in
@@ -22,12 +28,21 @@ final class SupportedNetworkImp: SupportNetworksUseCase {
                 chainName = ChainNameConstants.sepolia
                 chainId = ChainIdConstants.sepolia
             }
-            return .init(chainName: chainName, chainId: chainId, coinType: network.coinType)
+            return .init(
+                chainName: chainName,
+                chainId: chainId,
+                coinType: network.coinType,
+                isSelected: selectedChainId == chainId
+            )
             
         }
         
         let models: NetworkModels = .init(mainnets: mainnets, testnets: testnets)
         return Just(models).eraseToAnyPublisher()
+    }
+    
+    func fetchSelectedChainIdPublisher() -> AnyPublisher<String, Never> {
+        Just(HDWalletManager.shared.selectedNetwork.coinType.chainId).eraseToAnyPublisher()
     }
 }
 
@@ -48,6 +63,7 @@ struct NetworkModel {
     let chainName: String
     let chainId: String
     let coinType: CoinType
+    let isSelected: Bool
 }
 
 struct NetworkModels {

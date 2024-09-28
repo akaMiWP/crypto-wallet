@@ -14,7 +14,10 @@ final class SwitchNetworkViewModel: ObservableObject {
     
     func fetchSupportedNetworks() {
         supportNetworksUseCase
-            .makeNetworkModelsPublisher()
+            .fetchSelectedChainIdPublisher()
+            .flatMap { selectedChainId in
+                self.supportNetworksUseCase.makeNetworkModelsPublisher(from: selectedChainId)
+            }
             .map { networkModels -> SupportedNetworkViewModel in
                 let mainnetViewModels: [NetworkViewModel] = networkModels.mainnets.compactMap { model in
                     return .init(name: model.chainName, chainId: model.chainId)

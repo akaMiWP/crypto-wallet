@@ -42,6 +42,7 @@ struct SwitchNetworkView: View {
                                     .font(.headline)
                                     .foregroundColor(.primaryViolet1_900)
                             }
+                            .listRowBackground(viewModel.isSelected ? Color.primaryViolet2_50: nil)
                         }
                     }
                 }
