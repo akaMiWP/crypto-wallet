@@ -45,13 +45,20 @@ struct SwitchNetworkView: View {
                                         .font(.headline)
                                         .foregroundColor(.primaryViolet1_900)
                                 }
-                                .listRowBackground(viewModel.isSelected ? Color.primaryViolet2_50: nil)
+                                .listRowBackground(viewModel.isSelected ? Color.primaryViolet2_100: nil)
+                                .onTapGesture {
+                                    self.viewModel.didSelect(viewModel: viewModel)
+                                }
                             }
                         }
                     }
                 }
             }
             .animation(.linear, value: viewModel.filteredViewModels)
+        }
+        .modifier(AlertModifier(viewModel: viewModel))
+        .onReceive(viewModel.shouldDismissSubject) { shouldDismiss in
+            if shouldDismiss { dismiss() }
         }
         .onAppear {
             viewModel.fetchSupportedNetworks()

@@ -1,13 +1,17 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
 import Combine
+import WalletCore
 
 protocol SupportNetworksUseCase {
     func fetchSelectedChainIdPublisher() -> AnyPublisher<String, Never>
     func makeNetworkModelsPublisher(from selectedChainId: String) -> AnyPublisher<NetworkModels, Never>
+    func selectNetworkPublisher(from chainId: String) -> AnyPublisher<Void, Error>
 }
 
 final class SupportedNetworkImp: SupportNetworksUseCase {
+    private var networkModels: NetworkModels = .init(mainnets: [], testnets: [])
+    
     func makeNetworkModelsPublisher(from selectedChainId: String) -> AnyPublisher<NetworkModels, Never> {
         let mainnets: [NetworkModel] = MainnetNetwork.allCases.compactMap { network -> NetworkModel in
             let coinType = network.coinType
@@ -37,36 +41,33 @@ final class SupportedNetworkImp: SupportNetworksUseCase {
             
         }
         
-        let models: NetworkModels = .init(mainnets: mainnets, testnets: testnets)
-        return Just(models).eraseToAnyPublisher()
+        networkModels = .init(mainnets: mainnets, testnets: testnets)
+        return Just(networkModels).eraseToAnyPublisher()
     }
     
     func fetchSelectedChainIdPublisher() -> AnyPublisher<String, Never> {
-        Just(HDWalletManager.shared.selectedNetwork.coinType.chainId).eraseToAnyPublisher()
+        Just(HDWalletManager.shared.selectedNetwork.chainId).eraseToAnyPublisher()
+    }
+    
+    func selectNetworkPublisher(from chainId: String) -> AnyPublisher<Void, Error> {
+        let selectedMainnetNetwork = networkModels.mainnets.first(where: { $0.chainId == chainId })
+        let selectedTestnetNetwork = networkModels.testnets.first(where: { $0.chainId == chainId })
+        
+        if let selectedMainnetNetwork = selectedMainnetNetwork,
+           let network: MainnetNetwork = .init(from: selectedMainnetNetwork.coinType)  {
+            HDWalletManager.shared.selectedNetwork = .mainnet(network)
+        } else if let selectedTestnetNetwork = selectedTestnetNetwork,
+                  let network: TestNetwork = .init(from: selectedTestnetNetwork.coinType)  {
+            HDWalletManager.shared.selectedNetwork = .testnet(network)
+        } else {
+            return Fail(error: SupportedNetworkUseCaseError.unableToFindSelectedChainId).eraseToAnyPublisher()
+        }
+        
+        return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
 }
 
-struct ChainNameConstants {
-    static let sepolia = "Sepolia"
-}
-
-struct ChainIdConstants {
-    static let ethereum = "1"
-    static let optimism = "10"
-    static let zkSync = "324"
-    static let arbitrumOne = "42161"
-    static let sepolia = "11155111"
-}
-
-import WalletCore
-struct NetworkModel {
-    let chainName: String
-    let chainId: String
-    let coinType: CoinType
-    let isSelected: Bool
-}
-
-struct NetworkModels {
-    let mainnets: [NetworkModel]
-    let testnets: [NetworkModel]
+// MARK: - Private
+private enum SupportedNetworkUseCaseError: Error {
+    case unableToFindSelectedChainId
 }

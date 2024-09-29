@@ -5,16 +5,17 @@ import WalletCore
 final class HDWalletManager {
     
     static let shared: HDWalletManager = .init()
+    var selectedNetwork: SupportedNetwork = .mainnet(.ethereum)
+    lazy var createdWalletModels: [WalletModel] = {
+        (try? KeychainManager.shared.get([WalletModel].self, for: .walletModels)) ?? []
+    }()
+    lazy var orderOfSelectedWallet: Int = {
+        (try? KeychainManager.shared.get(Int.self, for: .orderOfSelectedWallet)) ?? 0
+    }()
+    
     private var hdWallet: HDWallet?
     
-    var createdWalletModels: [WalletModel] = []
-    var orderOfSelectedWallet: Int = 0
-    var selectedNetwork: SupportedNetwork = .mainnet(.ethereum)
-    
-    private init() {
-        loadCreatedWallets()
-        loadOrderOfSelectedWallet()
-    }
+    private init() {}
     
     func store(wallet: HDWallet) {
         self.hdWallet = wallet
@@ -61,18 +62,4 @@ private enum HDWalletManagerError: Error {
     case unableToRestoreWallet
     case unableToLoadCreatedWallets
     case unableToSaveNewWallet
-}
-
-private extension HDWalletManager {
-    func loadCreatedWallets() {
-        if let walletModels = try? KeychainManager.shared.get([WalletModel].self, for: .walletModels) {
-            self.createdWalletModels = walletModels
-        }
-    }
-    
-    func loadOrderOfSelectedWallet() {
-        if let orderOfSelectedWallet = try? KeychainManager.shared.get(Int.self, for: .orderOfSelectedWallet) {
-            self.orderOfSelectedWallet = orderOfSelectedWallet
-        }
-    }
 }

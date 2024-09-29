@@ -2,10 +2,13 @@
 
 import Combine
 
-final class SwitchNetworkViewModel: Filterable {
-   
+final class SwitchNetworkViewModel: Alertable, Dismissable, Filterable {
+    
     @Published var searchInput: String = ""
     @Published var filteredViewModels: SupportedNetworkViewModel = .init(mainnetViewModels: [], testnetViewModels: [])
+    @Published var alertViewModel: AlertViewModel?
+    
+    let shouldDismissSubject: PassthroughSubject<Bool, Never> = .init()
     
     private var supportNetworksUseCase: SupportNetworksUseCase
     private var cancellables: Set<AnyCancellable> = .init()
@@ -33,10 +36,10 @@ final class SwitchNetworkViewModel: Filterable {
             }
             .map { networkModels -> SupportedNetworkViewModel in
                 let mainnetViewModels: [NetworkViewModel] = networkModels.mainnets.compactMap { model in
-                    return .init(name: model.chainName, chainId: model.chainId)
+                    return .init(name: model.chainName, chainId: model.chainId, isSelected: model.isSelected)
                 }
                 let testnetViewModels: [NetworkViewModel] = networkModels.testnets.compactMap { model in
-                    return .init(name: model.chainName, chainId: model.chainId)
+                    return .init(name: model.chainName, chainId: model.chainId, isSelected: model.isSelected)
                 }
                 return .init(mainnetViewModels: mainnetViewModels, testnetViewModels: testnetViewModels)
             }
@@ -45,7 +48,15 @@ final class SwitchNetworkViewModel: Filterable {
     }
     
     func didSelect(viewModel: NetworkViewModel) {
-        //TODO: To be implemented
+        supportNetworksUseCase
+            .selectNetworkPublisher(from: viewModel.chainId)
+            .sink {
+                switch $0 {
+                case .finished: self.shouldDismissSubject.send(true)
+                case .failure(let error): self.alertViewModel = .init(message: error.localizedDescription)
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
     }
 }
 

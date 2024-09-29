@@ -2,10 +2,6 @@
 
 import SwiftUI
 
-protocol Alertable: ObservableObject {
-    var alertViewModel: AlertViewModel? { get set }
-}
-
 struct AlertModifier<ViewModel: Alertable>: ViewModifier {
     @ObservedObject var viewModel: ViewModel
     

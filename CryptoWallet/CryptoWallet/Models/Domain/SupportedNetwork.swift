@@ -10,6 +10,19 @@ enum TestNetwork: CaseIterable {
         case .sepolia: return .ethereum
         }
     }
+    
+    var chainId: String {
+        switch self {
+        case .sepolia: return ChainIdConstants.sepolia
+        }
+    }
+    
+    init?(from coinType: CoinType) {
+        switch coinType {
+        case .ethereum: self = .sepolia
+        default: return nil
+        }
+    }
 }
 
 enum MainnetNetwork: CaseIterable {
@@ -26,16 +39,28 @@ enum MainnetNetwork: CaseIterable {
         case .optimism: return .optimism
         }
     }
+    
+    var chainId: String { coinType.chainId }
+    
+    init?(from coinType: CoinType) {
+        switch coinType {
+        case .ethereum: self = .ethereum
+        case .zksync: self = .zksync
+        case .arbitrum: self = .arbitrum
+        case .optimism: self = .optimism
+        default: return nil
+        }
+    }
 }
 
 enum SupportedNetwork: Hashable {
     case testnet(TestNetwork)
     case mainnet(MainnetNetwork)
     
-    var coinType: CoinType {
+    var chainId: String {
         switch self {
-        case .testnet(let testNetwork): return testNetwork.coinType
-        case .mainnet(let mainnetNetwork): return mainnetNetwork.coinType
+        case .testnet(let testNetwork): return testNetwork.chainId
+        case .mainnet(let mainnetNetwork): return mainnetNetwork.chainId
         }
     }
 }
