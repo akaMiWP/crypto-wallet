@@ -12,7 +12,7 @@ struct BiometricView: View {
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            Color.primaryViolet1_900
+            Color.primaryViolet2_400
                 .ignoresSafeArea(edges: .vertical)
                 .onChange(of: viewModel.isPolicyEvaluated, { _, newValue in
                     if newValue {
