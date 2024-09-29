@@ -19,6 +19,7 @@
 		A10CC10A2CA2BE5F000329A6 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1092CA2BE5F000329A6 /* View+.swift */; };
 		A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC10F2CA52D2F000329A6 /* Shadow+.swift */; };
 		A10CC1122CA5A432000329A6 /* SupportedNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */; };
+		A11471982CA8FF26009A900C /* Filterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11471972CA8FF26009A900C /* Filterable.swift */; };
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95A2C99A2A100BED797 /* BiometricView.swift */; };
@@ -82,6 +83,7 @@
 		A10CC1092CA2BE5F000329A6 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		A10CC10F2CA52D2F000329A6 /* Shadow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shadow+.swift"; sourceTree = "<group>"; };
 		A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedNetwork.swift; sourceTree = "<group>"; };
+		A11471972CA8FF26009A900C /* Filterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filterable.swift; sourceTree = "<group>"; };
 		A161A95A2C99A2A100BED797 /* BiometricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricView.swift; sourceTree = "<group>"; };
 		A161A95C2C99A2B000BED797 /* BiometricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricViewModel.swift; sourceTree = "<group>"; };
 		A167239C2C9238780089CE46 /* NetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStack.swift; sourceTree = "<group>"; };
@@ -181,6 +183,22 @@
 				A10CC1012CA26C75000329A6 /* ProgressBarView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		A11471952CA8FF10009A900C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A11471962CA8FF19009A900C /* Presentation */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A11471962CA8FF19009A900C /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				A11471972CA8FF26009A900C /* Filterable.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		A161A9592C99A28400BED797 /* Biometric */ = {
@@ -351,6 +369,7 @@
 				A167239A2C9237A90089CE46 /* Modules */,
 				A167239B2C92385C0089CE46 /* Network */,
 				A1A207302C7CA6ED0093CE47 /* Preview Content */,
+				A11471952CA8FF10009A900C /* Protocols */,
 				A1B68E8F2C84AD66000509C9 /* Routing */,
 				A1A375862C8D84960012BF43 /* Shared */,
 				A10CC0FB2CA166FE000329A6 /* Theme */,
@@ -555,6 +574,7 @@
 				A1A375912C8D8C2A0012BF43 /* UserDefaultUseCase.swift in Sources */,
 				A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */,
 				A16723A42C9242120089CE46 /* JSONRPCResponse.swift in Sources */,
+				A11471982CA8FF26009A900C /* Filterable.swift in Sources */,
 				A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */,
 				A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */,
 				A19BFFCD2C8DE47900E646CD /* CongratsViewModel.swift in Sources */,

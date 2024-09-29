@@ -4,6 +4,7 @@ import Combine
 
 final class SwitchNetworkViewModel: ObservableObject {
     @Published var supportedNetworkViewModel: SupportedNetworkViewModel = .init(mainnetViewModels: [], testnetViewModels: [])
+    @Published var searchInput: String = ""
     
     private var supportNetworksUseCase: SupportNetworksUseCase
     private var cancellables: Set<AnyCancellable> = .init()
