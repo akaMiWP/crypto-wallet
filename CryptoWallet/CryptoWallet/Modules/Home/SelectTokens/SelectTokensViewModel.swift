@@ -11,10 +11,6 @@ final class SelectTokensViewModel: Filterable {
     private let viewModels: [TokenViewModel]
     private var cancellables: Set<AnyCancellable> = .init()
     
-    var searchInputPublisher: AnyPublisher<String, Never> {
-        $searchInput.eraseToAnyPublisher()
-    }
-    
     init(viewModels: [TokenViewModel]) {
         self.viewModels = viewModels
         self.filteredViewModels = viewModels
@@ -22,10 +18,17 @@ final class SelectTokensViewModel: Filterable {
         subscribeToSearchInput()
             .store(in: &cancellables)
     }
+}
+
+// MARK: - Filterable
+extension SelectTokensViewModel {
+    var searchInputPublisher: AnyPublisher<String, Never> {
+        $searchInput.eraseToAnyPublisher()
+    }
     
     func filterItems(from searchInput: String) -> AnyPublisher<[TokenViewModel], Never> {
-        guard !searchInput.isEmpty else { return Just(self.viewModels).eraseToAnyPublisher() }
-        let filterdViewModels = self.viewModels.filter { $0.name.lowercased().contains(searchInput) }
+        guard !searchInput.isEmpty else { return Just(viewModels).eraseToAnyPublisher() }
+        let filterdViewModels = viewModels.filter { $0.name.lowercased().contains(searchInput) }
         return Just(filterdViewModels).eraseToAnyPublisher()
     }
 }

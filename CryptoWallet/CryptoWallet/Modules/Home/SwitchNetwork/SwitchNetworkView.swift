@@ -6,7 +6,6 @@ struct SwitchNetworkView: View {
     @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var viewModel: SwitchNetworkViewModel
-    @State private var searchInput: String = ""
     
     var body: some View {
         VStack(spacing: 0) {
@@ -14,7 +13,7 @@ struct SwitchNetworkView: View {
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
-                        TextField("Search", text: $searchInput)
+                        TextField("Search", text: $viewModel.searchInput)
                     }
                     .padding(.all, 8)
                     .foregroundColor(.primaryViolet1_900)
@@ -30,19 +29,21 @@ struct SwitchNetworkView: View {
             }
             
             List {
-                ForEach(viewModel.supportedNetworkViewModel.sections, id: \.title) { section in
-                    Section(section.title) {
-                        ForEach(section.viewModels) { viewModel in
-                            HStack(spacing: 18) {
-                                Image(uiImage: viewModel.image)
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                
-                                Text(viewModel.name)
-                                    .font(.headline)
-                                    .foregroundColor(.primaryViolet1_900)
+                ForEach(viewModel.filteredViewModels.sections, id: \.title) { section in
+                    if !section.viewModels.isEmpty {
+                        Section(section.title) {
+                            ForEach(section.viewModels) { viewModel in
+                                HStack(spacing: 18) {
+                                    Image(uiImage: viewModel.image)
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                    
+                                    Text(viewModel.name)
+                                        .font(.headline)
+                                        .foregroundColor(.primaryViolet1_900)
+                                }
+                                .listRowBackground(viewModel.isSelected ? Color.primaryViolet2_50: nil)
                             }
-                            .listRowBackground(viewModel.isSelected ? Color.primaryViolet2_50: nil)
                         }
                     }
                 }

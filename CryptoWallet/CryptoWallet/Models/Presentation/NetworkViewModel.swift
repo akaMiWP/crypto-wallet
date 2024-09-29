@@ -39,5 +39,8 @@ struct SupportedNetworkViewModel {
             .init(title: "Testnet networks".uppercased(), viewModels: testnetViewModels)
         ]
     }
+    
+    init(sections: [NetworkSection]) {
+        self.sections = sections
+    }
 }
-
