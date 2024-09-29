@@ -107,6 +107,7 @@ private extension DashboardView {
         }
         .padding(.horizontal)
         .redacted(reason: viewModel.state.redactionReasons)
+        .animation(.linear, value: viewModel.tokenViewModels)
     }
     
     func makeOperationViews() -> some View {

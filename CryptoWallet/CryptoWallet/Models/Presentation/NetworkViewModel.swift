@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct NetworkViewModel: Identifiable {
+struct NetworkViewModel: Identifiable, Equatable {
     var id: String { name }
     
     let image: UIImage
@@ -25,12 +25,12 @@ struct NetworkViewModel: Identifiable {
     }
 }
 
-struct NetworkSection {
+struct NetworkSection: Equatable {
     let title: String
     let viewModels: [NetworkViewModel]
 }
 
-struct SupportedNetworkViewModel {
+struct SupportedNetworkViewModel: Equatable {
     let sections: [NetworkSection]
     
     init(mainnetViewModels: [NetworkViewModel], testnetViewModels: [NetworkViewModel]) {

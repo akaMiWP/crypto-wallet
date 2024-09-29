@@ -33,6 +33,7 @@ struct TokenListView: View {
             .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
             .padding(.horizontal)
         }
+        .animation(.easeIn, value: viewModels)
     }
 }
 

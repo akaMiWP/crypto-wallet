@@ -51,10 +51,13 @@ private extension SelectTokensView {
                 .background(Color.primaryViolet1_50)
                 .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                 
-                Text("Cancel")
-                    .font(.subheadline)
-                    .foregroundColor(.primaryViolet1_50)
+                if !viewModel.searchInput.isEmpty {
+                    Text("Cancel")
+                        .font(.subheadline)
+                        .foregroundColor(.primaryViolet1_50)
+                }
             }
+            .animation(.bouncy, value: viewModel.searchInput)
         } backCompletion: { dismiss() }
     }
 }
