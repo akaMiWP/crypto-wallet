@@ -36,7 +36,7 @@ struct DashboardView: View {
         .modifier(AlertModifier(viewModel: viewModel))
         .sheet(isPresented: isPresented) {
             switch destination {
-            case .switchNetwork: SwitchNetworkView(viewModel: .init(supportNetworksUseCase: SupportedNetworkImp()))
+            case .switchNetwork: SwitchNetworkView(viewModel: .init(supportNetworksUseCase: SupportNetworksImp()))
             case .switchAccount: SwitchAccountView(viewModel: .init(manageWalletsUseCase: ManageWalletsImpl()))
             case .sendTokens: SelectTokensView(viewModel: .init(viewModels: viewModel.tokenViewModels))
             case .receiveTokens: SelectTokensView(viewModel: .init(viewModels: viewModel.tokenViewModels))
@@ -145,7 +145,7 @@ private extension DashboardView {
         ),
         manageHDWalletUseCase: ManageHDWalletImpl(),
         manageWalletsUseCase: ManageWalletsImpl(),
-        supportNetworksUseCase: SupportedNetworkImp(),
+        supportNetworksUseCase: SupportNetworksImp(),
         globalEventUseCase: GlobalEventImp()
     )
     viewModel.state = .loading

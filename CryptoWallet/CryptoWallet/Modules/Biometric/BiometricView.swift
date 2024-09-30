@@ -28,7 +28,7 @@ struct BiometricView: View {
                                 nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
                                 manageHDWalletUseCase: ManageHDWalletImpl(),
                                 manageWalletsUseCase: ManageWalletsImpl(),
-                                supportNetworksUseCase: SupportedNetworkImp(),
+                                supportNetworksUseCase: SupportNetworksImp(),
                                 globalEventUseCase: GlobalEventImp()
                             )
                         )

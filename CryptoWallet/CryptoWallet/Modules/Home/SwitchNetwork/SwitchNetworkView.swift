@@ -67,7 +67,7 @@ struct SwitchNetworkView: View {
 }
 
 #Preview {
-    let viewModel: SwitchNetworkViewModel = .init(supportNetworksUseCase: SupportedNetworkImp())
+    let viewModel: SwitchNetworkViewModel = .init(supportNetworksUseCase: SupportNetworksImp())
     return SwitchNetworkView(viewModel: viewModel)
 }
 

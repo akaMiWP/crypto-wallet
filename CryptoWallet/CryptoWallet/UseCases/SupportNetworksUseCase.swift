@@ -10,8 +10,7 @@ protocol SupportNetworksUseCase {
     func selectNetworkPublisher(from chainId: String) -> AnyPublisher<Void, Error>
 }
 
-//TODO: Rename this to correctly match with its protocol
-final class SupportedNetworkImp: SupportNetworksUseCase {
+final class SupportNetworksImp: SupportNetworksUseCase {
     private var networkModels: NetworkModels = .init(mainnets: [], testnets: [])
     
     func fetchNetworkModel(from chainId: String) -> AnyPublisher<NetworkModel, Error> {
