@@ -44,6 +44,7 @@ struct DashboardView: View {
             }
         }
         .onAppear {
+            viewModel.fetchSelectedNetwork()
             viewModel.fetchTokenBalances()
         }
     }
@@ -83,9 +84,10 @@ private extension DashboardView {
             
             HStack {
                 HStack {
-                    Text("S")
-                        .font(.headline)
-                        .foregroundColor(.primaryViolet1_900)
+                    Image(uiImage: viewModel.networkViewModel.image)
+                        .resizable()
+                        .clipShape(Circle())
+                        .frame(width: 30, height: 30)
                         .padding(8)
                         .background(Color.primaryViolet1_50)
                         .clipShape(Circle())
@@ -144,6 +146,7 @@ private extension DashboardView {
         ),
         manageHDWalletUseCase: ManageHDWalletImpl(),
         manageWalletsUseCase: ManageWalletsImpl(),
+        supportNetworksUseCase: SupportedNetworkImp(),
         globalEventUseCase: GlobalEventImp()
     )
     viewModel.state = .loading

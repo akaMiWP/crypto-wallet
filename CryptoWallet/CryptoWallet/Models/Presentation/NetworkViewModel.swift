@@ -10,6 +10,8 @@ struct NetworkViewModel: Identifiable, Equatable {
     let chainId: String
     let isSelected: Bool
     
+    static let `default`: NetworkViewModel = .init(name: "", chainId: "")
+    
     init(name: String, chainId: String, isSelected: Bool = false) {
         self.name = name
         self.chainId = chainId
@@ -20,6 +22,7 @@ struct NetworkViewModel: Identifiable, Equatable {
         case ChainIdConstants.arbitrumOne: self.image = .iconArbitrum
         case ChainIdConstants.zkSync: self.image = .iconZksync
         case ChainIdConstants.optimism: self.image = .iconOptimism
+        case ChainIdConstants.sepolia: self.image = .iconEthereum
         default: self.image = .init()
         }
     }

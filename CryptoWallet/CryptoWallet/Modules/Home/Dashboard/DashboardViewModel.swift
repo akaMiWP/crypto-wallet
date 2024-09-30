@@ -9,6 +9,7 @@ final class DashboardViewModel: Alertable {
     
     @Published var state: ViewModelState = .loading
     @Published var walletViewModel: WalletViewModel = .default
+    @Published var networkViewModel: NetworkViewModel = .default
     @Published var tokenViewModels: [TokenViewModel] = []
     @Published var shouldRefetchTokenBalances: Bool = false
     @Published var alertViewModel: AlertViewModel?
@@ -24,19 +25,38 @@ final class DashboardViewModel: Alertable {
     private let nodeProviderUseCase: NodeProviderUseCase
     private let manageHDWalletUseCase: ManageHDWalletUseCase
     private let manageWalletsUseCase: ManageWalletsUseCase
+    private let supportNetworksUseCase: SupportNetworksUseCase
     private let globalEventUseCase: GlobalEventUseCase
     
     init(nodeProviderUseCase: NodeProviderUseCase,
          manageHDWalletUseCase: ManageHDWalletUseCase,
          manageWalletsUseCase: ManageWalletsUseCase,
+         supportNetworksUseCase: SupportNetworksUseCase,
          globalEventUseCase: GlobalEventUseCase
     ) {
         self.nodeProviderUseCase = nodeProviderUseCase
         self.manageHDWalletUseCase = manageHDWalletUseCase
         self.manageWalletsUseCase = manageWalletsUseCase
+        self.supportNetworksUseCase = supportNetworksUseCase
         self.globalEventUseCase = globalEventUseCase
         subscribeToAddressToTokenModelDict()
         subscribeToAccountChange()
+        subscribeToNetworkChange()
+    }
+    
+    func fetchSelectedNetwork() {
+        supportNetworksUseCase
+            .fetchSelectedChainIdPublisher()
+            .flatMap { self.supportNetworksUseCase.fetchNetworkModel(from: $0) }
+            .map { model -> NetworkViewModel in
+                return .init(name: model.chainName, chainId: model.chainId, isSelected: model.isSelected)
+            }
+            .sink { [weak self] in
+                self?.handleError(completion: $0)
+            } receiveValue: { [weak self] in
+                self?.networkViewModel = $0
+            }
+            .store(in: &cancellables)
     }
     
     func fetchTokenBalances() {
@@ -135,9 +155,15 @@ private extension DashboardViewModel {
     func subscribeToAccountChange() {
         globalEventUseCase.makeAccountChangePublisher()
             .sink { [weak self] _ in
-                self?.offset = 0
-                self?.state = .loading
-                self?.fetchTokenBalances()
+                self?.modelDidChange()
+            }
+            .store(in: &cancellables)
+    }
+    
+    func subscribeToNetworkChange() {
+        globalEventUseCase.makeNetworkChangePublisher()
+            .sink { [weak self] _ in
+                self?.modelDidChange()
             }
             .store(in: &cancellables)
     }
@@ -147,5 +173,12 @@ private extension DashboardViewModel {
             self.alertViewModel = .init(message: error.localizedDescription)
             self.state = .error
         }
+    }
+    
+    func modelDidChange() {
+        offset = 0
+        state = .loading
+        fetchSelectedNetwork()
+        fetchTokenBalances()
     }
 }
