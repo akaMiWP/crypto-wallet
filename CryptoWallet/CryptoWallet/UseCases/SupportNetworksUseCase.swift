@@ -4,13 +4,52 @@ import Combine
 import WalletCore
 
 protocol SupportNetworksUseCase {
+    func fetchNetworkModel(from chainId: String) -> AnyPublisher<NetworkModel, Error>
     func fetchSelectedChainIdPublisher() -> AnyPublisher<String, Never>
     func makeNetworkModelsPublisher(from selectedChainId: String) -> AnyPublisher<NetworkModels, Never>
     func selectNetworkPublisher(from chainId: String) -> AnyPublisher<Void, Error>
 }
 
+//TODO: Rename this to correctly match with its protocol
 final class SupportedNetworkImp: SupportNetworksUseCase {
     private var networkModels: NetworkModels = .init(mainnets: [], testnets: [])
+    
+    func fetchNetworkModel(from chainId: String) -> AnyPublisher<NetworkModel, Error> {
+        let mainnets = MainnetNetwork.allCases
+        let testnets = TestNetwork.allCases
+        
+        if let network = mainnets.first(where: { $0.chainId == chainId }) {
+            let chainName = CoinTypeConfiguration.getName(type: network.coinType)
+            let model: NetworkModel = .init(
+                chainName: chainName,
+                chainId: network.chainId,
+                coinType: network.coinType,
+                isSelected: true
+            )
+            return Just(model).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else if let network = testnets.first(where: { $0.chainId == chainId }) {
+            let chainName: String
+            let chainId: String
+            switch network {
+            case .sepolia:
+                chainName = ChainNameConstants.sepolia
+                chainId = ChainIdConstants.sepolia
+            }
+            let model: NetworkModel = .init(
+                chainName: chainName,
+                chainId: chainId,
+                coinType: network.coinType,
+                isSelected: true
+            )
+            return Just(model).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else {
+            return Fail(error: SupportedNetworkUseCaseError.unableToFetchNetworkModel).eraseToAnyPublisher()
+        }
+    }
+    
+    func fetchSelectedChainIdPublisher() -> AnyPublisher<String, Never> {
+        Just(HDWalletManager.shared.selectedNetwork.chainId).eraseToAnyPublisher()
+    }
     
     func makeNetworkModelsPublisher(from selectedChainId: String) -> AnyPublisher<NetworkModels, Never> {
         let mainnets: [NetworkModel] = MainnetNetwork.allCases.compactMap { network -> NetworkModel in
@@ -45,10 +84,6 @@ final class SupportedNetworkImp: SupportNetworksUseCase {
         return Just(networkModels).eraseToAnyPublisher()
     }
     
-    func fetchSelectedChainIdPublisher() -> AnyPublisher<String, Never> {
-        Just(HDWalletManager.shared.selectedNetwork.chainId).eraseToAnyPublisher()
-    }
-    
     func selectNetworkPublisher(from chainId: String) -> AnyPublisher<Void, Error> {
         let selectedMainnetNetwork = networkModels.mainnets.first(where: { $0.chainId == chainId })
         let selectedTestnetNetwork = networkModels.testnets.first(where: { $0.chainId == chainId })
@@ -70,4 +105,5 @@ final class SupportedNetworkImp: SupportNetworksUseCase {
 // MARK: - Private
 private enum SupportedNetworkUseCaseError: Error {
     case unableToFindSelectedChainId
+    case unableToFetchNetworkModel
 }
