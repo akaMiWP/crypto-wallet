@@ -1,6 +1,7 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
 import Combine
+import Foundation
 
 final class SwitchNetworkViewModel: Alertable, Dismissable, Filterable {
     
@@ -55,7 +56,9 @@ final class SwitchNetworkViewModel: Alertable, Dismissable, Filterable {
                 case .finished: self.shouldDismissSubject.send(true)
                 case .failure(let error): self.alertViewModel = .init(message: error.localizedDescription)
                 }
-            } receiveValue: { _ in }
+            } receiveValue: { _ in
+                NotificationCenter.default.post(name: .init("networkChanged"), object: nil)
+            }
             .store(in: &cancellables)
     }
 }
