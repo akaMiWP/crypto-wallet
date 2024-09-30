@@ -14,11 +14,11 @@ struct BiometricView: View {
         NavigationStack(path: $navigationPath) {
             Color.primaryViolet2_400
                 .ignoresSafeArea(edges: .vertical)
-                .onChange(of: viewModel.isPolicyEvaluated, { _, newValue in
+                .onChange(of: viewModel.isPolicyEvaluated) { newValue in
                     if newValue {
                         navigationPath.append(Destinations.dashboard)
                     }
-                })
+                }
                 .onAppear { viewModel.authenticate() }
                 .navigationDestination(for: Destinations.self) {
                     switch $0 {
