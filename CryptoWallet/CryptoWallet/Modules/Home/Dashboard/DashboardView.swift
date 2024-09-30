@@ -44,8 +44,7 @@ struct DashboardView: View {
             }
         }
         .onAppear {
-            viewModel.fetchSelectedNetwork()
-            viewModel.fetchTokenBalances()
+            viewModel.fetchData()
         }
     }
 }

@@ -44,46 +44,18 @@ final class DashboardViewModel: Alertable {
         subscribeToNetworkChange()
     }
     
-    func fetchSelectedNetwork() {
-        supportNetworksUseCase
-            .fetchSelectedChainIdPublisher()
-            .flatMap { self.supportNetworksUseCase.fetchNetworkModel(from: $0) }
-            .map { model -> NetworkViewModel in
-                return .init(name: model.chainName, chainId: model.chainId, isSelected: model.isSelected)
-            }
-            .sink { [weak self] in
-                self?.handleError(completion: $0)
-            } receiveValue: { [weak self] in
-                self?.networkViewModel = $0
-            }
-            .store(in: &cancellables)
-    }
-    
-    func fetchTokenBalances() {
-        tokenViewModels = TokenViewModel.placeholders
+    func fetchData() {
+        let fetchSelectedNetworkPublisher = fetchSelectedNetwork()
+        let fetchTokenBalancesPublisher = fetchTokenBalances()
         
-        manageHDWalletUseCase.restoreWallet()
-            .flatMap { [weak self] _ -> AnyPublisher<WalletModel, Error> in
-                guard let self = self else {
-                    return Just(WalletModel(name: "", address: ""))
-                        .setFailureType(to: Error.self)
-                        .eraseToAnyPublisher()
-                }
-                return self.manageWalletsUseCase.loadSelectedWalletPublisher()
-            }
-            .map { model -> WalletViewModel in
-                .init(name: model.name, address: model.address, isSelected: true)
-            }
-            .flatMap { [weak self] model -> AnyPublisher<[AddressToTokenModel], Error> in
-                guard let self = self else { return Just([]).setFailureType(to: Error.self).eraseToAnyPublisher() }
-                self.walletViewModel = model
-                return self.nodeProviderUseCase.fetchTokenBalances(address: model.address)
-            }
+        Publishers.Zip(fetchSelectedNetworkPublisher, fetchTokenBalancesPublisher)
+            .receive(on: RunLoop.main)
             .sink { [weak self] in
                 self?.handleError(completion: $0)
-            } receiveValue: { [weak self] models in
+            } receiveValue: { [weak self] (viewModel, tokenModels) in
                 guard let self = self else { return }
-                self.allTokens = models
+                self.networkViewModel = viewModel
+                self.allTokens = tokenModels
                 self.fetchNextTokens()
             }
             .store(in: &cancellables)
@@ -129,6 +101,39 @@ final class DashboardViewModel: Alertable {
 
 // MARK: - Private
 private extension DashboardViewModel {
+    func fetchSelectedNetwork() -> AnyPublisher<NetworkViewModel, Error> {
+        supportNetworksUseCase
+            .fetchSelectedChainIdPublisher()
+            .flatMap { self.supportNetworksUseCase.fetchNetworkModel(from: $0) }
+            .map { model -> NetworkViewModel in
+                return .init(name: model.chainName, chainId: model.chainId, isSelected: model.isSelected)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchTokenBalances() -> AnyPublisher<[AddressToTokenModel], Error> {
+        tokenViewModels = TokenViewModel.placeholders
+        
+        return manageHDWalletUseCase.restoreWallet()
+            .flatMap { [weak self] _ -> AnyPublisher<WalletModel, Error> in
+                guard let self = self else {
+                    return Just(WalletModel(name: "", address: ""))
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                }
+                return self.manageWalletsUseCase.loadSelectedWalletPublisher()
+            }
+            .map { model -> WalletViewModel in
+                .init(name: model.name, address: model.address, isSelected: true)
+            }
+            .flatMap { [weak self] model -> AnyPublisher<[AddressToTokenModel], Error> in
+                guard let self = self else { return Just([]).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                self.walletViewModel = model
+                return self.nodeProviderUseCase.fetchTokenBalances(address: model.address)
+            }
+            .eraseToAnyPublisher()
+    }
+    
     func subscribeToAddressToTokenModelDict() {
         addressToTokenModelsDict
             .sink { [weak self] dict in
@@ -178,7 +183,6 @@ private extension DashboardViewModel {
     func modelDidChange() {
         offset = 0
         state = .loading
-        fetchSelectedNetwork()
-        fetchTokenBalances()
+        fetchData()
     }
 }
