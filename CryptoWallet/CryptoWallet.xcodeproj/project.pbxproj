@@ -65,6 +65,7 @@
 		A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */; };
 		A1B719D92C80C1F40039D8D9 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = A1B719D82C80C1F40039D8D9 /* web3swift */; };
 		A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */; };
+		A1B7D2352CAC3B3300EF7923 /* GetBalanceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */; };
 		A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */; };
 		A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */; };
 		A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */; };
@@ -133,6 +134,7 @@
 		A1B68E902C84AD71000509C9 /* NavigationDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinations.swift; sourceTree = "<group>"; };
 		A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarPresentedView.swift; sourceTree = "<group>"; };
 		A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBalanceResponse.swift; sourceTree = "<group>"; };
 		A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkView.swift; sourceTree = "<group>"; };
 		A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkViewModel.swift; sourceTree = "<group>"; };
 		A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportNetworksUseCase.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 			children = (
 				A16723A12C9241C80089CE46 /* JSONRPCRequest.swift */,
 				A16723A32C9242120089CE46 /* JSONRPCResponse.swift */,
+				A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */,
 				A16723A52C92425C0089CE46 /* TokenBalancesResponse.swift */,
 				A16723B22C958AC30089CE46 /* TokenMetadataResponse.swift */,
 			);
@@ -618,6 +621,7 @@
 				A19BFFCA2C8DE2EF00E646CD /* GlobalEventUseCase.swift in Sources */,
 				A10CC0FA2CA160C6000329A6 /* SelectTokensViewModel.swift in Sources */,
 				A10CC1002CA17725000329A6 /* PrimaryButton.swift in Sources */,
+				A1B7D2352CAC3B3300EF7923 /* GetBalanceResponse.swift in Sources */,
 				A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */,
 				A16723B52C958BBB0089CE46 /* TokenMetadataModel.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,

@@ -47,15 +47,32 @@ final class DashboardViewModel: Alertable {
     func fetchData() {
         let fetchSelectedNetworkPublisher = fetchSelectedNetwork()
         let fetchTokenBalancesPublisher = fetchTokenBalances()
+        let fetchEthereumBalancePublisher = manageWalletsUseCase
+            .loadSelectedWalletPublisher()
+            .flatMap { model -> AnyPublisher<String, any Error> in
+                return self.nodeProviderUseCase.fetchEthereumBalance(address: model.address)
+            }
+            .tryMap { hexString -> Double in
+                guard let balance = convertHexToDouble(hexString: hexString, decimals: 16) else {
+                    throw DashboardViewModelError.unableToParseHexStringToDouble
+                }
+                return balance
+            }
         
-        Publishers.Zip(fetchSelectedNetworkPublisher, fetchTokenBalancesPublisher)
+        Publishers.Zip3(fetchSelectedNetworkPublisher, fetchTokenBalancesPublisher, fetchEthereumBalancePublisher)
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 self?.handleError(completion: $0)
-            } receiveValue: { [weak self] (viewModel, tokenModels) in
+            } receiveValue: { [weak self] (viewModel, tokenModels, ethBalance) in
                 guard let self = self else { return }
                 self.networkViewModel = viewModel
                 self.allTokens = tokenModels
+                self.tokenViewModels += [.init(
+                    name: "Ethereum",
+                    symbol: "ETH",
+                    balance: ethBalance,
+                    totalAmount: 0
+                )]
                 self.fetchNextTokens()
             }
             .store(in: &cancellables)
@@ -185,4 +202,8 @@ private extension DashboardViewModel {
         state = .loading
         fetchData()
     }
+}
+
+private enum DashboardViewModelError: Error {
+    case unableToParseHexStringToDouble
 }

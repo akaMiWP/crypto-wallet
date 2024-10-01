@@ -7,6 +7,7 @@ import Foundation
 final class NetworkStack {
     
     enum Method: String {
+        case getBalance = "eth_getBalance"
         case tokenBalances = "alchemy_getTokenBalances"
         case tokenMetadata = "alchemy_getTokenMetadata"
     }
