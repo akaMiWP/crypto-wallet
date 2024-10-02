@@ -50,7 +50,7 @@ private extension TokenListView {
                 .dropShadow()
                 .padding(.trailing)
             } else {
-                Image(.iconEthereum)
+                Image(uiImage: viewModel.image)
                     .resizable()
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())

@@ -18,6 +18,8 @@ final class DashboardViewModel: Alertable {
     private var allTokens: [AddressToTokenModel] = []
     private var offset: Int = 0
     
+    private var ethBalance: Double = 0
+    
     private var addressToTokenModelsDict:
     PassthroughSubject<[AddressToTokenModel: TokenMetadataModel], Never> = .init()
     private var cancellables: Set<AnyCancellable> = .init()
@@ -68,12 +70,7 @@ final class DashboardViewModel: Alertable {
                 guard let self = self else { return }
                 self.networkViewModel = viewModel
                 self.allTokens = tokenModels
-                self.tokenViewModels += [.init(
-                    name: "Ethereum",
-                    symbol: "ETH",
-                    balance: ethBalance,
-                    totalAmount: 0
-                )]
+                self.ethBalance = ethBalance
                 self.fetchNextTokens()
             }
             .store(in: &cancellables)
@@ -157,6 +154,15 @@ private extension DashboardViewModel {
             .sink { [weak self] dict in
                 guard let self = self else { return }
                 var tokenViewModels: [TokenViewModel] = self.tokenViewModels
+                if tokenViewModels.filter({ $0.redactedReason != .placeholder }).count == 0 {
+                    tokenViewModels.append(.init(
+                        name: "Ethereum",
+                        symbol: "ETH",
+                        image: .iconEthereum,
+                        balance: ethBalance,
+                        totalAmount: 0
+                    ))
+                }
                 dict.forEach { key, value in
                     guard let balance = convertHexToDouble(hexString: key.tokenBalance, decimals: value.decimals)
                     else { return }

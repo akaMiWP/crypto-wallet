@@ -8,6 +8,7 @@ struct TokenViewModel: Identifiable, Equatable {
     let name: String
     let symbol: String
     let logo: URL?
+    let image: UIImage
     let balance: Double
     let totalAmount: Double //TODO: Check if this is feasible to fetch for the price on chain
     let redactedReason: RedactionReasons
@@ -16,6 +17,7 @@ struct TokenViewModel: Identifiable, Equatable {
         name: String,
         symbol: String,
         logo: URL? = nil,
+        image: UIImage = .init(),
         balance: Double,
         totalAmount: Double,
         redactedReason: RedactionReasons = []
@@ -23,6 +25,7 @@ struct TokenViewModel: Identifiable, Equatable {
         self.name = name
         self.symbol = symbol
         self.logo = logo
+        self.image = image
         self.balance = balance
         self.totalAmount = totalAmount
         self.redactedReason = redactedReason
