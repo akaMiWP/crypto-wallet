@@ -1,2 +1,4 @@
 *.xcconfig
+*.resolved
 xcuserdata/
+*/xcschemes/*
