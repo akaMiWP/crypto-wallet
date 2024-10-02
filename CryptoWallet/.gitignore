@@ -2,3 +2,4 @@
 *.resolved
 xcuserdata/
 */xcschemes/*
+*.xcworkspace/
