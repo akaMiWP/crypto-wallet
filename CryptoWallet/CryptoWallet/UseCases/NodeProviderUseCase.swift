@@ -12,14 +12,20 @@ protocol NodeProviderUseCase {
 final class NodeProviderImpl: NodeProviderUseCase {
     
     private let networkStack: NetworkStack
+    private let HDWalletManager: HDWalletManager
     
-    init(networkStack: NetworkStack) {
+    init(networkStack: NetworkStack, HDWalletManager: HDWalletManager = .shared) {
         self.networkStack = networkStack
+        self.HDWalletManager = HDWalletManager
     }
     
     func fetchEthereumBalance(address: String) -> AnyPublisher<String, Error> {
         let getBalanceResponsePubliser: AnyPublisher<JSONRPCResponse<String>, Error>
-        = networkStack.fetchServiceProviderAPI(method: .getBalance, params: [address])
+        = networkStack.fetchServiceProviderAPI(
+            method: .getBalance,
+            params: [address],
+            nodeProvider: HDWalletManager.selectedNetwork.nodeProvider
+        )
         
         return getBalanceResponsePubliser
             .flatMap { output in
@@ -38,7 +44,11 @@ final class NodeProviderImpl: NodeProviderUseCase {
     
     func fetchTokenBalances(address: String) -> AnyPublisher<[AddressToTokenModel], Error> {
         let tokenBalancesResponsePublisher: AnyPublisher<JSONRPCResponse<TokenBalancesResponse>, Error>
-        = networkStack.fetchServiceProviderAPI(method: .tokenBalances, params: [address])
+        = networkStack.fetchServiceProviderAPI(
+            method: .tokenBalances,
+            params: [address],
+            nodeProvider: HDWalletManager.selectedNetwork.nodeProvider
+        )
         
         let modelsPublisher = tokenBalancesResponsePublisher
             .flatMap { output in
@@ -61,7 +71,11 @@ final class NodeProviderImpl: NodeProviderUseCase {
     
     func fetchTokenMetadata(address: String) -> AnyPublisher<TokenMetadataModel, Error> {
         let tokenMetadataResponsePublisher: AnyPublisher<JSONRPCResponse<TokenMetadataResponse>, Error>
-        = networkStack.fetchServiceProviderAPI(method: .tokenMetadata, params: [address])
+        = networkStack.fetchServiceProviderAPI(
+            method: .tokenMetadata,
+            params: [address],
+            nodeProvider: HDWalletManager.selectedNetwork.nodeProvider
+        )
         
         let modelPublisher = tokenMetadataResponsePublisher
             .flatMap { output in

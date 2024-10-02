@@ -2,7 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>API_BASE_URL</key>
-	<string>$(API_BASE_URL)</string>
+	<key>NODE_ARBITRUM_URL</key>
+	<string>$(NODE_ARBITRUM_URL)</string>
+	<key>NODE_ETHEREUM_URL</key>
+	<string>$(NODE_ETHEREUM_URL)</string>
+	<key>NODE_OPTIMISM_URL</key>
+	<string>$(NODE_OPTIMISM_URL)</string>
+	<key>NODE_SEPOLIA_URL</key>
+	<string>$(NODE_SEPOLIA_URL)</string>
+	<key>NODE_ZKSYNC_URL</key>
+	<string>$(NODE_ZKSYNC_URL)</string>
 </dict>
 </plist>

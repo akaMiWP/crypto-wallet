@@ -18,8 +18,12 @@ final class NetworkStack {
         self.session = session
     }
     
-    func fetchServiceProviderAPI<T>(method: Method, params: [String]) -> AnyPublisher<T, any Error> where T: Decodable {
-        guard let baseURLInString = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String,
+    func fetchServiceProviderAPI<T>(
+        method: Method,
+        params: [String],
+        nodeProvider: NodeProvider
+    ) -> AnyPublisher<T, any Error> where T: Decodable {
+        guard let baseURLInString = nodeProvider.url,
               let url: URL = .init(string: baseURLInString.replacingOccurrences(of: "%%", with: "//")) else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }

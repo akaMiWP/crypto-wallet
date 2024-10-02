@@ -63,4 +63,20 @@ enum SupportedNetwork: Hashable {
         case .mainnet(let mainnetNetwork): return mainnetNetwork.chainId
         }
     }
+    
+    var nodeProvider: NodeProvider {
+        switch self {
+        case .testnet(let testNetwork):
+            switch testNetwork {
+            case .sepolia: return .sepolia
+            }
+        case .mainnet(let mainnetNetwork):
+            switch mainnetNetwork {
+            case .ethereum: return .ethereum
+            case .zksync: return .zksync
+            case .arbitrum: return .arbitrum
+            case .optimism: return .optimism
+            }
+        }
+    }
 }

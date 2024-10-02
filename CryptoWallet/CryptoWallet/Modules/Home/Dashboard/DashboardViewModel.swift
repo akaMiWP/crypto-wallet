@@ -56,7 +56,7 @@ final class DashboardViewModel: Alertable {
                 return self.nodeProviderUseCase.fetchEthereumBalance(address: model.address)
             }
             .tryMap { hexString -> Double in
-                guard let balance = convertHexToDouble(hexString: hexString, decimals: 16) else {
+                guard let balance = convertHexToDouble(hexString: hexString, decimals: 18) else {
                     throw DashboardViewModelError.unableToParseHexStringToDouble
                 }
                 return balance
