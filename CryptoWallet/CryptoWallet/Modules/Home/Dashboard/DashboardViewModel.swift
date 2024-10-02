@@ -151,8 +151,8 @@ private extension DashboardViewModel {
     
     func subscribeToAddressToTokenModelDict() {
         addressToTokenModelsDict
-            .sink { [weak self] dict in
-                guard let self = self else { return }
+            .map { [weak self] dict -> [TokenViewModel] in
+                guard let self = self else { return [] }
                 var tokenViewModels: [TokenViewModel] = self.tokenViewModels
                 if tokenViewModels.filter({ $0.redactedReason != .placeholder }).count == 0 {
                     tokenViewModels.append(.init(
@@ -175,7 +175,12 @@ private extension DashboardViewModel {
                     )
                     tokenViewModels.append(tokenViewModel)
                 }
-                self.tokenViewModels = tokenViewModels.filter { $0.redactedReason != .placeholder }
+                tokenViewModels = tokenViewModels.filter { $0.redactedReason != .placeholder }
+                return tokenViewModels
+            }
+            .sink { [weak self] models in
+                guard let self = self else { return }
+                self.tokenViewModels = models
                 self.state = .finished
             }
             .store(in: &cancellables)
