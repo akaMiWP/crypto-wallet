@@ -20,7 +20,7 @@ struct TokenListView: View {
     var body: some View {
         LazyVStack {
             ForEach(viewModels, id: \.id) { viewModel in
-                makeERC20TokenView(viewModel: viewModel)
+                makeTokenView(viewModel: viewModel)
                     .onAppear {
                         if viewModel == viewModels.last(where: { $0.redactedReason != .placeholder }) {
                             didScrollToBottom?()
@@ -39,13 +39,24 @@ struct TokenListView: View {
 
 // MARK: - Private
 private extension TokenListView {
-    func makeERC20TokenView(viewModel: TokenViewModel) -> some View {
+    func makeTokenView(viewModel: TokenViewModel) -> some View {
         HStack(alignment: .top) {
-            AsyncImage(url: viewModel.logo)
+            if let logo = viewModel.logo {
+                AsyncImage(url: logo) { image in
+                    image.image?.resizable()
+                }
                 .frame(width: 40, height: 40)
                 .clipShape(Circle())
                 .dropShadow()
                 .padding(.trailing)
+            } else {
+                Image(.iconEthereum)
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+                    .dropShadow()
+                    .padding(.trailing)
+            }
             
             VStack(alignment: .leading) {
                 Text(viewModel.name)

@@ -49,6 +49,7 @@ final class DashboardViewModel: Alertable {
         let fetchTokenBalancesPublisher = fetchTokenBalances()
         let fetchEthereumBalancePublisher = manageWalletsUseCase
             .loadSelectedWalletPublisher()
+            .delay(for: .seconds(0.5), scheduler: RunLoop.main)
             .flatMap { model -> AnyPublisher<String, any Error> in
                 return self.nodeProviderUseCase.fetchEthereumBalance(address: model.address)
             }
