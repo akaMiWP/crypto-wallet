@@ -5,7 +5,7 @@ import SwiftUI
 struct SwitchNetworkView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @ObservedObject var viewModel: SwitchNetworkViewModel
+    @StateObject var viewModel: SwitchNetworkViewModel = .init(supportNetworksUseCase: SupportNetworksImp())
     
     var body: some View {
         VStack(spacing: 0) {

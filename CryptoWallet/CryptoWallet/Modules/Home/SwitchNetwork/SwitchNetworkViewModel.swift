@@ -3,7 +3,7 @@
 import Combine
 import Foundation
 
-final class SwitchNetworkViewModel: Alertable, Dismissable, Filterable {
+final class SwitchNetworkViewModel: Alertable, Dismissable {
     
     @Published var searchInput: String = ""
     @Published var filteredViewModels: SupportedNetworkViewModel = .init(mainnetViewModels: [], testnetViewModels: [])
@@ -44,6 +44,7 @@ final class SwitchNetworkViewModel: Alertable, Dismissable, Filterable {
                 }
                 return .init(mainnetViewModels: mainnetViewModels, testnetViewModels: testnetViewModels)
             }
+            .receive(on: DispatchQueue.main)
             .assign(to: \.viewModelSubject.value, on: self)
             .store(in: &cancellables)
     }
@@ -64,7 +65,7 @@ final class SwitchNetworkViewModel: Alertable, Dismissable, Filterable {
 }
 
 // MARK: - Filterable
-extension SwitchNetworkViewModel {
+extension SwitchNetworkViewModel: Filterable {
     var searchInputPublisher: AnyPublisher<String, Never> {
         $searchInput.eraseToAnyPublisher()
     }
