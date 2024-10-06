@@ -4,9 +4,13 @@ import SwiftUI
 
 struct ToastMessageModifier: ViewModifier {
     let text: String
+    let shouldShowToastMessage: Bool
     
     func body(content: Content) -> some View {
         content
-            .overlay { ToastMesssageView(text: text) }
+            .overlay {
+                shouldShowToastMessage ? ToastMesssageView(text: text) : nil
+            }
+            .animation(.bouncy, value: shouldShowToastMessage)
     }
 }

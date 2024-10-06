@@ -12,6 +12,7 @@ final class DashboardViewModel: Alertable {
     @Published var networkViewModel: NetworkViewModel = .default
     @Published var tokenViewModels: [TokenViewModel] = []
     @Published var shouldRefetchTokenBalances: Bool = false
+    @Published var shouldShowToastMessage: Bool = false
     @Published var alertViewModel: AlertViewModel?
     
     private let pageSize: Int = 12
@@ -110,6 +111,17 @@ final class DashboardViewModel: Alertable {
             .sink { [weak self] dict in
                 self?.addressToTokenModelsDict.send(dict)
             }
+            .store(in: &cancellables)
+    }
+    
+    func didTapCopyToClipboard() {
+        shouldShowToastMessage = true
+        let timerPublisher = Timer.publish(every: 1.5, on: .main, in: .common)
+            .autoconnect()
+        timerPublisher
+            .prefix(1)
+            .sink { [weak self] _ in
+                self?.shouldShowToastMessage = false            }
             .store(in: &cancellables)
     }
 }

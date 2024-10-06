@@ -5,6 +5,7 @@ import SwiftUI
 struct DashboardView: View {
     
     @State private var destination: NavigationDestinations?
+    @State private var showToastMessage = false
     @ObservedObject private var viewModel: DashboardViewModel
     
     init(viewModel: DashboardViewModel) {
@@ -34,6 +35,7 @@ struct DashboardView: View {
         }
         .navigationBarBackButtonHidden()
         .modifier(AlertModifier(viewModel: viewModel))
+        .modifier(ToastMessageModifier(text: "Address Copied", shouldShowToastMessage: viewModel.shouldShowToastMessage))
         .sheet(isPresented: isPresented) {
             switch destination {
             case .switchNetwork: SwitchNetworkView()
@@ -60,25 +62,39 @@ private extension DashboardView {
         )
     }
     
+    func didTapCopyToClipboard() {
+        viewModel.didTapCopyToClipboard()
+        UIPasteboard.general.string = viewModel.walletViewModel.address
+    }
+    
     func makeTopBarView() -> some View {
         ZStack {
             VStack {
-                HStack {
+                HStack(spacing: 8) {
                     Text(viewModel.walletViewModel.name)
                         .font(.headline)
                         .foregroundColor(.primaryViolet1_900)
+                        .padding(.leading, 14)
                     
                     Image(systemName: "chevron.down")
                         .clipShape(Circle())
                         .foregroundColor(.primaryViolet1_900)
+                        .frame(width: 20, height: 20)
                 }
                 .onTapGesture {
                     self.destination = .switchAccount
                 }
                 
-                Text(viewModel.walletViewModel.maskedAddress)
-                    .font(.subheadline)
-                    .foregroundColor(.primaryViolet1_900)
+                Button(action: didTapCopyToClipboard) {
+                    Text(viewModel.walletViewModel.maskedAddress)
+                        .font(.subheadline)
+                        .foregroundColor(.primaryViolet1_900)
+                        .padding(.leading, 14)
+                    
+                    Image(systemName: "doc.on.doc.fill")
+                        .foregroundColor(.primaryViolet1_900)
+                        .frame(width: 20, height: 20)
+                }
             }
             
             HStack {
