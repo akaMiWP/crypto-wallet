@@ -28,15 +28,6 @@ struct ToastMesssageView: View {
     }
 }
 
-struct ToastMessageModifier: ViewModifier {
-    let text: String
-    
-    func body(content: Content) -> some View {
-        content
-            .overlay { ToastMesssageView(text: text) }
-    }
-}
-
 #Preview {
     ToastMesssageView(text: "Address Copied!")
 }
