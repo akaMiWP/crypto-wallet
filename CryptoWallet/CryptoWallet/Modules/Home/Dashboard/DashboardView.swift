@@ -45,6 +45,7 @@ struct DashboardView: View {
             case nil: EmptyView()
             }
         }
+        .disabled(viewModel.state.isLoading)
         .onAppear {
             viewModel.fetchData()
         }

@@ -15,4 +15,6 @@ extension ViewModelState {
         case .finished: return []
         }
     }
+    
+    var isLoading: Bool { self == .loading }
 }
