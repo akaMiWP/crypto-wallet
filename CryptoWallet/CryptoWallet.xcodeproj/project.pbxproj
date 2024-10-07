@@ -50,6 +50,7 @@
 		A19BFFC82C8DE11800E646CD /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19BFFC72C8DE11800E646CD /* RootViewModel.swift */; };
 		A19BFFCA2C8DE2EF00E646CD /* GlobalEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */; };
 		A19BFFCD2C8DE47900E646CD /* CongratsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19BFFCC2C8DE47900E646CD /* CongratsViewModel.swift */; };
+		A19FBF0B2CB4352E00058589 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0A2CB4352E00058589 /* TabbarView.swift */; };
 		A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */; };
 		A1A0C0B62CB269D400C978C4 /* ToastMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */; };
 		A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */; };
@@ -123,6 +124,7 @@
 		A19BFFC72C8DE11800E646CD /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEventUseCase.swift; sourceTree = "<group>"; };
 		A19BFFCC2C8DE47900E646CD /* CongratsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsViewModel.swift; sourceTree = "<group>"; };
+		A19FBF0A2CB4352E00058589 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMesssageView.swift; sourceTree = "<group>"; };
 		A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageModifier.swift; sourceTree = "<group>"; };
 		A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSeedPhraseView.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				A1B719C82C7F72510039D8D9 /* Home */,
 				A1B719C92C7F72570039D8D9 /* Transaction */,
 				A1B719CA2C7F725E0039D8D9 /* Activities */,
+				A19FBF0A2CB4352E00058589 /* TabbarView.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */,
 				A19BFFCD2C8DE47900E646CD /* CongratsViewModel.swift in Sources */,
 				A10CC1062CA29D59000329A6 /* CardModifier.swift in Sources */,
+				A19FBF0B2CB4352E00058589 /* TabbarView.swift in Sources */,
 				A19734822C832DBF00619D33 /* DashboardView.swift in Sources */,
 				A16723A62C92425C0089CE46 /* TokenBalancesResponse.swift in Sources */,
 				A17425B72CA987A60022F0B1 /* Constants+.swift in Sources */,
