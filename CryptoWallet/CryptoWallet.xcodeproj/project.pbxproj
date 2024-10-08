@@ -53,6 +53,7 @@
 		A19FBF0B2CB4352E00058589 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0A2CB4352E00058589 /* TabbarView.swift */; };
 		A19FBF0E2CB51FF900058589 /* SelectTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0D2CB51FF900058589 /* SelectTokenViewModel.swift */; };
 		A19FBF102CB5241500058589 /* PrepareTransactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */; };
+		A19FBF132CB5398100058589 /* DerivationPathRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF122CB5398100058589 /* DerivationPathRetriever.swift */; };
 		A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */; };
 		A1A0C0B62CB269D400C978C4 /* ToastMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */; };
 		A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */; };
@@ -129,6 +130,7 @@
 		A19FBF0A2CB4352E00058589 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		A19FBF0D2CB51FF900058589 /* SelectTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenViewModel.swift; sourceTree = "<group>"; };
 		A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTransactionUseCase.swift; sourceTree = "<group>"; };
+		A19FBF122CB5398100058589 /* DerivationPathRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivationPathRetriever.swift; sourceTree = "<group>"; };
 		A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMesssageView.swift; sourceTree = "<group>"; };
 		A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageModifier.swift; sourceTree = "<group>"; };
 		A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSeedPhraseView.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 		A11471952CA8FF10009A900C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				A19FBF112CB5397400058589 /* Domain */,
 				A11471962CA8FF19009A900C /* Presentation */,
 			);
 			path = Protocols;
@@ -378,6 +381,14 @@
 				A19FBF0D2CB51FF900058589 /* SelectTokenViewModel.swift */,
 			);
 			path = SelectToken;
+			sourceTree = "<group>";
+		};
+		A19FBF112CB5397400058589 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A19FBF122CB5398100058589 /* DerivationPathRetriever.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		A1A2071E2C7CA6EB0093CE47 = {
@@ -618,6 +629,7 @@
 				A16723A42C9242120089CE46 /* JSONRPCResponse.swift in Sources */,
 				A11471982CA8FF26009A900C /* Filterable.swift in Sources */,
 				A19FBF102CB5241500058589 /* PrepareTransactionUseCase.swift in Sources */,
+				A19FBF132CB5398100058589 /* DerivationPathRetriever.swift in Sources */,
 				A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */,
 				A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */,
 				A19BFFCD2C8DE47900E646CD /* CongratsViewModel.swift in Sources */,

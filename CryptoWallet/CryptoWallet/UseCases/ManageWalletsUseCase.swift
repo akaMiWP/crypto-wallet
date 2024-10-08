@@ -3,7 +3,7 @@
 import Combine
 import WalletCore
 
-protocol ManageWalletsUseCase {
+protocol ManageWalletsUseCase: DerivationPathRetriever {
     func loadWalletsPublisher() ->  AnyPublisher<[WalletModel], Error>
     func loadSelectedWalletPublisher() -> AnyPublisher<WalletModel, Error>
     func makeNewWalletModel(coinType: CoinType) -> AnyPublisher<Void, Error>
@@ -67,23 +67,8 @@ final class ManageWalletsImpl: ManageWalletsUseCase {
 // MARK: - Private
 
 private extension ManageWalletsImpl {
-    func getWalletAddressUsingDerivationPath(
-        wallet: HDWallet,
-        coinType: CoinType,
-        order: Int
-    ) -> String {
-        let deriviationPath = buildEthAddressUsingDeriviationPath(order: order)
-        let privateKey = wallet.getKey(coin: coinType, derivationPath: deriviationPath)
-        let walletAddress = coinType.deriveAddress(privateKey: privateKey)
-        return walletAddress
-    }
-    
     func saveNewWallet(wallet: WalletModel) throws {
         try HDWalletManager.shared.saveNewWallet(wallet: wallet)
-    }
-    
-    func buildEthAddressUsingDeriviationPath(order: Int = 0) -> String {
-        "m/44\'/60\'/\(order)\'/0/0"
     }
 }
 
