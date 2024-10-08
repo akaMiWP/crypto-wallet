@@ -172,7 +172,8 @@ private extension DashboardViewModel {
                         symbol: "ETH",
                         image: .iconEthereum,
                         balance: ethBalance,
-                        totalAmount: 0
+                        totalAmount: 0,
+                        isNativeToken: true
                     ))
                 }
                 dict.forEach { key, value in
