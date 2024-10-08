@@ -176,41 +176,6 @@ private extension DashboardViewModel {
                 self.state = .finished
             }
             .store(in: &cancellables)
-
-//            .map { [weak self] dict -> [TokenViewModel] in
-//                guard let self = self else { return [] }
-//                var tokenViewModels: [TokenViewModel] = self.tokenViewModels
-//                if tokenViewModels.filter({ $0.redactedReason != .placeholder }).count == 0 {
-//                    tokenViewModels.append(.init(
-//                        name: "Ethereum",
-//                        symbol: "ETH",
-//                        image: .iconEthereum,
-//                        balance: ethBalance,
-//                        totalAmount: 0,
-//                        isNativeToken: true
-//                    ))
-//                }
-//                dict.forEach { key, value in
-//                    guard let balance = convertHexToDouble(hexString: key.tokenBalance, decimals: value.decimals)
-//                    else { return }
-//                    let tokenViewModel: TokenViewModel = .init(
-//                        name: value.name,
-//                        symbol: "$\(value.symbol)",
-//                        logo: value.logo,
-//                        balance: balance,
-//                        totalAmount: 0
-//                    )
-//                    tokenViewModels.append(tokenViewModel)
-//                }
-//                tokenViewModels = tokenViewModels.filter { $0.redactedReason != .placeholder }
-//                return tokenViewModels
-//            }
-//            .sink { [weak self] viewModels in
-//                guard let self = self else { return }
-//                self.tokenViewModels = viewModels
-//                self.state = .finished
-//            }
-//            .store(in: &cancellables)
     }
     
     func subscribeToAccountChange() {
