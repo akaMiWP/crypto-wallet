@@ -27,18 +27,21 @@ final class DashboardViewModel: Alertable {
     
     private let nodeProviderUseCase: NodeProviderUseCase
     private let manageHDWalletUseCase: ManageHDWalletUseCase
+    private let manageTokensUseCase: ManageTokensUseCase
     private let manageWalletsUseCase: ManageWalletsUseCase
     private let supportNetworksUseCase: SupportNetworksUseCase
     private let globalEventUseCase: GlobalEventUseCase
     
     init(nodeProviderUseCase: NodeProviderUseCase,
          manageHDWalletUseCase: ManageHDWalletUseCase,
+         manageTokensUseCase: ManageTokensUseCase,
          manageWalletsUseCase: ManageWalletsUseCase,
          supportNetworksUseCase: SupportNetworksUseCase,
          globalEventUseCase: GlobalEventUseCase
     ) {
         self.nodeProviderUseCase = nodeProviderUseCase
         self.manageHDWalletUseCase = manageHDWalletUseCase
+        self.manageTokensUseCase = manageTokensUseCase
         self.manageWalletsUseCase = manageWalletsUseCase
         self.supportNetworksUseCase = supportNetworksUseCase
         self.globalEventUseCase = globalEventUseCase
@@ -163,40 +166,51 @@ private extension DashboardViewModel {
     
     func subscribeToAddressToTokenModelDict() {
         addressToTokenModelsDict
-            .map { [weak self] dict -> [TokenViewModel] in
-                guard let self = self else { return [] }
-                var tokenViewModels: [TokenViewModel] = self.tokenViewModels
-                if tokenViewModels.filter({ $0.redactedReason != .placeholder }).count == 0 {
-                    tokenViewModels.append(.init(
-                        name: "Ethereum",
-                        symbol: "ETH",
-                        image: .iconEthereum,
-                        balance: ethBalance,
-                        totalAmount: 0,
-                        isNativeToken: true
-                    ))
-                }
-                dict.forEach { key, value in
-                    guard let balance = convertHexToDouble(hexString: key.tokenBalance, decimals: value.decimals)
-                    else { return }
-                    let tokenViewModel: TokenViewModel = .init(
-                        name: value.name,
-                        symbol: "$\(value.symbol)",
-                        logo: value.logo,
-                        balance: balance,
-                        totalAmount: 0
-                    )
-                    tokenViewModels.append(tokenViewModel)
-                }
-                tokenViewModels = tokenViewModels.filter { $0.redactedReason != .placeholder }
-                return tokenViewModels
-            }
-            .sink { [weak self] models in
+            .flatMap(manageTokensUseCase.createTokensModelPublisher(dict:))
+            .map { models in models.toViewModels() }
+            .sink { [weak self] completion in
+                self?.handleError(completion: completion)
+            } receiveValue: { [weak self] viewModels in
                 guard let self = self else { return }
-                self.tokenViewModels = models
+                self.tokenViewModels = viewModels
                 self.state = .finished
             }
             .store(in: &cancellables)
+
+//            .map { [weak self] dict -> [TokenViewModel] in
+//                guard let self = self else { return [] }
+//                var tokenViewModels: [TokenViewModel] = self.tokenViewModels
+//                if tokenViewModels.filter({ $0.redactedReason != .placeholder }).count == 0 {
+//                    tokenViewModels.append(.init(
+//                        name: "Ethereum",
+//                        symbol: "ETH",
+//                        image: .iconEthereum,
+//                        balance: ethBalance,
+//                        totalAmount: 0,
+//                        isNativeToken: true
+//                    ))
+//                }
+//                dict.forEach { key, value in
+//                    guard let balance = convertHexToDouble(hexString: key.tokenBalance, decimals: value.decimals)
+//                    else { return }
+//                    let tokenViewModel: TokenViewModel = .init(
+//                        name: value.name,
+//                        symbol: "$\(value.symbol)",
+//                        logo: value.logo,
+//                        balance: balance,
+//                        totalAmount: 0
+//                    )
+//                    tokenViewModels.append(tokenViewModel)
+//                }
+//                tokenViewModels = tokenViewModels.filter { $0.redactedReason != .placeholder }
+//                return tokenViewModels
+//            }
+//            .sink { [weak self] viewModels in
+//                guard let self = self else { return }
+//                self.tokenViewModels = viewModels
+//                self.state = .finished
+//            }
+//            .store(in: &cancellables)
     }
     
     func subscribeToAccountChange() {
@@ -231,4 +245,17 @@ private extension DashboardViewModel {
 
 private enum DashboardViewModelError: Error {
     case unableToParseHexStringToDouble
+}
+
+private extension Array where Element == TokenModel {
+    func toViewModels() -> [TokenViewModel] {
+        map { model in
+                .init(
+                    name: model.name,
+                    symbol: model.symbol,
+                    balance: model.tokenBalance,
+                    totalAmount: 0
+                )
+        }
+    }
 }

@@ -54,6 +54,8 @@
 		A19FBF0E2CB51FF900058589 /* SelectTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0D2CB51FF900058589 /* SelectTokenViewModel.swift */; };
 		A19FBF102CB5241500058589 /* PrepareTransactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */; };
 		A19FBF132CB5398100058589 /* DerivationPathRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF122CB5398100058589 /* DerivationPathRetriever.swift */; };
+		A19FBF152CB578DC00058589 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF142CB578DC00058589 /* TokenModel.swift */; };
+		A19FBF172CB57B1500058589 /* ManageTokensUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF162CB57B1500058589 /* ManageTokensUseCase.swift */; };
 		A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */; };
 		A1A0C0B62CB269D400C978C4 /* ToastMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */; };
 		A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */; };
@@ -131,6 +133,8 @@
 		A19FBF0D2CB51FF900058589 /* SelectTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenViewModel.swift; sourceTree = "<group>"; };
 		A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTransactionUseCase.swift; sourceTree = "<group>"; };
 		A19FBF122CB5398100058589 /* DerivationPathRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivationPathRetriever.swift; sourceTree = "<group>"; };
+		A19FBF142CB578DC00058589 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
+		A19FBF162CB57B1500058589 /* ManageTokensUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTokensUseCase.swift; sourceTree = "<group>"; };
 		A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMesssageView.swift; sourceTree = "<group>"; };
 		A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageModifier.swift; sourceTree = "<group>"; };
 		A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSeedPhraseView.swift; sourceTree = "<group>"; };
@@ -328,6 +332,7 @@
 				A17425B42CA987890022F0B1 /* NetworkModels.swift */,
 				A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */,
 				A16723B42C958BBB0089CE46 /* TokenMetadataModel.swift */,
+				A19FBF142CB578DC00058589 /* TokenModel.swift */,
 				A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */,
 			);
 			path = Domain;
@@ -523,6 +528,7 @@
 			children = (
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
 				A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */,
+				A19FBF162CB57B1500058589 /* ManageTokensUseCase.swift */,
 				A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */,
 				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
 				A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */,
@@ -636,6 +642,7 @@
 				A10CC1062CA29D59000329A6 /* CardModifier.swift in Sources */,
 				A19FBF0B2CB4352E00058589 /* TabbarView.swift in Sources */,
 				A19734822C832DBF00619D33 /* DashboardView.swift in Sources */,
+				A19FBF172CB57B1500058589 /* ManageTokensUseCase.swift in Sources */,
 				A16723A62C92425C0089CE46 /* TokenBalancesResponse.swift in Sources */,
 				A17425B72CA987A60022F0B1 /* Constants+.swift in Sources */,
 				A1A3757C2C8AF8A70012BF43 /* GenerateSeedPhraseViewModel.swift in Sources */,
@@ -659,6 +666,7 @@
 				A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */,
 				A19734902C840EBB00619D33 /* TokenListView.swift in Sources */,
 				A16723AA2C9246D10089CE46 /* Hex+.swift in Sources */,
+				A19FBF152CB578DC00058589 /* TokenModel.swift in Sources */,
 				A10CC0F72C9F016D000329A6 /* ManageWalletsUseCase.swift in Sources */,
 				A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */,
 				A19BFFCA2C8DE2EF00E646CD /* GlobalEventUseCase.swift in Sources */,
