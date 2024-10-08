@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct SelectTokenView: View {
-    @State private var addressInput: String = ""
+    @ObservedObject var viewModel: SelectTokenViewModel
     @Binding var navigationPath: NavigationPath
     
     var body: some View {
@@ -14,16 +14,17 @@ struct SelectTokenView: View {
             
             Spacer()
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Button(action: viewModel.didTapNextButton, label: {
                 Text("Next")
                     .font(.headline)
                     .foregroundColor(.white)
             })
             .frame(height: 48)
             .frame(maxWidth: .infinity)
-            .background(Color.blue)
+            .background(viewModel.isAddressValid ? Color.primaryViolet1_400 : Color.primaryViolet1_100)
             .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
             .padding()
+            .disabled(!viewModel.isAddressValid)
         }
     }
 }
@@ -47,8 +48,18 @@ private extension SelectTokenView {
                 Text("To:")
                     .font(.headline)
                 
-                TextField("Name or address", text: $addressInput)
+                TextField("Name or address", text: $viewModel.addressInput)
                     .font(.subheadline)
+                
+                Image(systemName: "doc.on.clipboard.fill")
+                    .resizable()
+                    .foregroundColor(.primaryViolet1_800)
+                    .frame(width: 20, height: 20)
+                    .frame(width: 40, height: 40)
+                    .onTapGesture {
+                        let address = UIPasteboard.general.string
+                        viewModel.didTapPasteButton(address: address)
+                    }
             }
             .padding(.horizontal)
             .padding(.vertical, 4)
@@ -62,5 +73,8 @@ private extension SelectTokenView {
 }
 
 #Preview {
-    SelectTokenView(navigationPath: .constant(.init()))
+    SelectTokenView(
+        viewModel: .init(prepareTransactionUseCase: PrepareTransactionImp()),
+        navigationPath: .constant(.init())
+    )
 }

@@ -51,6 +51,8 @@
 		A19BFFCA2C8DE2EF00E646CD /* GlobalEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */; };
 		A19BFFCD2C8DE47900E646CD /* CongratsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19BFFCC2C8DE47900E646CD /* CongratsViewModel.swift */; };
 		A19FBF0B2CB4352E00058589 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0A2CB4352E00058589 /* TabbarView.swift */; };
+		A19FBF0E2CB51FF900058589 /* SelectTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0D2CB51FF900058589 /* SelectTokenViewModel.swift */; };
+		A19FBF102CB5241500058589 /* PrepareTransactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */; };
 		A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */; };
 		A1A0C0B62CB269D400C978C4 /* ToastMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */; };
 		A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */; };
@@ -125,6 +127,8 @@
 		A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEventUseCase.swift; sourceTree = "<group>"; };
 		A19BFFCC2C8DE47900E646CD /* CongratsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsViewModel.swift; sourceTree = "<group>"; };
 		A19FBF0A2CB4352E00058589 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		A19FBF0D2CB51FF900058589 /* SelectTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenViewModel.swift; sourceTree = "<group>"; };
+		A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTransactionUseCase.swift; sourceTree = "<group>"; };
 		A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMesssageView.swift; sourceTree = "<group>"; };
 		A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageModifier.swift; sourceTree = "<group>"; };
 		A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSeedPhraseView.swift; sourceTree = "<group>"; };
@@ -367,6 +371,15 @@
 			path = Congrats;
 			sourceTree = "<group>";
 		};
+		A19FBF0C2CB51FE700058589 /* SelectToken */ = {
+			isa = PBXGroup;
+			children = (
+				A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */,
+				A19FBF0D2CB51FF900058589 /* SelectTokenViewModel.swift */,
+			);
+			path = SelectToken;
+			sourceTree = "<group>";
+		};
 		A1A2071E2C7CA6EB0093CE47 = {
 			isa = PBXGroup;
 			children = (
@@ -456,10 +469,10 @@
 			isa = PBXGroup;
 			children = (
 				A180F5DC2C8F3AEB00380EAE /* Dashboard */,
+				A19FBF0C2CB51FE700058589 /* SelectToken */,
 				A10CC0F82CA160B1000329A6 /* SelectTokens */,
 				A10CC0F12C9EEE98000329A6 /* SwitchAccount */,
 				A1E1559D2CA6EE0200BC968F /* SwitchNetwork */,
-				A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -497,12 +510,13 @@
 		A1E3FFC42C893523007EB73D /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
 				A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */,
 				A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */,
 				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
-				A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */,
-				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
+				A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */,
 				A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */,
+				A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -603,6 +617,7 @@
 				A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */,
 				A16723A42C9242120089CE46 /* JSONRPCResponse.swift in Sources */,
 				A11471982CA8FF26009A900C /* Filterable.swift in Sources */,
+				A19FBF102CB5241500058589 /* PrepareTransactionUseCase.swift in Sources */,
 				A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */,
 				A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */,
 				A19BFFCD2C8DE47900E646CD /* CongratsViewModel.swift in Sources */,
@@ -641,6 +656,7 @@
 				A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */,
 				A16723B52C958BBB0089CE46 /* TokenMetadataModel.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
+				A19FBF0E2CB51FF900058589 /* SelectTokenViewModel.swift in Sources */,
 				A17425B32CA97DCF0022F0B1 /* Dismissable.swift in Sources */,
 				A1A375802C8C33440012BF43 /* AlertViewModel.swift in Sources */,
 				A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */,
