@@ -84,9 +84,3 @@ private enum ManageHDWalletUsecaseError: Error, LocalizedError {
         }
     }
 }
-
-private extension ManageHDWalletUseCase {
-    func buildEthAddressUsingDeriviationPath(order: Int = 0) -> String {
-        "m/44\'/60\'/\(order)\'/0/0"
-    }
-}
