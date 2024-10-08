@@ -64,6 +64,13 @@ enum SupportedNetwork: Hashable {
         }
     }
     
+    var coinType: CoinType {
+        switch self {
+        case .testnet(let testNetwork): return testNetwork.coinType
+        case .mainnet(let mainnetNetwork): return mainnetNetwork.coinType
+        }
+    }
+    
     var nodeProvider: NodeProvider {
         switch self {
         case .testnet(let testNetwork):

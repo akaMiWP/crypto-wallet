@@ -27,8 +27,13 @@ struct SelectTokensView: View {
                 .navigationDestination(for: Destinations.self) { screen in
                     switch screen {
                     case .sendToken:
-                        SelectTokenView(navigationPath: $navigationPath)
-                            .navigationBarHidden(true)
+                        SelectTokenView(
+                            viewModel: .init(prepareTransactionUseCase: PrepareTransactionImp()),
+                            navigationPath: $navigationPath
+                        )
+                        .navigationBarHidden(
+                            true
+                        )
                     }
                 }
             }
