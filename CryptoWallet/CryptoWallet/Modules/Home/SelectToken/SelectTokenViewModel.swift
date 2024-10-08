@@ -7,14 +7,17 @@ final class SelectTokenViewModel: ObservableObject {
     @Published var isAddressValid: Bool = false
     @Published var addressInput: String = ""
     
+    private let manageTokensUseCase: ManageTokensUseCase
     private let prepareTransactionUseCase: PrepareTransactionUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
-    init(prepareTransactionUseCase: PrepareTransactionUseCase) {
+    init(manageTokensUseCase: ManageTokensUseCase,
+         prepareTransactionUseCase: PrepareTransactionUseCase) {
+        self.manageTokensUseCase = manageTokensUseCase
         self.prepareTransactionUseCase = prepareTransactionUseCase
         
         $addressInput
-            .map { prepareTransactionUseCase.validateAddress(address: $0) }
+            .flatMap(prepareTransactionUseCase.validateAddress(address:))
             .sink { isAddressValid in
                 self.isAddressValid = isAddressValid
             }
@@ -25,5 +28,6 @@ final class SelectTokenViewModel: ObservableObject {
         address.map { addressInput = $0 }
     }
     
-    func didTapNextButton() {}
+    func didTapNextButton() {
+    }
 }

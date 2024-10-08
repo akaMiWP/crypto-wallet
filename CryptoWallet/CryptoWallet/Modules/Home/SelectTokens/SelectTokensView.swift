@@ -28,7 +28,7 @@ struct SelectTokensView: View {
                     switch screen {
                     case .sendToken:
                         SelectTokenView(
-                            viewModel: .init(prepareTransactionUseCase: PrepareTransactionImp()),
+                            viewModel: viewModel.makeSelectTokenViewModel(),
                             navigationPath: $navigationPath
                         )
                         .navigationBarHidden(
@@ -70,6 +70,7 @@ private extension SelectTokensView {
 #Preview {
     SelectTokensView(
         viewModel: .init(
+            manageTokensUseCase: ManageTokensImp(),
             viewModels: [
                 .init(name: "ABCD", symbol: "XXXX", balance: 0, totalAmount: 0),
                 .init(name: "BCDE", symbol: "XXXX", balance: 0, totalAmount: 0),

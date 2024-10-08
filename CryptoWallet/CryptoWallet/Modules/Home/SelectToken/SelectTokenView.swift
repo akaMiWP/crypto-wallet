@@ -74,7 +74,8 @@ private extension SelectTokenView {
 
 #Preview {
     SelectTokenView(
-        viewModel: .init(prepareTransactionUseCase: PrepareTransactionImp()),
+        viewModel: .init(manageTokensUseCase: ManageTokensImp(),
+                         prepareTransactionUseCase: PrepareTransactionImp()),
         navigationPath: .constant(.init())
     )
 }

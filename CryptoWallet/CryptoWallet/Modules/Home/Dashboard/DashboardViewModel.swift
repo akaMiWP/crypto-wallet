@@ -127,6 +127,10 @@ final class DashboardViewModel: Alertable {
                 self?.shouldShowToastMessage = false            }
             .store(in: &cancellables)
     }
+    
+    func makeSelectTokensViewModel() -> SelectTokensViewModel {
+        .init(manageTokensUseCase: manageTokensUseCase, viewModels: tokenViewModels)
+    }
 }
 
 // MARK: - Private

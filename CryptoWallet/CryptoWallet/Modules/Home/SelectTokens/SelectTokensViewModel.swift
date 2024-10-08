@@ -9,14 +9,22 @@ final class SelectTokensViewModel: Filterable {
     @Published var filteredViewModels: [TokenViewModel] = []
     
     private let viewModels: [TokenViewModel]
+    private let manageTokensUseCase: ManageTokensUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
-    init(viewModels: [TokenViewModel]) {
+    init(manageTokensUseCase: ManageTokensUseCase,
+         viewModels: [TokenViewModel]) {
+        self.manageTokensUseCase = manageTokensUseCase
         self.viewModels = viewModels
         self.filteredViewModels = viewModels
         
         subscribeToSearchInput()
             .store(in: &cancellables)
+    }
+    
+    func makeSelectTokenViewModel() -> SelectTokenViewModel {
+        .init(manageTokensUseCase: manageTokensUseCase,
+              prepareTransactionUseCase: PrepareTransactionImp())
     }
 }
 
