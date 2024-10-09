@@ -57,6 +57,7 @@ struct SwitchAccountView: View {
             .frame(maxWidth: .infinity)
             .background(Color.primaryViolet1_500)
             .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
+            .padding(.bottom)
         }
         .padding(.horizontal)
         .modifier(AlertModifier(viewModel: viewModel))
