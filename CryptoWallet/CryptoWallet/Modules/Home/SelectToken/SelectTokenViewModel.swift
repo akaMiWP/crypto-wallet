@@ -7,8 +7,8 @@ final class SelectTokenViewModel: ObservableObject {
     @Published var isAddressValid: Bool = false
     @Published var addressInput: String = ""
     let pageTitle: String
+    let selectedTokenViewModel: TokenViewModel
     
-    private let selectedTokenViewModel: TokenViewModel
     private let manageTokensUseCase: ManageTokensUseCase
     private let prepareTransactionUseCase: PrepareTransactionUseCase
     private var cancellables: Set<AnyCancellable> = .init()

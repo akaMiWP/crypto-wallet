@@ -56,6 +56,8 @@
 		A19FBF132CB5398100058589 /* DerivationPathRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF122CB5398100058589 /* DerivationPathRetriever.swift */; };
 		A19FBF152CB578DC00058589 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF142CB578DC00058589 /* TokenModel.swift */; };
 		A19FBF172CB57B1500058589 /* ManageTokensUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF162CB57B1500058589 /* ManageTokensUseCase.swift */; };
+		A19FBF1A2CB62DF600058589 /* InputTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF192CB62DF600058589 /* InputTokenView.swift */; };
+		A19FBF1C2CB62DFD00058589 /* InputTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FBF1B2CB62DFD00058589 /* InputTokenViewModel.swift */; };
 		A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */; };
 		A1A0C0B62CB269D400C978C4 /* ToastMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */; };
 		A1A148A22C820B5400C99221 /* GenerateSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */; };
@@ -135,6 +137,8 @@
 		A19FBF122CB5398100058589 /* DerivationPathRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivationPathRetriever.swift; sourceTree = "<group>"; };
 		A19FBF142CB578DC00058589 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		A19FBF162CB57B1500058589 /* ManageTokensUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTokensUseCase.swift; sourceTree = "<group>"; };
+		A19FBF192CB62DF600058589 /* InputTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTokenView.swift; sourceTree = "<group>"; };
+		A19FBF1B2CB62DFD00058589 /* InputTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTokenViewModel.swift; sourceTree = "<group>"; };
 		A1A0C0B32CB265E000C978C4 /* ToastMesssageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMesssageView.swift; sourceTree = "<group>"; };
 		A1A0C0B52CB269D400C978C4 /* ToastMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageModifier.swift; sourceTree = "<group>"; };
 		A1A148A12C820B5400C99221 /* GenerateSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSeedPhraseView.swift; sourceTree = "<group>"; };
@@ -396,6 +400,15 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		A19FBF182CB62DE900058589 /* InputToken */ = {
+			isa = PBXGroup;
+			children = (
+				A19FBF192CB62DF600058589 /* InputTokenView.swift */,
+				A19FBF1B2CB62DFD00058589 /* InputTokenViewModel.swift */,
+			);
+			path = InputToken;
+			sourceTree = "<group>";
+		};
 		A1A2071E2C7CA6EB0093CE47 = {
 			isa = PBXGroup;
 			children = (
@@ -485,6 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				A180F5DC2C8F3AEB00380EAE /* Dashboard */,
+				A19FBF182CB62DE900058589 /* InputToken */,
 				A19FBF0C2CB51FE700058589 /* SelectToken */,
 				A10CC0F82CA160B1000329A6 /* SelectTokens */,
 				A10CC0F12C9EEE98000329A6 /* SwitchAccount */,
@@ -661,6 +675,7 @@
 				A10CC10A2CA2BE5F000329A6 /* View+.swift in Sources */,
 				A10CC0F52C9EEEAF000329A6 /* SwitchAccountViewModel.swift in Sources */,
 				A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */,
+				A19FBF1A2CB62DF600058589 /* InputTokenView.swift in Sources */,
 				A1A0C0B62CB269D400C978C4 /* ToastMessageModifier.swift in Sources */,
 				A1AC217D2C9BE41F00374C83 /* String+.swift in Sources */,
 				A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */,
@@ -674,6 +689,7 @@
 				A10CC1002CA17725000329A6 /* PrimaryButton.swift in Sources */,
 				A1B7D2352CAC3B3300EF7923 /* GetBalanceResponse.swift in Sources */,
 				A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */,
+				A19FBF1C2CB62DFD00058589 /* InputTokenViewModel.swift in Sources */,
 				A16723B52C958BBB0089CE46 /* TokenMetadataModel.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
 				A19FBF0E2CB51FF900058589 /* SelectTokenViewModel.swift in Sources */,

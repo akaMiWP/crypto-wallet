@@ -6,6 +6,10 @@ struct SelectTokenView: View {
     @ObservedObject var viewModel: SelectTokenViewModel
     @Binding var navigationPath: NavigationPath
     
+    enum Destinations: Hashable {
+        case inputToken(TokenViewModel)
+    }
+    
     var body: some View {
         VStack {
             makeTopBarComponent()
@@ -14,7 +18,9 @@ struct SelectTokenView: View {
             
             Spacer()
             
-            Button(action: viewModel.didTapNextButton, label: {
+            Button(action: {
+                navigationPath.append(Destinations.inputToken(viewModel.selectedTokenViewModel))
+            }, label: {
                 Text("Next")
                     .font(.headline)
                     .foregroundColor(.white)
@@ -25,6 +31,19 @@ struct SelectTokenView: View {
             .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
             .padding()
             .disabled(!viewModel.isAddressValid)
+        }
+        .navigationDestination(for: Destinations.self) {
+            switch $0 {
+            case .inputToken(let viewModel):
+                InputTokenView(
+                    viewModel: .init(
+                        selectedTokenViewModel: viewModel,
+                        selectedDestinationAddress: self.viewModel.addressInput,
+                        title: self.viewModel.pageTitle
+                    ),
+                    navigationPath: $navigationPath
+                )
+            }
         }
     }
 }
@@ -54,7 +73,7 @@ private extension SelectTokenView {
                 Image(systemName: viewModel.isAddressValid ? "checkmark" : "doc.on.clipboard.fill")
                     .resizable()
                     .foregroundColor( viewModel.isAddressValid ? .secondaryGreen2_700 : .primaryViolet1_800)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 18, height: 18)
                     .frame(width: 40, height: 40)
                     .disabled(viewModel.isAddressValid)
                     .animation(.bouncy, value: viewModel.isAddressValid)
