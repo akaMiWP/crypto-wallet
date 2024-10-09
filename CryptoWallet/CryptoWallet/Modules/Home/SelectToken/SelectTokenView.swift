@@ -51,11 +51,13 @@ private extension SelectTokenView {
                 TextField("Name or address", text: $viewModel.addressInput)
                     .font(.subheadline)
                 
-                Image(systemName: "doc.on.clipboard.fill")
+                Image(systemName: viewModel.isAddressValid ? "checkmark" : "doc.on.clipboard.fill")
                     .resizable()
-                    .foregroundColor(.primaryViolet1_800)
+                    .foregroundColor( viewModel.isAddressValid ? .secondaryGreen2_700 : .primaryViolet1_800)
                     .frame(width: 20, height: 20)
                     .frame(width: 40, height: 40)
+                    .disabled(viewModel.isAddressValid)
+                    .animation(.bouncy, value: viewModel.isAddressValid)
                     .onTapGesture {
                         let address = UIPasteboard.general.string
                         viewModel.didTapPasteButton(address: address)

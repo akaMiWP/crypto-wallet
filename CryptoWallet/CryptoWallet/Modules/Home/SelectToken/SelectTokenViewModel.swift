@@ -20,7 +20,7 @@ final class SelectTokenViewModel: ObservableObject {
         self.manageTokensUseCase = manageTokensUseCase
         self.prepareTransactionUseCase = prepareTransactionUseCase
         self.selectedTokenViewModel = selectedTokenViewModel
-        self.pageTitle = "Send $\(selectedTokenViewModel.symbol)"
+        self.pageTitle = "Send \(selectedTokenViewModel.symbol)"
         
         subscribeToDestinationAddress()
     }
