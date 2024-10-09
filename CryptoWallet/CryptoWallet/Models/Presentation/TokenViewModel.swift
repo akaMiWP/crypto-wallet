@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-struct TokenViewModel: Identifiable, Equatable {
+struct TokenViewModel: Identifiable, Equatable, Hashable {
     let id: UUID = .init()
     let name: String
     let symbol: String
@@ -13,6 +13,17 @@ struct TokenViewModel: Identifiable, Equatable {
     let totalAmount: Double //TODO: Check if this is feasible to fetch for the price on chain
     let isNativeToken: Bool
     let redactedReason: RedactionReasons
+    
+    var formattedTotalAmount: String {
+        totalAmount.format(with: .tokenBalanceFormatter)
+    }
+    
+    static let `default`: TokenViewModel = .init(
+        name: "",
+        symbol: "",
+        balance: 0,
+        totalAmount: 0
+    )
     
     init(
         name: String,
@@ -34,8 +45,15 @@ struct TokenViewModel: Identifiable, Equatable {
         self.redactedReason = redactedReason
     }
     
-    var formattedTotalAmount: String {
-        totalAmount.format(with: .tokenBalanceFormatter)
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
+        hasher.combine(symbol)
+        hasher.combine(logo)
+        hasher.combine(image)
+        hasher.combine(balance)
+        hasher.combine(totalAmount)
+        hasher.combine(isNativeToken)
     }
 }
 

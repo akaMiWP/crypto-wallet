@@ -7,8 +7,8 @@ struct SelectTokensView: View {
     @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) private var dismiss
     
-    enum Destinations {
-        case sendToken
+    enum Destinations: Hashable {
+        case sendToken(TokenViewModel)
     }
     
     var body: some View {
@@ -17,18 +17,20 @@ struct SelectTokensView: View {
                 makeSearchComponentView()
                 
                 ScrollView {
-                    NavigationLink(value: Destinations.sendToken) {
-                        TokenListView(viewModels: viewModel.filteredViewModels, shouldShowTotalAmount: false)
-                    }
-                    
-                    Spacer()
+                    TokenListView(
+                        viewModels: viewModel.filteredViewModels,
+                        shouldShowTotalAmount: false,
+                        cellTapCompletion: { selectedViewModel in
+                            navigationPath.append(Destinations.sendToken(selectedViewModel))
+                        }
+                    )
                 }
                 .padding(.top)
                 .navigationDestination(for: Destinations.self) { screen in
                     switch screen {
-                    case .sendToken:
+                    case .sendToken(let selectedTokenViewModel):
                         SelectTokenView(
-                            viewModel: viewModel.makeSelectTokenViewModel(),
+                            viewModel: viewModel.makeSelectTokenViewModel(selectedTokenViewModel: selectedTokenViewModel),
                             navigationPath: $navigationPath
                         )
                         .navigationBarHidden(
@@ -72,12 +74,12 @@ private extension SelectTokensView {
         viewModel: .init(
             manageTokensUseCase: ManageTokensImp(),
             viewModels: [
-                .init(name: "ABCD", symbol: "XXXX", balance: 0, totalAmount: 0),
-                .init(name: "BCDE", symbol: "XXXX", balance: 0, totalAmount: 0),
-                .init(name: "CDEF", symbol: "XXXX", balance: 0, totalAmount: 0),
-                .init(name: "DEFG", symbol: "XXXX", balance: 0, totalAmount: 0),
-                .init(name: "EFGH", symbol: "XXXX", balance: 0, totalAmount: 0),
-                .init(name: "FGHI", symbol: "XXXX", balance: 0, totalAmount: 0),
+                .init(name: "ABCD", symbol: "ABCD", balance: 0, totalAmount: 0),
+                .init(name: "BCDE", symbol: "BCDE", balance: 0, totalAmount: 0),
+                .init(name: "CDEF", symbol: "CDEF", balance: 0, totalAmount: 0),
+                .init(name: "DEFG", symbol: "DEFG", balance: 0, totalAmount: 0),
+                .init(name: "EFGH", symbol: "EFGH", balance: 0, totalAmount: 0),
+                .init(name: "FGHI", symbol: "FGHI", balance: 0, totalAmount: 0),
             ]
         )
     )
