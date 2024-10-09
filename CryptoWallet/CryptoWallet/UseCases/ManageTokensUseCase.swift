@@ -3,6 +3,8 @@
 import Combine
 
 protocol ManageTokensUseCase {
+    var models: [TokenModel] { get set }
+    
     func createTokensModelPublisher(
         dict: [AddressToTokenModel : TokenMetadataModel]
     ) -> AnyPublisher<[TokenModel], Error>
