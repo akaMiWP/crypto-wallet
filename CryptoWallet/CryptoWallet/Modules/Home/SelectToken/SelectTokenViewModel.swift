@@ -6,22 +6,23 @@ final class SelectTokenViewModel: ObservableObject {
     
     @Published var isAddressValid: Bool = false
     @Published var addressInput: String = ""
+    let pageTitle: String
     
+    private let selectedTokenViewModel: TokenViewModel
     private let manageTokensUseCase: ManageTokensUseCase
     private let prepareTransactionUseCase: PrepareTransactionUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
     init(manageTokensUseCase: ManageTokensUseCase,
-         prepareTransactionUseCase: PrepareTransactionUseCase) {
+         prepareTransactionUseCase: PrepareTransactionUseCase,
+         selectedTokenViewModel: TokenViewModel
+    ) {
         self.manageTokensUseCase = manageTokensUseCase
         self.prepareTransactionUseCase = prepareTransactionUseCase
+        self.selectedTokenViewModel = selectedTokenViewModel
+        self.pageTitle = "Send $\(selectedTokenViewModel.symbol)"
         
-        $addressInput
-            .flatMap(prepareTransactionUseCase.validateAddress(address:))
-            .sink { isAddressValid in
-                self.isAddressValid = isAddressValid
-            }
-            .store(in: &cancellables)
+        subscribeToDestinationAddress()
     }
     
     func didTapPasteButton(address: String?) {
@@ -29,5 +30,17 @@ final class SelectTokenViewModel: ObservableObject {
     }
     
     func didTapNextButton() {
+    }
+}
+
+// MARK: - Private
+private extension SelectTokenViewModel {
+    func subscribeToDestinationAddress() {
+        $addressInput
+            .flatMap(prepareTransactionUseCase.validateAddress(address:))
+            .sink { isAddressValid in
+                self.isAddressValid = isAddressValid
+            }
+            .store(in: &cancellables)
     }
 }

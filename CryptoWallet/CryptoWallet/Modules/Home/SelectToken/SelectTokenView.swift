@@ -33,7 +33,7 @@ struct SelectTokenView: View {
 private extension SelectTokenView {
     func makeTopBarComponent() -> some View {
         TitleBarPresentedView(
-            title: "Send $ETH",
+            title: viewModel.pageTitle,
             imageSystemName: "chevron.backward",
             bottomView: { EmptyView() },
             backCompletion: {
@@ -75,7 +75,8 @@ private extension SelectTokenView {
 #Preview {
     SelectTokenView(
         viewModel: .init(manageTokensUseCase: ManageTokensImp(),
-                         prepareTransactionUseCase: PrepareTransactionImp()),
+                         prepareTransactionUseCase: PrepareTransactionImp(),
+                         selectedTokenViewModel: .default),
         navigationPath: .constant(.init())
     )
 }

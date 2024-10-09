@@ -5,22 +5,26 @@ import SwiftUI
 struct TokenListView: View {
     private let viewModels: [TokenViewModel]
     private let didScrollToBottom: (() -> Void)?
+    private let cellTapCompletion: ((TokenViewModel) -> Void)?
     
     let shouldShowTotalAmount: Bool
     
     init(viewModels: [TokenViewModel],
          shouldShowTotalAmount: Bool = true,
-         didScrollToBottom: (() -> Void)? = nil
+         didScrollToBottom: (() -> Void)? = nil,
+         cellTapCompletion: ((TokenViewModel) -> Void)? = nil
     ) {
         self.viewModels = viewModels
         self.shouldShowTotalAmount = shouldShowTotalAmount
         self.didScrollToBottom = didScrollToBottom
+        self.cellTapCompletion = cellTapCompletion
     }
     
     var body: some View {
         LazyVStack {
             ForEach(viewModels, id: \.id) { viewModel in
                 makeTokenView(viewModel: viewModel)
+                    .onTapGesture { cellTapCompletion?(viewModel) }
                     .onAppear {
                         if viewModel == viewModels.last(where: { $0.redactedReason != .placeholder }) {
                             didScrollToBottom?()

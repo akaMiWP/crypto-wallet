@@ -22,9 +22,11 @@ final class SelectTokensViewModel: Filterable {
             .store(in: &cancellables)
     }
     
-    func makeSelectTokenViewModel() -> SelectTokenViewModel {
+    func makeSelectTokenViewModel(selectedTokenViewModel: TokenViewModel) -> SelectTokenViewModel {
         .init(manageTokensUseCase: manageTokensUseCase,
-              prepareTransactionUseCase: PrepareTransactionImp())
+              prepareTransactionUseCase: PrepareTransactionImp(),
+              selectedTokenViewModel: selectedTokenViewModel
+        )
     }
 }
 
