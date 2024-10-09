@@ -13,12 +13,12 @@ struct DashboardView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             makeTopBarView()
             
             ScrollView {
                 Text("$0.00")
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.primaryViolet1_900)
                     .redacted(reason: viewModel.state.redactionReasons)
@@ -29,9 +29,9 @@ struct DashboardView: View {
                     shouldShowTotalAmount: false,
                     didScrollToBottom: { viewModel.fetchNextTokens() }
                 )
-                    
-                Spacer()
+                .padding(.top, 30)
             }
+            .padding(.top, 36)
         }
         .navigationBarBackButtonHidden()
         .modifier(AlertModifier(viewModel: viewModel))
@@ -70,7 +70,12 @@ private extension DashboardView {
     
     func makeTopBarView() -> some View {
         ZStack {
-            VStack {
+            Color.white
+                .ignoresSafeArea()
+                .frame(height: 70)
+                .shadow(color: .primaryViolet1_300.opacity(0.15), radius: 3, y: 3)
+            
+            VStack(spacing: 4) {
                 HStack(spacing: 8) {
                     Text(viewModel.walletViewModel.name)
                         .font(.headline)
@@ -96,6 +101,7 @@ private extension DashboardView {
                         .foregroundColor(.primaryViolet1_900)
                         .frame(width: 20, height: 20)
                 }
+                .padding(.bottom, 16)
             }
             
             HStack {
@@ -109,12 +115,12 @@ private extension DashboardView {
                         .clipShape(Circle())
                     
                     Image(systemName: "chevron.down")
-                        .clipShape(Circle())
-                        .foregroundColor(.primaryViolet1_50)
-                        .dropShadow()
+                        .resizable()
+                        .frame(width: 16, height: 8)
+                        .foregroundColor(.primaryViolet1_500)
                 }
                 .padding(.trailing, 12)
-                .background(Color.primaryViolet2_400)
+                .background(Color.primaryViolet1_50)
                 .clipShape(RoundedRectangle(cornerSize: .init(width: 32, height: 32)))
                 .onTapGesture {
                     self.destination = .switchNetwork
@@ -122,8 +128,9 @@ private extension DashboardView {
                 
                 Spacer()
             }
+            .padding(.horizontal)
+            .padding(.bottom, 16)
         }
-        .padding(.horizontal)
         .redacted(reason: viewModel.state.redactionReasons)
         .animation(.linear, value: viewModel.tokenViewModels)
     }
@@ -134,20 +141,22 @@ private extension DashboardView {
             
             makeOperationView(imageName: "paperplane", actionName: "Send", destination: .sendTokens)
         }
-        .padding()
+        .padding(.top, 24)
+        .padding(.horizontal)
     }
     
     func makeOperationView(imageName: String, actionName: String, destination: NavigationDestinations) -> some View {
         VStack(spacing: 8) {
             Image(systemName: imageName)
-                .font(.title2)
-                .foregroundColor(.primaryViolet1_50)
+                .resizable()
+                .frame(width: 27, height: 27)
+                .foregroundColor(.white)
             Text(actionName)
                 .font(.caption)
-                .foregroundColor(.primaryViolet1_50)
+                .foregroundColor(.white)
         }
         .frame(width: 100, height: 80)
-        .background(Color.primaryViolet2_400)
+        .background(Color.primaryViolet1_400)
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
         .onTapGesture {
             self.destination = destination

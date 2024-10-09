@@ -33,8 +33,8 @@ struct TokenListView: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color.secondaryGreen1_50)
-            .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
+            .background(Color.primaryViolet1_50)
+            .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
             .padding(.horizontal)
         }
         .animation(.easeIn, value: viewModels)
@@ -64,11 +64,12 @@ private extension TokenListView {
             
             VStack(alignment: .leading) {
                 Text(viewModel.name)
-                    .font(.headline)
+                    .fontWeight(.bold)
+                    .font(.body)
                     .foregroundColor(.primaryViolet1_900)
                 
                 Text("\(viewModel.balance)")
-                    .font(.subheadline)
+                    .font(.body)
                     .foregroundColor(.primaryViolet1_900)
             }
             
@@ -76,7 +77,8 @@ private extension TokenListView {
             
             if shouldShowTotalAmount {
                 Text(viewModel.formattedTotalAmount)
-                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .font(.body)
                     .foregroundColor(.primaryViolet1_900)
             }
         }
