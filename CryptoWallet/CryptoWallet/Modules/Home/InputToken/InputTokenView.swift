@@ -27,12 +27,15 @@ struct InputTokenView: View {
                     TextField("", text: $viewModel.inputAmount)
                         .keyboardType(.numberPad)
                         .font(.title3)
+                        .foregroundColor(.primaryViolet1_900)
                         .multilineTextAlignment(.trailing)
                         .frame(minWidth: minWidth, maxWidth: maxWidth < minWidth ? minWidth : maxWidth)
                         .focused($isFocused)
                     
                     Text(viewModel.selectedTokenViewModel.symbol)
                         .font(.title3)
+                        .foregroundColor(.primaryViolet1_900)
+                    
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
@@ -47,15 +50,17 @@ struct InputTokenView: View {
                     .fill(.gray.opacity(0.4))
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
-                    .innerShadow()
+                    .lineUpperShadow()
                 
                 HStack {
                     Text("Available balance:")
                         .font(.body)
                         .fontWeight(.semibold)
+                        .foregroundColor(.primaryViolet1_900)
                     
                     Text("123")
                         .font(.body)
+                        .foregroundColor(.primaryViolet1_900)
                     
                     Spacer()
                 }
@@ -101,9 +106,11 @@ private extension InputTokenView {
             HStack {
                 Text("To:")
                     .font(.headline)
+                    .foregroundColor(.primaryViolet1_900)
                 
                 Text(viewModel.selectedDestinationAddress)
                     .font(.subheadline)
+                    .foregroundColor(.primaryViolet1_900)
                 
                 Spacer()
                 
@@ -123,6 +130,7 @@ private extension InputTokenView {
                 .fill(.gray.opacity(0.2))
                 .frame(height: 1)
                 .frame(maxWidth: .infinity)
+                .lineDropShadow()
         }
     }
 }
