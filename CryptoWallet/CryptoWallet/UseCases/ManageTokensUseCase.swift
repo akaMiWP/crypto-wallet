@@ -5,7 +5,11 @@ import Combine
 protocol ManageTokensUseCase {
     var models: [TokenModel] { get }
     
-    func createTokensModelPublisher(dict: [AddressToTokenModel : TokenMetadataModel], ethBalance: Double) -> AnyPublisher<[TokenModel], Error>
+    func createTokensModelPublisher(
+        dict: [AddressToTokenModel : TokenMetadataModel],
+        ethBalance: Double,
+        network: NetworkModel
+    ) -> AnyPublisher<[TokenModel], Error>
     
     func clearModels()
 }
@@ -15,7 +19,8 @@ final class ManageTokensImp: ManageTokensUseCase {
     
     func createTokensModelPublisher(
         dict: [AddressToTokenModel : TokenMetadataModel],
-        ethBalance: Double
+        ethBalance: Double,
+        network: NetworkModel
     ) -> AnyPublisher<[TokenModel], Error> {
         Future { promise in
             do {
@@ -25,7 +30,8 @@ final class ManageTokensImp: ManageTokensUseCase {
                         symbol: SymbolsConstants.ethereum,
                         isNativeToken: true,
                         tokenBalance: ethBalance,
-                        totalAmount: 0
+                        totalAmount: 0,
+                        network: network
                     )
                     self.models.append(ethTokenModel)
                 }
@@ -41,7 +47,8 @@ final class ManageTokensImp: ManageTokensUseCase {
                         address: key.address,
                         logo: value.logo,
                         tokenBalance: balance,
-                        totalAmount: 0
+                        totalAmount: 0,
+                        network: network
                     )
                     self.models.append(model)
                 }

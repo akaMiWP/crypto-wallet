@@ -94,12 +94,7 @@ private extension SelectTokenView {
     SelectTokenView(
         viewModel: .init(
             selectTokenUseCase: SelectTokenImp(
-                selectedTokenModel: .init(
-                    name: "Ethereum",
-                    symbol: "ETH",
-                    tokenBalance: 0.1,
-                    totalAmount: 0
-                )
+                selectedTokenModel: .default
             ),
             prepareTransactionUseCase: PrepareTransactionImp()
         ),

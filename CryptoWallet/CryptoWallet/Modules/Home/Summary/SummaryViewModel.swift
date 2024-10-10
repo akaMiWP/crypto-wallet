@@ -7,7 +7,7 @@ final class SummaryViewModel: ObservableObject {
     @Published var networkFee: Double = 0.0
     
     var destinationAddress: String { summaryTokenUseCase.destinationAddress }
-    var networkName: String { summaryTokenUseCase.tokenModel.name }
+    var networkName: String { summaryTokenUseCase.tokenModel.network.chainName }
     
     let sendAmountText: String
     private let summaryTokenUseCase: SummaryTokenUseCase
