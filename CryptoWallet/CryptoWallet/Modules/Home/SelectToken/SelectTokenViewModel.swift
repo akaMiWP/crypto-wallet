@@ -28,7 +28,8 @@ final class SelectTokenViewModel: ObservableObject {
         address.map { addressInput = $0 }
     }
     
-    func didTapNextButton() {
+    func makeInputTokenViewModel() -> InputTokenViewModel {
+        .init(inputTokenUseCase: InputTokenImp(tokenModel: selectTokenUseCase.selectedTokenModel, destinationAddress: addressInput))
     }
 }
 

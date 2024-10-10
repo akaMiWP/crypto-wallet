@@ -90,7 +90,7 @@ struct InputTokenView: View {
         .navigationDestination(for: Destinations.self) {
             switch $0 {
             case .summary(let transferAmount, let tokenViewModel):
-                EmptyView()
+                SummaryView(viewModel: .init())
             }
         }
         .onAppear {
@@ -132,7 +132,7 @@ private extension InputTokenView {
                     .font(.headline)
                     .foregroundColor(.primaryViolet1_900)
                 
-                Text(viewModel.selectedDestinationAddress)
+                Text(viewModel.destinationAddress)
                     .font(.subheadline)
                     .foregroundColor(.primaryViolet1_900)
                 
@@ -161,9 +161,10 @@ private extension InputTokenView {
 
 #Preview {
     let viewModel: InputTokenViewModel = .init(
-        selectedTokenViewModel: .init(address: "", name: "Ethereum", symbol: "ETH", balance: 100, totalAmount: 0),
-        selectedDestinationAddress: "0x00000000000000000",
-        title: "Send ETH"
+        inputTokenUseCase: InputTokenImp(
+            tokenModel: .default,
+            destinationAddress: "0x00000000000000000"
+        )
     )
     return InputTokenView(
         viewModel: viewModel,

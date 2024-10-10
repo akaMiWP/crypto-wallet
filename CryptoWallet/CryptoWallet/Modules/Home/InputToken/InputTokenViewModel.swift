@@ -7,23 +7,22 @@ final class InputTokenViewModel: ObservableObject {
     @Published var inputAmount: String = ""
     @Published var isInputValid: Bool = false
     
+    var destinationAddress: String { inputTokenUseCase.destinationAddress }
+    
     let selectedTokenViewModel: TokenViewModel
-    let selectedDestinationAddress: String
     let title: String
     
+    private let inputTokenUseCase: InputTokenUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
-    init(selectedTokenViewModel: TokenViewModel,
-         selectedDestinationAddress: String,
-         title: String
-    ) {
-        self.selectedTokenViewModel = selectedTokenViewModel
-        self.selectedDestinationAddress = selectedDestinationAddress
-        self.title = title
+    init(inputTokenUseCase: InputTokenUseCase) {
+        self.inputTokenUseCase = inputTokenUseCase
+        self.selectedTokenViewModel = inputTokenUseCase.tokenModel.toViewModel()
+        self.title = "Send \(selectedTokenViewModel.symbol)"
         
         $inputAmount
             .map { $0.toDouble() }
-            .map { selectedTokenViewModel.balance > $0 && $0 != 0 }
+            .map { self.selectedTokenViewModel.balance > $0 && $0 != 0 }
             .sink { [weak self] in
                 self?.isInputValid = $0
             }

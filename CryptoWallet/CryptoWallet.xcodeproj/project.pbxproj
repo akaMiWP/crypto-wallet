@@ -81,6 +81,9 @@
 		A1D9E4372CB78B2F00351400 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4362CB78B2F00351400 /* Double+.swift */; };
 		A1D9E43B2CB7B8FF00351400 /* TokenModel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */; };
 		A1D9E43D2CB7C32000351400 /* SelectTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E43C2CB7C32000351400 /* SelectTokenUseCase.swift */; };
+		A1D9E4402CB7CC9E00351400 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E43F2CB7CC9E00351400 /* SummaryView.swift */; };
+		A1D9E4422CB7CCA500351400 /* SummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4412CB7CCA500351400 /* SummaryViewModel.swift */; };
+		A1D9E4442CB7D15600351400 /* InputTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4432CB7D15600351400 /* InputTokenUseCase.swift */; };
 		A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */; };
 		A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */; };
 		A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */; };
@@ -165,6 +168,9 @@
 		A1D9E4362CB78B2F00351400 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenModel+.swift"; sourceTree = "<group>"; };
 		A1D9E43C2CB7C32000351400 /* SelectTokenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenUseCase.swift; sourceTree = "<group>"; };
+		A1D9E43F2CB7CC9E00351400 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		A1D9E4412CB7CCA500351400 /* SummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewModel.swift; sourceTree = "<group>"; };
+		A1D9E4432CB7D15600351400 /* InputTokenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTokenUseCase.swift; sourceTree = "<group>"; };
 		A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkView.swift; sourceTree = "<group>"; };
 		A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkViewModel.swift; sourceTree = "<group>"; };
 		A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportNetworksUseCase.swift; sourceTree = "<group>"; };
@@ -512,6 +518,7 @@
 				A19FBF182CB62DE900058589 /* InputToken */,
 				A19FBF0C2CB51FE700058589 /* SelectToken */,
 				A10CC0F82CA160B1000329A6 /* SelectTokens */,
+				A1D9E43E2CB7CC8600351400 /* Summary */,
 				A10CC0F12C9EEE98000329A6 /* SwitchAccount */,
 				A1E1559D2CA6EE0200BC968F /* SwitchNetwork */,
 			);
@@ -548,6 +555,24 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		A1D9E43E2CB7CC8600351400 /* Summary */ = {
+			isa = PBXGroup;
+			children = (
+				A1D9E43F2CB7CC9E00351400 /* SummaryView.swift */,
+				A1D9E4412CB7CCA500351400 /* SummaryViewModel.swift */,
+			);
+			path = Summary;
+			sourceTree = "<group>";
+		};
+		A1D9E4452CB7D16200351400 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				A1D9E4432CB7D15600351400 /* InputTokenUseCase.swift */,
+				A1D9E43C2CB7C32000351400 /* SelectTokenUseCase.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
 		A1E1559D2CA6EE0200BC968F /* SwitchNetwork */ = {
 			isa = PBXGroup;
 			children = (
@@ -567,13 +592,13 @@
 		A1E3FFC42C893523007EB73D /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				A1D9E4452CB7D16200351400 /* Module */,
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
 				A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */,
 				A19FBF162CB57B1500058589 /* ManageTokensUseCase.swift */,
 				A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */,
 				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
 				A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */,
-				A1D9E43C2CB7C32000351400 /* SelectTokenUseCase.swift */,
 				A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */,
 				A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */,
 			);
@@ -673,6 +698,7 @@
 				A10CC0FD2CA16862000329A6 /* Color+.swift in Sources */,
 				A19BFFC82C8DE11800E646CD /* RootViewModel.swift in Sources */,
 				A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */,
+				A1D9E4422CB7CCA500351400 /* SummaryViewModel.swift in Sources */,
 				A1D9E43B2CB7B8FF00351400 /* TokenModel+.swift in Sources */,
 				A1A375912C8D8C2A0012BF43 /* UserDefaultUseCase.swift in Sources */,
 				A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */,
@@ -711,6 +737,7 @@
 				A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */,
 				A19734902C840EBB00619D33 /* TokenListView.swift in Sources */,
 				A16723AA2C9246D10089CE46 /* Hex+.swift in Sources */,
+				A1D9E4402CB7CC9E00351400 /* SummaryView.swift in Sources */,
 				A19FBF152CB578DC00058589 /* TokenModel.swift in Sources */,
 				A10CC0F72C9F016D000329A6 /* ManageWalletsUseCase.swift in Sources */,
 				A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */,
@@ -726,6 +753,7 @@
 				A19FBF0E2CB51FF900058589 /* SelectTokenViewModel.swift in Sources */,
 				A17425B32CA97DCF0022F0B1 /* Dismissable.swift in Sources */,
 				A1A375802C8C33440012BF43 /* AlertViewModel.swift in Sources */,
+				A1D9E4442CB7D15600351400 /* InputTokenUseCase.swift in Sources */,
 				A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */,
 				A10CC1122CA5A432000329A6 /* SupportedNetwork.swift in Sources */,
 				A197348B2C84078D00619D33 /* NumberFormatter.swift in Sources */,

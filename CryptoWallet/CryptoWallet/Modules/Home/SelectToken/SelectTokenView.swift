@@ -7,7 +7,7 @@ struct SelectTokenView: View {
     @Binding var navigationPath: NavigationPath
     
     enum Destinations: Hashable {
-        case inputToken(TokenViewModel)
+        case inputToken
     }
     
     var body: some View {
@@ -19,7 +19,7 @@ struct SelectTokenView: View {
             Spacer()
             
             Button(action: {
-                navigationPath.append(Destinations.inputToken(viewModel.selectedTokenViewModel))
+                navigationPath.append(Destinations.inputToken)
             }, label: {
                 Text("Next")
                     .font(.headline)
@@ -35,13 +35,9 @@ struct SelectTokenView: View {
         .navigationBarBackButtonHidden()
         .navigationDestination(for: Destinations.self) {
             switch $0 {
-            case .inputToken(let viewModel):
+            case .inputToken:
                 InputTokenView(
-                    viewModel: .init(
-                        selectedTokenViewModel: viewModel,
-                        selectedDestinationAddress: self.viewModel.addressInput,
-                        title: self.viewModel.pageTitle
-                    ),
+                    viewModel: viewModel.makeInputTokenViewModel(),
                     navigationPath: $navigationPath
                 )
             }

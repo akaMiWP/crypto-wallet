@@ -11,6 +11,8 @@ struct TokenModel {
     let tokenBalance: Double
     let totalAmount: Double
     
+    static let `default`: TokenModel = .init(name: "Ethereum", symbol: "ETH", tokenBalance: 0, totalAmount: 0)
+    
     init(
         name: String,
         symbol: String,
