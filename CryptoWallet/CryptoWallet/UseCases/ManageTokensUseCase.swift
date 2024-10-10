@@ -21,10 +21,8 @@ final class ManageTokensImp: ManageTokensUseCase {
             do {
                 if self.models.isEmpty {
                     let ethTokenModel: TokenModel = .init(
-                        name: "Ethereum",
-                        symbol: "ETH",
-                        address: "",
-                        logo: nil,
+                        name: ChainNameConstants.ethereum,
+                        symbol: SymbolsConstants.ethereum,
                         isNativeToken: true,
                         tokenBalance: ethBalance,
                         totalAmount: 0
@@ -42,7 +40,6 @@ final class ManageTokensImp: ManageTokensUseCase {
                         symbol: value.symbol,
                         address: key.address,
                         logo: value.logo,
-                        isNativeToken: false,
                         tokenBalance: balance,
                         totalAmount: 0
                     )
