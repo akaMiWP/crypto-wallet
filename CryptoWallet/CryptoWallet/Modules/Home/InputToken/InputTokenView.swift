@@ -6,6 +6,8 @@ struct InputTokenView: View {
     @ObservedObject var viewModel: InputTokenViewModel
     @Binding var navigationPath: NavigationPath
     
+    @FocusState private var isFocused: Bool
+    
     var body: some View {
         VStack {
             makeTopBarComponent()
@@ -20,9 +22,11 @@ struct InputTokenView: View {
                     let maxWidth = min(CGFloat(viewModel.inputAmount.count * 10), geometry.size.width)
                     
                     TextField("", text: $viewModel.inputAmount)
+                        .keyboardType(.numberPad)
                         .font(.title3)
                         .multilineTextAlignment(.trailing)
                         .frame(minWidth: minWidth, maxWidth: maxWidth < minWidth ? minWidth : maxWidth)
+                        .focused($isFocused)
                     
                     Text(viewModel.selectedTokenViewModel.symbol)
                         .font(.title3)
@@ -36,6 +40,7 @@ struct InputTokenView: View {
             Spacer()
         }
         .navigationBarBackButtonHidden()
+        .onAppear { isFocused = true }
     }
 }
 
@@ -47,7 +52,7 @@ private extension InputTokenView {
             imageSystemName: "chevron.backward",
             bottomView: { EmptyView() },
             backCompletion: {
-                navigationPath.removeLast()
+                navigationPath.removeLastIfNeeded()
             }
         )
     }
@@ -69,7 +74,7 @@ private extension InputTokenView {
                     .frame(width: 18, height: 18)
                     .frame(width: 40, height: 40)
                     .onTapGesture {
-                        navigationPath.removeLast()
+                        navigationPath.removeLastIfNeeded()
                     }
             }
             .padding(.horizontal)
@@ -84,12 +89,13 @@ private extension InputTokenView {
 }
 
 #Preview {
-    InputTokenView(
-        viewModel: .init(
-            selectedTokenViewModel: .default,
-            selectedDestinationAddress: "0x00000000000000000",
-            title: "Send SOL"
-        ),
+    let viewModel: InputTokenViewModel = .init(
+        selectedTokenViewModel: .init(name: "Ethereum", symbol: "ETH", balance: 100, totalAmount: 0),
+        selectedDestinationAddress: "0x00000000000000000",
+        title: "Send ETH"
+    )
+    return InputTokenView(
+        viewModel: viewModel,
         navigationPath: .constant(.init())
     )
 }
