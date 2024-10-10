@@ -170,7 +170,19 @@ private extension DashboardViewModel {
     
     func subscribeToAddressToTokenModelDict() {
         addressToTokenModelsDict
-            .flatMap { self.manageTokensUseCase.createTokensModelPublisher(dict: $0, ethBalance: self.ethBalance) }
+            .flatMap { dict in
+                self.supportNetworksUseCase
+                    .fetchSelectedChainIdPublisher()
+                    .flatMap { self.supportNetworksUseCase.fetchNetworkModel(from: $0) }
+                    .map { (dict, $0) }
+            }
+            .flatMap { (dict, networkModel) in
+                self.manageTokensUseCase.createTokensModelPublisher(
+                    dict: dict,
+                    ethBalance: self.ethBalance,
+                    network: networkModel
+                )
+            }
             .map { models in models.toViewModels() }
             .sink { [weak self] completion in
                 self?.handleError(completion: completion)
