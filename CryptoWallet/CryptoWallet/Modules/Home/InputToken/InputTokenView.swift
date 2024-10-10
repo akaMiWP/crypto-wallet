@@ -11,6 +11,10 @@ struct InputTokenView: View {
     @State private var cancellable: AnyCancellable?
     @State private var keyboardHeight: CGFloat = 0
     
+    enum Destinations: Hashable {
+        case summary(transferAmount: Double, tokenViewModel: TokenViewModel)
+    }
+    
     var body: some View {
         VStack {
             makeTopBarComponent()
@@ -66,7 +70,9 @@ struct InputTokenView: View {
                 }
                 .padding(.horizontal)
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    navigationPath.append(Destinations.summary(transferAmount: viewModel.inputAmount.toDouble(), tokenViewModel: viewModel.selectedTokenViewModel))
+                }, label: {
                     Text("Next")
                         .font(.headline)
                         .foregroundColor(.white)
@@ -81,6 +87,12 @@ struct InputTokenView: View {
             .padding(.vertical)
         }
         .navigationBarBackButtonHidden()
+        .navigationDestination(for: Destinations.self) {
+            switch $0 {
+            case .summary(let transferAmount, let tokenViewModel):
+                EmptyView()
+            }
+        }
         .onAppear {
             isFocused = true
             
