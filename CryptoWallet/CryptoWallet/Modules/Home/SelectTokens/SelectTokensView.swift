@@ -71,16 +71,6 @@ private extension SelectTokensView {
 
 #Preview {
     SelectTokensView(
-        viewModel: .init(
-            manageTokensUseCase: ManageTokensImp(),
-            viewModels: [
-                .init(name: "ABCD", symbol: "ABCD", balance: 0, totalAmount: 0),
-                .init(name: "BCDE", symbol: "BCDE", balance: 0, totalAmount: 0),
-                .init(name: "CDEF", symbol: "CDEF", balance: 0, totalAmount: 0),
-                .init(name: "DEFG", symbol: "DEFG", balance: 0, totalAmount: 0),
-                .init(name: "EFGH", symbol: "EFGH", balance: 0, totalAmount: 0),
-                .init(name: "FGHI", symbol: "FGHI", balance: 0, totalAmount: 0),
-            ]
-        )
+        viewModel: .init(manageTokensUseCase: ManageTokensImp())
     )
 }

@@ -129,7 +129,7 @@ final class DashboardViewModel: Alertable {
     }
     
     func makeSelectTokensViewModel() -> SelectTokensViewModel {
-        .init(manageTokensUseCase: manageTokensUseCase, viewModels: tokenViewModels)
+        .init(manageTokensUseCase: manageTokensUseCase)
     }
 }
 
@@ -170,7 +170,7 @@ private extension DashboardViewModel {
     
     func subscribeToAddressToTokenModelDict() {
         addressToTokenModelsDict
-            .flatMap(manageTokensUseCase.createTokensModelPublisher(dict:))
+            .flatMap { self.manageTokensUseCase.createTokensModelPublisher(dict: $0, ethBalance: self.ethBalance) }
             .map { models in models.toViewModels() }
             .sink { [weak self] completion in
                 self?.handleError(completion: completion)
@@ -215,17 +215,4 @@ private extension DashboardViewModel {
 
 private enum DashboardViewModelError: Error {
     case unableToParseHexStringToDouble
-}
-
-private extension Array where Element == TokenModel {
-    func toViewModels() -> [TokenViewModel] {
-        map { model in
-                .init(
-                    name: model.name,
-                    symbol: model.symbol,
-                    balance: model.tokenBalance,
-                    totalAmount: 0
-                )
-        }
-    }
 }

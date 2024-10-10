@@ -9,4 +9,5 @@ struct TokenModel {
     let logo: URL?
     let isNativeToken: Bool
     let tokenBalance: Double
+    let totalAmount: Double
 }

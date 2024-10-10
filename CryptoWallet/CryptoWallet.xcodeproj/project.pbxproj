@@ -79,6 +79,7 @@
 		A1B7D23B2CADA0B200EF7923 /* NodeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */; };
 		A1D9E4352CB76EF200351400 /* NavigationPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4342CB76EF200351400 /* NavigationPath+.swift */; };
 		A1D9E4372CB78B2F00351400 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4362CB78B2F00351400 /* Double+.swift */; };
+		A1D9E43B2CB7B8FF00351400 /* TokenModel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */; };
 		A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */; };
 		A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */; };
 		A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */; };
@@ -161,6 +162,7 @@
 		A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeProvider.swift; sourceTree = "<group>"; };
 		A1D9E4342CB76EF200351400 /* NavigationPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPath+.swift"; sourceTree = "<group>"; };
 		A1D9E4362CB78B2F00351400 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenModel+.swift"; sourceTree = "<group>"; };
 		A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkView.swift; sourceTree = "<group>"; };
 		A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkViewModel.swift; sourceTree = "<group>"; };
 		A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportNetworksUseCase.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				A19BFFC72C8DE11800E646CD /* RootViewModel.swift */,
 				A1A2072E2C7CA6ED0093CE47 /* Assets.xcassets */,
 				A16723AC2C94431A0089CE46 /* Config */,
+				A1D9E4382CB7B8DB00351400 /* Mappers */,
 				A19734832C84049600619D33 /* Models */,
 				A167239A2C9237A90089CE46 /* Modules */,
 				A167239B2C92385C0089CE46 /* Network */,
@@ -525,6 +528,22 @@
 			children = (
 			);
 			path = Activities;
+			sourceTree = "<group>";
+		};
+		A1D9E4382CB7B8DB00351400 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				A1D9E4392CB7B8E300351400 /* Domain */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
+		A1D9E4392CB7B8E300351400 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		A1E1559D2CA6EE0200BC968F /* SwitchNetwork */ = {
@@ -651,6 +670,7 @@
 				A10CC0FD2CA16862000329A6 /* Color+.swift in Sources */,
 				A19BFFC82C8DE11800E646CD /* RootViewModel.swift in Sources */,
 				A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */,
+				A1D9E43B2CB7B8FF00351400 /* TokenModel+.swift in Sources */,
 				A1A375912C8D8C2A0012BF43 /* UserDefaultUseCase.swift in Sources */,
 				A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */,
 				A16723A42C9242120089CE46 /* JSONRPCResponse.swift in Sources */,

@@ -12,10 +12,9 @@ final class SelectTokensViewModel: Filterable {
     private let manageTokensUseCase: ManageTokensUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
-    init(manageTokensUseCase: ManageTokensUseCase,
-         viewModels: [TokenViewModel]) {
+    init(manageTokensUseCase: ManageTokensUseCase) {
         self.manageTokensUseCase = manageTokensUseCase
-        self.viewModels = viewModels
+        self.viewModels = manageTokensUseCase.models.toViewModels()
         self.filteredViewModels = viewModels
         
         subscribeToSearchInput()
