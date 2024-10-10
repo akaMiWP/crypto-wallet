@@ -1,5 +1,6 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
+import Combine
 import SwiftUI
 
 struct InputTokenView: View {
@@ -7,6 +8,8 @@ struct InputTokenView: View {
     @Binding var navigationPath: NavigationPath
     
     @FocusState private var isFocused: Bool
+    @State private var cancellable: AnyCancellable?
+    @State private var keyboardHeight: CGFloat = 0
     
     var body: some View {
         VStack {
@@ -38,9 +41,45 @@ struct InputTokenView: View {
             .frame(maxWidth: .infinity)
             
             Spacer()
+            
+            VStack {
+                Rectangle()
+                    .fill(.gray.opacity(0.4))
+                    .frame(height: 1)
+                    .frame(maxWidth: .infinity)
+                    .innerShadow()
+                
+                HStack {
+                    Text("Available balance:")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                    
+                    Text("123")
+                        .font(.body)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
+            }
+            .padding(.vertical)
         }
         .navigationBarBackButtonHidden()
-        .onAppear { isFocused = true }
+        .onAppear {
+            isFocused = true
+            
+            /// this will be needed for complex UI scenario. Since iOS14, Apple already handle automatic keyboard avoidance
+            cancellable = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+                .merge(with: NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification))
+                .sink { notification in
+                    if notification.name == UIResponder.keyboardWillShowNotification {
+                        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                            keyboardHeight = keyboardFrame.height
+                        }
+                    } else if notification.name == UIResponder.keyboardWillHideNotification {
+                        keyboardHeight = 0
+                    }
+                }
+        }
     }
 }
 
