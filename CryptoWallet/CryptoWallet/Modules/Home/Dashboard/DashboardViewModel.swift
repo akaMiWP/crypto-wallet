@@ -208,6 +208,7 @@ private extension DashboardViewModel {
     func modelDidChange() {
         offset = 0
         state = .loading
+        manageTokensUseCase.clearModels()
         fetchData()
     }
 }

@@ -3,11 +3,13 @@
 import Combine
 
 protocol ManageTokensUseCase {
-    var models: [TokenModel] { get set }
+    var models: [TokenModel] { get }
     
     func createTokensModelPublisher(
         dict: [AddressToTokenModel : TokenMetadataModel]
     ) -> AnyPublisher<[TokenModel], Error>
+    
+    func clearModels()
 }
 
 final class ManageTokensImp: ManageTokensUseCase {
@@ -52,6 +54,10 @@ final class ManageTokensImp: ManageTokensUseCase {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    func clearModels() {
+        models = []
     }
 }
 
