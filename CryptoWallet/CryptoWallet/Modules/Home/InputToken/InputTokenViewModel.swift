@@ -28,4 +28,14 @@ final class InputTokenViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+    func makeSummaryViewModel() -> SummaryViewModel {
+        .init(
+            summaryTokenUseCase: SummaryTokenImp(
+                destinationAddress: destinationAddress,
+                sendAmount: inputAmount.toDouble(),
+                tokenModel: inputTokenUseCase.tokenModel
+            )
+        )
+    }
 }

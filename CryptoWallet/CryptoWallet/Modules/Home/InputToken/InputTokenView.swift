@@ -90,7 +90,7 @@ struct InputTokenView: View {
         .navigationDestination(for: Destinations.self) {
             switch $0 {
             case .summary(let transferAmount, let tokenViewModel):
-                SummaryView(viewModel: .init(), navigationPath: $navigationPath)
+                SummaryView(viewModel: viewModel.makeSummaryViewModel(), navigationPath: $navigationPath)
             }
         }
         .onAppear {

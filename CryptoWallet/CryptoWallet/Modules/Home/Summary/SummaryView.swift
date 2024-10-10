@@ -19,7 +19,7 @@ struct SummaryView: View {
                 .clipShape(Circle())
                 .padding(.top, 24)
             
-            Text("0.01 ETH")
+            Text(viewModel.sendAmountText)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.top, 12)
@@ -30,7 +30,7 @@ struct SummaryView: View {
                     
                     Spacer()
                     
-                    Text("0x000000000")
+                    Text(viewModel.destinationAddress)
                         .fontWeight(.semibold)
                 }
                 
@@ -43,7 +43,7 @@ struct SummaryView: View {
                     
                     Spacer()
                     
-                    Text("Ethereum")
+                    Text(viewModel.networkName)
                         .fontWeight(.semibold)
                 }
                 
@@ -56,7 +56,7 @@ struct SummaryView: View {
                     
                     Spacer()
                     
-                    Text("$0.01")
+                    Text("$\(viewModel.networkFee)")
                         .fontWeight(.semibold)
                 }
             }
@@ -68,7 +68,7 @@ struct SummaryView: View {
             
             Spacer()
             
-            Button(action: {}, label: {
+            Button(action: { navigationPath = .init() }, label: {
                 Text("Send")
                     .font(.headline)
                     .foregroundColor(.white)
@@ -78,9 +78,8 @@ struct SummaryView: View {
                     .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
                     .padding()
             })
-            
-            
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -99,6 +98,6 @@ private extension SummaryView {
 }
 
 #Preview {
-    let viewModel: SummaryViewModel = .init()
+    let viewModel: SummaryViewModel = .init(summaryTokenUseCase: SummaryTokenImp(destinationAddress: "0x000000", sendAmount: 0, tokenModel: .default))
     return SummaryView(viewModel: viewModel, navigationPath: .constant(.init()))
 }
