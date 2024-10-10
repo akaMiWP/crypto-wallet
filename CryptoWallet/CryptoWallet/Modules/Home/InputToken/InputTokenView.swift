@@ -22,7 +22,7 @@ struct InputTokenView: View {
             GeometryReader { geometry in
                 HStack {
                     let minWidth: CGFloat = 50
-                    let maxWidth = min(CGFloat(viewModel.inputAmount.count * 10), geometry.size.width)
+                    let maxWidth = min(CGFloat(viewModel.inputAmount.count * 12), geometry.size.width)
                     
                     TextField("", text: $viewModel.inputAmount)
                         .keyboardType(.numberPad)
@@ -58,13 +58,25 @@ struct InputTokenView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(.primaryViolet1_900)
                     
-                    Text("123")
+                    Text("\(viewModel.selectedTokenViewModel.balance)")
                         .font(.body)
                         .foregroundColor(.primaryViolet1_900)
                     
                     Spacer()
                 }
                 .padding(.horizontal)
+                
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Text("Next")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(height: 48)
+                        .frame(maxWidth: .infinity)
+                        .background(viewModel.isInputValid ? Color.primaryViolet1_400 : Color.primaryViolet1_100)
+                        .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
+                        .padding()
+                })
+                .disabled(!viewModel.isInputValid)
             }
             .padding(.vertical)
         }

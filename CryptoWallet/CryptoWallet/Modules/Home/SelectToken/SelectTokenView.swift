@@ -24,12 +24,12 @@ struct SelectTokenView: View {
                 Text("Next")
                     .font(.headline)
                     .foregroundColor(.white)
+                    .frame(height: 48)
+                    .frame(maxWidth: .infinity)
+                    .background(viewModel.isAddressValid ? Color.primaryViolet1_400 : Color.primaryViolet1_100)
+                    .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
+                    .padding()
             })
-            .frame(height: 48)
-            .frame(maxWidth: .infinity)
-            .background(viewModel.isAddressValid ? Color.primaryViolet1_400 : Color.primaryViolet1_100)
-            .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
-            .padding()
             .disabled(!viewModel.isAddressValid)
         }
         .navigationDestination(for: Destinations.self) {

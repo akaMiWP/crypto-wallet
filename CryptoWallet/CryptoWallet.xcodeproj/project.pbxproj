@@ -78,6 +78,7 @@
 		A1B7D2352CAC3B3300EF7923 /* GetBalanceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */; };
 		A1B7D23B2CADA0B200EF7923 /* NodeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */; };
 		A1D9E4352CB76EF200351400 /* NavigationPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4342CB76EF200351400 /* NavigationPath+.swift */; };
+		A1D9E4372CB78B2F00351400 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4362CB78B2F00351400 /* Double+.swift */; };
 		A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */; };
 		A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */; };
 		A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */; };
@@ -159,6 +160,7 @@
 		A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBalanceResponse.swift; sourceTree = "<group>"; };
 		A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeProvider.swift; sourceTree = "<group>"; };
 		A1D9E4342CB76EF200351400 /* NavigationPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPath+.swift"; sourceTree = "<group>"; };
+		A1D9E4362CB78B2F00351400 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkView.swift; sourceTree = "<group>"; };
 		A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkViewModel.swift; sourceTree = "<group>"; };
 		A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportNetworksUseCase.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				A17425B62CA987A60022F0B1 /* Constants+.swift */,
+				A1D9E4362CB78B2F00351400 /* Double+.swift */,
 				A16723A92C9246D10089CE46 /* Hex+.swift */,
 				A1D9E4342CB76EF200351400 /* NavigationPath+.swift */,
 				A1AC217C2C9BE41F00374C83 /* String+.swift */,
@@ -641,6 +644,7 @@
 				A10CC1082CA2A5D8000329A6 /* BottomCardModifier.swift in Sources */,
 				A19734802C8323C300619D33 /* CongratsView.swift in Sources */,
 				A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */,
+				A1D9E4372CB78B2F00351400 /* Double+.swift in Sources */,
 				A1B68E912C84AD71000509C9 /* NavigationDestinations.swift in Sources */,
 				A1B7D23B2CADA0B200EF7923 /* NodeProvider.swift in Sources */,
 				A10CC0F32C9EEEA7000329A6 /* SwitchAccountView.swift in Sources */,

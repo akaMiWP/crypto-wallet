@@ -6,4 +6,8 @@ extension String {
         let backRange = index(endIndex, offsetBy: -5)..<endIndex
         return self[frontRange] + "...." + self[backRange]
     }
+    
+    func toDouble() -> Double {
+        Double(self) ?? 0
+    }
 }
