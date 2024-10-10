@@ -161,7 +161,7 @@ private extension InputTokenView {
 
 #Preview {
     let viewModel: InputTokenViewModel = .init(
-        selectedTokenViewModel: .init(name: "Ethereum", symbol: "ETH", balance: 100, totalAmount: 0),
+        selectedTokenViewModel: .init(address: "", name: "Ethereum", symbol: "ETH", balance: 100, totalAmount: 0),
         selectedDestinationAddress: "0x00000000000000000",
         title: "Send ETH"
     )

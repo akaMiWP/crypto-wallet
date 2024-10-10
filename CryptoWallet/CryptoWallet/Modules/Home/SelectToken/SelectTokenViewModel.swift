@@ -9,17 +9,16 @@ final class SelectTokenViewModel: ObservableObject {
     let pageTitle: String
     let selectedTokenViewModel: TokenViewModel
     
-    private let manageTokensUseCase: ManageTokensUseCase
+    private let selectTokenUseCase: SelectTokenUseCase
     private let prepareTransactionUseCase: PrepareTransactionUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
-    init(manageTokensUseCase: ManageTokensUseCase,
-         prepareTransactionUseCase: PrepareTransactionUseCase,
-         selectedTokenViewModel: TokenViewModel
+    init(selectTokenUseCase: SelectTokenUseCase,
+         prepareTransactionUseCase: PrepareTransactionUseCase
     ) {
-        self.manageTokensUseCase = manageTokensUseCase
+        self.selectTokenUseCase = selectTokenUseCase
         self.prepareTransactionUseCase = prepareTransactionUseCase
-        self.selectedTokenViewModel = selectedTokenViewModel
+        self.selectedTokenViewModel = selectTokenUseCase.selectedTokenModel.toViewModel()
         self.pageTitle = "Send \(selectedTokenViewModel.symbol)"
         
         subscribeToDestinationAddress()

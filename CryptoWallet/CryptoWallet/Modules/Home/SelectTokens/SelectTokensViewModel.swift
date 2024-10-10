@@ -3,10 +3,11 @@
 import Combine
 import Foundation
 
-final class SelectTokensViewModel: Filterable {
+final class SelectTokensViewModel: Alertable, Filterable {
     
     @Published var searchInput: String = ""
     @Published var filteredViewModels: [TokenViewModel] = []
+    @Published var alertViewModel: AlertViewModel?
     
     private let viewModels: [TokenViewModel]
     private let manageTokensUseCase: ManageTokensUseCase
@@ -21,10 +22,13 @@ final class SelectTokensViewModel: Filterable {
             .store(in: &cancellables)
     }
     
-    func makeSelectTokenViewModel(selectedTokenViewModel: TokenViewModel) -> SelectTokenViewModel {
-        .init(manageTokensUseCase: manageTokensUseCase,
-              prepareTransactionUseCase: PrepareTransactionImp(),
-              selectedTokenViewModel: selectedTokenViewModel
+    func makeSelectTokenViewModel(selectedTokenViewModel: TokenViewModel) -> SelectTokenViewModel? {
+        guard let tokenModel = manageTokensUseCase.models.first(where: { $0.address == selectedTokenViewModel.address }) else {
+            alertViewModel = .init()
+            return nil
+        }
+        return .init(selectTokenUseCase: SelectTokenImp(selectedTokenModel: tokenModel),
+                     prepareTransactionUseCase: PrepareTransactionImp()
         )
     }
 }

@@ -80,6 +80,7 @@
 		A1D9E4352CB76EF200351400 /* NavigationPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4342CB76EF200351400 /* NavigationPath+.swift */; };
 		A1D9E4372CB78B2F00351400 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4362CB78B2F00351400 /* Double+.swift */; };
 		A1D9E43B2CB7B8FF00351400 /* TokenModel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */; };
+		A1D9E43D2CB7C32000351400 /* SelectTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E43C2CB7C32000351400 /* SelectTokenUseCase.swift */; };
 		A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */; };
 		A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */; };
 		A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */; };
@@ -163,6 +164,7 @@
 		A1D9E4342CB76EF200351400 /* NavigationPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPath+.swift"; sourceTree = "<group>"; };
 		A1D9E4362CB78B2F00351400 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenModel+.swift"; sourceTree = "<group>"; };
+		A1D9E43C2CB7C32000351400 /* SelectTokenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenUseCase.swift; sourceTree = "<group>"; };
 		A1E1559E2CA6EE1100BC968F /* SwitchNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkView.swift; sourceTree = "<group>"; };
 		A1E155A02CA6EE1800BC968F /* SwitchNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNetworkViewModel.swift; sourceTree = "<group>"; };
 		A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportNetworksUseCase.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 				A10CC0F62C9F016D000329A6 /* ManageWalletsUseCase.swift */,
 				A167239E2C9240370089CE46 /* NodeProviderUseCase.swift */,
 				A19FBF0F2CB5241500058589 /* PrepareTransactionUseCase.swift */,
+				A1D9E43C2CB7C32000351400 /* SelectTokenUseCase.swift */,
 				A1E155A22CA79E1E00BC968F /* SupportNetworksUseCase.swift */,
 				A1A375902C8D8C2A0012BF43 /* UserDefaultUseCase.swift */,
 			);
@@ -732,6 +735,7 @@
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 				A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */,
 				A167239D2C9238780089CE46 /* NetworkStack.swift in Sources */,
+				A1D9E43D2CB7C32000351400 /* SelectTokenUseCase.swift in Sources */,
 				A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

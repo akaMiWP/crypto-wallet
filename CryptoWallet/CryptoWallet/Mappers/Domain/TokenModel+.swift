@@ -2,16 +2,21 @@
 
 import Foundation
 
+extension TokenModel {
+    func toViewModel() -> TokenViewModel {
+        .init(
+            address: address,
+            name: name,
+            symbol: symbol,
+            image: symbol == SymbolsConstants.ethereum ? .iconEthereum : .init(),
+            balance: tokenBalance,
+            totalAmount: 0
+        )
+    }
+}
+
 extension Array where Element == TokenModel {
     func toViewModels() -> [TokenViewModel] {
-        map { model in
-                .init(
-                    name: model.name,
-                    symbol: model.symbol,
-                    image: model.symbol == SymbolsConstants.ethereum ? .iconEthereum : .init(),
-                    balance: model.tokenBalance,
-                    totalAmount: 0
-                )
-        }
+        map { $0.toViewModel() }
     }
 }

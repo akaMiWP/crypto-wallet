@@ -88,11 +88,11 @@ private extension TokenListView {
 
 #Preview {
     TokenListView(viewModels: [
-        .init(name: "ABCD", symbol: "XXXX", balance: 0, totalAmount: 0),
-        .init(name: "BCDE", symbol: "XXXX", balance: 0, totalAmount: 0),
-        .init(name: "CDEF", symbol: "XXXX", balance: 0, totalAmount: 0),
-        .init(name: "DEFG", symbol: "XXXX", balance: 0, totalAmount: 0),
-        .init(name: "EFGH", symbol: "XXXX", balance: 0, totalAmount: 0),
-        .init(name: "FGHI", symbol: "XXXX", balance: 0, totalAmount: 0),
+        .init(address: "", name: "ABCD", symbol: "XXXX", balance: 0, totalAmount: 0),
+        .init(address: "", name: "BCDE", symbol: "XXXX", balance: 0, totalAmount: 0),
+        .init(address: "", name: "CDEF", symbol: "XXXX", balance: 0, totalAmount: 0),
+        .init(address: "", name: "DEFG", symbol: "XXXX", balance: 0, totalAmount: 0),
+        .init(address: "", name: "EFGH", symbol: "XXXX", balance: 0, totalAmount: 0),
+        .init(address: "", name: "FGHI", symbol: "XXXX", balance: 0, totalAmount: 0),
     ])
 }

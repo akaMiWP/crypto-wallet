@@ -32,6 +32,7 @@ struct SelectTokenView: View {
             })
             .disabled(!viewModel.isAddressValid)
         }
+        .navigationBarBackButtonHidden()
         .navigationDestination(for: Destinations.self) {
             switch $0 {
             case .inputToken(let viewModel):
@@ -95,9 +96,17 @@ private extension SelectTokenView {
 
 #Preview {
     SelectTokenView(
-        viewModel: .init(manageTokensUseCase: ManageTokensImp(),
-                         prepareTransactionUseCase: PrepareTransactionImp(),
-                         selectedTokenViewModel: .default),
+        viewModel: .init(
+            selectTokenUseCase: SelectTokenImp(
+                selectedTokenModel: .init(
+                    name: "Ethereum",
+                    symbol: "ETH",
+                    tokenBalance: 0.1,
+                    totalAmount: 0
+                )
+            ),
+            prepareTransactionUseCase: PrepareTransactionImp()
+        ),
         navigationPath: .constant(.init())
     )
 }

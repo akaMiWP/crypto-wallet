@@ -5,6 +5,7 @@ import SwiftUI
 
 struct TokenViewModel: Identifiable, Equatable, Hashable {
     let id: UUID = .init()
+    let address: String?
     let name: String
     let symbol: String
     let logo: URL?
@@ -19,6 +20,7 @@ struct TokenViewModel: Identifiable, Equatable, Hashable {
     }
     
     static let `default`: TokenViewModel = .init(
+        address: "",
         name: "",
         symbol: "",
         balance: 0,
@@ -26,6 +28,7 @@ struct TokenViewModel: Identifiable, Equatable, Hashable {
     )
     
     init(
+        address: String?,
         name: String,
         symbol: String,
         logo: URL? = nil,
@@ -35,6 +38,7 @@ struct TokenViewModel: Identifiable, Equatable, Hashable {
         isNativeToken: Bool = false,
         redactedReason: RedactionReasons = []
     ) {
+        self.address = address
         self.name = name
         self.symbol = symbol
         self.logo = logo
@@ -59,10 +63,10 @@ struct TokenViewModel: Identifiable, Equatable, Hashable {
 
 extension TokenViewModel {
     static var placeholders: [TokenViewModel] {
-        [.init(name: "------------", symbol: "", balance: 1000, totalAmount: 0, redactedReason: .placeholder),
-         .init(name: "-------", symbol: "", balance: 10, totalAmount: 0, redactedReason: .placeholder),
-         .init(name: "--------------", symbol: "", balance: 10, totalAmount: 0, redactedReason: .placeholder),
-         .init(name: "-----------", symbol: "", balance: 100, totalAmount: 0, redactedReason: .placeholder),
-         .init(name: "-----", symbol: "", balance: 1000, totalAmount: 0, redactedReason: .placeholder)]
+        [.init(address: "", name: "------------", symbol: "", balance: 1000, totalAmount: 0, redactedReason: .placeholder),
+         .init(address: "", name: "-------", symbol: "", balance: 10, totalAmount: 0, redactedReason: .placeholder),
+         .init(address: "", name: "--------------", symbol: "", balance: 10, totalAmount: 0, redactedReason: .placeholder),
+         .init(address: "", name: "-----------", symbol: "", balance: 100, totalAmount: 0, redactedReason: .placeholder),
+         .init(address: "", name: "-----", symbol: "", balance: 1000, totalAmount: 0, redactedReason: .placeholder)]
     }
 }

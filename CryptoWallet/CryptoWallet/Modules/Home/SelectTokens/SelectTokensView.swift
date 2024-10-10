@@ -8,7 +8,7 @@ struct SelectTokensView: View {
     @Environment(\.dismiss) private var dismiss
     
     enum Destinations: Hashable {
-        case sendToken(TokenViewModel)
+        case sendToken(tokenViewModel: TokenViewModel)
     }
     
     var body: some View {
@@ -21,21 +21,21 @@ struct SelectTokensView: View {
                         viewModels: viewModel.filteredViewModels,
                         shouldShowTotalAmount: false,
                         cellTapCompletion: { selectedViewModel in
-                            navigationPath.append(Destinations.sendToken(selectedViewModel))
+                            navigationPath.append(Destinations.sendToken(tokenViewModel: selectedViewModel))
                         }
                     )
                 }
                 .padding(.top)
+                .modifier(AlertModifier(viewModel: viewModel))
                 .navigationDestination(for: Destinations.self) { screen in
                     switch screen {
-                    case .sendToken(let selectedTokenViewModel):
-                        SelectTokenView(
-                            viewModel: viewModel.makeSelectTokenViewModel(selectedTokenViewModel: selectedTokenViewModel),
-                            navigationPath: $navigationPath
-                        )
-                        .navigationBarHidden(
-                            true
-                        )
+                    case .sendToken(let viewModel):
+                        if let viewModel = self.viewModel.makeSelectTokenViewModel(selectedTokenViewModel: viewModel) {
+                            SelectTokenView(
+                                viewModel: viewModel,
+                                navigationPath: $navigationPath
+                            )
+                        }
                     }
                 }
             }
