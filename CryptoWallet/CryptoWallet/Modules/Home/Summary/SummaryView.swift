@@ -5,6 +5,7 @@ import SwiftUI
 struct SummaryView: View {
     @ObservedObject var viewModel: SummaryViewModel
     @Binding var navigationPath: NavigationPath
+    @Environment(\.presentedSheet) private var presentedSheet
     
     var body: some View {
         VStack {
@@ -68,7 +69,7 @@ struct SummaryView: View {
             
             Spacer()
             
-            Button(action: { navigationPath = .init() }, label: {
+            Button(action: { presentedSheet.wrappedValue = false }, label: {
                 Text("Send")
                     .font(.headline)
                     .foregroundColor(.white)

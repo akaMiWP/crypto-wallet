@@ -92,6 +92,7 @@
 		A1E3FFC02C875151007EB73D /* SelectTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */; };
 		A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */; };
 		A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */; };
+		A1F14E342CB902290031B2B2 /* PresentedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E332CB902290031B2B2 /* PresentedSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +181,7 @@
 		A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenView.swift; sourceTree = "<group>"; };
 		A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageHDWalletUseCase.swift; sourceTree = "<group>"; };
 		A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDWalletManager.swift; sourceTree = "<group>"; };
+		A1F14E332CB902290031B2B2 /* PresentedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -384,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				A10CC0FE2CA176E4000329A6 /* Components */,
+				A1F14E322CB901D50031B2B2 /* EnvironmentValues */,
 				A16723AF2C948DF80089CE46 /* Modifiers */,
 				A197348F2C840EBB00619D33 /* TokenListView.swift */,
 				A1B68E922C84B53B000509C9 /* TitleBarPresentedView.swift */,
@@ -608,6 +611,14 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
+		A1F14E322CB901D50031B2B2 /* EnvironmentValues */ = {
+			isa = PBXGroup;
+			children = (
+				A1F14E332CB902290031B2B2 /* PresentedSheet.swift */,
+			);
+			path = EnvironmentValues;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -692,6 +703,7 @@
 			files = (
 				A167239F2C9240370089CE46 /* NodeProviderUseCase.swift in Sources */,
 				A10CC1082CA2A5D8000329A6 /* BottomCardModifier.swift in Sources */,
+				A1F14E342CB902290031B2B2 /* PresentedSheet.swift in Sources */,
 				A19734802C8323C300619D33 /* CongratsView.swift in Sources */,
 				A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */,
 				A1D9E4372CB78B2F00351400 /* Double+.swift in Sources */,
