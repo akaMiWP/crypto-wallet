@@ -7,6 +7,7 @@ protocol NodeProviderUseCase {
     func fetchEthereumBalance(address: String) -> AnyPublisher<String, Error>
     func fetchTokenBalances(address: String) -> AnyPublisher<[AddressToTokenModel], Error>
     func fetchTokenMetadata(address: String) -> AnyPublisher<TokenMetadataModel, Error>
+    func fetchGasPrice() -> AnyPublisher<String, Error>
 }
 
 final class NodeProviderImpl: NodeProviderUseCase {
@@ -104,6 +105,31 @@ final class NodeProviderImpl: NodeProviderUseCase {
         
         
         return modelPublisher.eraseToAnyPublisher()
+    }
+    
+    func fetchGasPrice() -> AnyPublisher<String, Error> {
+        let gasPriceResponsePublisher: AnyPublisher<JSONRPCResponse<String>, Error> = networkStack.fetchServiceProviderAPI(
+            method: .gasPrice,
+            params: [],
+            nodeProvider: HDWalletManager.selectedNetwork.nodeProvider
+        )
+        
+        let gasPricePublsiher = gasPriceResponsePublisher
+            .flatMap { response in
+                if let error = response.error {
+                    let jsonRPCError = NetworkError.jsonRPCError(code: error.code, message: error.message)
+                    return Fail<JSONRPCResponse<String>, Error>(error: jsonRPCError).eraseToAnyPublisher()
+                }
+                return Just(response).setFailureType(to: Error.self).eraseToAnyPublisher()
+            }
+            .tryMap { response in
+                guard let gasPrice = response.result else {
+                    throw NodeProviderUseCaseError.missingJSONRPCResult
+                }
+                return gasPrice
+            }
+        
+        return gasPricePublsiher.eraseToAnyPublisher()
     }
 }
 
