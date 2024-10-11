@@ -57,8 +57,12 @@ struct SummaryView: View {
                     
                     Spacer()
                     
-                    Text("$\(viewModel.networkFee)")
-                        .fontWeight(.semibold)
+                    VStack(alignment: .trailing) {
+                        Text("$\(viewModel.networkFee)")
+                            .fontWeight(.semibold)
+                        
+                        Text("\(viewModel.gasPrice) Gwei")
+                    }
                 }
             }
             .padding()
@@ -80,7 +84,11 @@ struct SummaryView: View {
                     .padding()
             })
         }
+        .modifier(AlertModifier(viewModel: viewModel))
         .navigationBarBackButtonHidden()
+        .onAppear {
+            viewModel.fetchGasPrice()
+        }
     }
 }
 
@@ -99,6 +107,13 @@ private extension SummaryView {
 }
 
 #Preview {
-    let viewModel: SummaryViewModel = .init(summaryTokenUseCase: SummaryTokenImp(destinationAddress: "0x000000", sendAmount: 0, tokenModel: .default))
+    let viewModel: SummaryViewModel = .init(
+        summaryTokenUseCase: SummaryTokenImp(
+            destinationAddress: "0x000000",
+            sendAmount: 0,
+            tokenModel: .default
+        ),
+        nodeProviderUseCase: NodeProviderImpl(networkStack: .init())
+    )
     return SummaryView(viewModel: viewModel, navigationPath: .constant(.init()))
 }

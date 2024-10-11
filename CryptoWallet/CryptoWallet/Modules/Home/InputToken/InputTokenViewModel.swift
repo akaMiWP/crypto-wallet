@@ -35,7 +35,8 @@ final class InputTokenViewModel: ObservableObject {
                 destinationAddress: destinationAddress,
                 sendAmount: inputAmount.toDouble(),
                 tokenModel: inputTokenUseCase.tokenModel
-            )
+            ),
+            nodeProviderUseCase: NodeProviderImpl(networkStack: .init())
         )
     }
 }
