@@ -12,7 +12,7 @@ struct InputTokenView: View {
     @State private var keyboardHeight: CGFloat = 0
     
     enum Destinations: Hashable {
-        case summary(transferAmount: Double, tokenViewModel: TokenViewModel)
+        case summary
     }
     
     var body: some View {
@@ -71,7 +71,7 @@ struct InputTokenView: View {
                 .padding(.horizontal)
                 
                 Button(action: {
-                    navigationPath.append(Destinations.summary(transferAmount: viewModel.inputAmount.toDouble(), tokenViewModel: viewModel.selectedTokenViewModel))
+                    navigationPath.append(Destinations.summary)
                 }, label: {
                     Text("Next")
                         .font(.headline)
@@ -89,7 +89,7 @@ struct InputTokenView: View {
         .navigationBarBackButtonHidden()
         .navigationDestination(for: Destinations.self) {
             switch $0 {
-            case .summary(let transferAmount, let tokenViewModel):
+            case .summary:
                 SummaryView(
                     viewModel: viewModel.makeSummaryViewModel(),
                     navigationPath: $navigationPath

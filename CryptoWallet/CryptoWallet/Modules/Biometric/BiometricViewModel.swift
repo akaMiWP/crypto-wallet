@@ -23,4 +23,15 @@ final class BiometricViewModel: ObservableObject {
             //TODO: Ask a user for password
         }
     }
+    
+    func makeDashboardViewModel() -> DashboardViewModel {
+        .init(
+            nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
+            manageHDWalletUseCase: ManageHDWalletImpl(),
+            manageTokensUseCase: ManageTokensImp(),
+            manageWalletsUseCase: ManageWalletsImpl(),
+            supportNetworksUseCase: SupportNetworksImp(),
+            globalEventUseCase: GlobalEventImp()
+        )
+    }
 }
