@@ -61,7 +61,9 @@ struct SummaryView: View {
                         Text("$\(viewModel.networkFee)")
                             .fontWeight(.semibold)
                         
-                        Text("\(viewModel.gasPrice) Gwei")
+                        Text("(\(viewModel.gasPrice) Gwei)")
+                            .foregroundColor(Color.secondaryGreen2_700)
+                            .font(.callout)
                     }
                 }
             }

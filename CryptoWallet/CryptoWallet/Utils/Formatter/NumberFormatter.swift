@@ -11,6 +11,12 @@ extension NumberFormatter {
         formatter.maximumFractionDigits = 2
         return formatter
     }
+    
+    static var gasFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }
 }
 
 extension Double {

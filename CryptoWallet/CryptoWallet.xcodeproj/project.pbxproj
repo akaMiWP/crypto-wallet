@@ -93,6 +93,7 @@
 		A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */; };
 		A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */; };
 		A1F14E342CB902290031B2B2 /* PresentedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E332CB902290031B2B2 /* PresentedSheet.swift */; };
+		A1F14E382CBA08360031B2B2 /* Ether+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E372CBA08360031B2B2 /* Ether+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -182,6 +183,7 @@
 		A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageHDWalletUseCase.swift; sourceTree = "<group>"; };
 		A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDWalletManager.swift; sourceTree = "<group>"; };
 		A1F14E332CB902290031B2B2 /* PresentedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedSheet.swift; sourceTree = "<group>"; };
+		A1F14E372CBA08360031B2B2 /* Ether+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ether+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +367,7 @@
 			children = (
 				A17425B62CA987A60022F0B1 /* Constants+.swift */,
 				A1D9E4362CB78B2F00351400 /* Double+.swift */,
+				A1F14E372CBA08360031B2B2 /* Ether+.swift */,
 				A16723A92C9246D10089CE46 /* Hex+.swift */,
 				A1D9E4342CB76EF200351400 /* NavigationPath+.swift */,
 				A1AC217C2C9BE41F00374C83 /* String+.swift */,
@@ -744,6 +747,7 @@
 				A16723B12C948E040089CE46 /* AlertModifier.swift in Sources */,
 				A161A95D2C99A2B000BED797 /* BiometricViewModel.swift in Sources */,
 				A10CC10A2CA2BE5F000329A6 /* View+.swift in Sources */,
+				A1F14E382CBA08360031B2B2 /* Ether+.swift in Sources */,
 				A10CC0F52C9EEEAF000329A6 /* SwitchAccountViewModel.swift in Sources */,
 				A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */,
 				A19FBF1A2CB62DF600058589 /* InputTokenView.swift in Sources */,

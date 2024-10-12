@@ -5,7 +5,7 @@ import Combine
 final class SummaryViewModel: Alertable {
     
     @Published var networkFee: Double = 0.0
-    @Published var gasPrice: Double = 0.0
+    @Published var gasPrice: String = "0.0"
     
     var destinationAddress: String { summaryTokenUseCase.destinationAddress }
     var networkName: String { summaryTokenUseCase.tokenModel.network.chainName }
@@ -33,18 +33,11 @@ final class SummaryViewModel: Alertable {
                     self?.handleError(error: error)
                 }
             } receiveValue: { [weak self] gasPrice in
-                convertHexToDouble(hexString: gasPrice).map { self?.gasPrice = $0 }
+                convertHexToDouble(hexString: gasPrice)
+                    .map { convertEtherToGwei(ether: $0.toString()) }
+                    .map { self?.gasPrice = $0 }
             }
             .store(in: &cancellables)
-        
-        nodeProviderUseCase.fetchEthereumBalance(address: "")
-            .sink { _ in
-                
-            } receiveValue: { _ in
-                
-            }
-            .store(in: &cancellables)
-
     }
 }
 
