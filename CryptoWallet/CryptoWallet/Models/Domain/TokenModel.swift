@@ -5,7 +5,7 @@ import Foundation
 struct TokenModel {
     let name: String
     let symbol: String
-    let address: String?
+    let smartContractAddress: String?
     let logo: URL?
     let isNativeToken: Bool
     let tokenBalance: Double
@@ -32,7 +32,7 @@ struct TokenModel {
     ) {
         self.name = name
         self.symbol = symbol
-        self.address = address
+        self.smartContractAddress = address
         self.logo = logo
         self.isNativeToken = isNativeToken
         self.tokenBalance = tokenBalance

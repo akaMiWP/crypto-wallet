@@ -15,12 +15,16 @@ final class SummaryViewModel: Alertable {
     
     private let summaryTokenUseCase: SummaryTokenUseCase
     private let nodeProviderUseCase: NodeProviderUseCase
+    private let prepareTransactionUseCase: PrepareTransactionUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
     init(summaryTokenUseCase: SummaryTokenUseCase,
-         nodeProviderUseCase: NodeProviderUseCase) {
+         nodeProviderUseCase: NodeProviderUseCase,
+         prepareTransactionUseCase: PrepareTransactionUseCase
+    ) {
         self.summaryTokenUseCase = summaryTokenUseCase
         self.nodeProviderUseCase = nodeProviderUseCase
+        self.prepareTransactionUseCase = prepareTransactionUseCase
         
         sendAmountText = summaryTokenUseCase.sendAmount.toString() + " \(summaryTokenUseCase.tokenModel.symbol)"
     }
@@ -38,6 +42,24 @@ final class SummaryViewModel: Alertable {
                     .map { self?.gasPrice = $0 }
             }
             .store(in: &cancellables)
+    }
+    
+    func didTapNextButton() {
+        prepareTransactionUseCase.buildERC20TransferTransaction(
+            amount: summaryTokenUseCase.sendAmount.toString(),
+            address: summaryTokenUseCase.destinationAddress
+        )
+        .flatMap { <#TW_Ethereum_Proto_Transaction#> in
+            let address: String = summaryTokenUseCase.tokenModel.isNativeToken
+            ? summaryTokenUseCase.tokenModel.address
+            :
+            prepareTransactionUseCase.prepareSigningInput(
+                address: summaryTokenUseCase.tokenModel.isNativeToken ? ,
+                gasPrice: <#T##String#>,
+                gasLimit: <#T##String#>,
+                transaction: <#T##EthereumTransaction#>
+            )
+        }
     }
 }
 

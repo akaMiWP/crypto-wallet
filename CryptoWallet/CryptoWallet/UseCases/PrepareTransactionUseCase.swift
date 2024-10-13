@@ -11,7 +11,7 @@ protocol PrepareTransactionUseCase: DerivationPathRetriever {
     ) -> AnyPublisher<EthereumTransaction, Error>
     
     func prepareSigningInput(
-        address: String,
+        destinationAddress: String,
         gasPrice: String,
         gasLimit: String,
         transaction: EthereumTransaction
@@ -75,7 +75,7 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
     }
     
     func prepareSigningInput(
-        address: String,
+        destinationAddress: String,
         gasPrice: String,
         gasLimit: String,
         transaction: EthereumTransaction

@@ -5,7 +5,7 @@ import Foundation
 extension TokenModel {
     func toViewModel() -> TokenViewModel {
         .init(
-            address: address,
+            address: smartContractAddress,
             name: name,
             symbol: symbol,
             image: symbol == SymbolsConstants.ethereum ? .iconEthereum : .init(),

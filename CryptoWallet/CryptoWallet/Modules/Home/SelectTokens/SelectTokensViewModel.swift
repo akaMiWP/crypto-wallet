@@ -23,7 +23,7 @@ final class SelectTokensViewModel: Alertable, Filterable {
     }
     
     func makeSelectTokenViewModel(selectedTokenViewModel: TokenViewModel) -> SelectTokenViewModel? {
-        guard let tokenModel = manageTokensUseCase.models.first(where: { $0.address == selectedTokenViewModel.address }) else {
+        guard let tokenModel = manageTokensUseCase.models.first(where: { $0.smartContractAddress == selectedTokenViewModel.address }) else {
             alertViewModel = .init()
             return nil
         }
