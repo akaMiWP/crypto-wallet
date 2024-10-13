@@ -80,16 +80,20 @@ struct SummaryView: View {
             
             Spacer()
             
-            Button(action: { presentedSheet.wrappedValue = false }, label: {
+            Button(action: {
+                viewModel.didTapNextButton()
+                //presentedSheet.wrappedValue = false
+            }, label: {
                 Text("Send")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 48)
                     .frame(maxWidth: .infinity)
-                    .background(Color.primaryViolet1_400)
+                    .background(viewModel.hasFetchedForGasPrice ? Color.primaryViolet1_400 : Color.primaryViolet1_100)
                     .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
                     .padding()
             })
+            .disabled(!viewModel.hasFetchedForGasPrice)
         }
         .modifier(AlertModifier(viewModel: viewModel))
         .navigationBarBackButtonHidden()
@@ -120,7 +124,8 @@ private extension SummaryView {
             sendAmount: 0,
             tokenModel: .default
         ),
-        nodeProviderUseCase: NodeProviderImpl(networkStack: .init())
+        nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
+        prepareTransactionUseCase: PrepareTransactionImp()
     )
     return SummaryView(viewModel: viewModel, navigationPath: .constant(.init()))
 }

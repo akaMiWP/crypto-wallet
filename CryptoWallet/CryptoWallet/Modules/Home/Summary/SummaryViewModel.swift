@@ -6,6 +6,7 @@ final class SummaryViewModel: Alertable {
     
     @Published var networkFee: Double = 0.0
     @Published var gasPrice: String = "0.0"
+    @Published var hasFetchedForGasPrice: Bool = false
     
     var destinationAddress: String { summaryTokenUseCase.destinationAddress }
     var networkName: String { summaryTokenUseCase.tokenModel.network.chainName }
@@ -39,26 +40,45 @@ final class SummaryViewModel: Alertable {
             } receiveValue: { [weak self] gasPrice in
                 convertHexToDouble(hexString: gasPrice)
                     .map { convertEtherToGwei(ether: $0.toString()) }
-                    .map { self?.gasPrice = $0 }
+                    .map {
+                        self?.gasPrice = $0
+                        self?.hasFetchedForGasPrice = true
+                    }
             }
             .store(in: &cancellables)
     }
     
     func didTapNextButton() {
-        prepareTransactionUseCase.buildERC20TransferTransaction(
-            amount: summaryTokenUseCase.sendAmount.toString(),
-            address: summaryTokenUseCase.destinationAddress
-        )
-        .flatMap { <#TW_Ethereum_Proto_Transaction#> in
-            let address: String = summaryTokenUseCase.tokenModel.isNativeToken
-            ? summaryTokenUseCase.tokenModel.address
-            :
-            prepareTransactionUseCase.prepareSigningInput(
-                address: summaryTokenUseCase.tokenModel.isNativeToken ? ,
-                gasPrice: <#T##String#>,
-                gasLimit: <#T##String#>,
-                transaction: <#T##EthereumTransaction#>
+        do {
+            guard let amountInHexString = convertEtherToWei(ether: summaryTokenUseCase.sendAmount.toString())
+                .toHexadecimalString() else {
+                throw SummaryViewModelError.unableToTransformIntoHextring
+            }
+            guard let smartContractAddress = summaryTokenUseCase.tokenModel.smartContractAddress else {
+                throw SummaryViewModelError.smartContractAddressNotFound
+            }
+            prepareTransactionUseCase.buildERC20TransferTransaction(
+                amount: amountInHexString,
+                smartContractAddress: smartContractAddress
             )
+            .flatMap { transaction in
+                self.prepareTransactionUseCase.prepareSigningInput(
+                    destinationAddress: self.summaryTokenUseCase.destinationAddress,
+                    gasPrice: self.gasPrice,
+                    gasLimit: "21000",
+                    transaction: transaction
+                )
+            }
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.handleError(error: error)
+                }
+            } receiveValue: { input in
+                print(input)
+            }
+            .store(in: &cancellables)
+        } catch {
+            handleError(error: error)
         }
     }
 }
@@ -68,4 +88,9 @@ private extension SummaryViewModel {
     func handleError(error: Error) {
         alertViewModel = .init()
     }
+}
+
+private enum SummaryViewModelError: Error {
+    case smartContractAddressNotFound
+    case unableToTransformIntoHextring
 }
