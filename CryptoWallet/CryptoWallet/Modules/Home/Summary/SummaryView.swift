@@ -3,9 +3,14 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @ObservedObject var viewModel: SummaryViewModel
+    @StateObject var viewModel: SummaryViewModel
     @Binding var navigationPath: NavigationPath
     @Environment(\.presentedSheet) private var presentedSheet
+    
+    init(viewModel: SummaryViewModel, navigationPath: Binding<NavigationPath>) {
+        _viewModel = .init(wrappedValue: viewModel)
+        _navigationPath = navigationPath
+    }
     
     var body: some View {
         VStack {
