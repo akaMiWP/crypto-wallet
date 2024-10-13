@@ -10,4 +10,8 @@ extension String {
     func toDouble() -> Double {
         Double(self) ?? 0
     }
+    
+    func toHexadecimalString() -> String? {
+        data(using: .utf8)?.map { String(format: "%02x", $0) }.joined()
+    }
 }

@@ -7,3 +7,9 @@ func convertEtherToGwei(ether: String) -> String {
     let gasPrice = ether.toDouble() * gweiUnit
     return gasPrice.format(with: .gasFormatter)
 }
+
+func convertEtherToWei(ether: String) -> String {
+    let gweiUnit = NSDecimalNumber(decimal: pow(10, 18)).doubleValue
+    let gasPrice = ether.toDouble() * gweiUnit
+    return gasPrice.format(with: .gasFormatter)
+}
