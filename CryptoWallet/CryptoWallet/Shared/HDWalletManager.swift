@@ -55,6 +55,13 @@ final class HDWalletManager {
             throw HDWalletManagerError.unableToSaveNewWallet
         }
     }
+    
+    func retrieveSelectedWallet() throws -> WalletModel {
+        guard createdWalletModels.count > orderOfSelectedWallet else {
+            throw HDWalletManagerError.unableToRetrieveSelectedWallet
+        }
+        return createdWalletModels[orderOfSelectedWallet]
+    }
 }
 
 // MARK: - Private
@@ -62,4 +69,5 @@ private enum HDWalletManagerError: Error {
     case unableToRestoreWallet
     case unableToLoadCreatedWallets
     case unableToSaveNewWallet
+    case unableToRetrieveSelectedWallet
 }

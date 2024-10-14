@@ -4,6 +4,7 @@ import Combine
 import WalletCore
 
 protocol ManageWalletsUseCase: DerivationPathRetriever {
+    func getSelectedWalletAddressPublisher() -> AnyPublisher<String, Error>
     func loadWalletsPublisher() ->  AnyPublisher<[WalletModel], Error>
     func loadSelectedWalletPublisher() -> AnyPublisher<WalletModel, Error>
     func makeNewWalletModel(coinType: CoinType) -> AnyPublisher<Void, Error>
@@ -46,6 +47,15 @@ final class ManageWalletsImpl: ManageWalletsUseCase {
             let wallet: WalletModel = .init(name: "Account #\(newWalletIndex + 1)", address: address)
             try saveNewWallet(wallet: wallet)
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } catch {
+            return Fail(error: error).eraseToAnyPublisher()
+        }
+    }
+    
+    func getSelectedWalletAddressPublisher() -> AnyPublisher<String, Error> {
+        do {
+            let selectedWallet = try HDWalletManager.shared.retrieveSelectedWallet()
+            return Just(selectedWallet.address).setFailureType(to: Error.self).eraseToAnyPublisher()
         } catch {
             return Fail(error: error).eraseToAnyPublisher()
         }
