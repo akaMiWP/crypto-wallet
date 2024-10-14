@@ -12,6 +12,7 @@ protocol PrepareTransactionUseCase: DerivationPathRetriever {
     
     func prepareSigningInput(
         destinationAddress: String,
+        nonce: String,
         gasPrice: String,
         gasLimit: String,
         transaction: EthereumTransaction
@@ -76,6 +77,7 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
     
     func prepareSigningInput(
         destinationAddress: String,
+        nonce: String,
         gasPrice: String,
         gasLimit: String,
         transaction: EthereumTransaction
@@ -89,6 +91,7 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
                 guard let chainIdHexString = self.walletManager.selectedNetwork.chainId.toHexadecimalString(),
                       let gasPriceHexString = gasPrice.toHexadecimalString(),
                       let gasLimitHexString = gasLimit.toHexadecimalString(),
+                      let nonce: Data = .init(hexString: nonce),
                       let chainId: Data = .init(hexString: chainIdHexString),
                       let gasPrice: Data = .init(hexString: gasPriceHexString),
                       let gasLimit: Data = .init(hexString: gasLimitHexString) else {
@@ -104,6 +107,7 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
                 let privateKey = getPrivateKeyData(wallet: wallet, coinType: coinType, order: order)
                 
                 let input: EthereumSigningInput = EthereumSigningInput.with {
+                    $0.nonce = nonce
                     $0.chainID = chainId
                     $0.toAddress = destinationAddress
                     $0.gasPrice = gasPrice

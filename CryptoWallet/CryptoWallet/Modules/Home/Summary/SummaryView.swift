@@ -124,6 +124,7 @@ private extension SummaryView {
             sendAmount: 0,
             tokenModel: .default
         ),
+        manageWalletUseCase: ManageWalletsImpl(),
         nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
         prepareTransactionUseCase: PrepareTransactionImp()
     )

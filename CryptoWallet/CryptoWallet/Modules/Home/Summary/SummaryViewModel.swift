@@ -7,23 +7,26 @@ final class SummaryViewModel: Alertable {
     @Published var networkFee: Double = 0.0
     @Published var gasPrice: String = "0.0"
     @Published var hasFetchedForGasPrice: Bool = false
+    @Published var alertViewModel: AlertViewModel?
     
     var destinationAddress: String { summaryTokenUseCase.destinationAddress }
     var networkName: String { summaryTokenUseCase.tokenModel.network.chainName }
     
     let sendAmountText: String
-    var alertViewModel: AlertViewModel?
     
     private let summaryTokenUseCase: SummaryTokenUseCase
+    private let manageWalletUseCase: ManageWalletsUseCase
     private let nodeProviderUseCase: NodeProviderUseCase
     private let prepareTransactionUseCase: PrepareTransactionUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
     init(summaryTokenUseCase: SummaryTokenUseCase,
+         manageWalletUseCase: ManageWalletsUseCase,
          nodeProviderUseCase: NodeProviderUseCase,
          prepareTransactionUseCase: PrepareTransactionUseCase
     ) {
         self.summaryTokenUseCase = summaryTokenUseCase
+        self.manageWalletUseCase = manageWalletUseCase
         self.nodeProviderUseCase = nodeProviderUseCase
         self.prepareTransactionUseCase = prepareTransactionUseCase
         
@@ -57,26 +60,34 @@ final class SummaryViewModel: Alertable {
             guard let smartContractAddress = summaryTokenUseCase.tokenModel.smartContractAddress else {
                 throw SummaryViewModelError.smartContractAddressNotFound
             }
-            prepareTransactionUseCase.buildERC20TransferTransaction(
-                amount: amountInHexString,
-                smartContractAddress: smartContractAddress
-            )
-            .flatMap { transaction in
-                self.prepareTransactionUseCase.prepareSigningInput(
-                    destinationAddress: self.summaryTokenUseCase.destinationAddress,
-                    gasPrice: self.gasPrice,
-                    gasLimit: "21000",
-                    transaction: transaction
-                )
-            }
-            .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    self?.handleError(error: error)
+            manageWalletUseCase.getSelectedWalletAddressPublisher()
+                .flatMap(nodeProviderUseCase.fetchTransactionCount(address:))
+                .flatMap { nonce in
+                    let transactionPublisher = self.prepareTransactionUseCase.buildERC20TransferTransaction(
+                        amount: amountInHexString,
+                        smartContractAddress: smartContractAddress
+                    )
+                    return transactionPublisher
+                        .map { transaction in return (nonce, transaction) }
+                        .eraseToAnyPublisher()
                 }
-            } receiveValue: { input in
-                print(input)
-            }
-            .store(in: &cancellables)
+                .flatMap { (nonce, transaction) in
+                    self.prepareTransactionUseCase.prepareSigningInput(
+                        destinationAddress: self.summaryTokenUseCase.destinationAddress,
+                        nonce: nonce,
+                        gasPrice: self.gasPrice,
+                        gasLimit: "21000",
+                        transaction: transaction
+                    )
+                }
+                .sink { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.handleError(error: error)
+                    }
+                } receiveValue: { input in
+                    print(input)
+                }
+                .store(in: &cancellables)
         } catch {
             handleError(error: error)
         }

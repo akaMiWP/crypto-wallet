@@ -36,6 +36,7 @@ final class InputTokenViewModel: ObservableObject {
                 sendAmount: inputAmount.toDouble(),
                 tokenModel: inputTokenUseCase.tokenModel
             ),
+            manageWalletUseCase: ManageWalletsImpl(),
             nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
             prepareTransactionUseCase: PrepareTransactionImp()
         )
