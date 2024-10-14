@@ -80,6 +80,7 @@ final class SummaryViewModel: Alertable {
                         transaction: transaction
                     )
                 }
+                .flatMap(prepareTransactionUseCase.signTransaction(message:))
                 .sink { [weak self] completion in
                     if case .failure(let error) = completion {
                         self?.handleError(error: error)
