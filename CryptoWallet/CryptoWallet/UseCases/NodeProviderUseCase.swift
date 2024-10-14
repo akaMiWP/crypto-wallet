@@ -6,6 +6,7 @@ import Foundation
 protocol NodeProviderUseCase {
     func fetchEthereumBalance(address: String) -> AnyPublisher<String, Error>
     func fetchTokenBalances(address: String) -> AnyPublisher<[AddressToTokenModel], Error>
+    func fetchTransactionCount(address: String) -> AnyPublisher<String, Error>
     func fetchTokenMetadata(address: String) -> AnyPublisher<TokenMetadataModel, Error>
     func fetchGasPrice() -> AnyPublisher<String, Error>
 }
@@ -39,6 +40,29 @@ final class NodeProviderImpl: NodeProviderUseCase {
             .tryMap { response in
                 guard let result = response.result else { throw NodeProviderUseCaseError.missingJSONRPCResult }
                 return result
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchTransactionCount(address: String) -> AnyPublisher<String, Error> {
+        let transactionCountPublisher: AnyPublisher<JSONRPCResponse<String>, Error>
+        = networkStack.fetchServiceProviderAPI(
+            method: .transactionCount,
+            params: [address, "latest"],
+            nodeProvider: HDWalletManager.selectedNetwork.nodeProvider
+        )
+        
+        return transactionCountPublisher
+            .flatMap { output in
+                if let error = output.error {
+                    let jsonRPCError = NetworkError.jsonRPCError(code: error.code, message: error.message)
+                    return Fail<JSONRPCResponse<String>, Error>(error: jsonRPCError).eraseToAnyPublisher()
+                }
+                return Just(output).setFailureType(to: Error.self).eraseToAnyPublisher()
+            }
+            .tryMap { response in
+                guard let result = response.result else { throw NodeProviderUseCaseError.missingJSONRPCResult }
+                return result.fullByteHexString()
             }
             .eraseToAnyPublisher()
     }
