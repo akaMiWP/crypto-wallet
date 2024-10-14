@@ -9,6 +9,7 @@ protocol NodeProviderUseCase {
     func fetchTransactionCount(address: String) -> AnyPublisher<String, Error>
     func fetchTokenMetadata(address: String) -> AnyPublisher<TokenMetadataModel, Error>
     func fetchGasPrice() -> AnyPublisher<String, Error>
+    func sendTransaction(encodedSignedTransaction: String) -> AnyPublisher<String, Error>
 }
 
 final class NodeProviderImpl: NodeProviderUseCase {
@@ -154,6 +155,30 @@ final class NodeProviderImpl: NodeProviderUseCase {
             }
         
         return gasPricePublsiher.eraseToAnyPublisher()
+    }
+    
+    func sendTransaction(encodedSignedTransaction: String) -> AnyPublisher<String, Error> {
+        let fetchServiceProviderPublisher: AnyPublisher<JSONRPCResponse<String>, Error> = networkStack.fetchServiceProviderAPI(
+            method: .sendRawTransaction,
+            params: [encodedSignedTransaction],
+            nodeProvider: HDWalletManager.selectedNetwork.nodeProvider
+        )
+        
+        return fetchServiceProviderPublisher
+            .flatMap { response in
+                if let error = response.error {
+                    let jsonRPCError = NetworkError.jsonRPCError(code: error.code, message: error.message)
+                    return Fail<JSONRPCResponse<String>, Error>(error: jsonRPCError).eraseToAnyPublisher()
+                }
+                return Just(response).setFailureType(to: Error.self).eraseToAnyPublisher()
+            }
+            .tryMap { response in
+                guard let txHash = response.result else {
+                    throw NodeProviderUseCaseError.missingJSONRPCResult
+                }
+                return txHash
+            }
+            .eraseToAnyPublisher()
     }
 }
 

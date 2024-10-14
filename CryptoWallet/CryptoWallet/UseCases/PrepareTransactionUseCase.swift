@@ -13,11 +13,11 @@ protocol PrepareTransactionUseCase: DerivationPathRetriever {
     func prepareSigningInput(
         destinationAddress: String,
         nonce: String,
-        gasPrice: String,
-        gasLimit: String,
+        gasPrice: Int,
+        gasLimit: Int,
         transaction: EthereumTransaction
     ) -> AnyPublisher<EthereumSigningInput, Error>
-    func signTransaction(message: EthereumSigningInput) -> AnyPublisher<Data, Never>
+    func signTransaction(message: EthereumSigningInput) -> AnyPublisher<String, Never>
     func validateAddress(address: String) -> AnyPublisher<Bool, Never>
 }
 
@@ -78,8 +78,8 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
     func prepareSigningInput(
         destinationAddress: String,
         nonce: String,
-        gasPrice: String,
-        gasLimit: String,
+        gasPrice: Int,
+        gasLimit: Int,
         transaction: EthereumTransaction
     ) -> AnyPublisher<EthereumSigningInput, Error> {
         Future { [weak self] promise in
@@ -88,13 +88,11 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
                     throw PrepareTransactionError.unableToRetrieveWallet
                 }
                 
-                guard let chainIdHexString = self.walletManager.selectedNetwork.chainId.toHexadecimalString(),
-                      let gasPriceHexString = gasPrice.toHexadecimalString(),
-                      let gasLimitHexString = gasLimit.toHexadecimalString(),
-                      let nonce: Data = .init(hexString: nonce),
+                let chainIdHexString = self.walletManager.selectedNetwork.chainId.toHexadecimalString()
+                guard let nonce: Data = .init(hexString: nonce),
                       let chainId: Data = .init(hexString: chainIdHexString),
-                      let gasPrice: Data = .init(hexString: gasPriceHexString),
-                      let gasLimit: Data = .init(hexString: gasLimitHexString) else {
+                      let gasPrice: Data = .init(hexString: gasPrice.toHexString().fullByteHexString()),
+                      let gasLimit: Data = .init(hexString: gasLimit.toHexString().fullByteHexString()) else {
                     throw PrepareTransactionError.unableToInitializeHexStringFrom(types: [
                         self.walletManager.selectedNetwork.chainId,
                         gasPrice,
@@ -122,14 +120,15 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
         }.eraseToAnyPublisher()
     }
     
-    func signTransaction(message: EthereumSigningInput) -> AnyPublisher<Data, Never> {
+    func signTransaction(message: EthereumSigningInput) -> AnyPublisher<String, Never> {
         let output: EthereumSigningOutput = AnySigner.sign(input: message, coin: walletManager.selectedNetwork.coinType)
-        return Just(output.encoded).eraseToAnyPublisher()
+        let hexString = normalizeHexStringFormat(hexString: output.encoded.hexString)
+        return Just(hexString).eraseToAnyPublisher()
     }
 }
 
 // MARK: - Private
 private enum PrepareTransactionError: Error {
-    case unableToInitializeHexStringFrom(types: [String])
+    case unableToInitializeHexStringFrom(types: [Any])
     case unableToRetrieveWallet
 }

@@ -23,6 +23,7 @@
 		A12619A22CBCFBE20051E74B /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = A12619A12CBCFBE20051E74B /* Web3 */; };
 		A12619A42CBCFBE20051E74B /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = A12619A32CBCFBE20051E74B /* Web3ContractABI */; };
 		A12619A62CBCFBE20051E74B /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = A12619A52CBCFBE20051E74B /* Web3PromiseKit */; };
+		A12619A82CBD19620051E74B /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12619A72CBD19620051E74B /* Int+.swift */; };
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95A2C99A2A100BED797 /* BiometricView.swift */; };
@@ -112,6 +113,7 @@
 		A10CC10F2CA52D2F000329A6 /* Shadow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shadow+.swift"; sourceTree = "<group>"; };
 		A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedNetwork.swift; sourceTree = "<group>"; };
 		A11471972CA8FF26009A900C /* Filterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filterable.swift; sourceTree = "<group>"; };
+		A12619A72CBD19620051E74B /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		A161A95A2C99A2A100BED797 /* BiometricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricView.swift; sourceTree = "<group>"; };
 		A161A95C2C99A2B000BED797 /* BiometricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricViewModel.swift; sourceTree = "<group>"; };
 		A167239C2C9238780089CE46 /* NetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStack.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				A1D9E4362CB78B2F00351400 /* Double+.swift */,
 				A1F14E372CBA08360031B2B2 /* Ether+.swift */,
 				A16723A92C9246D10089CE46 /* Hex+.swift */,
+				A12619A72CBD19620051E74B /* Int+.swift */,
 				A1D9E4342CB76EF200351400 /* NavigationPath+.swift */,
 				A1AC217C2C9BE41F00374C83 /* String+.swift */,
 				A1E3FFC12C87EAE2007EB73D /* Environment */,
@@ -789,6 +792,7 @@
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 				A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */,
 				A167239D2C9238780089CE46 /* NetworkStack.swift in Sources */,
+				A12619A82CBD19620051E74B /* Int+.swift in Sources */,
 				A1D9E43D2CB7C32000351400 /* SelectTokenUseCase.swift in Sources */,
 				A1E1559F2CA6EE1100BC968F /* SwitchNetworkView.swift in Sources */,
 			);

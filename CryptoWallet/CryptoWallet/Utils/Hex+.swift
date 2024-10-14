@@ -10,3 +10,7 @@ func convertHexToDouble(hexString: String, decimals: Int = 18) -> Double? {
     let balanceInDouble = Double(bigUIntValue) / decimalFactor
     return balanceInDouble
 }
+
+func normalizeHexStringFormat(hexString: String) -> String {
+    hexString.hasPrefix("0x") ? hexString : "0x" + hexString
+}

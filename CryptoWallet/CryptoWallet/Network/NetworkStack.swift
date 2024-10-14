@@ -12,6 +12,7 @@ final class NetworkStack {
         case tokenBalances = "alchemy_getTokenBalances"
         case tokenMetadata = "alchemy_getTokenMetadata"
         case transactionCount = "eth_getTransactionCount"
+        case sendRawTransaction = "eth_sendRawTransaction"
     }
     
     private let session: NetworkSession

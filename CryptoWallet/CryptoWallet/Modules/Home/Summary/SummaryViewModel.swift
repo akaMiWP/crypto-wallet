@@ -53,18 +53,18 @@ final class SummaryViewModel: Alertable {
     
     func didTapNextButton() {
         do {
-            guard let amountInHexString = convertEtherToWei(ether: summaryTokenUseCase.sendAmount.toString())
-                .toHexadecimalString() else {
-                throw SummaryViewModelError.unableToTransformIntoHextring
-            }
-            guard let smartContractAddress = summaryTokenUseCase.tokenModel.smartContractAddress else {
+            guard let amount = convertEtherToHex(ether: summaryTokenUseCase.sendAmount),
+                  let gasPrice = Int(convertGweiToWei(gwei: gasPrice)),
+                  let smartContractAddress = summaryTokenUseCase.tokenModel.smartContractAddress else {
                 throw SummaryViewModelError.smartContractAddressNotFound
             }
+            
             manageWalletUseCase.getSelectedWalletAddressPublisher()
+                .print()
                 .flatMap(nodeProviderUseCase.fetchTransactionCount(address:))
                 .flatMap { nonce in
                     let transactionPublisher = self.prepareTransactionUseCase.buildERC20TransferTransaction(
-                        amount: amountInHexString,
+                        amount: amount.fullByteHexString(),
                         smartContractAddress: smartContractAddress
                     )
                     return transactionPublisher
@@ -75,12 +75,13 @@ final class SummaryViewModel: Alertable {
                     self.prepareTransactionUseCase.prepareSigningInput(
                         destinationAddress: self.summaryTokenUseCase.destinationAddress,
                         nonce: nonce,
-                        gasPrice: self.gasPrice,
-                        gasLimit: "21000",
+                        gasPrice: gasPrice,
+                        gasLimit: 21000,
                         transaction: transaction
                     )
                 }
                 .flatMap(prepareTransactionUseCase.signTransaction(message:))
+                .flatMap(nodeProviderUseCase.sendTransaction(encodedSignedTransaction:))
                 .sink { [weak self] completion in
                     if case .failure(let error) = completion {
                         self?.handleError(error: error)

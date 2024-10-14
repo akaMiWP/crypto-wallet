@@ -11,8 +11,8 @@ extension String {
         Double(self) ?? 0
     }
     
-    func toHexadecimalString() -> String? {
-        data(using: .utf8)?.map { String(format: "%02x", $0) }.joined()
+    func toHexadecimalString() -> String {
+        String(format: "%02x", self)
     }
     
     func fullByteHexString() -> String {
