@@ -88,8 +88,8 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
                     throw PrepareTransactionError.unableToRetrieveWallet
                 }
                 
-                let chainIdHexString = self.walletManager.selectedNetwork.chainId.toHexadecimalString()
-                guard let nonce: Data = .init(hexString: nonce),
+                guard let chainIdHexString = Int(self.walletManager.selectedNetwork.chainId)?.toHexString(),
+                      let nonce: Data = .init(hexString: nonce),
                       let chainId: Data = .init(hexString: chainIdHexString),
                       let gasPrice: Data = .init(hexString: gasPrice.toHexString().fullByteHexString()),
                       let gasLimit: Data = .init(hexString: gasLimit.toHexString().fullByteHexString()) else {

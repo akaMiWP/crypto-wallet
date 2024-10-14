@@ -76,7 +76,7 @@ final class SummaryViewModel: Alertable {
                         destinationAddress: self.summaryTokenUseCase.destinationAddress,
                         nonce: nonce,
                         gasPrice: gasPrice,
-                        gasLimit: 21000,
+                        gasLimit: 21632,
                         transaction: transaction
                     )
                 }
