@@ -125,7 +125,10 @@ private extension SummaryView {
             tokenModel: .default
         ),
         manageWalletUseCase: ManageWalletsImpl(),
-        nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
+        nodeProviderUseCase: NodeProviderImpl(
+            networkStack: .init(),
+            networkPollingHandler: NetworkPollingHandler()
+        ),
         prepareTransactionUseCase: PrepareTransactionImp()
     )
     return SummaryView(viewModel: viewModel, navigationPath: .constant(.init()))

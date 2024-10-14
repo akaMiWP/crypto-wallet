@@ -26,7 +26,10 @@ final class BiometricViewModel: ObservableObject {
     
     func makeDashboardViewModel() -> DashboardViewModel {
         .init(
-            nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
+            nodeProviderUseCase: NodeProviderImpl(
+                networkStack: .init(),
+                networkPollingHandler: NetworkPollingHandler()
+            ),
             manageHDWalletUseCase: ManageHDWalletImpl(),
             manageTokensUseCase: ManageTokensImp(),
             manageWalletsUseCase: ManageWalletsImpl(),

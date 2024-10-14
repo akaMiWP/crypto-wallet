@@ -18,8 +18,8 @@ final class NetworkPollingHandler: NetworkPollingHandlerProtocol {
     private var timer: Timer?
     private var startTime: Date?
 
-    init(pollInterval: TimeInterval = 2.0,
-         timeout: TimeInterval = 15.0,
+    init(pollInterval: TimeInterval = 5.0,
+         timeout: TimeInterval = 60.0,
          timerFactory: TimerFactoryProtocol = TimerFactory()
     ) {
         self.pollInterval = pollInterval

@@ -169,7 +169,8 @@ private extension DashboardView {
 #Preview {
     let viewModel: DashboardViewModel = .init(
         nodeProviderUseCase: NodeProviderImpl(
-            networkStack: .init()
+            networkStack: .init(),
+            networkPollingHandler: NetworkPollingHandler()
         ),
         manageHDWalletUseCase: ManageHDWalletImpl(),
         manageTokensUseCase: ManageTokensImp(),

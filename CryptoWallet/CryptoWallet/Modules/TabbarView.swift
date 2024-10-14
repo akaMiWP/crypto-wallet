@@ -7,7 +7,10 @@ struct TabbarView: View {
         TabView {
             DashboardView(
                 viewModel: .init(
-                    nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
+                    nodeProviderUseCase: NodeProviderImpl(
+                        networkStack: .init(),
+                        networkPollingHandler: NetworkPollingHandler()
+                    ),
                     manageHDWalletUseCase: ManageHDWalletImpl(),
                     manageTokensUseCase: ManageTokensImp(),
                     manageWalletsUseCase: ManageWalletsImpl(),

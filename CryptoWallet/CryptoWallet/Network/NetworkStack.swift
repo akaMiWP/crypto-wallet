@@ -9,10 +9,11 @@ final class NetworkStack {
     enum Method: String {
         case gasPrice = "eth_gasPrice"
         case getBalance = "eth_getBalance"
+        case sendRawTransaction = "eth_sendRawTransaction"
         case tokenBalances = "alchemy_getTokenBalances"
         case tokenMetadata = "alchemy_getTokenMetadata"
         case transactionCount = "eth_getTransactionCount"
-        case sendRawTransaction = "eth_sendRawTransaction"
+        case transactionReceipt = "eth_getTransactionReceipt"
     }
     
     private let session: NetworkSession

@@ -37,7 +37,10 @@ final class InputTokenViewModel: ObservableObject {
                 tokenModel: inputTokenUseCase.tokenModel
             ),
             manageWalletUseCase: ManageWalletsImpl(),
-            nodeProviderUseCase: NodeProviderImpl(networkStack: .init()),
+            nodeProviderUseCase: NodeProviderImpl(
+                networkStack: .init(),
+                networkPollingHandler: NetworkPollingHandler()
+            ),
             prepareTransactionUseCase: PrepareTransactionImp()
         )
     }
