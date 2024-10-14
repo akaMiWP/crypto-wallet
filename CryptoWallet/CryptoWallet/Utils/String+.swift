@@ -14,4 +14,12 @@ extension String {
     func toHexadecimalString() -> String? {
         data(using: .utf8)?.map { String(format: "%02x", $0) }.joined()
     }
+    
+    func fullByteHexString() -> String {
+        let droppedHexPrefixString = hasPrefix("0x") ? String(dropFirst(2)) : self
+        let fullByteHexString = droppedHexPrefixString.count % 2 == 0
+        ? droppedHexPrefixString
+        : "0" + droppedHexPrefixString
+        return fullByteHexString
+    }
 }
