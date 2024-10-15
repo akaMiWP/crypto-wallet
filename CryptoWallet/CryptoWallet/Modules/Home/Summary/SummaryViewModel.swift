@@ -65,7 +65,7 @@ final class SummaryViewModel: Alertable {
                 .flatMap { nonce in
                     let transactionPublisher = self.prepareTransactionUseCase.buildERC20TransferTransaction(
                         amount: amount.fullByteHexString(),
-                        smartContractAddress: smartContractAddress
+                        destinationAddress: self.summaryTokenUseCase.destinationAddress
                     )
                     return transactionPublisher
                         .map { transaction in return (nonce, transaction) }
@@ -73,7 +73,7 @@ final class SummaryViewModel: Alertable {
                 }
                 .flatMap { (nonce, transaction) in
                     self.prepareTransactionUseCase.prepareSigningInput(
-                        destinationAddress: self.summaryTokenUseCase.destinationAddress,
+                        destinationAddress: smartContractAddress,
                         nonce: nonce,
                         gasPrice: gasPrice,
                         gasLimit: 21632,

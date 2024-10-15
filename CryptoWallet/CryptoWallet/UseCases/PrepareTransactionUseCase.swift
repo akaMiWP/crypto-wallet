@@ -7,7 +7,7 @@ protocol PrepareTransactionUseCase: DerivationPathRetriever {
     func buildTransferTransaction(amount amountInWei: String) -> AnyPublisher<EthereumTransaction, Error>
     func buildERC20TransferTransaction(
         amount amountInWei: String,
-        smartContractAddress: String
+        destinationAddress: String
     ) -> AnyPublisher<EthereumTransaction, Error>
     
     func prepareSigningInput(
@@ -54,7 +54,7 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
     
     func buildERC20TransferTransaction(
         amount amountInWei: String,
-        smartContractAddress: String
+        destinationAddress: String
     ) -> AnyPublisher<EthereumTransaction, Error> {
         Future { promise in
             do {
@@ -65,7 +65,7 @@ final class PrepareTransactionImp: PrepareTransactionUseCase {
                 let tx = EthereumTransaction.with {
                     $0.erc20Transfer = EthereumTransaction.ERC20Transfer.with {
                         $0.amount = amount
-                        $0.to = smartContractAddress
+                        $0.to = destinationAddress
                     }
                 }
                 promise(.success(tx))
