@@ -10,7 +10,7 @@ protocol NodeProviderUseCase {
     func fetchTokenMetadata(address: String) -> AnyPublisher<TokenMetadataModel, Error>
     func fetchGasPrice() -> AnyPublisher<String, Error>
     func sendTransaction(encodedSignedTransaction: String) -> AnyPublisher<String, Error>
-    func pollTransactionReceipt(txHash: String) -> AnyPublisher<String, Error>
+    func pollTransactionReceiptPublisher(txHash: String) -> AnyPublisher<TransactionReceiptModel, Error>
 }
 
 final class NodeProviderImpl: NodeProviderUseCase {
@@ -18,6 +18,7 @@ final class NodeProviderImpl: NodeProviderUseCase {
     private let networkStack: NetworkStack
     private let networkPollingHandler: NetworkPollingHandlerProtocol
     private let HDWalletManager: HDWalletManager
+    private var cancellable: Cancellable?
     
     init(networkStack: NetworkStack,
          networkPollingHandler: NetworkPollingHandlerProtocol,
@@ -187,11 +188,12 @@ final class NodeProviderImpl: NodeProviderUseCase {
             .eraseToAnyPublisher()
     }
     
-    func pollTransactionReceipt(txHash: String) -> AnyPublisher<String, Error> {
+    func pollTransactionReceiptPublisher(txHash: String) -> AnyPublisher<TransactionReceiptModel, Error> {
         Future { promise in
             self.networkPollingHandler.startPolling { [weak self] completion in
                 guard let self = self else { return }
-                let cancellable = self.fetchTransactionReceipt(txHash: txHash)
+                self.cancellable = self.fetchTransactionReceipt(txHash: txHash)
+                    .map { $0?.toModel() }
                     .handleEvents(receiveOutput: { result in
                         let shouldStopPolling = result != nil
                         completion(shouldStopPolling)
@@ -204,9 +206,9 @@ final class NodeProviderImpl: NodeProviderUseCase {
                         case .finished:
                             break
                         }
-                    }, receiveValue: { result in
-                        if let receipt = result {
-                            promise(.success(receipt))
+                    }, receiveValue: { model in
+                        if let model = model {
+                            promise(.success(model))
                             completion(true)
                         }
                     })
@@ -220,8 +222,8 @@ final class NodeProviderImpl: NodeProviderUseCase {
 
 // MARK: - Private
 private extension NodeProviderImpl {
-    func fetchTransactionReceipt(txHash: String) -> AnyPublisher<String?, Error> {
-        let fetchTransactionReceiptPublisher: AnyPublisher<JSONRPCResponse<String>, Error> = networkStack.fetchServiceProviderAPI(
+    func fetchTransactionReceipt(txHash: String) -> AnyPublisher<TransactionReceiptResponse?, Error> {
+        let fetchTransactionReceiptPublisher: AnyPublisher<JSONRPCResponse<TransactionReceiptResponse>, Error> = networkStack.fetchServiceProviderAPI(
             method: .transactionReceipt,
             params: [txHash],
             nodeProvider: HDWalletManager.selectedNetwork.nodeProvider
@@ -231,14 +233,11 @@ private extension NodeProviderImpl {
             .flatMap { response in
                 if let error = response.error {
                     let jsonRPCError = NetworkError.jsonRPCError(code: error.code, message: error.message)
-                    return Fail<JSONRPCResponse<String>, Error>(error: jsonRPCError).eraseToAnyPublisher()
+                    return Fail<JSONRPCResponse<TransactionReceiptResponse>, Error>(error: jsonRPCError).eraseToAnyPublisher()
                 }
                 return Just(response).setFailureType(to: Error.self).eraseToAnyPublisher()
             }
-            .tryMap { response in
-                //TODO: Implement this
-                return response.result == nil ? nil : ""
-            }
+            .tryMap { response in return response.result }
             .eraseToAnyPublisher()
     }
 }

@@ -87,12 +87,13 @@ final class SummaryViewModel: Alertable {
                 }
                 .flatMap(prepareTransactionUseCase.signTransaction(message:))
                 .flatMap(nodeProviderUseCase.sendTransaction(encodedSignedTransaction:))
+                .flatMap(nodeProviderUseCase.pollTransactionReceiptPublisher(txHash:))
                 .sink { [weak self] completion in
                     if case .failure(let error) = completion {
                         self?.handleError(error: error)
                     }
-                } receiveValue: { input in
-                    print(input)
+                } receiveValue: { [weak self] txHash in
+                    print(txHash)
                 }
                 .store(in: &cancellables)
         } catch {

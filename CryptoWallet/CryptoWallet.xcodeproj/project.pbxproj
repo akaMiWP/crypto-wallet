@@ -82,6 +82,9 @@
 		A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */; };
 		A1B7D2352CAC3B3300EF7923 /* GetBalanceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */; };
 		A1B7D23B2CADA0B200EF7923 /* NodeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */; };
+		A1CF69AE2CBE8F39008A3734 /* TransactionReceiptResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF69AD2CBE8F39008A3734 /* TransactionReceiptResponse.swift */; };
+		A1CF69B02CBE8FE6008A3734 /* TransactionReceiptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF69AF2CBE8FE6008A3734 /* TransactionReceiptModel.swift */; };
+		A1CF69B22CBE925B008A3734 /* TransactionReceiptModel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF69B12CBE925B008A3734 /* TransactionReceiptModel+.swift */; };
 		A1D9E4352CB76EF200351400 /* NavigationPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4342CB76EF200351400 /* NavigationPath+.swift */; };
 		A1D9E4372CB78B2F00351400 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E4362CB78B2F00351400 /* Double+.swift */; };
 		A1D9E43B2CB7B8FF00351400 /* TokenModel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */; };
@@ -175,6 +178,9 @@
 		A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBalanceResponse.swift; sourceTree = "<group>"; };
 		A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeProvider.swift; sourceTree = "<group>"; };
+		A1CF69AD2CBE8F39008A3734 /* TransactionReceiptResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReceiptResponse.swift; sourceTree = "<group>"; };
+		A1CF69AF2CBE8FE6008A3734 /* TransactionReceiptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReceiptModel.swift; sourceTree = "<group>"; };
+		A1CF69B12CBE925B008A3734 /* TransactionReceiptModel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionReceiptModel+.swift"; sourceTree = "<group>"; };
 		A1D9E4342CB76EF200351400 /* NavigationPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPath+.swift"; sourceTree = "<group>"; };
 		A1D9E4362CB78B2F00351400 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenModel+.swift"; sourceTree = "<group>"; };
@@ -314,6 +320,7 @@
 				A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */,
 				A16723A52C92425C0089CE46 /* TokenBalancesResponse.swift */,
 				A16723B22C958AC30089CE46 /* TokenMetadataResponse.swift */,
+				A1CF69AD2CBE8F39008A3734 /* TransactionReceiptResponse.swift */,
 			);
 			path = Contract;
 			sourceTree = "<group>";
@@ -376,6 +383,7 @@
 				A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */,
 				A16723B42C958BBB0089CE46 /* TokenMetadataModel.swift */,
 				A19FBF142CB578DC00058589 /* TokenModel.swift */,
+				A1CF69AF2CBE8FE6008A3734 /* TransactionReceiptModel.swift */,
 				A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */,
 			);
 			path = Domain;
@@ -568,20 +576,29 @@
 			path = Activities;
 			sourceTree = "<group>";
 		};
+		A1CF69B32CBE9297008A3734 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A1CF69B12CBE925B008A3734 /* TransactionReceiptModel+.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		A1D9E4382CB7B8DB00351400 /* Mappers */ = {
 			isa = PBXGroup;
 			children = (
-				A1D9E4392CB7B8E300351400 /* Domain */,
+				A1CF69B32CBE9297008A3734 /* Domain */,
+				A1D9E4392CB7B8E300351400 /* Presentation */,
 			);
 			path = Mappers;
 			sourceTree = "<group>";
 		};
-		A1D9E4392CB7B8E300351400 /* Domain */ = {
+		A1D9E4392CB7B8E300351400 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				A1D9E43A2CB7B8FF00351400 /* TokenModel+.swift */,
 			);
-			path = Domain;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		A1D9E43E2CB7CC8600351400 /* Summary */ = {
@@ -761,6 +778,7 @@
 				A19734872C8404B100619D33 /* TokenViewModel.swift in Sources */,
 				A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */,
 				A17425B12CA97DAA0022F0B1 /* Alertable.swift in Sources */,
+				A1CF69B22CBE925B008A3734 /* TransactionReceiptModel+.swift in Sources */,
 				A16723B32C958AC30089CE46 /* TokenMetadataResponse.swift in Sources */,
 				A10CC1022CA26C75000329A6 /* ProgressBarView.swift in Sources */,
 				A1E3FFC02C875151007EB73D /* SelectTokenView.swift in Sources */,
@@ -769,6 +787,7 @@
 				A19BFFC62C8DDE3A00E646CD /* RootView.swift in Sources */,
 				A16723A22C9241C80089CE46 /* JSONRPCRequest.swift in Sources */,
 				A16723B12C948E040089CE46 /* AlertModifier.swift in Sources */,
+				A1CF69AE2CBE8F39008A3734 /* TransactionReceiptResponse.swift in Sources */,
 				A161A95D2C99A2B000BED797 /* BiometricViewModel.swift in Sources */,
 				A10CC10A2CA2BE5F000329A6 /* View+.swift in Sources */,
 				A12619AE2CBD519D0051E74B /* TimerFactoryProtocol.swift in Sources */,
@@ -787,6 +806,7 @@
 				A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */,
 				A19BFFCA2C8DE2EF00E646CD /* GlobalEventUseCase.swift in Sources */,
 				A10CC0FA2CA160C6000329A6 /* SelectTokensViewModel.swift in Sources */,
+				A1CF69B02CBE8FE6008A3734 /* TransactionReceiptModel.swift in Sources */,
 				A10CC1002CA17725000329A6 /* PrimaryButton.swift in Sources */,
 				A1B7D2352CAC3B3300EF7923 /* GetBalanceResponse.swift in Sources */,
 				A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */,
