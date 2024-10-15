@@ -1,11 +1,14 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
+import Combine
 import Foundation
 
 protocol SummaryTokenUseCase {
     var destinationAddress: String { get }
     var sendAmount: Double { get }
     var tokenModel: TokenModel { get }
+    
+    func isNativeTokenPublisher() -> AnyPublisher<Bool, Never>
 }
 
 final class SummaryTokenImp: SummaryTokenUseCase {
@@ -18,5 +21,9 @@ final class SummaryTokenImp: SummaryTokenUseCase {
         self.destinationAddress = destinationAddress
         self.sendAmount = sendAmount
         self.tokenModel = tokenModel
+    }
+    
+    func isNativeTokenPublisher() -> AnyPublisher<Bool, Never> {
+        Just(tokenModel.isNativeToken).eraseToAnyPublisher()
     }
 }

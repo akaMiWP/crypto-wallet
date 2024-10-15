@@ -60,16 +60,21 @@ final class SummaryViewModel: Alertable {
             }
             
             manageWalletUseCase.getSelectedWalletAddressPublisher()
-                .print()
                 .flatMap(nodeProviderUseCase.fetchTransactionCount(address:))
                 .flatMap { nonce in
-                    let transactionPublisher = self.prepareTransactionUseCase.buildERC20TransferTransaction(
-                        amount: amount.fullByteHexString(),
+                    self.summaryTokenUseCase.isNativeTokenPublisher()
+                        .map { (nonce, $0) }
+                }
+                .flatMap { (nonce, isNativeToken) in
+                    let amount = amount.fullByteHexString()
+                    let transactionPublisher = isNativeToken
+                    ? self.prepareTransactionUseCase.buildTransferTransaction(amount: amount)
+                    : self.prepareTransactionUseCase.buildERC20TransferTransaction(
+                        amount: amount,
                         destinationAddress: self.summaryTokenUseCase.destinationAddress
                     )
                     return transactionPublisher
                         .map { transaction in return (nonce, transaction) }
-                        .eraseToAnyPublisher()
                 }
                 .flatMap { (nonce, transaction) in
                     self.prepareTransactionUseCase.prepareSigningInput(
