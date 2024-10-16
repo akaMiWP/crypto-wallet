@@ -54,8 +54,7 @@ final class SummaryViewModel: Alertable {
     func didTapNextButton() {
         do {
             guard let amount = convertEtherToHex(ether: summaryTokenUseCase.sendAmount),
-                  let gasPrice = Int(convertGweiToWei(gwei: gasPrice)),
-                  let smartContractAddress = summaryTokenUseCase.tokenModel.smartContractAddress else {
+                  let gasPrice = Int(convertGweiToWei(gwei: gasPrice)) else {
                 throw SummaryViewModelError.smartContractAddressNotFound
             }
             
@@ -77,8 +76,10 @@ final class SummaryViewModel: Alertable {
                         .map { transaction in return (nonce, transaction) }
                 }
                 .flatMap { (nonce, transaction) in
-                    self.prepareTransactionUseCase.prepareSigningInput(
-                        destinationAddress: smartContractAddress,
+                    //TODO: Clean up the variable
+                    let destinationAddress = self.summaryTokenUseCase.tokenModel.smartContractAddress ?? self.summaryTokenUseCase.destinationAddress
+                    return self.prepareTransactionUseCase.prepareSigningInput(
+                        destinationAddress: destinationAddress,
                         nonce: nonce,
                         gasPrice: gasPrice,
                         gasLimit: 21632,
