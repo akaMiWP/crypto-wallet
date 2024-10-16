@@ -2,22 +2,16 @@
 
 import SwiftUI
 
-enum ReceiptViewState: Equatable {
-    case initiatingTransaction
-    case processingTransaction
-    case confirmedTransaction(txHash: String)
-}
-
 struct TransactionReceiptView: View {
     
-    @Binding var viewState: ReceiptViewState
+    @ObservedObject var viewModel: TransactionReceiptViewModel
     
     var body: some View {
         ZStack {
             Color.black.opacity(0.4).ignoresSafeArea()
             
             buildDetailRows()
-                .animation(.easeIn, value: viewState)
+                .animation(.easeIn, value: viewModel.viewState)
         }
     }
 }
@@ -57,7 +51,7 @@ private extension TransactionReceiptView {
     }
     
     func buildDetailRows() -> some View {
-        switch viewState {
+        switch viewModel.viewState {
         case .initiatingTransaction:
             VStack(alignment: .leading) {
                 HStack {
@@ -132,5 +126,6 @@ private extension TransactionReceiptView {
 }
 
 #Preview {
-    TransactionReceiptView(viewState: .constant(.initiatingTransaction))
+    let viewModel: TransactionReceiptViewModel = .init()
+    return TransactionReceiptView(viewModel: viewModel)
 }

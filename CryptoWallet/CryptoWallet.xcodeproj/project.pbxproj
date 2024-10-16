@@ -101,6 +101,7 @@
 		A1E3FFC02C875151007EB73D /* SelectTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */; };
 		A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */; };
 		A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */; };
+		A1E74CE72CBF9BD700B14D84 /* TransactionReceiptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E74CE62CBF9BD700B14D84 /* TransactionReceiptViewModel.swift */; };
 		A1F14E342CB902290031B2B2 /* PresentedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E332CB902290031B2B2 /* PresentedSheet.swift */; };
 		A1F14E382CBA08360031B2B2 /* Ether+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E372CBA08360031B2B2 /* Ether+.swift */; };
 /* End PBXBuildFile section */
@@ -198,6 +199,7 @@
 		A1E3FFBF2C875151007EB73D /* SelectTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTokenView.swift; sourceTree = "<group>"; };
 		A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageHDWalletUseCase.swift; sourceTree = "<group>"; };
 		A1E3FFC82C8937E5007EB73D /* HDWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDWalletManager.swift; sourceTree = "<group>"; };
+		A1E74CE62CBF9BD700B14D84 /* TransactionReceiptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReceiptViewModel.swift; sourceTree = "<group>"; };
 		A1F14E332CB902290031B2B2 /* PresentedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedSheet.swift; sourceTree = "<group>"; };
 		A1F14E372CBA08360031B2B2 /* Ether+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ether+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -609,6 +611,7 @@
 				A1D9E43F2CB7CC9E00351400 /* SummaryView.swift */,
 				A1D9E4412CB7CCA500351400 /* SummaryViewModel.swift */,
 				A1CF69B42CBE943B008A3734 /* TransactionReceiptView.swift */,
+				A1E74CE62CBF9BD700B14D84 /* TransactionReceiptViewModel.swift */,
 			);
 			path = Summary;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 				A1A375802C8C33440012BF43 /* AlertViewModel.swift in Sources */,
 				A1D9E4442CB7D15600351400 /* InputTokenUseCase.swift in Sources */,
 				A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */,
+				A1E74CE72CBF9BD700B14D84 /* TransactionReceiptViewModel.swift in Sources */,
 				A10CC1122CA5A432000329A6 /* SupportedNetwork.swift in Sources */,
 				A197348B2C84078D00619D33 /* NumberFormatter.swift in Sources */,
 				A197348D2C840BED00619D33 /* SelectTokensView.swift in Sources */,

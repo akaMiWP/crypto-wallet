@@ -96,6 +96,11 @@ struct SummaryView: View {
             .disabled(!viewModel.hasFetchedForGasPrice)
         }
         .modifier(AlertModifier(viewModel: viewModel))
+        .overlay {
+            if viewModel.shouldPresentTransactionReceipt {
+                TransactionReceiptView(viewModel: viewModel.receiptViewModel)
+            }
+        }
         .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.fetchGasPrice()

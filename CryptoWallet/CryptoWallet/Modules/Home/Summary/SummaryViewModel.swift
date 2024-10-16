@@ -8,10 +8,12 @@ final class SummaryViewModel: Alertable {
     @Published var gasPrice: String = "0.0"
     @Published var hasFetchedForGasPrice: Bool = false
     @Published var alertViewModel: AlertViewModel?
+    @Published var shouldPresentTransactionReceipt: Bool = false
     
     var destinationAddress: String { summaryTokenUseCase.destinationAddress }
     var networkName: String { summaryTokenUseCase.tokenModel.network.chainName }
     
+    let receiptViewModel: TransactionReceiptViewModel = .init()
     let sendAmountText: String
     
     private let summaryTokenUseCase: SummaryTokenUseCase
@@ -58,6 +60,7 @@ final class SummaryViewModel: Alertable {
                 throw SummaryViewModelError.smartContractAddressNotFound
             }
             
+            shouldPresentTransactionReceipt = true
             manageWalletUseCase.getSelectedWalletAddressPublisher()
                 .flatMap(nodeProviderUseCase.fetchTransactionCount(address:))
                 .flatMap { nonce in
@@ -88,13 +91,17 @@ final class SummaryViewModel: Alertable {
                 }
                 .flatMap(prepareTransactionUseCase.signTransaction(message:))
                 .flatMap(nodeProviderUseCase.sendTransaction(encodedSignedTransaction:))
+                .handleEvents(receiveOutput: { _ in
+                    self.receiptViewModel.viewState = .processingTransaction
+                })
                 .flatMap(nodeProviderUseCase.pollTransactionReceiptPublisher(txHash:))
                 .sink { [weak self] completion in
+                    self?.shouldPresentTransactionReceipt = false
                     if case .failure(let error) = completion {
                         self?.handleError(error: error)
                     }
-                } receiveValue: { [weak self] txHash in
-                    print(txHash)
+                } receiveValue: { [weak self] model in
+                    self?.receiptViewModel.viewState = .confirmedTransaction(txHash: model.txHash)
                 }
                 .store(in: &cancellables)
         } catch {
