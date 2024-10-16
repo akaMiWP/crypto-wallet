@@ -28,6 +28,7 @@
 		A12619AE2CBD519D0051E74B /* TimerFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12619AD2CBD519D0051E74B /* TimerFactoryProtocol.swift */; };
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
+		A13C0DE82CBFBC680073F3A7 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13C0DE72CBFBC680073F3A7 /* SafariView.swift */; };
 		A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95A2C99A2A100BED797 /* BiometricView.swift */; };
 		A161A95D2C99A2B000BED797 /* BiometricViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95C2C99A2B000BED797 /* BiometricViewModel.swift */; };
 		A167239D2C9238780089CE46 /* NetworkStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A167239C2C9238780089CE46 /* NetworkStack.swift */; };
@@ -123,6 +124,7 @@
 		A12619A72CBD19620051E74B /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		A12619A92CBD51180051E74B /* NetworkPollingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPollingHandler.swift; sourceTree = "<group>"; };
 		A12619AD2CBD519D0051E74B /* TimerFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFactoryProtocol.swift; sourceTree = "<group>"; };
+		A13C0DE72CBFBC680073F3A7 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		A161A95A2C99A2A100BED797 /* BiometricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricView.swift; sourceTree = "<group>"; };
 		A161A95C2C99A2B000BED797 /* BiometricViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricViewModel.swift; sourceTree = "<group>"; };
 		A167239C2C9238780089CE46 /* NetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStack.swift; sourceTree = "<group>"; };
@@ -285,6 +287,14 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
+		A13C0DE62CBFBC580073F3A7 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				A13C0DE72CBFBC680073F3A7 /* SafariView.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		A161A9592C99A28400BED797 /* Biometric */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +431,7 @@
 		A197348E2C840EA400619D33 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A13C0DE62CBFBC580073F3A7 /* UIKit */,
 				A10CC0FE2CA176E4000329A6 /* Components */,
 				A1F14E322CB901D50031B2B2 /* EnvironmentValues */,
 				A16723AF2C948DF80089CE46 /* Modifiers */,
@@ -814,6 +825,7 @@
 				A19BFFCA2C8DE2EF00E646CD /* GlobalEventUseCase.swift in Sources */,
 				A10CC0FA2CA160C6000329A6 /* SelectTokensViewModel.swift in Sources */,
 				A1CF69B02CBE8FE6008A3734 /* TransactionReceiptModel.swift in Sources */,
+				A13C0DE82CBFBC680073F3A7 /* SafariView.swift in Sources */,
 				A10CC1002CA17725000329A6 /* PrimaryButton.swift in Sources */,
 				A1B7D2352CAC3B3300EF7923 /* GetBalanceResponse.swift in Sources */,
 				A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */,

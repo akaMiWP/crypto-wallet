@@ -85,7 +85,7 @@ final class SummaryViewModel: Alertable {
                         destinationAddress: destinationAddress,
                         nonce: nonce,
                         gasPrice: gasPrice,
-                        gasLimit: 21632,
+                        gasLimit: 100000,
                         transaction: transaction
                     )
                 }
@@ -96,8 +96,8 @@ final class SummaryViewModel: Alertable {
                 })
                 .flatMap(nodeProviderUseCase.pollTransactionReceiptPublisher(txHash:))
                 .sink { [weak self] completion in
-                    self?.shouldPresentTransactionReceipt = false
                     if case .failure(let error) = completion {
+                        self?.shouldPresentTransactionReceipt = false
                         self?.handleError(error: error)
                     }
                 } receiveValue: { [weak self] model in

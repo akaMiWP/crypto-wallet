@@ -1,10 +1,12 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
+import SafariServices
 import SwiftUI
 
 struct TransactionReceiptView: View {
     
     @ObservedObject var viewModel: TransactionReceiptViewModel
+    @State var shouldPresentSafariView: Bool = false
     
     var body: some View {
         ZStack {
@@ -38,10 +40,24 @@ private extension TransactionReceiptView {
                     .foregroundColor(Color.secondaryGreen1_900)
                     .fontWeight(.semibold)
                 
-                if let subtitle = subtitle {
-                    Text(subtitle)
-                        .font(.footnote)
-                        .foregroundColor(Color.secondaryGreen1_800)
+                if let subtitle = subtitle, let url = viewModel.buildURL()  {
+                    HStack {
+                        Text(subtitle)
+                            .font(.footnote)
+                            .foregroundColor(Color.secondaryGreen1_800)
+                            .lineLimit(1)
+                        
+                        Button(action: {
+                            shouldPresentSafariView = true
+                        }, label: {
+                            Image(systemName: "link")
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.secondaryGreen1_800)
+                        })
+                    }
+                    .sheet(isPresented: $shouldPresentSafariView) {
+                        SafariView(url: url)
+                    }
                 }
             }
         }
@@ -127,5 +143,6 @@ private extension TransactionReceiptView {
 
 #Preview {
     let viewModel: TransactionReceiptViewModel = .init()
+    viewModel.viewState = .confirmedTransaction(txHash: "0xb13ad63a8c483265eeaef613c833def0e44a196c464c60c0c953aa83c6ab52e5")
     return TransactionReceiptView(viewModel: viewModel)
 }
