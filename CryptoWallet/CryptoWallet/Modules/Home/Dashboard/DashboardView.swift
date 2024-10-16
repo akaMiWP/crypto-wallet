@@ -32,6 +32,7 @@ struct DashboardView: View {
                 .padding(.top, 30)
             }
             .padding(.top, 36)
+            .refreshable { viewModel.pullToRefresh() }
         }
         .navigationBarBackButtonHidden()
         .modifier(AlertModifier(viewModel: viewModel))

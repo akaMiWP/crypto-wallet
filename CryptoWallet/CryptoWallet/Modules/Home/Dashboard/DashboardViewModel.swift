@@ -131,6 +131,10 @@ final class DashboardViewModel: Alertable {
     func makeSelectTokensViewModel() -> SelectTokensViewModel {
         .init(manageTokensUseCase: manageTokensUseCase)
     }
+    
+    func pullToRefresh() {
+        modelDidChange()
+    }
 }
 
 // MARK: - Private
