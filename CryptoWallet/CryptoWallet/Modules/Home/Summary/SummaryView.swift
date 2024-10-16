@@ -82,7 +82,6 @@ struct SummaryView: View {
             
             Button(action: {
                 viewModel.didTapNextButton()
-                //presentedSheet.wrappedValue = false
             }, label: {
                 Text("Send")
                     .font(.headline)
@@ -98,7 +97,10 @@ struct SummaryView: View {
         .modifier(AlertModifier(viewModel: viewModel))
         .overlay {
             if viewModel.shouldPresentTransactionReceipt {
-                TransactionReceiptView(viewModel: viewModel.receiptViewModel)
+                TransactionReceiptView(
+                    viewModel: viewModel.receiptViewModel,
+                    onDismiss: { presentedSheet.wrappedValue = false }
+                )
             }
         }
         .navigationBarBackButtonHidden()

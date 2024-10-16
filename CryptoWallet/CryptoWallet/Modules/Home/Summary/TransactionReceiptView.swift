@@ -4,9 +4,16 @@ import SafariServices
 import SwiftUI
 
 struct TransactionReceiptView: View {
+    @ObservedObject private var viewModel: TransactionReceiptViewModel
+    @State private var shouldPresentSafariView: Bool = false
     
-    @ObservedObject var viewModel: TransactionReceiptViewModel
-    @State var shouldPresentSafariView: Bool = false
+    private let onDismiss: (() -> Void)?
+    
+    init(viewModel: TransactionReceiptViewModel,
+         onDismiss: (() -> Void)? = nil) {
+        self.viewModel = viewModel
+        self.onDismiss = onDismiss
+    }
     
     var body: some View {
         ZStack {
@@ -42,7 +49,7 @@ private extension TransactionReceiptView {
                 
                 if let subtitle = subtitle, let url = viewModel.buildURL()  {
                     HStack {
-                        Text(subtitle)
+                        Text(subtitle.maskedHexString())
                             .font(.footnote)
                             .foregroundColor(Color.secondaryGreen1_800)
                             .lineLimit(1)
@@ -66,7 +73,8 @@ private extension TransactionReceiptView {
         .padding(.vertical)
     }
     
-    func buildDetailRows() -> some View {
+    @ViewBuilder
+    func buildDetailRows() -> some View { //TODO: Clean up these views
         switch viewModel.viewState {
         case .initiatingTransaction:
             VStack(alignment: .leading) {
@@ -80,6 +88,10 @@ private extension TransactionReceiptView {
                     
                     Image(systemName: "xmark")
                         .foregroundColor(Color.secondaryGreen1_900)
+                        .frame(width: 36, height: 36)
+                        .onTapGesture {
+                            onDismiss?()
+                        }
                 }
                 .padding(.horizontal, 24)
                 
@@ -103,6 +115,10 @@ private extension TransactionReceiptView {
                     
                     Image(systemName: "xmark")
                         .foregroundColor(Color.secondaryGreen1_900)
+                        .frame(width: 36, height: 36)
+                        .onTapGesture {
+                            onDismiss?()
+                        }
                 }
                 .padding(.horizontal, 24)
                 
@@ -115,7 +131,7 @@ private extension TransactionReceiptView {
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .padding()
         case .confirmedTransaction(let txHash):
-            VStack(alignment: .leading) {
+            VStack {
                 HStack {
                     Text("Transaction Pending")
                         .font(.title3)
@@ -126,11 +142,21 @@ private extension TransactionReceiptView {
                     
                     Image(systemName: "xmark")
                         .foregroundColor(Color.secondaryGreen1_900)
+                        .frame(width: 36, height: 36)
+                        .onTapGesture {
+                            onDismiss?()
+                        }
                 }
                 .padding(.horizontal, 24)
                 
                 buildDetailRow(isLoading: false, title: "Initiate Transaction")
                 buildDetailRow(isLoading: false, title: "Processing Transaction", subtitle: "\(txHash)")
+                
+                Text("You can safely close this modal")
+                    .foregroundColor(Color.secondaryGreen1_700)
+                    .font(.footnote)
+                    .padding(.horizontal, 24)
+                    .padding(.top)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical)
