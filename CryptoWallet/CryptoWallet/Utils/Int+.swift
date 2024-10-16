@@ -2,6 +2,6 @@
 
 extension Int {
     func toHexString() -> String {
-        String(format: "%02x", self)
+        return "0x" + String(self, radix: 16)
     }
 }
