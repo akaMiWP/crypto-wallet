@@ -7,6 +7,7 @@ protocol GlobalEventUseCase {
     func makeIsSignedInPublisher() -> AnyPublisher<NotificationCenter.Publisher.Output, NotificationCenter.Publisher.Failure>
     func makeAccountChangePublisher() -> AnyPublisher<NotificationCenter.Publisher.Output, NotificationCenter.Publisher.Failure>
     func makeNetworkChangePublisher() -> AnyPublisher<NotificationCenter.Publisher.Output, NotificationCenter.Publisher.Failure>
+    func makeRefreshAccountBalancePublisher() -> AnyPublisher<NotificationCenter.Publisher.Output, NotificationCenter.Publisher.Failure>
 }
 
 final class GlobalEventImp: GlobalEventUseCase {
@@ -23,6 +24,11 @@ final class GlobalEventImp: GlobalEventUseCase {
     
     func makeNetworkChangePublisher() -> AnyPublisher<NotificationCenter.Publisher.Output, NotificationCenter.Publisher.Failure> {
         NotificationCenter.default.publisher(for: .init("networkChanged"))
+            .eraseToAnyPublisher()
+    }
+    
+    func makeRefreshAccountBalancePublisher() -> AnyPublisher<NotificationCenter.Publisher.Output, NotificationCenter.Publisher.Failure> {
+        NotificationCenter.default.publisher(for: .init("refreshAccountBalance"))
             .eraseToAnyPublisher()
     }
 }

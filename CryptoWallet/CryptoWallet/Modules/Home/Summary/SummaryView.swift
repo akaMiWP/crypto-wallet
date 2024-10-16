@@ -99,7 +99,10 @@ struct SummaryView: View {
             if viewModel.shouldPresentTransactionReceipt {
                 TransactionReceiptView(
                     viewModel: viewModel.receiptViewModel,
-                    onDismiss: { presentedSheet.wrappedValue = false }
+                    onDismiss: {
+                        presentedSheet.wrappedValue = false
+                        viewModel.postRefreshAccountBalanceNotification()
+                    }
                 )
             }
         }

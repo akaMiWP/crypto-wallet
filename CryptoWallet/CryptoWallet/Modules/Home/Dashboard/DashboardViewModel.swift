@@ -48,6 +48,7 @@ final class DashboardViewModel: Alertable {
         subscribeToAddressToTokenModelDict()
         subscribeToAccountChange()
         subscribeToNetworkChange()
+        subscribeToTransactionSent()
     }
     
     func fetchData() {
@@ -208,6 +209,14 @@ private extension DashboardViewModel {
     
     func subscribeToNetworkChange() {
         globalEventUseCase.makeNetworkChangePublisher()
+            .sink { [weak self] _ in
+                self?.modelDidChange()
+            }
+            .store(in: &cancellables)
+    }
+    
+    func subscribeToTransactionSent() {
+        globalEventUseCase.makeRefreshAccountBalancePublisher()
             .sink { [weak self] _ in
                 self?.modelDidChange()
             }

@@ -1,6 +1,7 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
 import Combine
+import Foundation
 
 final class SummaryViewModel: Alertable {
     
@@ -107,6 +108,10 @@ final class SummaryViewModel: Alertable {
         } catch {
             handleError(error: error)
         }
+    }
+    
+    func postRefreshAccountBalanceNotification() {
+        NotificationCenter.default.post(name: .init("refreshAccountBalance"), object: nil)
     }
 }
 
