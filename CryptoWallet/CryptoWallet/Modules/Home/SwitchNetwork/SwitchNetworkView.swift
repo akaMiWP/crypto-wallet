@@ -16,14 +16,14 @@ struct SwitchNetworkView: View {
                         TextField("Search", text: $viewModel.searchInput)
                     }
                     .padding(.all, 8)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(.primaryViolet1_200)
                     .background(Color.primaryViolet1_50)
                     .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                     
                     if !viewModel.searchInput.isEmpty {
                         Text("Cancel")
                             .font(.subheadline)
-                            .foregroundColor(.primaryViolet1_50)
+                            .foregroundColor(.primaryViolet1_400)
                     }
                 }
                 .animation(.bouncy, value: viewModel.searchInput)
@@ -45,12 +45,14 @@ struct SwitchNetworkView: View {
                                         .font(.headline)
                                         .foregroundColor(.primaryViolet1_900)
                                 }
-                                .listRowBackground(viewModel.isSelected ? Color.primaryViolet2_100: nil)
+                                .listRowBackground(viewModel.isSelected ? Color.primaryViolet1_100: .primaryViolet1_50)
                                 .onTapGesture {
                                     self.viewModel.didSelect(viewModel: viewModel)
                                 }
                             }
                         }
+                        .font(.caption)
+                        .foregroundColor(.neutral_90)
                     }
                 }
             }

@@ -25,12 +25,13 @@ struct TitleBarPresentedView<BottomView: View>: View {
             ZStack {
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.primaryViolet1_50)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primaryViolet1_900)
                 
                 HStack {
                     Button(action: { backCompletion?() }) {
                         Image(systemName: imageSystemName)
-                            .foregroundColor(.primaryViolet1_50)
+                            .foregroundColor(.primaryViolet1_400)
                     }
                     Spacer()
                 }
@@ -39,13 +40,8 @@ struct TitleBarPresentedView<BottomView: View>: View {
             bottomView
         }
         .padding()
-        .background(
-            LinearGradient(
-                colors: [.primaryViolet1_600, .primaryViolet1_900],
-                startPoint: .bottomLeading,
-                endPoint: .topTrailing
-            )
-        )
+        .background(Color.white)
+        .sheetDropShadow()
     }
 }
 

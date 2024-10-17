@@ -14,4 +14,8 @@ extension View {
     func lineDropShadow() -> some View {
         shadow(color: .primaryViolet2_300, radius: 2, y: 2)
     }
+    
+    func sheetDropShadow() -> some View {
+        shadow(color: .primaryViolet1_300.opacity(0.15), radius: 30, y: 3)
+    }
 }
