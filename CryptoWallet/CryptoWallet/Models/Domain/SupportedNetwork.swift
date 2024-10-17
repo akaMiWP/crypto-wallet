@@ -2,7 +2,7 @@
 
 import WalletCore
 
-enum TestNetwork: CaseIterable {
+enum TestNetwork: CaseIterable, Codable {
     case sepolia
     
     var coinType: CoinType {
@@ -25,7 +25,7 @@ enum TestNetwork: CaseIterable {
     }
 }
 
-enum MainnetNetwork: CaseIterable {
+enum MainnetNetwork: CaseIterable, Codable {
     case ethereum
     case zksync
     case arbitrum
@@ -53,7 +53,7 @@ enum MainnetNetwork: CaseIterable {
     }
 }
 
-enum SupportedNetwork: Hashable {
+enum SupportedNetwork: Codable, Hashable {
     case testnet(TestNetwork)
     case mainnet(MainnetNetwork)
     

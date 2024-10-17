@@ -7,6 +7,7 @@ enum KeychainKey: String {
     case seedPhrase
     case walletModels
     case orderOfSelectedWallet
+    case selectedNetwork
 }
 
 final class KeychainManager {

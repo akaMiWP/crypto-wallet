@@ -89,10 +89,10 @@ final class SupportNetworksImp: SupportNetworksUseCase {
         
         if let selectedMainnetNetwork = selectedMainnetNetwork,
            let network: MainnetNetwork = .init(from: selectedMainnetNetwork.coinType)  {
-            HDWalletManager.shared.selectedNetwork = .mainnet(network)
+            HDWalletManager.shared.select(network: .mainnet(network))
         } else if let selectedTestnetNetwork = selectedTestnetNetwork,
                   let network: TestNetwork = .init(from: selectedTestnetNetwork.coinType)  {
-            HDWalletManager.shared.selectedNetwork = .testnet(network)
+            HDWalletManager.shared.select(network: .testnet(network))
         } else {
             return Fail(error: SupportedNetworkUseCaseError.unableToFindSelectedChainId).eraseToAnyPublisher()
         }

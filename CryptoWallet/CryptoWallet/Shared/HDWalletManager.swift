@@ -5,7 +5,9 @@ import WalletCore
 final class HDWalletManager {
     
     static let shared: HDWalletManager = .init()
-    var selectedNetwork: SupportedNetwork = .mainnet(.ethereum)
+    lazy var selectedNetwork: SupportedNetwork = {
+        (try? KeychainManager.shared.get(SupportedNetwork.self, for: .selectedNetwork)) ?? .mainnet(.ethereum)
+    }()
     lazy var createdWalletModels: [WalletModel] = {
         (try? KeychainManager.shared.get([WalletModel].self, for: .walletModels)) ?? []
     }()
@@ -43,6 +45,11 @@ final class HDWalletManager {
         try KeychainManager.shared.delete(key: .walletModels)
         createdWalletModels = []
         orderOfSelectedWallet = 0
+    }
+    
+    func select(network: SupportedNetwork) {
+        try? KeychainManager.shared.set(network, for: .selectedNetwork)
+        selectedNetwork = network
     }
     
     func saveNewWallet(wallet: WalletModel) throws {
