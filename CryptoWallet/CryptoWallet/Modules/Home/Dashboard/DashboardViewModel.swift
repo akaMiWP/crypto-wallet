@@ -82,7 +82,7 @@ final class DashboardViewModel: Alertable {
     }
     
     func fetchNextTokens() {
-        guard offset < allTokens.count else { return }
+        guard offset <= allTokens.count else { return }
         if offset != 0 { tokenViewModels += TokenViewModel.placeholders }
         let range = offset..<min(offset + pageSize, allTokens.count)
         let targetedTokens = allTokens[range]
