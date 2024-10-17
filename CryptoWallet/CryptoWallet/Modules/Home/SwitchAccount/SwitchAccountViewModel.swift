@@ -18,7 +18,15 @@ struct WalletModel: Codable, Equatable {
     let address: String
 }
 
+
 final class SwitchAccountViewModel: Alertable {
+    
+    struct ViewModel {
+        let accountAddress: String
+        let models: [WalletModel]
+        
+        static let `default`: ViewModel = .init(accountAddress: "", models: [])
+    }
     
     @Published var wallets: [WalletViewModel] = []
     @Published var alertViewModel: AlertViewModel?
@@ -33,14 +41,21 @@ final class SwitchAccountViewModel: Alertable {
     func loadWallets() {
         manageWalletsUseCase
             .loadWalletsPublisher()
-            .tryCatch { [weak self] error -> AnyPublisher<[WalletModel], Never> in
+            .flatMap { models in
+                self.manageWalletsUseCase
+                    .loadSelectedWalletPublisher()
+                    .map { ViewModel(accountAddress: $0.address, models: models) }
+            }
+            .tryCatch { [weak self] error -> AnyPublisher<ViewModel, Never> in
                 self?.alertViewModel = .init(message: error.localizedDescription)
-                return Just([]).eraseToAnyPublisher()
+                return Just(.default).eraseToAnyPublisher()
             }
             .sink(
                 receiveCompletion: { _ in },
-                receiveValue: { [weak self] models in
-                    self?.wallets = models.map { .init(name: $0.name, address: $0.address, isSelected: false) }
+                receiveValue: { [weak self] viewModel in
+                    self?.wallets = viewModel.models.map {
+                        .init(name: $0.name, address: $0.address, isSelected: $0.address == viewModel.accountAddress)
+                    }
                 }
             )
             .store(in: &cancellables)

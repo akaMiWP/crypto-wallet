@@ -8,11 +8,10 @@ struct SwitchAccountView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Select an account")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.primaryViolet1_900)
-                .padding(.top)
+            TitleBarPresentedView(
+                title: "Select a network",
+                bottomView: {}
+            )
             
             ScrollView {
                 LazyVStack {
@@ -27,18 +26,25 @@ struct SwitchAccountView: View {
                             }
                             
                             Spacer()
+                            
+                            if wallet.isSelected {
+                                Image(systemName: "checkmark.circle")
+                                    .resizable()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(.white)
+                            }
                         }
                         .frame(maxWidth: .infinity)
-                        .frame(height: 50)
+                        .frame(height: 66)
                         .padding(.horizontal)
-                        .background(Color.primaryViolet2_400)
+                        .background(wallet.isSelected ? Color.primaryViolet1_100 : Color.primaryViolet1_50)
                         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                         .onTapGesture {
                             viewModel.selectWallet(wallet: wallet)
                             dismiss()
                         }
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(.primaryViolet1_900)
                 }
             }
             
@@ -50,14 +56,13 @@ struct SwitchAccountView: View {
             }, label: {
                 Text("Create a new wallet")
                     .foregroundColor(.white)
-                    .fontWeight(.bold)
-                    .font(.subheadline)
             })
             .frame(height: 46)
             .frame(maxWidth: .infinity)
             .background(Color.primaryViolet1_500)
             .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
             .padding(.bottom)
+            .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
         }
         .padding(.horizontal)
         .modifier(AlertModifier(viewModel: viewModel))
