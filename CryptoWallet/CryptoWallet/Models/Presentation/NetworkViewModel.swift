@@ -22,7 +22,7 @@ struct NetworkViewModel: Identifiable, Equatable {
         case ChainIdConstants.arbitrumOne: self.image = .iconArbitrum
         case ChainIdConstants.zkSync: self.image = .iconZksync
         case ChainIdConstants.optimism: self.image = .iconOptimism
-        case ChainIdConstants.sepolia: self.image = .iconEthereum
+        case ChainIdConstants.sepolia: self.image = .iconSepolia
         default: self.image = .init()
         }
     }
