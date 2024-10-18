@@ -108,7 +108,6 @@ struct SummaryView: View {
                     viewModel: viewModel.receiptViewModel,
                     onDismiss: {
                         presentedSheet.wrappedValue = false
-                        viewModel.postRefreshAccountBalanceNotification()
                     }
                 )
             }
@@ -116,6 +115,9 @@ struct SummaryView: View {
         .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.fetchGasPrice()
+        }
+        .onDisappear {
+            viewModel.postRefreshAccountBalanceNotification()
         }
     }
 }
