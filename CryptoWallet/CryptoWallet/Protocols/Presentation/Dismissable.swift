@@ -3,5 +3,5 @@
 import Combine
 
 protocol Dismissable: ObservableObject {
-    var shouldDismissSubject: PassthroughSubject<Bool, Never> { get }
+    var shouldDismiss: Bool { get }
 }

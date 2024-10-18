@@ -3,23 +3,7 @@
 import Combine
 import Foundation
 
-struct WalletViewModel: Equatable {
-    let name: String
-    let address: String
-    let isSelected: Bool
-    
-    var maskedAddress: String { address.maskedHexString() }
-    
-    static let `default`: WalletViewModel = .init(name: "Account 0", address: "0x00000000", isSelected: false)
-}
-
-struct WalletModel: Codable, Equatable {
-    let name: String
-    let address: String
-}
-
-
-final class SwitchAccountViewModel: Alertable {
+final class SwitchAccountViewModel: Alertable, Dismissable {
     
     struct ViewModel {
         let accountAddress: String
@@ -30,6 +14,7 @@ final class SwitchAccountViewModel: Alertable {
     
     @Published var wallets: [WalletViewModel] = []
     @Published var alertViewModel: AlertViewModel?
+    @Published var shouldDismiss: Bool = false
     
     private let manageWalletsUseCase: ManageWalletsUseCase
     private var cancellables = Set<AnyCancellable>()
@@ -88,6 +73,7 @@ final class SwitchAccountViewModel: Alertable {
             }
             .sink { _ in
                 NotificationCenter.default.post(name: .init("accountChanged"), object: nil)
+                self.shouldDismiss = true
             }
             .store(in: &cancellables)
     }

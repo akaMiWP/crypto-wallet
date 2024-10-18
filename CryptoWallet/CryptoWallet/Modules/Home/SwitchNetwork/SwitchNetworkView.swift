@@ -59,7 +59,7 @@ struct SwitchNetworkView: View {
             .animation(.linear, value: viewModel.filteredViewModels)
         }
         .modifier(AlertModifier(viewModel: viewModel))
-        .onReceive(viewModel.shouldDismissSubject) { shouldDismiss in
+        .onReceive(viewModel.$shouldDismiss) { shouldDismiss in
             if shouldDismiss { dismiss() }
         }
         .onAppear {

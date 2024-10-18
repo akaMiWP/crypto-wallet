@@ -11,7 +11,9 @@ struct SwitchAccountView: View {
             TitleBarPresentedView(
                 title: "Select a network",
                 bottomView: {}
-            )
+            ) {
+                dismiss()
+            }
             
             ScrollView {
                 LazyVStack {
@@ -41,7 +43,6 @@ struct SwitchAccountView: View {
                         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                         .onTapGesture {
                             viewModel.selectWallet(wallet: wallet)
-                            dismiss()
                         }
                     }
                     .foregroundColor(.primaryViolet1_900)
@@ -66,6 +67,7 @@ struct SwitchAccountView: View {
             .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
         }
         .modifier(AlertModifier(viewModel: viewModel))
+        .dismissable(from: viewModel.$shouldDismiss, dismissAction: dismiss)
         .onAppear { viewModel.loadWallets() }
     }
 }
@@ -77,4 +79,16 @@ struct SwitchAccountView: View {
         .init(name: "Account #3", address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
     ]
     return SwitchAccountView(viewModel: .init(manageWalletsUseCase: ManageWalletsImpl()))
+}
+
+import Combine
+extension View {
+    func dismissable<P: Publisher>(
+        from publisher: P,
+        dismissAction: DismissAction
+    ) -> some View where P.Output == Bool, P.Failure == Never {
+        self.onReceive(publisher) { shouldDismiss in
+            if shouldDismiss { dismissAction() }
+        }
+    }
 }
