@@ -1,5 +1,6 @@
 // Copyright © 2567 BE akaMiWP. All rights reserved.
 
+import Combine
 import SwiftUI
 
 extension View {
@@ -18,5 +19,14 @@ extension View {
                 injectedView: injectedView
             )
         )
+    }
+    
+    func dismissable<P: Publisher>(
+        from publisher: P,
+        dismissAction: DismissAction
+    ) -> some View where P.Output == Bool, P.Failure == Never {
+        self.onReceive(publisher) { shouldDismiss in
+            if shouldDismiss { dismissAction() }
+        }
     }
 }

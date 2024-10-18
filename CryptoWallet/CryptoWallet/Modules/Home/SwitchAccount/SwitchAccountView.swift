@@ -80,15 +80,3 @@ struct SwitchAccountView: View {
     ]
     return SwitchAccountView(viewModel: .init(manageWalletsUseCase: ManageWalletsImpl()))
 }
-
-import Combine
-extension View {
-    func dismissable<P: Publisher>(
-        from publisher: P,
-        dismissAction: DismissAction
-    ) -> some View where P.Output == Bool, P.Failure == Never {
-        self.onReceive(publisher) { shouldDismiss in
-            if shouldDismiss { dismissAction() }
-        }
-    }
-}
