@@ -47,6 +47,7 @@ struct SwitchAccountView: View {
                     .foregroundColor(.primaryViolet1_900)
                 }
             }
+            .padding(.horizontal)
             
             Spacer()
             
@@ -61,10 +62,9 @@ struct SwitchAccountView: View {
             .frame(maxWidth: .infinity)
             .background(Color.primaryViolet1_500)
             .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
-            .padding(.bottom)
+            .padding()
             .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
         }
-        .padding(.horizontal)
         .modifier(AlertModifier(viewModel: viewModel))
         .onAppear { viewModel.loadWallets() }
     }
