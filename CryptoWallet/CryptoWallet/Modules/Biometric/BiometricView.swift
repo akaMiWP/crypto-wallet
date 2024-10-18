@@ -23,7 +23,8 @@ struct BiometricView: View {
                 .navigationDestination(for: Destinations.self) {
                     switch $0 {
                     case .dashboard:
-                        DashboardView(viewModel: viewModel.makeDashboardViewModel())
+                        TabbarView(viewModel: .init())
+                            .navigationBarBackButtonHidden()
                     }
                 }
         }

@@ -50,7 +50,9 @@ struct DashboardView: View {
         }
         .disabled(viewModel.state.isLoading)
         .onAppear {
-            viewModel.fetchData()
+            if !viewModel.didAppear {
+                viewModel.fetchData()
+            }
         }
     }
 }

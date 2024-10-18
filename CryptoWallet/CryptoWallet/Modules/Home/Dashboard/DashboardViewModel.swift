@@ -15,6 +15,8 @@ final class DashboardViewModel: Alertable {
     @Published var shouldShowToastMessage: Bool = false
     @Published var alertViewModel: AlertViewModel?
     
+    var didAppear: Bool = false
+    
     private let pageSize: Int = 12
     private var allTokens: [AddressToTokenModel] = []
     private var offset: Int = 0
@@ -77,6 +79,7 @@ final class DashboardViewModel: Alertable {
                 self.allTokens = tokenModels
                 self.ethBalance = ethBalance
                 self.fetchNextTokens()
+                self.didAppear = true
             }
             .store(in: &cancellables)
     }
