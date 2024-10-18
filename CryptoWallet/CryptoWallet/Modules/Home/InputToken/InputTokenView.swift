@@ -78,7 +78,7 @@ struct InputTokenView: View {
                         .foregroundColor(.white)
                         .frame(height: 48)
                         .frame(maxWidth: .infinity)
-                        .background(viewModel.isInputValid ? Color.primaryViolet1_400 : Color.primaryViolet1_100)
+                        .background(viewModel.isInputValid ? Color.primaryViolet1_500 : Color.primaryViolet1_100)
                         .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
                         .padding()
                 })
@@ -132,12 +132,12 @@ private extension InputTokenView {
         VStack {
             HStack {
                 Text("To:")
-                    .font(.headline)
                     .foregroundColor(.primaryViolet1_900)
+                    .padding(.trailing)
                 
                 Text(viewModel.destinationAddress)
                     .font(.subheadline)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(.primaryViolet1_200)
                 
                 Spacer()
                 

@@ -33,11 +33,13 @@ struct SummaryView: View {
             VStack(spacing: 24) {
                 HStack {
                     Text("To:")
+                        .foregroundColor(Color.primaryViolet1_900)
                     
                     Spacer()
                     
                     Text(viewModel.destinationAddress)
                         .fontWeight(.semibold)
+                        .foregroundColor(Color.primaryViolet1_900)
                 }
                 
                 Rectangle()
@@ -46,11 +48,13 @@ struct SummaryView: View {
                 
                 HStack {
                     Text("Network:")
+                        .foregroundColor(Color.primaryViolet1_900)
                     
                     Spacer()
                     
                     Text(viewModel.networkName)
                         .fontWeight(.semibold)
+                        .foregroundColor(Color.primaryViolet1_900)
                 }
                 
                 Rectangle()
@@ -59,16 +63,19 @@ struct SummaryView: View {
                 
                 HStack {
                     Text("Network fee:")
+                        .foregroundColor(Color.primaryViolet1_900)
                     
                     Spacer()
                     
                     VStack(alignment: .trailing) {
                         Text("$\(viewModel.networkFee)")
                             .fontWeight(.semibold)
+                            .foregroundColor(Color.primaryViolet1_900)
                         
                         Text("(\(viewModel.gasPrice) Gwei)")
                             .foregroundColor(Color.secondaryGreen2_700)
                             .font(.callout)
+                            .foregroundColor(Color.primaryViolet1_900)
                     }
                 }
             }
@@ -88,7 +95,7 @@ struct SummaryView: View {
                     .foregroundColor(.white)
                     .frame(height: 48)
                     .frame(maxWidth: .infinity)
-                    .background(viewModel.hasFetchedForGasPrice ? Color.primaryViolet1_400 : Color.primaryViolet1_100)
+                    .background(viewModel.hasFetchedForGasPrice ? Color.primaryViolet1_500 : Color.primaryViolet1_100)
                     .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
                     .padding()
             })

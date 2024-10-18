@@ -26,7 +26,7 @@ struct SelectTokenView: View {
                     .foregroundColor(.white)
                     .frame(height: 48)
                     .frame(maxWidth: .infinity)
-                    .background(viewModel.isAddressValid ? Color.primaryViolet1_400 : Color.primaryViolet1_100)
+                    .background(viewModel.isAddressValid ? Color.primaryViolet1_500 : Color.primaryViolet1_100)
                     .clipShape(RoundedRectangle(cornerSize: .init(width: 24, height: 24)))
                     .padding()
             })
@@ -62,10 +62,18 @@ private extension SelectTokenView {
         VStack {
             HStack {
                 Text("To:")
-                    .font(.headline)
+                    .foregroundColor(.primaryViolet1_900)
+                    .padding(.trailing)
                 
                 TextField("Name or address", text: $viewModel.addressInput)
                     .font(.subheadline)
+                    .foregroundColor(.primaryViolet1_200)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.primaryViolet1_400)
+                    )
+                
                 
                 Image(systemName: viewModel.isAddressValid ? "checkmark" : "doc.on.clipboard.fill")
                     .resizable()
@@ -83,7 +91,7 @@ private extension SelectTokenView {
             .padding(.vertical, 4)
             
             Rectangle()
-                .fill(.gray.opacity(0.2))
+                .fill(Color.primaryViolet1_50)
                 .frame(height: 1)
                 .frame(maxWidth: .infinity)
         }
