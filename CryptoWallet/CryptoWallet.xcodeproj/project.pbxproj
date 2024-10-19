@@ -20,6 +20,8 @@
 		A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC10F2CA52D2F000329A6 /* Shadow+.swift */; };
 		A10CC1122CA5A432000329A6 /* SupportedNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */; };
 		A1101EFE2CC26085009BC543 /* TabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1101EFD2CC26085009BC543 /* TabbarViewModel.swift */; };
+		A1101F012CC3CB72009BC543 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1101F002CC3CB72009BC543 /* SettingsView.swift */; };
+		A1101F032CC3CB78009BC543 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1101F022CC3CB78009BC543 /* SettingsViewModel.swift */; };
 		A11471982CA8FF26009A900C /* Filterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11471972CA8FF26009A900C /* Filterable.swift */; };
 		A12619A22CBCFBE20051E74B /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = A12619A12CBCFBE20051E74B /* Web3 */; };
 		A12619A42CBCFBE20051E74B /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = A12619A32CBCFBE20051E74B /* Web3ContractABI */; };
@@ -124,6 +126,8 @@
 		A10CC10F2CA52D2F000329A6 /* Shadow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shadow+.swift"; sourceTree = "<group>"; };
 		A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedNetwork.swift; sourceTree = "<group>"; };
 		A1101EFD2CC26085009BC543 /* TabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewModel.swift; sourceTree = "<group>"; };
+		A1101F002CC3CB72009BC543 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A1101F022CC3CB78009BC543 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		A11471972CA8FF26009A900C /* Filterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filterable.swift; sourceTree = "<group>"; };
 		A12619A72CBD19620051E74B /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		A12619A92CBD51180051E74B /* NetworkPollingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPollingHandler.swift; sourceTree = "<group>"; };
@@ -275,6 +279,15 @@
 			path = Tabbar;
 			sourceTree = "<group>";
 		};
+		A1101EFF2CC3CB65009BC543 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A1101F002CC3CB72009BC543 /* SettingsView.swift */,
+				A1101F022CC3CB78009BC543 /* SettingsViewModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		A11471952CA8FF10009A900C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +339,7 @@
 				A1B719C72C7F72440039D8D9 /* Authentication */,
 				A161A9592C99A28400BED797 /* Biometric */,
 				A1B719C82C7F72510039D8D9 /* Home */,
+				A1101EFF2CC3CB65009BC543 /* Settings */,
 				A1101EFC2CC26046009BC543 /* Tabbar */,
 				A1B719C92C7F72570039D8D9 /* Transaction */,
 			);
@@ -783,6 +797,7 @@
 				A10CC1082CA2A5D8000329A6 /* BottomCardModifier.swift in Sources */,
 				A1F14E342CB902290031B2B2 /* PresentedSheet.swift in Sources */,
 				A1CF69B52CBE943B008A3734 /* TransactionReceiptView.swift in Sources */,
+				A1101F032CC3CB78009BC543 /* SettingsViewModel.swift in Sources */,
 				A19734802C8323C300619D33 /* CongratsView.swift in Sources */,
 				A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */,
 				A1D9E4372CB78B2F00351400 /* Double+.swift in Sources */,
@@ -805,6 +820,7 @@
 				A1A375882C8D84A10012BF43 /* KeychainManager.swift in Sources */,
 				A19BFFCD2C8DE47900E646CD /* CongratsViewModel.swift in Sources */,
 				A10CC1062CA29D59000329A6 /* CardModifier.swift in Sources */,
+				A1101F012CC3CB72009BC543 /* SettingsView.swift in Sources */,
 				A19FBF0B2CB4352E00058589 /* TabbarView.swift in Sources */,
 				A19734822C832DBF00619D33 /* DashboardView.swift in Sources */,
 				A19FBF172CB57B1500058589 /* ManageTokensUseCase.swift in Sources */,
