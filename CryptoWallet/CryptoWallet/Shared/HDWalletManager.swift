@@ -69,6 +69,13 @@ final class HDWalletManager {
         }
         return createdWalletModels[orderOfSelectedWallet]
     }
+    
+    func retrieveMneumonic() throws -> String {
+        guard let mnemonic = hdWallet?.mnemonic else {
+            throw HDWalletManagerError.unableToRetrieveMneumonic
+        }
+        return mnemonic
+    }
 }
 
 // MARK: - Private
@@ -77,4 +84,5 @@ private enum HDWalletManagerError: Error {
     case unableToLoadCreatedWallets
     case unableToSaveNewWallet
     case unableToRetrieveSelectedWallet
+    case unableToRetrieveMneumonic
 }

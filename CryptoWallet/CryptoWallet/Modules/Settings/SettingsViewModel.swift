@@ -6,12 +6,21 @@ final class SettingsViewModel: ObservableObject {
     
     let rows: [SettingsRowViewModel] = [
         .init(rowType: .changeTheme),
-        .init(rowType: .revealSeedPhrase)
+        .init(rowType: .revealSeedPhrase),
+        .init(rowType: .resetWallet)
     ]
+    
+    private let manageHDWalletUseCase: ManageHDWalletUseCase
+    
+    init(manageHDWalletUseCase: ManageHDWalletUseCase) {
+        self.manageHDWalletUseCase = manageHDWalletUseCase
+    }
     
     func didTapEditAccount() {}
     
     func didTapChangeTheme() {}
     
-    func didTapRevealSeedPhrase() {}
+    func didTapRevealSeedPhrase() {
+        manageHDWalletUseCase.retrieveMneumonic()
+    }
 }

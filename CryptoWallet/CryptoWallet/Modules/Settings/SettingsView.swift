@@ -4,18 +4,37 @@ import SwiftUI
 
 enum SettingsRowType {
     case changeTheme
+    case resetWallet
     case revealSeedPhrase
     
     var title: String {
         switch self {
         case .changeTheme: return "Change Theme"
+        case .resetWallet: return "Reset Wallet"
         case .revealSeedPhrase: return "Reveal Seed Phrase"
         }
     }
     
-    var iconName: String {
+    var titleColor: Color {
+        switch self {
+        case .changeTheme: return Color.primaryViolet1_900
+        case .resetWallet: return .red
+        case .revealSeedPhrase: return Color.primaryViolet1_900
+        }
+    }
+    
+    var backgroundColor: Color {
+        switch self {
+        case .changeTheme: return Color.primaryViolet1_50
+        case .resetWallet: return .clear
+        case .revealSeedPhrase: return Color.primaryViolet1_50
+        }
+    }
+    
+    var iconName: String? {
         switch self {
         case .changeTheme: return "moon.fill"
+        case .resetWallet: return nil
         case .revealSeedPhrase: return "rectangle.and.pencil.and.ellipsis"
         }
     }
@@ -51,24 +70,54 @@ struct SettingsView: View {
                     Spacer()
                 }
                 
-                ForEach(viewModel.rows) { row in
+                List(viewModel.rows) { row in
                     HStack {
                         Text(row.rowType.title)
                             .fontWeight(.semibold)
                         
-                        Image(systemName: row.rowType.iconName)
+                        row.rowType.iconName.map {
+                            Image(systemName: $0)
+                        }
                     }
+                    .foregroundColor(row.rowType.titleColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                    .background(Color.primaryViolet1_50)
+                    .listRowBackground(row.rowType.backgroundColor)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .onTapGesture {
                         switch row.rowType {
                         case .changeTheme: viewModel.didTapChangeTheme()
+                        case .resetWallet: return
                         case .revealSeedPhrase: viewModel.didTapRevealSeedPhrase()
                         }
                     }
                 }
+                .scrollContentBackground(.hidden)
+                .scrollDisabled(true)
+                
+                
+//                ForEach(viewModel.rows) { row in
+//                    HStack {
+//                        Text(row.rowType.title)
+//                            .fontWeight(.semibold)
+//                        
+//                        row.rowType.iconName.map {
+//                            Image(systemName: $0)
+//                        }
+//                    }
+//                    .foregroundColor(row.rowType.titleColor)
+//                    .frame(maxWidth: .infinity, alignment: .leading)
+//                    .padding()
+//                    .background(Color.primaryViolet1_50)
+//                    .clipShape(RoundedRectangle(cornerRadius: 16))
+//                    .onTapGesture {
+//                        switch row.rowType {
+//                        case .changeTheme: viewModel.didTapChangeTheme()
+//                        case .resetWallet: return
+//                        case .revealSeedPhrase: viewModel.didTapRevealSeedPhrase()
+//                        }
+//                    }
+//                }
                 
                 Spacer()
             }
@@ -79,5 +128,5 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(viewModel: .init())
+    SettingsView(viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl()))
 }
