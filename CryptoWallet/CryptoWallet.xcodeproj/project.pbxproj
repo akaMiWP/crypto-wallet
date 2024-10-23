@@ -19,6 +19,8 @@
 		A10CC10A2CA2BE5F000329A6 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1092CA2BE5F000329A6 /* View+.swift */; };
 		A10CC1102CA52D2F000329A6 /* Shadow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC10F2CA52D2F000329A6 /* Shadow+.swift */; };
 		A10CC1122CA5A432000329A6 /* SupportedNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */; };
+		A10E036F2CC9262B00641F7B /* SettingsRowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E036E2CC9262B00641F7B /* SettingsRowType.swift */; };
+		A10E03712CC9264100641F7B /* SettingsRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E03702CC9264100641F7B /* SettingsRowViewModel.swift */; };
 		A1101EFE2CC26085009BC543 /* TabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1101EFD2CC26085009BC543 /* TabbarViewModel.swift */; };
 		A1101F012CC3CB72009BC543 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1101F002CC3CB72009BC543 /* SettingsView.swift */; };
 		A1101F032CC3CB78009BC543 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1101F022CC3CB78009BC543 /* SettingsViewModel.swift */; };
@@ -125,6 +127,8 @@
 		A10CC1092CA2BE5F000329A6 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		A10CC10F2CA52D2F000329A6 /* Shadow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shadow+.swift"; sourceTree = "<group>"; };
 		A10CC1112CA5A432000329A6 /* SupportedNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedNetwork.swift; sourceTree = "<group>"; };
+		A10E036E2CC9262B00641F7B /* SettingsRowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowType.swift; sourceTree = "<group>"; };
+		A10E03702CC9264100641F7B /* SettingsRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowViewModel.swift; sourceTree = "<group>"; };
 		A1101EFD2CC26085009BC543 /* TabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewModel.swift; sourceTree = "<group>"; };
 		A1101F002CC3CB72009BC543 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A1101F022CC3CB78009BC543 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -412,6 +416,8 @@
 			children = (
 				A1A3757F2C8C33440012BF43 /* AlertViewModel.swift */,
 				A1E155A42CA79F5900BC968F /* NetworkViewModel.swift */,
+				A10E036E2CC9262B00641F7B /* SettingsRowType.swift */,
+				A10E03702CC9264100641F7B /* SettingsRowViewModel.swift */,
 				A19734862C8404B100619D33 /* TokenViewModel.swift */,
 				A1A375812C8C377E0012BF43 /* ViewModelState.swift */,
 				A15F27202CC1FD45009961C9 /* WalletViewModel.swift */,
@@ -846,6 +852,7 @@
 				A1F14E382CBA08360031B2B2 /* Ether+.swift in Sources */,
 				A10CC0F52C9EEEAF000329A6 /* SwitchAccountViewModel.swift in Sources */,
 				A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */,
+				A10E03712CC9264100641F7B /* SettingsRowViewModel.swift in Sources */,
 				A19FBF1A2CB62DF600058589 /* InputTokenView.swift in Sources */,
 				A1A0C0B62CB269D400C978C4 /* ToastMessageModifier.swift in Sources */,
 				A1AC217D2C9BE41F00374C83 /* String+.swift in Sources */,
@@ -883,6 +890,7 @@
 				A1E155A52CA79F5900BC968F /* NetworkViewModel.swift in Sources */,
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 				A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */,
+				A10E036F2CC9262B00641F7B /* SettingsRowType.swift in Sources */,
 				A167239D2C9238780089CE46 /* NetworkStack.swift in Sources */,
 				A12619A82CBD19620051E74B /* Int+.swift in Sources */,
 				A1D9E43D2CB7C32000351400 /* SelectTokenUseCase.swift in Sources */,
