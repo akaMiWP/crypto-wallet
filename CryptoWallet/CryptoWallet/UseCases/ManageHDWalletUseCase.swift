@@ -10,7 +10,7 @@ protocol ManageHDWalletUseCase {
     func encryptMnemonic(_ mneumonic: String) -> AnyPublisher<Void, Error>
     func importHDWallet(mnemonic: String) throws
     func restoreWallet() -> AnyPublisher<HDWallet, Error>
-    func retrieveMneumonic() -> AnyPublisher<String, Error>
+    func retrieveMneumonicPublisher() -> AnyPublisher<String, Error>
 }
 
 final class ManageHDWalletImpl: ManageHDWalletUseCase {
@@ -72,7 +72,7 @@ final class ManageHDWalletImpl: ManageHDWalletUseCase {
         .eraseToAnyPublisher()
     }
     
-    func retrieveMneumonic() -> AnyPublisher<String, Error> {
+    func retrieveMneumonicPublisher() -> AnyPublisher<String, Error> {
         Future<String, Error> { promise in
             do {
                 let mneumonic = try HDWalletManager.shared.retrieveMneumonic()
