@@ -8,10 +8,10 @@ struct TabbarView: View {
     var body: some View {
         TabView {
             DashboardView(viewModel: viewModel.dashboardViewModel)
-            .tabItem { Label("Dashboard", systemImage: "house.fill") }
-            .padding(.bottom, 4)
+                .tabItem { Label("Dashboard", systemImage: "house.fill") }
+                .padding(.bottom, 4)
             
-            Text("This is a setting page")
+            SettingsView(viewModel: viewModel.settingsViewModel)
                 .tabItem { Label("Settings", systemImage: "gear") }
                 .padding(.bottom)
         }

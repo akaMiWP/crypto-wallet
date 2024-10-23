@@ -5,6 +5,7 @@ import Combine
 final class TabbarViewModel: ObservableObject {
     
     var dashboardViewModel: DashboardViewModel
+    var settingsViewModel: SettingsViewModel
     
     init() {
         dashboardViewModel = .init(
@@ -18,5 +19,7 @@ final class TabbarViewModel: ObservableObject {
             supportNetworksUseCase: SupportNetworksImp(),
             globalEventUseCase: GlobalEventImp()
         )
+        
+        settingsViewModel = .init(manageHDWalletUseCase: ManageHDWalletImpl())
     }
 }
