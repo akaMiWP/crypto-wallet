@@ -66,7 +66,7 @@ final class ManageWalletsImpl: ManageWalletsUseCase {
             guard let selectedWalletIndex = HDWalletManager.shared.createdWalletModels.firstIndex(of: wallet) else {
                 throw ManageWalletsUseCaseError.unableToSelectWallet
             }
-            HDWalletManager.shared.orderOfSelectedWallet = selectedWalletIndex
+            try HDWalletManager.shared.selectWallet(order: selectedWalletIndex)
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
         } catch {
             return Fail(error: error).eraseToAnyPublisher()

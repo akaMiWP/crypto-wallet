@@ -56,10 +56,17 @@ final class HDWalletManager {
         do {
             createdWalletModels.append(wallet)
             try KeychainManager.shared.set(createdWalletModels, for: .walletModels)
-            orderOfSelectedWallet = createdWalletModels.count - 1
-            try KeychainManager.shared.set(orderOfSelectedWallet, for: .orderOfSelectedWallet)
+            try selectWalletAndSaveOrderInStorage(order: createdWalletModels.count - 1)
         } catch {
             throw HDWalletManagerError.unableToSaveNewWallet
+        }
+    }
+    
+    func selectWallet(order: Int) throws {
+        do {
+            try selectWalletAndSaveOrderInStorage(order: order)
+        } catch {
+            throw HDWalletManagerError.unableToSaveWalletSelection
         }
     }
     
@@ -79,10 +86,18 @@ final class HDWalletManager {
 }
 
 // MARK: - Private
+private extension HDWalletManager {
+    func selectWalletAndSaveOrderInStorage(order: Int) throws {
+        orderOfSelectedWallet = order
+        try KeychainManager.shared.set(orderOfSelectedWallet, for: .orderOfSelectedWallet)
+    }
+}
+
 private enum HDWalletManagerError: Error {
     case unableToRestoreWallet
     case unableToLoadCreatedWallets
     case unableToSaveNewWallet
     case unableToRetrieveSelectedWallet
     case unableToRetrieveMneumonic
+    case unableToSaveWalletSelection
 }
