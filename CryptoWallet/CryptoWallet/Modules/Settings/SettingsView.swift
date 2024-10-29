@@ -8,32 +8,36 @@ struct SettingsView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            HStack {
+            HStack(spacing: 12) {
                 Image(systemName: "person.circle")
                     .resizable()
                     .frame(width: 36, height: 36)
-                    .foregroundColor(Color.primaryViolet1_900)
+                    .foregroundColor(Color.secondaryGreen2_600)
                 
                 Text("Account #1")
-                    .font(.headline)
-                    .fontWeight(.bold)
+                    .font(.title3)
+                    .fontWeight(.regular)
                 
                 Button(action: { viewModel.didTapEditAccount() }, label: {
                     Image(systemName: "highlighter")
-                        .frame(width: 44, height: 44)
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                        .foregroundColor(.primaryViolet1_400)
+                        .fontWeight(.semibold)
                 })
                 
                 Spacer()
             }
+            .padding(.leading, 36)
             
             List(viewModel.rows) { row in
                 HStack {
-                    Text(row.rowType.title)
-                        .fontWeight(.semibold)
-                    
                     row.rowType.iconName.map {
                         Image(systemName: $0)
+                            .foregroundColor(.primaryViolet1_400)
                     }
+                    
+                    Text(row.rowType.title)
                 }
                 .foregroundColor(row.rowType.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)

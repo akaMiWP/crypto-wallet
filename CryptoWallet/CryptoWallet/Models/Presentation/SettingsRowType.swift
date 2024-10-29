@@ -15,21 +15,9 @@ enum SettingsRowType {
         }
     }
     
-    var titleColor: Color {
-        switch self {
-        case .changeTheme: return Color.primaryViolet1_900
-        case .resetWallet: return .red
-        case .revealSeedPhrase: return Color.primaryViolet1_900
-        }
-    }
+    var titleColor: Color { Color.primaryViolet1_900 }
     
-    var backgroundColor: Color {
-        switch self {
-        case .changeTheme: return Color.primaryViolet1_50
-        case .resetWallet: return .clear
-        case .revealSeedPhrase: return Color.primaryViolet1_50
-        }
-    }
+    var backgroundColor: Color { Color.primaryViolet1_50 }
     
     var iconName: String? {
         switch self {
