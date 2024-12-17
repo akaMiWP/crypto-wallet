@@ -9,19 +9,19 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack(spacing: 12) {
-                Image(systemName: "person.circle")
+                Image(uiImage: .iconAvatar)
                     .resizable()
-                    .frame(width: 36, height: 36)
+                    .frame(width: 40, height: 40)
                     .foregroundColor(Color.secondaryGreen2_600)
                 
                 Text("Account #1")
-                    .font(.title3)
-                    .fontWeight(.regular)
+                    .font(.headline)
+                    .fontWeight(.medium)
                 
                 Button(action: { viewModel.didTapEditAccount() }, label: {
-                    Image(systemName: "highlighter")
+                    Image(uiImage: .iconPencil)
                         .resizable()
-                        .frame(width: 14, height: 14)
+                        .frame(width: 18, height: 18)
                         .foregroundColor(.primaryViolet1_400)
                         .fontWeight(.semibold)
                 })
@@ -31,13 +31,17 @@ struct SettingsView: View {
             .padding(.leading, 36)
             
             List(viewModel.rows) { row in
-                HStack {
+                HStack(spacing: 10) {
                     row.rowType.iconName.map {
-                        Image(systemName: $0)
+                        Image(uiImage: $0)
+                            .resizable()
+                            .frame(width: 16, height: 16)
                             .foregroundColor(.primaryViolet1_400)
                     }
                     
                     Text(row.rowType.title)
+                        .font(.body)
+                        .fontWeight(.medium)
                 }
                 .foregroundColor(row.rowType.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)

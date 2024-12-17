@@ -1036,7 +1036,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoWallet/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Celestail;
+				INFOPLIST_KEY_CFBundleDisplayName = Cryptbit;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Unlock the application using biometry";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1072,7 +1072,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoWallet/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Celestail;
+				INFOPLIST_KEY_CFBundleDisplayName = Cryptbit;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Unlock the application using biometry";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

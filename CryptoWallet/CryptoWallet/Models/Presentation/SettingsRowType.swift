@@ -19,11 +19,11 @@ enum SettingsRowType {
     
     var backgroundColor: Color { Color.primaryViolet1_50 }
     
-    var iconName: String? {
+    var iconName: UIImage? {
         switch self {
-        case .changeTheme: return "moon.fill"
-        case .resetWallet: return nil
-        case .revealSeedPhrase: return "rectangle.and.pencil.and.ellipsis"
+        case .changeTheme: return .iconMoon
+        case .resetWallet: return .iconArrowRotate
+        case .revealSeedPhrase: return .iconPassword
         }
     }
 }
