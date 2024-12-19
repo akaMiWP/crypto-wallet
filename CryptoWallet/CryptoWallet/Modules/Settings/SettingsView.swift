@@ -39,13 +39,25 @@ struct SettingsView: View {
                             .foregroundColor(.primaryViolet1_400)
                     }
                     
-                    Text(row.rowType.title)
-                        .font(.body)
-                        .fontWeight(.medium)
+                    if case .changeTheme = row.rowType {
+                        Toggle(isOn: $viewModel.toggleDarkMode) {
+                            Text("Change Theme")
+                                .font(.body)
+                                .fontWeight(.medium)
+                        }
+                        .tint(.neutral_90)
+                    } else {
+                        Text(row.rowType.title)
+                            .font(.body)
+                            .fontWeight(.medium)
+                    }
                 }
+                .listRowSeparatorTint(.white)
                 .foregroundColor(row.rowType.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
+                .padding(.vertical, 22)
+                .padding(.leading, 24)
+                .padding(.trailing, 2)
                 .listRowBackground(row.rowType.backgroundColor)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .onTapGesture {
