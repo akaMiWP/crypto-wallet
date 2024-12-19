@@ -11,19 +11,12 @@ final class SettingsViewModel: Alertable {
     
     @Published var mneumonic: String?
     @Published var alertViewModel: AlertViewModel?
-    @Published var toggleDarkMode: Bool = false
     
     private let manageHDWalletUseCase: ManageHDWalletUseCase
     private var cancellables: Set<AnyCancellable> = .init()
     
     init(manageHDWalletUseCase: ManageHDWalletUseCase) {
         self.manageHDWalletUseCase = manageHDWalletUseCase
-        
-        $toggleDarkMode
-            .sink { bool in
-                print("Bool:", bool)
-            }
-            .store(in: &cancellables)
     }
     
     func didTapEditAccount() {}

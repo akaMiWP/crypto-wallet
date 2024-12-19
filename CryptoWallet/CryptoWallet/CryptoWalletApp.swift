@@ -4,10 +4,12 @@ import SwiftUI
 
 @main
 struct CryptoWalletApp: App {
+    @StateObject var theme: ThemeManager = .init()
     
     var body: some Scene {
         WindowGroup {
             RootView(viewModel: .init(globalEventUseCase: GlobalEventImp(), userDefaultUseCase: UserDefaultImp()))
+                .environmentObject(theme)
         }
     }
 }

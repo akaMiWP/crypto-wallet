@@ -54,6 +54,7 @@
 		A17425B72CA987A60022F0B1 /* Constants+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17425B62CA987A60022F0B1 /* Constants+.swift */; };
 		A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */; };
 		A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180F5DD2C8F3AF900380EAE /* DashboardViewModel.swift */; };
+		A18729BB2D13FE8A004AE6A0 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18729BA2D13FE86004AE6A0 /* ThemeManager.swift */; };
 		A19734802C8323C300619D33 /* CongratsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197347F2C8323C300619D33 /* CongratsView.swift */; };
 		A19734822C832DBF00619D33 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19734812C832DBF00619D33 /* DashboardView.swift */; };
 		A19734872C8404B100619D33 /* TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19734862C8404B100619D33 /* TokenViewModel.swift */; };
@@ -160,6 +161,7 @@
 		A17425B62CA987A60022F0B1 /* Constants+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+.swift"; sourceTree = "<group>"; };
 		A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPassPhraseView.swift; sourceTree = "<group>"; };
 		A180F5DD2C8F3AF900380EAE /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		A18729BA2D13FE86004AE6A0 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A197347F2C8323C300619D33 /* CongratsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsView.swift; sourceTree = "<group>"; };
 		A19734812C832DBF00619D33 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		A19734862C8404B100619D33 /* TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewModel.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 		A10CC0FB2CA166FE000329A6 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				A18729BA2D13FE86004AE6A0 /* ThemeManager.swift */,
 				A10CC0FC2CA16862000329A6 /* Color+.swift */,
 				A10CC10F2CA52D2F000329A6 /* Shadow+.swift */,
 			);
@@ -811,6 +814,7 @@
 				A1B68E912C84AD71000509C9 /* NavigationDestinations.swift in Sources */,
 				A1B7D23B2CADA0B200EF7923 /* NodeProvider.swift in Sources */,
 				A10CC0F32C9EEEA7000329A6 /* SwitchAccountView.swift in Sources */,
+				A18729BB2D13FE8A004AE6A0 /* ThemeManager.swift in Sources */,
 				A10CC0FD2CA16862000329A6 /* Color+.swift in Sources */,
 				A19BFFC82C8DE11800E646CD /* RootViewModel.swift in Sources */,
 				A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */,

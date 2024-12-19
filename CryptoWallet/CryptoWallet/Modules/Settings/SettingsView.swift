@@ -5,6 +5,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @ObservedObject var viewModel: SettingsViewModel
+    @EnvironmentObject var theme: ThemeManager
     
     var body: some View {
         VStack(spacing: 20) {
@@ -17,12 +18,14 @@ struct SettingsView: View {
                 Text("Account #1")
                     .font(.headline)
                     .fontWeight(.medium)
+                    .foregroundColor(fontColor)
                 
                 Button(action: { viewModel.didTapEditAccount() }, label: {
                     Image(uiImage: .iconPencil)
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 18, height: 18)
-                        .foregroundColor(.primaryViolet1_400)
+                        .tint(iconColor)
                         .fontWeight(.semibold)
                 })
                 
@@ -36,14 +39,15 @@ struct SettingsView: View {
                         Image(uiImage: $0)
                             .resizable()
                             .frame(width: 16, height: 16)
-                            .foregroundColor(.primaryViolet1_400)
+                            .foregroundColor(iconColor)
                     }
                     
                     if case .changeTheme = row.rowType {
-                        Toggle(isOn: $viewModel.toggleDarkMode) {
+                        Toggle(isOn: theme.isOn) {
                             Text("Change Theme")
                                 .font(.body)
                                 .fontWeight(.medium)
+                                .foregroundColor(fontColor)
                         }
                         .tint(.neutral_90)
                     } else {
@@ -52,13 +56,13 @@ struct SettingsView: View {
                             .fontWeight(.medium)
                     }
                 }
-                .listRowSeparatorTint(.white)
-                .foregroundColor(row.rowType.titleColor)
+                .listRowSeparatorTint(listRowSeparatorColor)
+                .foregroundColor(fontColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 22)
                 .padding(.leading, 24)
                 .padding(.trailing, 2)
-                .listRowBackground(row.rowType.backgroundColor)
+                .listRowBackground(listRowBackgroundColor)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .onTapGesture {
                     switch row.rowType {
@@ -76,6 +80,7 @@ struct SettingsView: View {
         .padding()
         .navigationTitle("Settings")
         .modifier(AlertModifier(viewModel: viewModel))
+        .background { backgroundColor.ignoresSafeArea() }
         .alert(
             "Seed Phrase",
             isPresented: isPresented,
@@ -99,8 +104,29 @@ private extension SettingsView {
             }
         )
     }
+    
+    var fontColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var iconColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_400 : .primaryViolet1_200
+    }
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .white : .primaryViolet1_700
+    }
+    
+    var listRowBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_800
+    }
+    
+    var listRowSeparatorColor: Color {
+        theme.currentTheme == .light ? .white : .primaryViolet1_500
+    }
 }
 
 #Preview {
     SettingsView(viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl()))
+        .environmentObject(ThemeManager())
 }

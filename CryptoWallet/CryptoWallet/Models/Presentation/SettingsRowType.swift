@@ -15,10 +15,6 @@ enum SettingsRowType {
         }
     }
     
-    var titleColor: Color { Color.primaryViolet1_900 }
-    
-    var backgroundColor: Color { Color.primaryViolet1_50 }
-    
     var iconName: UIImage? {
         switch self {
         case .changeTheme: return .iconMoon
