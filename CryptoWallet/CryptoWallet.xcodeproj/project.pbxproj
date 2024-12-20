@@ -55,6 +55,7 @@
 		A17CD2FF2C82A4BE00AA82C8 /* EnterPassPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */; };
 		A180F5DE2C8F3AF900380EAE /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180F5DD2C8F3AF900380EAE /* DashboardViewModel.swift */; };
 		A18729BB2D13FE8A004AE6A0 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18729BA2D13FE86004AE6A0 /* ThemeManager.swift */; };
+		A18729BF2D1416B5004AE6A0 /* ThemeEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18729BE2D1416B0004AE6A0 /* ThemeEnvironmentKey.swift */; };
 		A19734802C8323C300619D33 /* CongratsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197347F2C8323C300619D33 /* CongratsView.swift */; };
 		A19734822C832DBF00619D33 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19734812C832DBF00619D33 /* DashboardView.swift */; };
 		A19734872C8404B100619D33 /* TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19734862C8404B100619D33 /* TokenViewModel.swift */; };
@@ -162,6 +163,7 @@
 		A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPassPhraseView.swift; sourceTree = "<group>"; };
 		A180F5DD2C8F3AF900380EAE /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		A18729BA2D13FE86004AE6A0 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		A18729BE2D1416B0004AE6A0 /* ThemeEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEnvironmentKey.swift; sourceTree = "<group>"; };
 		A197347F2C8323C300619D33 /* CongratsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsView.swift; sourceTree = "<group>"; };
 		A19734812C832DBF00619D33 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		A19734862C8404B100619D33 /* TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewModel.swift; sourceTree = "<group>"; };
@@ -689,6 +691,7 @@
 		A1E3FFC12C87EAE2007EB73D /* Environment */ = {
 			isa = PBXGroup;
 			children = (
+				A18729BE2D1416B0004AE6A0 /* ThemeEnvironmentKey.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -886,6 +889,7 @@
 				A1D9E4442CB7D15600351400 /* InputTokenUseCase.swift in Sources */,
 				A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */,
 				A1E74CE72CBF9BD700B14D84 /* TransactionReceiptViewModel.swift in Sources */,
+				A18729BF2D1416B5004AE6A0 /* ThemeEnvironmentKey.swift in Sources */,
 				A10CC1122CA5A432000329A6 /* SupportedNetwork.swift in Sources */,
 				A1101EFE2CC26085009BC543 /* TabbarViewModel.swift in Sources */,
 				A197348B2C84078D00619D33 /* NumberFormatter.swift in Sources */,

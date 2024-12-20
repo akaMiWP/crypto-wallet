@@ -128,5 +128,4 @@ private extension SettingsView {
 
 #Preview {
     SettingsView(viewModel: .init(manageHDWalletUseCase: ManageHDWalletImpl()))
-        .environmentObject(ThemeManager())
 }

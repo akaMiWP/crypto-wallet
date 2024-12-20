@@ -24,7 +24,7 @@ struct BiometricView: View {
                     switch $0 {
                     case .dashboard:
                         TabbarView(viewModel: .init())
-                            .navigationBarBackButtonHidden()
+                            .navigationBarHidden(true)
                     }
                 }
         }
