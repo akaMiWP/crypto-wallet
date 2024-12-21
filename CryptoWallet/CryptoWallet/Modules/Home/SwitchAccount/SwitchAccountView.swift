@@ -5,11 +5,12 @@ import SwiftUI
 struct SwitchAccountView: View {
     @ObservedObject var viewModel: SwitchAccountViewModel
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var theme: ThemeManager
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             TitleBarPresentedView(
-                title: "Select a network",
+                title: "Select an account",
                 bottomView: {}
             ) {
                 dismiss()
@@ -26,6 +27,7 @@ struct SwitchAccountView: View {
                                 Text(wallet.maskedAddress)
                                     .font(.subheadline)
                             }
+                            .foregroundColor(foregroundColor)
                             
                             Spacer()
                             
@@ -39,7 +41,7 @@ struct SwitchAccountView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 66)
                         .padding(.horizontal)
-                        .background(wallet.isSelected ? Color.primaryViolet1_100 : Color.primaryViolet1_50)
+                        .background(wallet.isSelected ? selectedBackgroundColor : unselectedBackgroundColor)
                         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                         .onTapGesture {
                             viewModel.selectWallet(wallet: wallet)
@@ -61,14 +63,41 @@ struct SwitchAccountView: View {
             })
             .frame(height: 46)
             .frame(maxWidth: .infinity)
-            .background(Color.primaryViolet1_500)
+            .background(buttonBackgroundColor)
             .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
             .padding()
-            .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
+            .shadow(color: buttonShadowColor, radius: 22, x: 7, y: 7)
         }
+        .background(backgroundColor)
         .modifier(AlertModifier(viewModel: viewModel))
         .dismissable(from: viewModel.$shouldDismiss, dismissAction: dismiss)
         .onAppear { viewModel.loadWallets() }
+    }
+}
+
+// MARK: - Private
+private extension SwitchAccountView {
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_700
+    }
+    
+    var buttonBackgroundColor: Color { .primaryViolet1_500 }
+    
+    var buttonShadowColor: Color {
+        theme.currentTheme == .light ? .primaryViolet2_300 : .primaryViolet1_900
+    }
+    
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var unselectedBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_800
+    }
+    
+    var selectedBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_100 : .primaryViolet1_900
     }
 }
 

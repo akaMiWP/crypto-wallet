@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct TitleBarPresentedView<BottomView: View>: View {
+    @EnvironmentObject private var theme: ThemeManager
+    
     private let title: String
     private let imageSystemName: String
     private let bottomView: BottomView
@@ -26,7 +28,7 @@ struct TitleBarPresentedView<BottomView: View>: View {
                 Text(title)
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
                 
                 HStack {
                     Button(action: { backCompletion?() }) {
@@ -40,11 +42,23 @@ struct TitleBarPresentedView<BottomView: View>: View {
             bottomView
         }
         .padding()
-        .background(Color.white)
+        .background(backgroundColor)
         .sheetDropShadow()
+    }
+}
+
+// MARK: - Private
+private extension TitleBarPresentedView {
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_20 : .primaryViolet1_800
+    }
+    
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
     }
 }
 
 #Preview {
     TitleBarPresentedView(title: "") { EmptyView() }
+        .environmentObject(ThemeManager())
 }
