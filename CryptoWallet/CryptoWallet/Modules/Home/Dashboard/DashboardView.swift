@@ -4,9 +4,11 @@ import SwiftUI
 
 struct DashboardView: View {
     
+    @ObservedObject private var viewModel: DashboardViewModel
+    @EnvironmentObject private var theme: ThemeManager
+    
     @State private var destination: NavigationDestinations?
     @State private var showToastMessage = false
-    @ObservedObject private var viewModel: DashboardViewModel
     
     init(viewModel: DashboardViewModel) {
         self.viewModel = viewModel
@@ -20,7 +22,7 @@ struct DashboardView: View {
                 Text("$0.00")
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
                     .redacted(reason: viewModel.state.redactionReasons)
                 
                 makeOperationViews()
@@ -32,6 +34,7 @@ struct DashboardView: View {
                 .padding(.top, 30)
             }
             .padding(.top, 36)
+            .background(backgroundColor)
             .refreshable { viewModel.pullToRefresh() }
         }
         .navigationBarBackButtonHidden()
@@ -68,6 +71,34 @@ private extension DashboardView {
         )
     }
     
+    var topBarBackgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_20 : .primaryViolet1_800
+    }
+    
+    var buttonBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
+    }
+    
+    var buttonDropdownColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_500 : .primaryViolet1_100
+    }
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_700
+    }
+    
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var iconColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_400 : .primaryViolet1_200
+    }
+    
+    var shortcutBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_400 : .primaryViolet2_900
+    }
+    
     func didTapCopyToClipboard() {
         viewModel.didTapCopyToClipboard()
         UIPasteboard.general.string = viewModel.walletViewModel.address
@@ -75,7 +106,7 @@ private extension DashboardView {
     
     func makeTopBarView() -> some View {
         ZStack {
-            Color.white
+            topBarBackgroundColor
                 .ignoresSafeArea()
                 .frame(height: 70)
                 .shadow(color: .primaryViolet1_300.opacity(0.15), radius: 3, y: 3)
@@ -84,12 +115,12 @@ private extension DashboardView {
                 HStack(spacing: 8) {
                     Text(viewModel.walletViewModel.name)
                         .font(.headline)
-                        .foregroundColor(.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                         .padding(.leading, 14)
                     
                     Image(systemName: "chevron.down")
                         .clipShape(Circle())
-                        .foregroundColor(.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                         .frame(width: 20, height: 20)
                 }
                 .onTapGesture {
@@ -99,11 +130,11 @@ private extension DashboardView {
                 Button(action: didTapCopyToClipboard) {
                     Text(viewModel.walletViewModel.maskedAddress)
                         .font(.subheadline)
-                        .foregroundColor(.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                         .padding(.leading, 14)
                     
                     Image(systemName: "doc.on.doc.fill")
-                        .foregroundColor(.primaryViolet1_900)
+                        .foregroundColor(iconColor)
                         .frame(width: 20, height: 20)
                 }
                 .padding(.bottom, 16)
@@ -122,10 +153,10 @@ private extension DashboardView {
                     Image(systemName: "chevron.down")
                         .resizable()
                         .frame(width: 16, height: 8)
-                        .foregroundColor(.primaryViolet1_500)
+                        .foregroundColor(buttonDropdownColor)
                 }
                 .padding(.trailing, 12)
-                .background(Color.primaryViolet1_50)
+                .background(buttonBackgroundColor)
                 .clipShape(RoundedRectangle(cornerSize: .init(width: 32, height: 32)))
                 .onTapGesture {
                     self.destination = .switchNetwork
@@ -155,13 +186,13 @@ private extension DashboardView {
             Image(systemName: imageName)
                 .resizable()
                 .frame(width: 27, height: 27)
-                .foregroundColor(.white)
+                .foregroundColor(.primaryViolet1_50)
             Text(actionName)
                 .font(.caption)
-                .foregroundColor(.white)
+                .foregroundColor(.primaryViolet1_50)
         }
         .frame(width: 100, height: 80)
-        .background(Color.primaryViolet1_400)
+        .background(shortcutBackgroundColor)
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
         .onTapGesture {
             self.destination = destination

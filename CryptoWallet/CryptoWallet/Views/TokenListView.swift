@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct TokenListView: View {
+    @EnvironmentObject private var theme: ThemeManager
+    
     private let viewModels: [TokenViewModel]
     private let didScrollToBottom: (() -> Void)?
     private let cellTapCompletion: ((TokenViewModel) -> Void)?
@@ -33,7 +35,7 @@ struct TokenListView: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color.primaryViolet1_50)
+            .background(backgroundColor)
             .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
             .padding(.horizontal)
         }
@@ -43,6 +45,14 @@ struct TokenListView: View {
 
 // MARK: - Private
 private extension TokenListView {
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
+    }
+    
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
     func makeTokenView(viewModel: TokenViewModel) -> some View {
         HStack(alignment: .top) {
             if let logo = viewModel.logo {
@@ -66,11 +76,11 @@ private extension TokenListView {
                 Text(viewModel.name)
                     .fontWeight(.bold)
                     .font(.body)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
                 
                 Text("\(viewModel.balance)")
                     .font(.body)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
             }
             
             Spacer()
@@ -79,7 +89,7 @@ private extension TokenListView {
                 Text(viewModel.formattedTotalAmount)
                     .fontWeight(.semibold)
                     .font(.body)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
             }
         }
         .redacted(reason: viewModel.redactedReason)
