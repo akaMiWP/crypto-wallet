@@ -4,6 +4,7 @@ import SwiftUI
 
 struct SwitchNetworkView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var theme: ThemeManager
     
     @StateObject var viewModel: SwitchNetworkViewModel = .init(supportNetworksUseCase: SupportNetworksImp())
     
@@ -16,14 +17,14 @@ struct SwitchNetworkView: View {
                         TextField("Search", text: $viewModel.searchInput)
                     }
                     .padding(.all, 8)
-                    .foregroundColor(.primaryViolet1_200)
-                    .background(Color.primaryViolet1_50)
+                    .foregroundColor(placeholderTitleColor)
+                    .background(placeholderBackgroundColor)
                     .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                     
                     if !viewModel.searchInput.isEmpty {
                         Text("Cancel")
                             .font(.subheadline)
-                            .foregroundColor(.primaryViolet1_400)
+                            .foregroundColor(buttonTitleColor)
                     }
                 }
                 .animation(.bouncy, value: viewModel.searchInput)
@@ -43,19 +44,21 @@ struct SwitchNetworkView: View {
                                     
                                     Text(viewModel.name)
                                         .font(.headline)
-                                        .foregroundColor(.primaryViolet1_900)
+                                        .foregroundColor(primaryForegroundColor)
                                 }
-                                .listRowBackground(viewModel.isSelected ? Color.primaryViolet1_100: .primaryViolet1_50)
+                                .listRowBackground(viewModel.isSelected ? selectedRowBackgroundColor: unselectedRowBackgroundColor)
                                 .onTapGesture {
                                     self.viewModel.didSelect(viewModel: viewModel)
                                 }
                             }
                         }
                         .font(.caption)
-                        .foregroundColor(.neutral_90)
+                        .foregroundColor(secondaryForegroundColor)
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(backgroundColor)
             .animation(.linear, value: viewModel.filteredViewModels)
         }
         .modifier(AlertModifier(viewModel: viewModel))
@@ -70,7 +73,7 @@ struct SwitchNetworkView: View {
 
 #Preview {
     let viewModel: SwitchNetworkViewModel = .init(supportNetworksUseCase: SupportNetworksImp())
-    return SwitchNetworkView(viewModel: viewModel)
+    return SwitchNetworkView(viewModel: viewModel).environmentObject(ThemeManager())
 }
 
 // MARK: - Private
@@ -83,5 +86,35 @@ private extension SwitchNetworkView {
             
             Spacer()
         }
+    }
+    
+    var buttonTitleColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_400 : .primaryViolet1_50
+    }
+    
+    var placeholderTitleColor: Color { .primaryViolet1_200 }
+    
+    var placeholderBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
+    }
+    
+    var primaryForegroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var secondaryForegroundColor: Color {
+        theme.currentTheme == .light ? .neutral_90 : .neutral_50
+    }
+    
+    var selectedRowBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_100 : .primaryViolet1_900
+    }
+    
+    var unselectedRowBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_800
+    }
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_700
     }
 }
