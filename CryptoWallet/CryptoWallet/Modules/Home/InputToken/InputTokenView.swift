@@ -11,6 +11,8 @@ struct InputTokenView: View {
     @State private var cancellable: AnyCancellable?
     @State private var keyboardHeight: CGFloat = 0
     
+    @EnvironmentObject private var theme: ThemeManager
+    
     enum Destinations: Hashable {
         case summary
     }
@@ -31,14 +33,14 @@ struct InputTokenView: View {
                     TextField("", text: $viewModel.inputAmount)
                         .keyboardType(.numberPad)
                         .font(.title3)
-                        .foregroundColor(.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                         .multilineTextAlignment(.trailing)
                         .frame(minWidth: minWidth, maxWidth: maxWidth < minWidth ? minWidth : maxWidth)
                         .focused($isFocused)
                     
                     Text(viewModel.selectedTokenViewModel.symbol)
                         .font(.title3)
-                        .foregroundColor(.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                     
                 }
                 .frame(maxWidth: .infinity)
@@ -60,11 +62,11 @@ struct InputTokenView: View {
                     Text("Available balance:")
                         .font(.body)
                         .fontWeight(.semibold)
-                        .foregroundColor(.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                     
                     Text("\(viewModel.selectedTokenViewModel.balance)")
                         .font(.body)
-                        .foregroundColor(.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                     
                     Spacer()
                 }
@@ -86,6 +88,7 @@ struct InputTokenView: View {
             }
             .padding(.vertical)
         }
+        .background(backgroundColor)
         .navigationBarBackButtonHidden()
         .navigationDestination(for: Destinations.self) {
             switch $0 {
@@ -117,6 +120,14 @@ struct InputTokenView: View {
 
 // MARK: - Private
 private extension InputTokenView {
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_700
+    }
+    
     func makeTopBarComponent() -> some View {
         TitleBarPresentedView(
             title: viewModel.title,
@@ -132,18 +143,18 @@ private extension InputTokenView {
         VStack {
             HStack {
                 Text("To:")
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
                     .padding(.trailing)
                 
                 Text(viewModel.destinationAddress)
                     .font(.subheadline)
-                    .foregroundColor(.primaryViolet1_200)
+                    .foregroundColor(foregroundColor)
                 
                 Spacer()
                 
                 Image(systemName: "pencil.slash")
                     .resizable()
-                    .foregroundColor(.primaryViolet1_800)
+                    .foregroundColor(foregroundColor)
                     .frame(width: 18, height: 18)
                     .frame(width: 40, height: 40)
                     .onTapGesture {
