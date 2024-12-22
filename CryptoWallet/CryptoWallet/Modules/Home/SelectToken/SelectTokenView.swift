@@ -5,6 +5,7 @@ import SwiftUI
 struct SelectTokenView: View {
     @ObservedObject var viewModel: SelectTokenViewModel
     @Binding var navigationPath: NavigationPath
+    @EnvironmentObject var theme: ThemeManager
     
     enum Destinations: Hashable {
         case inputToken
@@ -32,6 +33,7 @@ struct SelectTokenView: View {
             })
             .disabled(!viewModel.isAddressValid)
         }
+        .background(backgroundColor)
         .navigationBarBackButtonHidden()
         .navigationDestination(for: Destinations.self) {
             switch $0 {
@@ -47,6 +49,29 @@ struct SelectTokenView: View {
 
 // MARK: - Private
 private extension SelectTokenView {
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_700
+    }
+    
+    var borderColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_400 : .primaryViolet1_50
+    }
+    
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var shadowColor: Color {
+        theme.currentTheme == .light ? .primaryViolet2_300 : .primaryViolet1_900.opacity(0.8)
+    }
+    
+    var placeholderTitleColor: Color { .primaryViolet1_200 }
+    
+    var placeholderBackgroundColor: Color {
+        theme.currentTheme == .light ? .white : .primaryViolet1_700
+    }
+    
     func makeTopBarComponent() -> some View {
         TitleBarPresentedView(
             title: viewModel.pageTitle,
@@ -62,22 +87,23 @@ private extension SelectTokenView {
         VStack {
             HStack {
                 Text("To:")
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
                     .padding(.trailing)
                 
                 TextField("Name or address", text: $viewModel.addressInput)
                     .font(.subheadline)
-                    .foregroundColor(.primaryViolet1_200)
+                    .foregroundColor(placeholderTitleColor)
                     .padding()
+                    .background(placeholderBackgroundColor)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.primaryViolet1_400)
+                            .stroke(borderColor)
                     )
                 
                 
                 Image(systemName: viewModel.isAddressValid ? "checkmark" : "doc.on.clipboard.fill")
                     .resizable()
-                    .foregroundColor( viewModel.isAddressValid ? .secondaryGreen2_700 : .primaryViolet1_800)
+                    .foregroundColor( viewModel.isAddressValid ? .secondaryGreen2_700 : foregroundColor)
                     .frame(width: 18, height: 18)
                     .frame(width: 40, height: 40)
                     .disabled(viewModel.isAddressValid)
@@ -108,4 +134,5 @@ private extension SelectTokenView {
         ),
         navigationPath: .constant(.init())
     )
+    .environmentObject(ThemeManager())
 }
