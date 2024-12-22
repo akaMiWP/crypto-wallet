@@ -6,6 +6,7 @@ struct SelectTokensView: View {
     @ObservedObject var viewModel: SelectTokensViewModel
     @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var theme: ThemeManager
     
     enum Destinations: Hashable {
         case sendToken(tokenViewModel: TokenViewModel)
@@ -26,6 +27,7 @@ struct SelectTokensView: View {
                     )
                 }
                 .padding(.top)
+                .background(backgroundColor)
                 .modifier(AlertModifier(viewModel: viewModel))
                 .navigationDestination(for: Destinations.self) { screen in
                     switch screen {
@@ -46,6 +48,17 @@ struct SelectTokensView: View {
 
 // MARK: - Private
 private extension SelectTokensView {
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_700
+    }
+    
+    var placeholderTitleColor: Color { .primaryViolet1_200 }
+    
+    var placeholderBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
+    }
+    
     func makeSearchComponentView() -> some View {
         TitleBarPresentedView(title: "Select Token") {
             HStack {
@@ -54,8 +67,8 @@ private extension SelectTokensView {
                     TextField("Search...", text: $viewModel.searchInput)
                 }
                 .padding(.all, 8)
-                .foregroundColor(.primaryViolet1_900)
-                .background(Color.primaryViolet1_50)
+                .foregroundColor(placeholderTitleColor)
+                .background(placeholderBackgroundColor)
                 .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
                 
                 if !viewModel.searchInput.isEmpty {
