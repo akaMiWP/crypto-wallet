@@ -3,8 +3,8 @@
 import SwiftUI
 
 extension View {
-    func dropShadow() -> some View {
-        shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
+    func dropShadow(theme: Theme = .light) -> some View {
+        shadow(color: theme == .light ? .primaryViolet2_300 : .primaryViolet1_900, radius: 22, x: 7, y: 7)
     }
     
     func lineUpperShadow() -> some View {

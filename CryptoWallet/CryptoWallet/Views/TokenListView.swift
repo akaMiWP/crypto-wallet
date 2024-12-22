@@ -61,14 +61,14 @@ private extension TokenListView {
                 }
                 .frame(width: 40, height: 40)
                 .clipShape(Circle())
-                .dropShadow()
+                .dropShadow(theme: theme.currentTheme)
                 .padding(.trailing)
             } else {
                 Image(uiImage: viewModel.image)
                     .resizable()
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
-                    .dropShadow()
+                    .dropShadow(theme: theme.currentTheme)
                     .padding(.trailing)
             }
             

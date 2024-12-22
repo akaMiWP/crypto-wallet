@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct ToastMesssageView: View {
+    @EnvironmentObject private var theme: ThemeManager
+    
     let text: String
     
     var body: some View {
@@ -18,13 +20,24 @@ struct ToastMesssageView: View {
             .foregroundColor(.white)
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color.secondaryGreen2_600)
+            .background(backgroundColor)
             .cornerRadius(20)
             .padding(.horizontal)
-            .shadow(color: Color.secondaryGreen1_300,radius: 8, y: 10)
+            .shadow(color: shadowColor,radius: 8, y: 10)
             
             Spacer()
         }
+    }
+}
+
+ // MAKR: - Private
+private extension ToastMesssageView {
+    var shadowColor: Color {
+        theme.currentTheme == .light ? Color.secondaryGreen2_600.opacity(0.35) : Color.primaryViolet1_900.opacity(0.8)
+    }
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? Color.secondaryGreen2_600 : Color.secondaryGreen1_700
     }
 }
 
