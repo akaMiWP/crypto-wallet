@@ -4,6 +4,7 @@ import SwiftUI
 
 struct CongratsView: View {
     @ObservedObject private var viewModel: CongratsViewModel
+    @EnvironmentObject private var theme: ThemeManager
     
     private var navigationPath: Binding<NavigationPath>
     
@@ -24,12 +25,12 @@ struct CongratsView: View {
             Text("You're all done!")
                 .font(.headline)
                 .fontWeight(.bold)
-                .foregroundColor(.primaryViolet1_800)
+                .foregroundColor(foregroundColor)
                 .padding(.top, 16)
             
             Text("You can now fully enjoy your wallet")
                 .font(.callout)
-                .foregroundColor(.primaryViolet1_900)
+                .foregroundColor(foregroundColor)
                 .padding(.top, 8)
             
             Spacer()
@@ -43,7 +44,19 @@ struct CongratsView: View {
             Spacer()
         }
         .padding(.horizontal, 36)
+        .background(backgroundColor)
         .cardStyle()
+    }
+}
+
+// MARK: - Private
+private extension CongratsView {
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_800
+    }
+    
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
     }
 }
 
