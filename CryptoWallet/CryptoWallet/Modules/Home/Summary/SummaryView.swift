@@ -6,6 +6,7 @@ struct SummaryView: View {
     @StateObject var viewModel: SummaryViewModel
     @Binding var navigationPath: NavigationPath
     @Environment(\.presentedSheet) private var presentedSheet
+    @EnvironmentObject private var theme: ThemeManager
     
     init(viewModel: SummaryViewModel, navigationPath: Binding<NavigationPath>) {
         _viewModel = .init(wrappedValue: viewModel)
@@ -18,69 +19,70 @@ struct SummaryView: View {
             
             Image(systemName: "paperplane.fill")
                 .resizable()
-                .foregroundColor(.primaryViolet1_400)
+                .foregroundColor(imageTintColor)
                 .frame(width: 36, height: 36)
                 .padding()
-                .background(Color.primaryViolet1_50)
+                .background(imageBackgroundColor)
                 .clipShape(Circle())
                 .padding(.top, 24)
             
             Text(viewModel.sendAmountText)
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(foregroundColor)
                 .padding(.top, 12)
             
             VStack(spacing: 24) {
                 HStack {
                     Text("To:")
-                        .foregroundColor(Color.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                     
                     Spacer()
                     
                     Text(viewModel.destinationAddress)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                 }
                 
                 Rectangle()
-                    .fill(Color.white)
+                    .fill(backgroundColor)
                     .frame(height: 1)
                 
                 HStack {
                     Text("Network:")
-                        .foregroundColor(Color.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                     
                     Spacer()
                     
                     Text(viewModel.networkName)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                 }
                 
                 Rectangle()
-                    .fill(Color.white)
+                    .fill(backgroundColor)
                     .frame(height: 1)
                 
                 HStack {
                     Text("Network fee:")
-                        .foregroundColor(Color.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                     
                     Spacer()
                     
                     VStack(alignment: .trailing) {
                         Text("$\(viewModel.networkFee)")
                             .fontWeight(.semibold)
-                            .foregroundColor(Color.primaryViolet1_900)
+                            .foregroundColor(foregroundColor)
                         
                         Text("(\(viewModel.gasPrice) Gwei)")
-                            .foregroundColor(Color.secondaryGreen2_700)
+                            .foregroundColor(gasColor)
                             .font(.callout)
-                            .foregroundColor(Color.primaryViolet1_900)
+                            .foregroundColor(foregroundColor)
                     }
                 }
             }
             .padding()
-            .background(Color.secondaryGreen1_50)
+            .background(tableBackgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .padding(.horizontal)
             .padding(.top, 24)
@@ -92,7 +94,7 @@ struct SummaryView: View {
             }, label: {
                 Text("Send")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primaryViolet1_50)
                     .frame(height: 48)
                     .frame(maxWidth: .infinity)
                     .background(viewModel.hasFetchedForGasPrice ? Color.primaryViolet1_500 : Color.primaryViolet1_100)
@@ -101,6 +103,7 @@ struct SummaryView: View {
             })
             .disabled(!viewModel.hasFetchedForGasPrice)
         }
+        .background(backgroundColor)
         .modifier(AlertModifier(viewModel: viewModel))
         .overlay {
             if viewModel.shouldPresentTransactionReceipt {
@@ -124,6 +127,29 @@ struct SummaryView: View {
 
 // MARK: - Private
 private extension SummaryView {
+    
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var gasColor: Color {
+        theme.currentTheme == .light ? .secondaryGreen1_50 : .secondaryGreen2_600
+    }
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_700
+    }
+    
+    var tableBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_800
+    }
+    
+    var imageBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_200 : .primaryViolet1_800
+    }
+    
+    var imageTintColor: Color { .primaryViolet1_50 }
+    
     func makeTopBarComponent() -> some View {
         TitleBarPresentedView(
             title: "Summary",
@@ -150,5 +176,5 @@ private extension SummaryView {
         ),
         prepareTransactionUseCase: PrepareTransactionImp()
     )
-    return SummaryView(viewModel: viewModel, navigationPath: .constant(.init()))
+    return SummaryView(viewModel: viewModel, navigationPath: .constant(.init())).environmentObject(ThemeManager())
 }
