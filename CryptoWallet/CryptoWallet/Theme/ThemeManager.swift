@@ -3,13 +3,16 @@
 import Combine
 import SwiftUI
 
-enum Theme {
+enum Theme: String {
     case light
     case dark
 }
 
 final class ThemeManager: ObservableObject {
     @Published var currentTheme: Theme = .light
+    
+    private let userDefaultUseCase: UserDefaultUseCase
+    private var cancellables: Set<AnyCancellable> = .init()
     
     var isOn: Binding<Bool> {
         .init(get: { [weak self] in
@@ -19,8 +22,26 @@ final class ThemeManager: ObservableObject {
         })
     }
     
+    init(userDefaultUseCase: UserDefaultUseCase = UserDefaultImp()) {
+        self.userDefaultUseCase = userDefaultUseCase
+        
+        userDefaultUseCase
+            .retrieveThemeSelection()
+            .assign(to: &$currentTheme)
+        
+        $currentTheme
+            .dropFirst()
+            .handleEvents(receiveOutput: userDefaultUseCase.setThemeSelection(theme:))
+            .sink(receiveValue: { _ in }) /// Find the better way to handle void subscribe - ignoreOutput, using subject
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - Private
+private extension ThemeManager {
     func toggleTheme() {
-        switch currentTheme {
+        let newTheme = currentTheme
+        switch newTheme {
         case .light: currentTheme = .dark
         case .dark: currentTheme = .light
         }
