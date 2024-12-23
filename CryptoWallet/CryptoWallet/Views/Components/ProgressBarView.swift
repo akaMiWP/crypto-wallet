@@ -6,6 +6,8 @@ struct ProgressBarView: View {
     private let totalSteps: Int
     private let currentIndex: Int
     
+    @EnvironmentObject private var theme: ThemeManager
+    
     init(totalSteps: Int = 1, currentIndex: Int = 0) {
         self.totalSteps = totalSteps
         self.currentIndex = currentIndex
@@ -25,8 +27,15 @@ struct ProgressBarView: View {
 
 // MARK: - Private
 private extension ProgressBarView {
+    
+    var selectedBarColor: Color {
+        theme.currentTheme == .light ? .secondaryGreen2_600 : .secondaryGreen2_700
+    }
+    
+    var unselectedBarColor: Color { .secondaryGreen2_400 }
+    
     func makeBarColor(elementIndex: Int) -> Color {
-        elementIndex == currentIndex ? Color.secondaryGreen2_600 : Color.secondaryGreen2_400
+        elementIndex == currentIndex ? selectedBarColor : unselectedBarColor
     }
 }
 

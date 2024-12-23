@@ -8,6 +8,7 @@ struct GenerateSeedPhraseView: View {
     @State private var isBottomCardVisible: Bool = false
     
     @ObservedObject private var viewModel: GenerateSeedPhraseViewModel
+    @EnvironmentObject private var theme: ThemeManager
     private var navigationPath: Binding<NavigationPath>
     
     enum Destinations {
@@ -31,7 +32,7 @@ struct GenerateSeedPhraseView: View {
                         navigationPath.wrappedValue.removeLast()
                     }, label: {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.primaryViolet1_900)
+                            .foregroundColor(foregroundColor)
                             .frame(width: 24, height: 24)
                     })
                     
@@ -42,13 +43,13 @@ struct GenerateSeedPhraseView: View {
             
             VStack(alignment: .leading, spacing: 10) {
                 Text("Secret Recovery Phrase")
-                    .foregroundColor(.primaryViolet1_800)
+                    .foregroundColor(foregroundColor)
                     .font(.headline)
                     .fontWeight(.bold)
                     .padding(.vertical, 8)
                 
                 Text("Do not lose the seed phrase. It's necessary to receover your entire wallets")
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
                     .font(.callout)
             }
             .padding(.top, 70)
@@ -57,10 +58,10 @@ struct GenerateSeedPhraseView: View {
                 ForEach(Array(viewModel.mnemonic.enumerated()), id: \.offset) { index, word in
                     Text("\(index + 1). \(word)")
                         .font(.caption)
-                        .foregroundColor(Color.primaryViolet1_900)
+                        .foregroundColor(foregroundColor)
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
-                        .background(Color.primaryViolet1_50)
+                        .background(placeholderBackgroundColor)
                         .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
                 }
                 .redacted(reason: viewModel.state.redactionReasons)
@@ -81,7 +82,7 @@ struct GenerateSeedPhraseView: View {
                 Text("Copy")
                     .font(.callout)
                     .fontWeight(.semibold)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
             }
             .padding(.top, 24)
             .onTapGesture { viewModel.didTapCopyButton() }
@@ -91,10 +92,11 @@ struct GenerateSeedPhraseView: View {
             PrimaryButton(title: "Continue") {
                 isBottomCardVisible = true
             }
-            .shadow(color: .primaryViolet2_300, radius: 22, x: 7, y: 7)
+            .shadow(color: shadowColor, radius: 22, x: 7, y: 7)
             .padding(.bottom, 48)
         }
         .padding(.horizontal, 36)
+        .background(backgroundColor)
         .alertable(from: viewModel)
         .cardStyle()
         .bottomCard(isVisible: $isBottomCardVisible, injectedView: bottomCardView)
@@ -112,37 +114,47 @@ struct GenerateSeedPhraseView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        let viewModel: GenerateSeedPhraseViewModel = .init(
-            manageHDWalletUseCase: ManageHDWalletImpl(),
-            manageWalletsUseCase: ManageWalletsImpl(),
-            userDefaultUseCase: UserDefaultImp()
-        )
-        return GenerateSeedPhraseView(viewModel: viewModel, navigationPath: .constant(.init()))
-    }
-}
 
 // MARK: - Private
 private extension GenerateSeedPhraseView {
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_800
+    }
+    
+    var placeholderBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
+    }
+    
+    var dragHandleColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_700
+    }
+    
+    var foregroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var shadowColor: Color {
+        theme.currentTheme == .light ? .primaryViolet2_300 : .primaryViolet1_900.opacity(0.8)
+    }
     
     @ViewBuilder
     var bottomCardView: some View {
         VStack(spacing: 16) {
             RoundedRectangle(cornerSize: .init(width: 10, height: 10))
-                .fill(Color.primaryViolet1_50)
+                .fill(dragHandleColor)
                 .frame(width: 52, height: 8)
             
             VStack(alignment: .leading, spacing: 10) {
                 Text("Are you sure you want to continue?")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.primaryViolet1_800)
+                    .foregroundColor(foregroundColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("These Secret Recovery Phases are the only way to restore your wallet. Write it down on your paper and keep it in a safe place.")
                     .font(.callout)
-                    .foregroundColor(.primaryViolet1_900)
+                    .foregroundColor(foregroundColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
@@ -158,5 +170,16 @@ private extension GenerateSeedPhraseView {
             }
             .padding(.horizontal)
         }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        let viewModel: GenerateSeedPhraseViewModel = .init(
+            manageHDWalletUseCase: ManageHDWalletImpl(),
+            manageWalletsUseCase: ManageWalletsImpl(),
+            userDefaultUseCase: UserDefaultImp()
+        )
+        return GenerateSeedPhraseView(viewModel: viewModel, navigationPath: .constant(.init()))
     }
 }
