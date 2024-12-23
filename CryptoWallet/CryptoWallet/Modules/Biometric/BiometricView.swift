@@ -6,13 +6,15 @@ struct BiometricView: View {
     @StateObject private var viewModel: BiometricViewModel = .init()
     @Binding var navigationPath: NavigationPath
     
+    @EnvironmentObject private var theme: ThemeManager
+    
     enum Destinations {
         case dashboard
     }
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            Color.primaryViolet2_400
+            backgroundColor
                 .ignoresSafeArea(edges: .vertical)
                 .onChange(of: viewModel.isPolicyEvaluated) { newValue in
                     if newValue {
@@ -31,6 +33,15 @@ struct BiometricView: View {
     }
 }
 
+// MARK: - Private
+private extension BiometricView {
+    
+    var backgroundColor: Color {
+        theme.currentTheme == .light ? Color.primaryViolet2_400 : Color.primaryViolet1_800
+    }
+}
+
 #Preview {
     BiometricView(navigationPath: .constant(.init()))
+        .environmentObject(ThemeManager())
 }
