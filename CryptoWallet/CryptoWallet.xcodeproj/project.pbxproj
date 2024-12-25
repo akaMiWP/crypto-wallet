@@ -31,6 +31,8 @@
 		A12619A82CBD19620051E74B /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12619A72CBD19620051E74B /* Int+.swift */; };
 		A12619AA2CBD51180051E74B /* NetworkPollingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12619A92CBD51180051E74B /* NetworkPollingHandler.swift */; };
 		A12619AE2CBD519D0051E74B /* TimerFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12619AD2CBD519D0051E74B /* TimerFactoryProtocol.swift */; };
+		A1333F2D2D1BA67E0022B857 /* EnterPassPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1333F2C2D1BA67A0022B857 /* EnterPassPhraseViewModel.swift */; };
+		A1333F2F2D1BB20A0022B857 /* Global+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1333F2E2D1BB2060022B857 /* Global+.swift */; };
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A13C0DE82CBFBC680073F3A7 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13C0DE72CBFBC680073F3A7 /* SafariView.swift */; };
@@ -138,6 +140,8 @@
 		A12619A72CBD19620051E74B /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		A12619A92CBD51180051E74B /* NetworkPollingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPollingHandler.swift; sourceTree = "<group>"; };
 		A12619AD2CBD519D0051E74B /* TimerFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFactoryProtocol.swift; sourceTree = "<group>"; };
+		A1333F2C2D1BA67A0022B857 /* EnterPassPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPassPhraseViewModel.swift; sourceTree = "<group>"; };
+		A1333F2E2D1BB2060022B857 /* Global+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Global+.swift"; sourceTree = "<group>"; };
 		A13C0DE72CBFBC680073F3A7 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		A15F271E2CC1FD31009961C9 /* WalletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModel.swift; sourceTree = "<group>"; };
 		A15F27202CC1FD45009961C9 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
@@ -324,6 +328,15 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
+		A1333F2B2D1BA6220022B857 /* EnterPassPhrase */ = {
+			isa = PBXGroup;
+			children = (
+				A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */,
+				A1333F2C2D1BA67A0022B857 /* EnterPassPhraseViewModel.swift */,
+			);
+			path = EnterPassPhrase;
+			sourceTree = "<group>";
+		};
 		A13C0DE62CBFBC580073F3A7 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +461,7 @@
 		A19734882C84077E00619D33 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A1333F2E2D1BB2060022B857 /* Global+.swift */,
 				A17425B62CA987A60022F0B1 /* Constants+.swift */,
 				A1D9E4362CB78B2F00351400 /* Double+.swift */,
 				A1F14E372CBA08360031B2B2 /* Ether+.swift */,
@@ -598,8 +612,8 @@
 			isa = PBXGroup;
 			children = (
 				A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */,
-				A17CD2FE2C82A4BE00AA82C8 /* EnterPassPhraseView.swift */,
 				A19BFFCB2C8DE46E00E646CD /* Congrats */,
+				A1333F2B2D1BA6220022B857 /* EnterPassPhrase */,
 				A1A3757A2C8AF8970012BF43 /* GenerateSeedPhrase */,
 			);
 			path = Authentication;
@@ -821,6 +835,7 @@
 				A10CC0FD2CA16862000329A6 /* Color+.swift in Sources */,
 				A19BFFC82C8DE11800E646CD /* RootViewModel.swift in Sources */,
 				A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */,
+				A1333F2F2D1BB20A0022B857 /* Global+.swift in Sources */,
 				A1D9E4422CB7CCA500351400 /* SummaryViewModel.swift in Sources */,
 				A1D9E43B2CB7B8FF00351400 /* TokenModel+.swift in Sources */,
 				A1A375912C8D8C2A0012BF43 /* UserDefaultUseCase.swift in Sources */,
@@ -885,6 +900,7 @@
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
 				A19FBF0E2CB51FF900058589 /* SelectTokenViewModel.swift in Sources */,
 				A17425B32CA97DCF0022F0B1 /* Dismissable.swift in Sources */,
+				A1333F2D2D1BA67E0022B857 /* EnterPassPhraseViewModel.swift in Sources */,
 				A1A375802C8C33440012BF43 /* AlertViewModel.swift in Sources */,
 				A1D9E4442CB7D15600351400 /* InputTokenUseCase.swift in Sources */,
 				A1E155A12CA6EE1800BC968F /* SwitchNetworkViewModel.swift in Sources */,

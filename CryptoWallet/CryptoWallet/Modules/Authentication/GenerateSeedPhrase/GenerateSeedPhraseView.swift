@@ -181,5 +181,6 @@ private extension GenerateSeedPhraseView {
             userDefaultUseCase: UserDefaultImp()
         )
         return GenerateSeedPhraseView(viewModel: viewModel, navigationPath: .constant(.init()))
+            .environmentObject(ThemeManager())
     }
 }
