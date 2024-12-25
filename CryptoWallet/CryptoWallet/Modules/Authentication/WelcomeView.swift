@@ -58,7 +58,5 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    NavigationStack {
-        WelcomeView(navigationPath: .constant(.init()))
-    }
+    WelcomeView(navigationPath: .constant(.init()))
 }
