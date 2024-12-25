@@ -10,6 +10,10 @@ struct EnterPassPhraseView: View {
     @ObservedObject var viewModel: EnterPassPhraseViewModel
     private var navigationPath: Binding<NavigationPath>
     
+    enum Destinations {
+        case generateSeedPhrase
+    }
+    
     init(navigationPath: Binding<NavigationPath>,
          viewModel: EnterPassPhraseViewModel) {
         self.navigationPath = navigationPath
@@ -21,16 +25,25 @@ struct EnterPassPhraseView: View {
             buildTopBarView()
             buildCreatePasswordView()
             buildPasswordValidationOutputView()
-            
-            Spacer()
-            
-            PrimaryButton(title: "Continue", enabled: viewModel.validationSuccess) {}
-                .shadow(color: shadowColor, radius: 22, x: 7, y: 7)
-                .padding(.bottom, 48)
+            buildNavigationButton()
         }
         .padding(.horizontal, 36)
         .background(backgroundColor)
         .cardStyle()
+        .navigationDestination(for: Destinations.self) { destination in
+            switch destination {
+            case .generateSeedPhrase:
+                GenerateSeedPhraseView(
+                    viewModel: .init(
+                        manageHDWalletUseCase: ManageHDWalletImpl(),
+                        manageWalletsUseCase: ManageWalletsImpl(),
+                        userDefaultUseCase: UserDefaultImp()
+                    ),
+                    navigationPath: navigationPath
+                )
+                .navigationBarBackButtonHidden()
+            }
+        }
     }
 }
 
@@ -113,8 +126,8 @@ private extension EnterPassPhraseView {
     func buildPasswordValidationOutputView() -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                Image(viewModel.validationPasswordLength ? .iconCheckMark : .iconCross)
-                Text("Password Strength")
+                Image(viewModel.validationSuccess ? .iconCheckMark : .iconCross)
+                Text("Password Strength: \(viewModel.validationSuccess ? "strong" : "weak")")
             }
             HStack {
                 Image(viewModel.validationPasswordLength ? .iconCheckMark : .iconCross)
@@ -150,6 +163,17 @@ private extension EnterPassPhraseView {
             }
         }
         .padding(.top, 24)
+    }
+    
+    @ViewBuilder
+    func buildNavigationButton() -> some View {
+        Spacer()
+        
+        PrimaryButton(title: "Continue", enabled: viewModel.validationSuccess) {
+            navigationPath.wrappedValue.append(Destinations.generateSeedPhrase)
+        }
+            .shadow(color: shadowColor, radius: 22, x: 7, y: 7)
+            .padding(.bottom, 48)
     }
 }
 

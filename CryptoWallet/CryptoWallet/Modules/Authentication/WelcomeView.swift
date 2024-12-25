@@ -40,14 +40,7 @@ struct WelcomeView: View {
             .navigationDestination(for: Destinations.self) {
                 switch $0 {
                 case .createSeedPhrase:
-                    GenerateSeedPhraseView(
-                        viewModel: .init(
-                            manageHDWalletUseCase: ManageHDWalletImpl(),
-                            manageWalletsUseCase: ManageWalletsImpl(),
-                            userDefaultUseCase: UserDefaultImp()
-                        ),
-                        navigationPath: $navigationPath
-                    )
+                    EnterPassPhraseView(navigationPath: $navigationPath, viewModel: .init())
                     .navigationBarBackButtonHidden()
                 case .importSeedPhrase:
                     EnterPassPhraseView(navigationPath: $navigationPath, viewModel: .init())
