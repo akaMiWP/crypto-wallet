@@ -3,12 +3,12 @@
 import SwiftUI
 
 struct EnterPassPhraseView: View {
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
-    @EnvironmentObject private var theme: ThemeManager
+    @State private var maskPassword: Bool = true
+    @State private var maskConfirmPassword: Bool = true
     
+    @EnvironmentObject private var theme: ThemeManager
+    @ObservedObject var viewModel: EnterPassPhraseViewModel
     private var navigationPath: Binding<NavigationPath>
-    private let viewModel: EnterPassPhraseViewModel
     
     init(navigationPath: Binding<NavigationPath>,
          viewModel: EnterPassPhraseViewModel) {
@@ -18,74 +18,15 @@ struct EnterPassPhraseView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            
-            HStack {
-                ProgressBarView(totalSteps: 3, currentIndex: 0)
-            }
-            .frame(maxWidth: .infinity)
-            .overlay {
-                HStack {
-                    Button(action: {
-                        navigationPath.wrappedValue.removeLast()
-                    }, label: {
-                        Image(systemName: "chevron.backward")
-                            .foregroundColor(foregroundColor)
-                            .frame(width: 24, height: 24)
-                    })
-                    
-                    Spacer()
-                }
-            }
-            .padding(.top, 24)
-            
-            Text("Create a password")
-                .font(.headline)
-                .fontWeight(.bold)
-                .foregroundColor(foregroundColor)
-                .padding(.top, paddingTop)
-            
-            Text("Password")
-                .font(.body)
-                .foregroundColor(foregroundColor)
-                .padding(.top, 16)
-            
-            TextField("Password", text: $password)
-                .padding()
-                .background(placeholderBackgroundColor)
-                .clipShape(RoundedRectangle(cornerSize: .init(width: 8, height: 8)))
-                .padding(.top, 6)
-            
-            Text("Confirm Password")
-                .font(.body)
-                .foregroundColor(foregroundColor)
-                .padding(.top, 16)
-            
-            TextField("Confirm Password", text: $confirmPassword)
-                .padding()
-                .background(placeholderBackgroundColor)
-                .clipShape(RoundedRectangle(cornerSize: .init(width: 8, height: 8)))
-                .padding(.top, 6)
-            
-            VStack(alignment: .leading, spacing: 6) {
-                HStack {
-                    Text("Password Strength")
-                }
-                HStack {
-                    Text("At least 8 characters")
-                }
-                HStack {
-                    Text("Contains a number or symbol")
-                }
-            }
-            .font(.caption)
-            .foregroundColor(foregroundColor)
-            .padding(.top, 24)
+            buildTopBarView()
+            buildCreatePasswordView()
+            buildPasswordValidationOutputView()
             
             Spacer()
             
-            PrimaryButton(title: "Continue") {}
-            .shadow(color: shadowColor, radius: 22, x: 7, y: 7)
-            .padding(.bottom, 48)
+            PrimaryButton(title: "Continue", enabled: viewModel.validationSuccess) {}
+                .shadow(color: shadowColor, radius: 22, x: 7, y: 7)
+                .padding(.bottom, 48)
         }
         .padding(.horizontal, 36)
         .background(backgroundColor)
@@ -95,8 +36,12 @@ struct EnterPassPhraseView: View {
 
 // MARK: - Private
 private extension EnterPassPhraseView {
-    var foregroundColor: Color {
+    var primaryForegroundColor: Color {
         theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
+    var secondaryForegroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet2_200 : .primaryViolet1_200
     }
     
     var backgroundColor: Color {
@@ -113,7 +58,99 @@ private extension EnterPassPhraseView {
         theme.currentTheme == .light ? .primaryViolet2_300 : .primaryViolet1_900.opacity(0.8)
     }
     
-    var paddingTop: CGFloat { screenHeight * 0.15 }
+    var paddingTop: CGFloat { screenHeight * 0.1 }
+    
+    @ViewBuilder
+    func buildPasswordTextField(
+        _ placeholder: String,
+        _ text: Binding<String>,
+        _ maskPassword: Binding<Bool>
+    ) -> some View {
+        HStack {
+            if maskPassword.wrappedValue {
+                SecureField(placeholder, text: text)
+                    .padding()
+            } else {
+                TextField(placeholder, text: text)
+                    .padding()
+            }
+            
+            Button(action: { maskPassword.wrappedValue.toggle()
+            }) {
+                Image(maskPassword.wrappedValue ? .iconClosedEye : .iconOpenEye)
+            }
+            .padding()
+        }
+        .background(placeholderBackgroundColor)
+        .clipShape(RoundedRectangle(cornerSize: .init(width: 8, height: 8)))
+        .padding(.top, 6)
+    }
+    
+    @ViewBuilder
+    func buildCreatePasswordView() -> some View {
+        Text("Create a password")
+            .font(.headline)
+            .fontWeight(.bold)
+            .foregroundColor(primaryForegroundColor)
+            .padding(.top, paddingTop)
+        
+        Text("Password")
+            .font(.body)
+            .foregroundColor(primaryForegroundColor)
+            .padding(.top, 16)
+        
+        buildPasswordTextField("Password", $viewModel.password, $maskPassword)
+        
+        Text("Confirm Password")
+            .font(.body)
+            .foregroundColor(primaryForegroundColor)
+            .padding(.top, 16)
+        
+        buildPasswordTextField("Confirm Password", $viewModel.confirmPassword, $maskConfirmPassword)
+    }
+    
+    @ViewBuilder
+    func buildPasswordValidationOutputView() -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Image(viewModel.validationPasswordLength ? .iconCheckMark : .iconCross)
+                Text("Password Strength")
+            }
+            HStack {
+                Image(viewModel.validationPasswordLength ? .iconCheckMark : .iconCross)
+                Text("At least 8 characters")
+            }
+            HStack {
+                Image(viewModel.validationContainNumberOrSymbol ? .iconCheckMark : .iconCross)
+                Text("Contains a number or symbol")
+            }
+        }
+        .font(.caption)
+        .foregroundColor(secondaryForegroundColor)
+        .padding(.top, 24)
+    }
+    
+    @ViewBuilder
+    func buildTopBarView() -> some View {
+        HStack {
+            ProgressBarView(totalSteps: 3, currentIndex: 0)
+        }
+        .frame(maxWidth: .infinity)
+        .overlay {
+            HStack {
+                Button(action: {
+                    navigationPath.wrappedValue.removeLast()
+                }, label: {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(primaryForegroundColor)
+                        .frame(width: 24, height: 24)
+                })
+                
+                Spacer()
+            }
+        }
+        .padding(.top, 24)
+    }
 }
 
 #Preview {

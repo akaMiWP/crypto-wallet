@@ -13,26 +13,29 @@ struct PrimaryButton: View {
     
     private let title: String
     private let type: `Type`
+    private let enabled: Bool
     private let action: () -> Void
     
-    init(title: String, type: `Type` = .primaryPurple, action: @escaping () -> Void) {
+    init(title: String, type: `Type` = .primaryPurple, enabled: Bool = true, action: @escaping () -> Void) {
         self.title = title
         self.type = type
+        self.enabled = enabled
         self.action = action
     }
     
     var body: some View {
         Button(action: action) {
             Text(title)
-                .foregroundColor(type.foregroundColor)
+                .foregroundColor(foregroundColor)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
         }
-        .background(type.backgroundColor)
+        .disabled(!enabled)
+        .background(backgroundColor)
         .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(type.borderColor, lineWidth: type.borderWidth)
+                .stroke(borderColor, lineWidth: borderWidth)
         )
     }
 }
@@ -50,9 +53,9 @@ struct PrimaryButton: View {
 }
 
 // MARK: - Private
-private extension PrimaryButton.`Type` {
+private extension PrimaryButton {
     var foregroundColor: Color {
-        switch self {
+        switch type {
         case .primaryPurple: return .primaryViolet1_50
         case .secondaryPurple: return .primaryViolet1_500
         case .primaryGreen: return .secondaryGreen1_50
@@ -61,22 +64,22 @@ private extension PrimaryButton.`Type` {
     }
     
     var backgroundColor: Color {
-        switch self {
-        case .primaryPurple: return .primaryViolet1_500
+        switch type {
+        case .primaryPurple: return enabled ? .primaryViolet1_500 : .primaryViolet1_200
         case .primaryGreen: return .secondaryGreen2_600
         case .secondaryPurple, .secondaryGreen: return .clear
         }
     }
     
     var borderWidth: CGFloat {
-        switch self {
+        switch type {
         case .primaryPurple, .primaryGreen: return 0
         case .secondaryPurple, .secondaryGreen: return 1
         }
     }
     
     var borderColor: Color {
-        switch self {
+        switch type {
         case .primaryPurple, .secondaryPurple: return .primaryViolet1_500
         case .primaryGreen, .secondaryGreen: return .secondaryGreen2_600
         }

@@ -8,7 +8,8 @@ struct CryptoWalletApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView(viewModel: .init(globalEventUseCase: GlobalEventImp(), userDefaultUseCase: UserDefaultImp()))
+//            RootView(viewModel: .init(globalEventUseCase: GlobalEventImp(), userDefaultUseCase: UserDefaultImp()))
+            EnterPassPhraseView(navigationPath: .constant(.init()), viewModel: .init())
                 .environmentObject(theme)
         }
     }
