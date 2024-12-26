@@ -20,7 +20,8 @@ final class GenerateSeedPhraseViewModel: Alertable {
     
     init(manageHDWalletUseCase: ManageHDWalletUseCase,
          manageWalletsUseCase: ManageWalletsUseCase,
-         userDefaultUseCase: UserDefaultUseCase) {
+         userDefaultUseCase: UserDefaultUseCase
+    ) {
         self.manageHDWalletUseCase = manageHDWalletUseCase
         self.manageWalletsUseCase = manageWalletsUseCase
         self.userDefaultUseCase = userDefaultUseCase

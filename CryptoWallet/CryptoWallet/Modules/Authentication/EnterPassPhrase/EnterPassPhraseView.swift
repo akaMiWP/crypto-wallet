@@ -30,6 +30,10 @@ struct EnterPassPhraseView: View {
         .padding(.horizontal, 36)
         .background(backgroundColor)
         .cardStyle()
+        .alertable(from: viewModel)
+        .onReceive(viewModel.onSave) {
+            navigationPath.wrappedValue.append(Destinations.generateSeedPhrase)
+        }
         .navigationDestination(for: Destinations.self) { destination in
             switch destination {
             case .generateSeedPhrase:
@@ -170,7 +174,7 @@ private extension EnterPassPhraseView {
         Spacer()
         
         PrimaryButton(title: "Continue", enabled: viewModel.validationSuccess) {
-            navigationPath.wrappedValue.append(Destinations.generateSeedPhrase)
+            viewModel.tap.send()
         }
             .shadow(color: shadowColor, radius: 22, x: 7, y: 7)
             .padding(.bottom, 48)

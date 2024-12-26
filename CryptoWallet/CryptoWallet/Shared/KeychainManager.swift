@@ -5,6 +5,7 @@ import KeychainSwift
 
 enum KeychainKey: String {
     case seedPhrase
+    case password
     case walletModels
     case orderOfSelectedWallet
     case selectedNetwork
