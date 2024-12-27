@@ -40,10 +40,10 @@ struct WelcomeView: View {
             .navigationDestination(for: Destinations.self) {
                 switch $0 {
                 case .createSeedPhrase:
-                    EnterPassPhraseView(navigationPath: $navigationPath, viewModel: .init())
+                    EnterPassPhraseView(navigationPath: $navigationPath, viewModel: .init(passwordRepository: PasswordRepositoryImp()))
                     .navigationBarBackButtonHidden()
                 case .importSeedPhrase:
-                    EnterPassPhraseView(navigationPath: $navigationPath, viewModel: .init())
+                    EnterPassPhraseView(navigationPath: $navigationPath, viewModel: .init(passwordRepository: PasswordRepositoryImp()))
                 }
             }
         }

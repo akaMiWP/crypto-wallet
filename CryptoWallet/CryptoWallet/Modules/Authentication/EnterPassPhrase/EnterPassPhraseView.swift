@@ -183,7 +183,7 @@ private extension EnterPassPhraseView {
 
 #Preview {
     NavigationStack {
-        EnterPassPhraseView(navigationPath: .constant(.init()), viewModel: .init())
+        EnterPassPhraseView(navigationPath: .constant(.init()), viewModel: .init(passwordRepository: PasswordRepositoryImp()))
             .environmentObject(ThemeManager())
     }
 }

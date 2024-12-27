@@ -116,6 +116,7 @@
 		A1E74CE72CBF9BD700B14D84 /* TransactionReceiptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E74CE62CBF9BD700B14D84 /* TransactionReceiptViewModel.swift */; };
 		A1F14E342CB902290031B2B2 /* PresentedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E332CB902290031B2B2 /* PresentedSheet.swift */; };
 		A1F14E382CBA08360031B2B2 /* Ether+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E372CBA08360031B2B2 /* Ether+.swift */; };
+		A1F9D6882D1EC1350065F10B /* PasswordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F9D6872D1EC12B0065F10B /* PasswordRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -226,6 +227,7 @@
 		A1E74CE62CBF9BD700B14D84 /* TransactionReceiptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReceiptViewModel.swift; sourceTree = "<group>"; };
 		A1F14E332CB902290031B2B2 /* PresentedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedSheet.swift; sourceTree = "<group>"; };
 		A1F14E372CBA08360031B2B2 /* Ether+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ether+.swift"; sourceTree = "<group>"; };
+		A1F9D6872D1EC12B0065F10B /* PasswordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -519,6 +521,7 @@
 		A19FBF112CB5397400058589 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				A1F9D6872D1EC12B0065F10B /* PasswordRepository.swift */,
 				A19FBF122CB5398100058589 /* DerivationPathRetriever.swift */,
 			);
 			path = Domain;
@@ -858,6 +861,7 @@
 				A19734872C8404B100619D33 /* TokenViewModel.swift in Sources */,
 				A1E155A32CA79E1E00BC968F /* SupportNetworksUseCase.swift in Sources */,
 				A17425B12CA97DAA0022F0B1 /* Alertable.swift in Sources */,
+				A1F9D6882D1EC1350065F10B /* PasswordRepository.swift in Sources */,
 				A1CF69B22CBE925B008A3734 /* TransactionReceiptModel+.swift in Sources */,
 				A16723B32C958AC30089CE46 /* TokenMetadataResponse.swift in Sources */,
 				A10CC1022CA26C75000329A6 /* ProgressBarView.swift in Sources */,
