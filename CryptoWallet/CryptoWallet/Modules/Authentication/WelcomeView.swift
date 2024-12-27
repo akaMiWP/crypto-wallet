@@ -4,6 +4,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     
+    @Environment(\.container) private var container
     @Binding var navigationPath: NavigationPath
     
     enum Destinations {
@@ -40,10 +41,16 @@ struct WelcomeView: View {
             .navigationDestination(for: Destinations.self) {
                 switch $0 {
                 case .createSeedPhrase:
-                    EnterPassPhraseView(navigationPath: $navigationPath, viewModel: .init(passwordRepository: PasswordRepositoryImp()))
+                    EnterPassPhraseView(
+                        navigationPath: $navigationPath,
+                        viewModel: .init(passwordRepository: container.resolve(PasswordRepository.self))
+                    )
                     .navigationBarBackButtonHidden()
                 case .importSeedPhrase:
-                    EnterPassPhraseView(navigationPath: $navigationPath, viewModel: .init(passwordRepository: PasswordRepositoryImp()))
+                    EnterPassPhraseView(
+                        navigationPath: $navigationPath,
+                        viewModel: .init(passwordRepository: container.resolve(PasswordRepository.self))
+                    )
                 }
             }
         }

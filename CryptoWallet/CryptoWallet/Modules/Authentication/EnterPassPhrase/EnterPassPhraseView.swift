@@ -6,6 +6,7 @@ struct EnterPassPhraseView: View {
     @State private var maskPassword: Bool = true
     @State private var maskConfirmPassword: Bool = true
     
+    @Environment(\.container) private var container
     @EnvironmentObject private var theme: ThemeManager
     @ObservedObject var viewModel: EnterPassPhraseViewModel
     private var navigationPath: Binding<NavigationPath>
@@ -41,7 +42,8 @@ struct EnterPassPhraseView: View {
                     viewModel: .init(
                         manageHDWalletUseCase: ManageHDWalletImpl(),
                         manageWalletsUseCase: ManageWalletsImpl(),
-                        userDefaultUseCase: UserDefaultImp()
+                        userDefaultUseCase: UserDefaultImp(),
+                        passwordRepository: container.resolve(PasswordRepository.self)
                     ),
                     navigationPath: navigationPath
                 )

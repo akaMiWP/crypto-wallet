@@ -178,7 +178,8 @@ private extension GenerateSeedPhraseView {
         let viewModel: GenerateSeedPhraseViewModel = .init(
             manageHDWalletUseCase: ManageHDWalletImpl(),
             manageWalletsUseCase: ManageWalletsImpl(),
-            userDefaultUseCase: UserDefaultImp()
+            userDefaultUseCase: UserDefaultImp(),
+            passwordRepository: PasswordRepositoryImp()
         )
         return GenerateSeedPhraseView(viewModel: viewModel, navigationPath: .constant(.init()))
             .environmentObject(ThemeManager())

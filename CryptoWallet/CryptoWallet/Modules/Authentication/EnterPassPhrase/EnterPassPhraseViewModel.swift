@@ -16,12 +16,10 @@ final class EnterPassPhraseViewModel: ObservableObject, Alertable {
     @Published var alertViewModel: AlertViewModel?
     let onSave: PassthroughSubject<Void, Never> = .init()
     
-    private let keychainManager: KeychainManager
     private let passwordRepository: PasswordRepository
     private var cancellables: Set<AnyCancellable> = .init()
     
-    init(keychainManager: KeychainManager = .shared, passwordRepository: PasswordRepository) {
-        self.keychainManager = keychainManager
+    init(passwordRepository: PasswordRepository) {
         self.passwordRepository = passwordRepository
         
         let publisher = Publishers
@@ -46,30 +44,13 @@ final class EnterPassPhraseViewModel: ObservableObject, Alertable {
             .assign(to: &$validationSuccess)
         
         tap
-//            .flatMap { [weak self] in
-//                guard let self = self else { return Fail<Void, Error>(error: NSError(domain: "", code: 0)).eraseToAnyPublisher() }
-//                //TODO: Use repository to store it and let GenerateSeedPhraseViewModel store the password
-//                return Future { promise in
-//                    do {
-//                        try self.keychainManager.set(self.password, for: .password)
-//                        promise(.success(()))
-//                    } catch {
-//                        promise(.failure(error))
-//                    }
-//                }.eraseToAnyPublisher()
-//            }
-//            .catch { [weak self] error in
-//                print("Error:", error.localizedDescription)
-//                self?.alertViewModel = .init()
-//                return Empty<Void, Never>().eraseToAnyPublisher()
-//            }
             .handleEvents(receiveOutput: { [weak self] in
                 guard let self = self else { return }
                 self.passwordRepository.set(password: password)
             })
-            .sink(receiveCompletion: { [weak self] _ in
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
                 self?.onSave.send()
-            }, receiveValue: {})
+            })
             .store(in: &cancellables)
     }
 }

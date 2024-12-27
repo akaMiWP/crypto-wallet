@@ -12,7 +12,9 @@ final class GenerateSeedPhraseViewModel: Alertable {
     
     private let manageHDWalletUseCase: ManageHDWalletUseCase
     private let manageWalletsUseCase: ManageWalletsUseCase
-    private var userDefaultUseCase: UserDefaultUseCase
+    private let userDefaultUseCase: UserDefaultUseCase
+    private let passwordRepository: PasswordRepository
+    private let keychainManager: KeychainManager
     private var cancellables = Set<AnyCancellable>()
     
     private lazy var manageHDWalletPublisher = manageHDWalletUseCase
@@ -20,11 +22,15 @@ final class GenerateSeedPhraseViewModel: Alertable {
     
     init(manageHDWalletUseCase: ManageHDWalletUseCase,
          manageWalletsUseCase: ManageWalletsUseCase,
-         userDefaultUseCase: UserDefaultUseCase
+         userDefaultUseCase: UserDefaultUseCase,
+         passwordRepository: PasswordRepository,
+         keychainManager: KeychainManager = .shared
     ) {
         self.manageHDWalletUseCase = manageHDWalletUseCase
         self.manageWalletsUseCase = manageWalletsUseCase
         self.userDefaultUseCase = userDefaultUseCase
+        self.passwordRepository = passwordRepository
+        self.keychainManager = keychainManager
     }
     
     func createSeedPhrase() {
