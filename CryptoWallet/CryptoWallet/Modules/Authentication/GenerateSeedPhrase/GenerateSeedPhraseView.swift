@@ -100,6 +100,9 @@ struct GenerateSeedPhraseView: View {
         .alertable(from: viewModel)
         .cardStyle()
         .bottomCard(isVisible: $isBottomCardVisible, injectedView: bottomCardView)
+        .onReceive(viewModel.onSave) { _ in
+            navigationPath.wrappedValue.append(Destinations.showCongrats)
+        }
         .navigationDestination(for: Destinations.self) {
             switch $0 {
             case .showCongrats:
@@ -164,7 +167,6 @@ private extension GenerateSeedPhraseView {
                 }
                 
                 PrimaryButton(title: "Continue") {
-                    navigationPath.wrappedValue.append(Destinations.showCongrats)
                     viewModel.didTapButton()
                 }
             }

@@ -6,9 +6,13 @@ import SwiftUI
 
 final class GenerateSeedPhraseViewModel: Alertable {
     
+    // Inputs
     @Published var state: ViewModelState = .loading
     @Published var mnemonic: [String] = Array(repeating: "---", count: 12)
+    
+    // Outputs
     @Published var alertViewModel: AlertViewModel?
+    let onSave: PassthroughSubject<Void, Never> = .init()
     
     private let manageHDWalletUseCase: ManageHDWalletUseCase
     private let manageWalletsUseCase: ManageWalletsUseCase
