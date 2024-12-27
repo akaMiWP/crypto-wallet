@@ -65,13 +65,31 @@ final class GenerateSeedPhraseViewModel: Alertable {
                 guard let self = self else { return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
                 return self.manageWalletsUseCase.makeNewWalletModel(coinType: .ethereum)
             }
+            .flatMap { [weak self] in
+                guard let self = self else { return Fail<Void, Error>(error: NSError(domain: "", code: 0)).eraseToAnyPublisher() }
+                guard let password = passwordRepository.retrievePassword() else {
+                    return Fail<Void, Error>(error: GenerateSeedPhraseViewModelError.passwordNotFound).eraseToAnyPublisher()
+                }
+                return Future { promise in
+                    do {
+                        try self.keychainManager.set(password, for: .password)
+                        promise(.success(()))
+                    } catch {
+                        promise(.failure(error))
+                    }
+                }.eraseToAnyPublisher()
+            }
             .catch { error in
                 self.alertViewModel = .init(message: error.localizedDescription)
-                return Just(()).eraseToAnyPublisher()
+                return Empty<Void, Never>()
             }
             .sink { [weak self] output in
                 self?.userDefaultUseCase.setHasCreatedWallet(true)
             }
             .store(in: &cancellables)
     }
+}
+
+enum GenerateSeedPhraseViewModelError: Error {
+    case passwordNotFound
 }
