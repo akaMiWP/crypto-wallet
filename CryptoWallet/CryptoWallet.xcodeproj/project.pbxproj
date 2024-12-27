@@ -117,6 +117,8 @@
 		A1F14E342CB902290031B2B2 /* PresentedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E332CB902290031B2B2 /* PresentedSheet.swift */; };
 		A1F14E382CBA08360031B2B2 /* Ether+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F14E372CBA08360031B2B2 /* Ether+.swift */; };
 		A1F9D6882D1EC1350065F10B /* PasswordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F9D6872D1EC12B0065F10B /* PasswordRepository.swift */; };
+		A1F9D68B2D1EC8EB0065F10B /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F9D68A2D1EC8EA0065F10B /* DIContainer.swift */; };
+		A1F9D68D2D1EC9C10065F10B /* ContainerEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F9D68C2D1EC9BC0065F10B /* ContainerEnvironmentKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -228,6 +230,8 @@
 		A1F14E332CB902290031B2B2 /* PresentedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedSheet.swift; sourceTree = "<group>"; };
 		A1F14E372CBA08360031B2B2 /* Ether+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ether+.swift"; sourceTree = "<group>"; };
 		A1F9D6872D1EC12B0065F10B /* PasswordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRepository.swift; sourceTree = "<group>"; };
+		A1F9D68A2D1EC8EA0065F10B /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		A1F9D68C2D1EC9BC0065F10B /* ContainerEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEnvironmentKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -560,6 +564,7 @@
 				A19BFFC52C8DDE3A00E646CD /* RootView.swift */,
 				A19BFFC72C8DE11800E646CD /* RootViewModel.swift */,
 				A1A2072E2C7CA6ED0093CE47 /* Assets.xcassets */,
+				A1F9D6892D1EC8DE0065F10B /* Assembly */,
 				A16723AC2C94431A0089CE46 /* Config */,
 				A1D9E4382CB7B8DB00351400 /* Mappers */,
 				A19734832C84049600619D33 /* Models */,
@@ -709,6 +714,7 @@
 			isa = PBXGroup;
 			children = (
 				A18729BE2D1416B0004AE6A0 /* ThemeEnvironmentKey.swift */,
+				A1F9D68C2D1EC9BC0065F10B /* ContainerEnvironmentKey.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -735,6 +741,14 @@
 				A1F14E332CB902290031B2B2 /* PresentedSheet.swift */,
 			);
 			path = EnvironmentValues;
+			sourceTree = "<group>";
+		};
+		A1F9D6892D1EC8DE0065F10B /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				A1F9D68A2D1EC8EA0065F10B /* DIContainer.swift */,
+			);
+			path = Assembly;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -838,6 +852,7 @@
 				A10CC0FD2CA16862000329A6 /* Color+.swift in Sources */,
 				A19BFFC82C8DE11800E646CD /* RootViewModel.swift in Sources */,
 				A1B68E932C84B53B000509C9 /* TitleBarPresentedView.swift in Sources */,
+				A1F9D68D2D1EC9C10065F10B /* ContainerEnvironmentKey.swift in Sources */,
 				A1333F2F2D1BB20A0022B857 /* Global+.swift in Sources */,
 				A1D9E4422CB7CCA500351400 /* SummaryViewModel.swift in Sources */,
 				A1D9E43B2CB7B8FF00351400 /* TokenModel+.swift in Sources */,
@@ -880,6 +895,7 @@
 				A1A375822C8C377E0012BF43 /* ViewModelState.swift in Sources */,
 				A10E03712CC9264100641F7B /* SettingsRowViewModel.swift in Sources */,
 				A19FBF1A2CB62DF600058589 /* InputTokenView.swift in Sources */,
+				A1F9D68B2D1EC8EB0065F10B /* DIContainer.swift in Sources */,
 				A1A0C0B62CB269D400C978C4 /* ToastMessageModifier.swift in Sources */,
 				A1AC217D2C9BE41F00374C83 /* String+.swift in Sources */,
 				A1A0C0B42CB265E000C978C4 /* ToastMesssageView.swift in Sources */,
