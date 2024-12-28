@@ -64,7 +64,7 @@ struct GenerateSeedPhraseView: View {
                         .background(placeholderBackgroundColor)
                         .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
                 }
-                //.redacted(reason: viewModel.state.redactionReasons) //TODO: Fix bug
+                .redacted(reason: viewModel.state.redactionReasons) //TODO: Fix bug
             }
             .padding(.top, 60)
             .blur(radius: isBlurApplied ? 6 : 0)

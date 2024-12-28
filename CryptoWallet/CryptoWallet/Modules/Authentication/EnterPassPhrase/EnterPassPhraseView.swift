@@ -67,8 +67,6 @@ private extension EnterPassPhraseView {
         theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_800
     }
     
-    var buttonBackgroundColor: Color { .primaryViolet1_500 }
-    
     var placeholderBackgroundColor: Color {
         theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
     }

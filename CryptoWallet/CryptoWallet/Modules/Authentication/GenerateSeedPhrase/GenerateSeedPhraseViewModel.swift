@@ -89,6 +89,7 @@ final class GenerateSeedPhraseViewModel: Alertable {
             }
             .sink { [weak self] output in
                 self?.userDefaultUseCase.setHasCreatedWallet(true)
+                self?.onSave.send()
             }
             .store(in: &cancellables)
     }
