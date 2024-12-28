@@ -6,6 +6,7 @@ struct BiometricView: View {
     @StateObject private var viewModel: BiometricViewModel = .init()
     @Binding var navigationPath: NavigationPath
     
+    @State private var passwordInput: String = ""
     @EnvironmentObject private var theme: ThemeManager
     
     enum Destinations {
@@ -14,21 +15,42 @@ struct BiometricView: View {
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            backgroundColor
-                .ignoresSafeArea(edges: .vertical)
-                .onChange(of: viewModel.isPolicyEvaluated) { newValue in
-                    if newValue {
-                        navigationPath.append(Destinations.dashboard)
-                    }
+            VStack {
+                Spacer()
+                Text("Enter your password")
+                    .font(.headline)
+                    .foregroundColor(primaryForegroundColor)
+                
+                SecureField("Password", text: $passwordInput)
+                    .padding()
+                    .background(placeholderBackgroundColor)
+                
+                Spacer()
+                Button(action: {}) {
+                    Text("Unlock")
+                        .font(.subheadline)
+                        .foregroundColor(.neutral_20)
+                        .padding(.vertical)
+                        .frame(maxWidth: screenWidth)
+                        .background(buttonBackgroundColor)
                 }
-                .onAppear { viewModel.authenticate() }
-                .navigationDestination(for: Destinations.self) {
-                    switch $0 {
-                    case .dashboard:
-                        TabbarView(viewModel: .init())
-                            .navigationBarHidden(true)
-                    }
+            }
+            .padding()
+            .frame(maxWidth: screenWidth, maxHeight: screenHeight)
+            .background(backgroundColor)
+            .onChange(of: viewModel.isPolicyEvaluated) { newValue in
+                if newValue {
+                    navigationPath.append(Destinations.dashboard)
                 }
+            }
+            .onAppear { viewModel.authenticate() }
+            .navigationDestination(for: Destinations.self) {
+                switch $0 {
+                case .dashboard:
+                    TabbarView(viewModel: .init())
+                        .navigationBarHidden(true)
+                }
+            }
         }
     }
 }
@@ -36,8 +58,18 @@ struct BiometricView: View {
 // MARK: - Private
 private extension BiometricView {
     
+    var primaryForegroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_900 : .primaryViolet1_50
+    }
+    
     var backgroundColor: Color {
-        theme.currentTheme == .light ? Color.primaryViolet2_400 : Color.primaryViolet1_800
+        theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_800
+    }
+    
+    var buttonBackgroundColor: Color { .primaryViolet1_500 }
+    
+    var placeholderBackgroundColor: Color {
+        theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
     }
 }
 

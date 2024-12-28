@@ -7,6 +7,8 @@ final class BiometricViewModel: ObservableObject {
     
     @Published var isPolicyEvaluated: Bool = false
     
+    init() {}
+    
     func authenticate() {
         let context = LAContext()
         var error: NSError?
