@@ -5,6 +5,7 @@ import SwiftUI
 struct EnterPassPhraseView: View {
     @State private var maskPassword: Bool = true
     @State private var maskConfirmPassword: Bool = true
+    @FocusState private var field: Field?
     
     @Environment(\.container) private var container
     @EnvironmentObject private var theme: ThemeManager
@@ -13,6 +14,10 @@ struct EnterPassPhraseView: View {
     
     enum Destinations {
         case generateSeedPhrase
+    }
+    
+    enum Field: Hashable {
+        case password, confirmPassword
     }
     
     init(navigationPath: Binding<NavigationPath>,
@@ -81,14 +86,17 @@ private extension EnterPassPhraseView {
     func buildPasswordTextField(
         _ placeholder: String,
         _ text: Binding<String>,
-        _ maskPassword: Binding<Bool>
+        _ maskPassword: Binding<Bool>,
+        field: Field
     ) -> some View {
         HStack {
             if maskPassword.wrappedValue {
                 SecureField(placeholder, text: text)
+                    .focused($field, equals: field)
                     .padding()
             } else {
                 TextField(placeholder, text: text)
+                    .focused($field, equals: field)
                     .padding()
             }
             
@@ -116,14 +124,25 @@ private extension EnterPassPhraseView {
             .foregroundColor(primaryForegroundColor)
             .padding(.top, 16)
         
-        buildPasswordTextField("Password", $viewModel.password, $maskPassword)
+        buildPasswordTextField(
+            "Password",
+            $viewModel.password,
+            $maskPassword,
+            field: .password
+        )
+            .onSubmit { field = .confirmPassword }
         
         Text("Confirm Password")
             .font(.body)
             .foregroundColor(primaryForegroundColor)
             .padding(.top, 16)
         
-        buildPasswordTextField("Confirm Password", $viewModel.confirmPassword, $maskConfirmPassword)
+        buildPasswordTextField(
+            "Confirm Password",
+            $viewModel.confirmPassword,
+            $maskConfirmPassword,
+            field: .confirmPassword
+        )
     }
     
     @ViewBuilder
@@ -174,7 +193,11 @@ private extension EnterPassPhraseView {
         Spacer()
         
         PrimaryButton(title: "Continue", enabled: viewModel.validationSuccess) {
-            viewModel.tap.send()
+            field = nil
+            //TODO: Read more about RunLoop. This fix the issue because `field = nil` happens on the next run loop (Keyboard dismissal and focus clearing involve UIKit animations, which are inherently asynchronous) and `DispatchQueue.main.async` ensures the task will execute after the current tasks in the run loop are processed.
+            DispatchQueue.main.async {
+                viewModel.tap.send()
+            }
         }
             .shadow(color: shadowColor, radius: 22, x: 7, y: 7)
             .padding(.bottom, 48)
