@@ -16,7 +16,14 @@ struct BiometricView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
+                
                 Spacer()
+                
+                Image(mascotImage)
+                    .resizable()
+                    .frame(width: mascotSize, height: mascotSize)
+                    .padding(.bottom, 24)
+                
                 Text("Enter your password")
                     .font(.headline)
                     .foregroundColor(primaryForegroundColor)
@@ -43,7 +50,7 @@ struct BiometricView: View {
                     navigationPath.append(Destinations.dashboard)
                 }
             }
-            .onAppear { viewModel.authenticate() }
+//            .onAppear { viewModel.authenticate() }
             .navigationDestination(for: Destinations.self) {
                 switch $0 {
                 case .dashboard:
@@ -71,6 +78,12 @@ private extension BiometricView {
     var placeholderBackgroundColor: Color {
         theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
     }
+    
+    var mascotImage: ImageResource {
+        theme.currentTheme == .light ? .mascotLight : .mascotDark
+    }
+    
+    var mascotSize: CGFloat { screenWidth * 0.6 }
 }
 
 #Preview {
