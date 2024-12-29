@@ -8,14 +8,18 @@ struct AlertModifier<ViewModel: Alertable>: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(
-            viewModel.alertViewModel?.title ?? "",
-            isPresented: isPresented,
-            presenting: viewModel.alertViewModel,
-            actions: { _ in },
-            message: { viewModel in
-                Text(viewModel.message)
-            }
-        )
+                viewModel.alertViewModel?.title ?? "",
+                isPresented: isPresented,
+                presenting: viewModel.alertViewModel,
+                actions: { _ in
+                    Button("Ok") {
+                        viewModel.alertViewModel?.dismissAction?()
+                    }
+                },
+                message: { viewModel in
+                    Text(viewModel.message)
+                }
+            )
     }
 }
 
