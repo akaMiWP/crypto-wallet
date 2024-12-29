@@ -48,6 +48,7 @@ struct BiometricView: View {
             .padding()
             .frame(maxWidth: screenWidth, maxHeight: screenHeight)
             .background(backgroundColor)
+            .modifier(AlertModifier(viewModel: viewModel))
             .onChange(of: viewModel.isPolicyEvaluated) { newValue in
                 if newValue {
                     navigationPath.wrappedValue.append(Destinations.dashboard)

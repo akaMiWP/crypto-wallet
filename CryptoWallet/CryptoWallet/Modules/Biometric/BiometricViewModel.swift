@@ -3,8 +3,7 @@
 import Combine
 import LocalAuthentication
 
-final class BiometricViewModel: ObservableObject {
-    
+final class BiometricViewModel: ObservableObject, Alertable {
     // Input properties
     @Published var passwordInput: String = ""
     @Published var allowPasswordInput: Bool = false
@@ -12,6 +11,7 @@ final class BiometricViewModel: ObservableObject {
     
     // Output properties
     @Published var isPolicyEvaluated: Bool = false
+    @Published var alertViewModel: AlertViewModel?
     
     private let authenticateUseCase: AuthenticateUseCase
     private var cancellables: Set<AnyCancellable> = .init()
@@ -19,13 +19,32 @@ final class BiometricViewModel: ObservableObject {
     init(authenticateUseCase: AuthenticateUseCase) {
         self.authenticateUseCase = authenticateUseCase
         
-        Publishers.CombineLatest(tap, $passwordInput)
-            .flatMap { [weak self] (_, password) in
+        tap
+            .flatMap { [weak self] _ in
                 guard let self = self else { return Empty<Bool, Error>().eraseToAnyPublisher() }
-                return self.authenticateUseCase.validateWithPassword(password)
+                return self.authenticateUseCase.validateWithPassword(self.passwordInput)
             }
-            .catch { error in
+            .handleEvents(
+                receiveOutput: { [weak self] valid in
+                    if !valid {
+                        self?.alertViewModel = .init(
+                            title: "Incorrect Password",
+                            message: "Please try again",
+                            dismissAction: {
+                                DispatchQueue.main.async {
+                                    self?.alertViewModel = nil
+                                }
+                            }
+                        )
+                    }
+                })
+            .catch { [weak self] error in
                 print("Error found:", error.localizedDescription)
+                self?.alertViewModel = .init(dismissAction: {
+                    DispatchQueue.main.async {
+                        self?.alertViewModel = nil
+                    }
+                })
                 return Just(false)
             }
             .assign(to: &$isPolicyEvaluated)
