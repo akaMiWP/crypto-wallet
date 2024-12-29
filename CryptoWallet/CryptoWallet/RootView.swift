@@ -13,7 +13,7 @@ struct RootView: View {
     
     var body: some View {
         if viewModel.isSignedIn {
-            BiometricView(navigationPath: $navigationPath)
+            BiometricView(viewModel: .init(authenticateUseCase: AuthenticateImp()), navigationPath: $navigationPath)
         } else {
             WelcomeView(navigationPath: $navigationPath)
                 .onAppear {

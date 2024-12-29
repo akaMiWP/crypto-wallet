@@ -5,9 +5,31 @@ import LocalAuthentication
 
 final class BiometricViewModel: ObservableObject {
     
+    // Input properties
+    @Published var passwordInput: String = ""
+    @Published var allowPasswordInput: Bool = false
+    let tap: PassthroughSubject<Void, Never> = .init()
+    
+    // Output properties
     @Published var isPolicyEvaluated: Bool = false
     
-    init() {}
+    private let authenticateUseCase: AuthenticateUseCase
+    private var cancellables: Set<AnyCancellable> = .init()
+    
+    init(authenticateUseCase: AuthenticateUseCase) {
+        self.authenticateUseCase = authenticateUseCase
+        
+        Publishers.CombineLatest(tap, $passwordInput)
+            .flatMap { [weak self] (_, password) in
+                guard let self = self else { return Empty<Bool, Error>().eraseToAnyPublisher() }
+                return self.authenticateUseCase.validateWithPassword(password)
+            }
+            .catch { error in
+                print("Error found:", error.localizedDescription)
+                return Just(false)
+            }
+            .assign(to: &$isPolicyEvaluated)
+    }
     
     func authenticate() {
         let context = LAContext()
@@ -22,7 +44,7 @@ final class BiometricViewModel: ObservableObject {
                 }
             }
         } else {
-            //TODO: Ask a user for password
+            allowPasswordInput = true
         }
     }
 }

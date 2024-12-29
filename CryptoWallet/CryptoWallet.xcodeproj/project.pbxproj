@@ -94,6 +94,7 @@
 		A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */; };
 		A1B7D2352CAC3B3300EF7923 /* GetBalanceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */; };
 		A1B7D23B2CADA0B200EF7923 /* NodeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */; };
+		A1C115F42D210CB90060A267 /* AuthenticateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C115F32D210CB60060A267 /* AuthenticateUseCase.swift */; };
 		A1CF69AE2CBE8F39008A3734 /* TransactionReceiptResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF69AD2CBE8F39008A3734 /* TransactionReceiptResponse.swift */; };
 		A1CF69B02CBE8FE6008A3734 /* TransactionReceiptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF69AF2CBE8FE6008A3734 /* TransactionReceiptModel.swift */; };
 		A1CF69B22CBE925B008A3734 /* TransactionReceiptModel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF69B12CBE925B008A3734 /* TransactionReceiptModel+.swift */; };
@@ -207,6 +208,7 @@
 		A1B719DA2C80C31D0039D8D9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A1B7D2342CAC3B3300EF7923 /* GetBalanceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBalanceResponse.swift; sourceTree = "<group>"; };
 		A1B7D23A2CADA0B200EF7923 /* NodeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeProvider.swift; sourceTree = "<group>"; };
+		A1C115F32D210CB60060A267 /* AuthenticateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateUseCase.swift; sourceTree = "<group>"; };
 		A1CF69AD2CBE8F39008A3734 /* TransactionReceiptResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReceiptResponse.swift; sourceTree = "<group>"; };
 		A1CF69AF2CBE8FE6008A3734 /* TransactionReceiptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReceiptModel.swift; sourceTree = "<group>"; };
 		A1CF69B12CBE925B008A3734 /* TransactionReceiptModel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionReceiptModel+.swift"; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 		A1E3FFC42C893523007EB73D /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				A1C115F32D210CB60060A267 /* AuthenticateUseCase.swift */,
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
 				A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */,
 				A19FBF162CB57B1500058589 /* ManageTokensUseCase.swift */,
@@ -932,6 +935,7 @@
 				A197348D2C840BED00619D33 /* SelectTokensView.swift in Sources */,
 				A1E3FFC92C8937E5007EB73D /* HDWalletManager.swift in Sources */,
 				A1E155A52CA79F5900BC968F /* NetworkViewModel.swift in Sources */,
+				A1C115F42D210CB90060A267 /* AuthenticateUseCase.swift in Sources */,
 				A1B719DB2C80C31D0039D8D9 /* WelcomeView.swift in Sources */,
 				A1E3FFC62C893558007EB73D /* ManageHDWalletUseCase.swift in Sources */,
 				A10E036F2CC9262B00641F7B /* SettingsRowType.swift in Sources */,

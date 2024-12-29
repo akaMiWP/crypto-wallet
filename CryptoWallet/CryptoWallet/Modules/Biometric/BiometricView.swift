@@ -3,43 +3,46 @@
 import SwiftUI
 
 struct BiometricView: View {
-    @StateObject private var viewModel: BiometricViewModel = .init()
-    @Binding var navigationPath: NavigationPath
-    
-    @State private var passwordInput: String = ""
     @EnvironmentObject private var theme: ThemeManager
+    @ObservedObject private var viewModel: BiometricViewModel
+    private var navigationPath: Binding<NavigationPath>
     
     enum Destinations {
         case dashboard
     }
     
+    init(viewModel: BiometricViewModel, navigationPath: Binding<NavigationPath>) {
+        self.viewModel = viewModel
+        self.navigationPath = navigationPath
+    }
+    
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        NavigationStack(path: navigationPath) {
             VStack {
-                
-                Spacer()
-                
                 Image(mascotImage)
                     .resizable()
                     .frame(width: mascotSize, height: mascotSize)
                     .padding(.bottom, 24)
                 
-                Text("Enter your password")
-                    .font(.headline)
-                    .foregroundColor(primaryForegroundColor)
-                
-                SecureField("Password", text: $passwordInput)
-                    .padding()
-                    .background(placeholderBackgroundColor)
-                
-                Spacer()
-                Button(action: {}) {
-                    Text("Unlock")
-                        .font(.subheadline)
-                        .foregroundColor(.neutral_20)
-                        .padding(.vertical)
-                        .frame(maxWidth: screenWidth)
-                        .background(buttonBackgroundColor)
+                if viewModel.allowPasswordInput {
+                    VStack(spacing: 12) {
+                        Text("Enter your password")
+                            .font(.headline)
+                            .foregroundColor(primaryForegroundColor)
+                        
+                        SecureField("Password", text: $viewModel.passwordInput)
+                            .padding()
+                            .background(placeholderBackgroundColor)
+                        
+                        Button(action: { viewModel.tap.send() }) {
+                            Text("Unlock")
+                                .font(.subheadline)
+                                .foregroundColor(.neutral_20)
+                                .padding(.vertical)
+                                .frame(maxWidth: screenWidth)
+                                .background(buttonBackgroundColor)
+                        }
+                    }
                 }
             }
             .padding()
@@ -47,10 +50,10 @@ struct BiometricView: View {
             .background(backgroundColor)
             .onChange(of: viewModel.isPolicyEvaluated) { newValue in
                 if newValue {
-                    navigationPath.append(Destinations.dashboard)
+                    navigationPath.wrappedValue.append(Destinations.dashboard)
                 }
             }
-//            .onAppear { viewModel.authenticate() }
+            .onAppear { viewModel.authenticate() }
             .navigationDestination(for: Destinations.self) {
                 switch $0 {
                 case .dashboard:
@@ -87,6 +90,9 @@ private extension BiometricView {
 }
 
 #Preview {
-    BiometricView(navigationPath: .constant(.init()))
+    BiometricView(
+        viewModel: .init(authenticateUseCase: AuthenticateImp()),
+        navigationPath: .constant(.init())
+    )
         .environmentObject(ThemeManager())
 }

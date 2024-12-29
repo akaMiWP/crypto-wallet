@@ -62,15 +62,21 @@ final class GenerateSeedPhraseViewModel: Alertable {
         manageHDWalletUseCase
             .encryptMnemonic(mnemonic)
             .flatMap { [weak self] _ -> AnyPublisher<Void, Error> in
-                guard let self = self else { return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                guard let self = self else {
+                    return Fail<Void, Error>(error: NSError(domain: "", code: 0)).eraseToAnyPublisher()
+                }
                 return self.manageHDWalletUseCase.deletePreviousCreatedWalletModelsIfNeeded()
             }
             .flatMap { [weak self] _ -> AnyPublisher<Void, Error> in
-                guard let self = self else { return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                guard let self = self else {
+                    return Fail<Void, Error>(error: NSError(domain: "", code: 0)).eraseToAnyPublisher()
+                }
                 return self.manageWalletsUseCase.makeNewWalletModel(coinType: .ethereum)
             }
             .flatMap { [weak self] in
-                guard let self = self else { return Fail<Void, Error>(error: NSError(domain: "", code: 0)).eraseToAnyPublisher() }
+                guard let self = self else {
+                    return Fail<Void, Error>(error: NSError(domain: "", code: 0)).eraseToAnyPublisher()
+                }
                 guard let password = passwordRepository.retrievePassword() else {
                     return Fail<Void, Error>(error: GenerateSeedPhraseViewModelError.passwordNotFound).eraseToAnyPublisher()
                 }
@@ -87,7 +93,7 @@ final class GenerateSeedPhraseViewModel: Alertable {
                 self.alertViewModel = .init(message: error.localizedDescription)
                 return Empty<Void, Never>()
             }
-            .sink { [weak self] output in
+            .sink { [weak self] _ in
                 self?.userDefaultUseCase.setHasCreatedWallet(true)
                 self?.onSave.send()
             }
