@@ -12,6 +12,7 @@ final class BiometricViewModel: ObservableObject, Alertable {
     // Output properties
     @Published var isPolicyEvaluated: Bool = false
     @Published var alertViewModel: AlertViewModel?
+    @Published var buttonEnabled: Bool = false
     
     private let authenticateUseCase: AuthenticateUseCase
     private var cancellables: Set<AnyCancellable> = .init()
@@ -48,6 +49,10 @@ final class BiometricViewModel: ObservableObject, Alertable {
                 return Just(false)
             }
             .assign(to: &$isPolicyEvaluated)
+        
+        $passwordInput
+            .map { !$0.isEmpty }
+            .assign(to: &$buttonEnabled)
     }
     
     func authenticate() {
@@ -58,8 +63,10 @@ final class BiometricViewModel: ObservableObject, Alertable {
             let reason = "Identify yourself!"
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [weak self] success, error in
                 guard let self = self else { return }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.isPolicyEvaluated = success
+                if let _ = error {
+                    DispatchQueue.main.async { self.allowPasswordInput = true }
+                } else {
+                    DispatchQueue.main.async { self.isPolicyEvaluated = success }
                 }
             }
         } else {

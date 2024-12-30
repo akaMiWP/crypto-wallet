@@ -42,6 +42,7 @@ struct BiometricView: View {
                                 .frame(maxWidth: screenWidth)
                                 .background(buttonBackgroundColor)
                         }
+                        .disabled(!viewModel.buttonEnabled)
                     }
                 }
             }
@@ -77,7 +78,9 @@ private extension BiometricView {
         theme.currentTheme == .light ? .neutral_10 : .primaryViolet1_800
     }
     
-    var buttonBackgroundColor: Color { .primaryViolet1_500 }
+    var buttonBackgroundColor: Color {
+        viewModel.buttonEnabled ? .primaryViolet1_500 : .primaryViolet1_100
+    }
     
     var placeholderBackgroundColor: Color {
         theme.currentTheme == .light ? .primaryViolet1_50 : .primaryViolet1_900
