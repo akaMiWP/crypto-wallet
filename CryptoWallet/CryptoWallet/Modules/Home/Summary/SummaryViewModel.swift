@@ -14,7 +14,7 @@ final class SummaryViewModel: Alertable {
     var destinationAddress: String { summaryTokenUseCase.destinationAddress }
     var networkName: String { summaryTokenUseCase.tokenModel.network.chainName }
     
-    let receiptViewModel: TransactionReceiptViewModel = .init()
+    let receiptViewModel: TransactionReceiptViewModel = .init(chainExplorerUseCase: ChainExplorerImp())
     let sendAmountText: String
     
     private let summaryTokenUseCase: SummaryTokenUseCase

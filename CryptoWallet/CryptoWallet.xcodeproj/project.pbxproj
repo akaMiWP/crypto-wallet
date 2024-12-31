@@ -36,6 +36,7 @@
 		A13BBF492C7E194300D5B58F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF482C7E194300D5B58F /* SwiftProtobuf */; };
 		A13BBF4B2C7E194300D5B58F /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = A13BBF4A2C7E194300D5B58F /* WalletCore */; };
 		A13C0DE82CBFBC680073F3A7 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13C0DE72CBFBC680073F3A7 /* SafariView.swift */; };
+		A15239662D23FCA300FF8FA8 /* ChainExplorerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15239652D23FC9E00FF8FA8 /* ChainExplorerUseCase.swift */; };
 		A15F271F2CC1FD31009961C9 /* WalletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15F271E2CC1FD31009961C9 /* WalletModel.swift */; };
 		A15F27212CC1FD45009961C9 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15F27202CC1FD45009961C9 /* WalletViewModel.swift */; };
 		A161A95B2C99A2A100BED797 /* BiometricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161A95A2C99A2A100BED797 /* BiometricView.swift */; };
@@ -147,6 +148,7 @@
 		A1333F2C2D1BA67A0022B857 /* EnterPassPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPassPhraseViewModel.swift; sourceTree = "<group>"; };
 		A1333F2E2D1BB2060022B857 /* Global+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Global+.swift"; sourceTree = "<group>"; };
 		A13C0DE72CBFBC680073F3A7 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		A15239652D23FC9E00FF8FA8 /* ChainExplorerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainExplorerUseCase.swift; sourceTree = "<group>"; };
 		A15F271E2CC1FD31009961C9 /* WalletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModel.swift; sourceTree = "<group>"; };
 		A15F27202CC1FD45009961C9 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		A161A95A2C99A2A100BED797 /* BiometricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricView.swift; sourceTree = "<group>"; };
@@ -725,6 +727,7 @@
 			isa = PBXGroup;
 			children = (
 				A1C115F32D210CB60060A267 /* AuthenticateUseCase.swift */,
+				A15239652D23FC9E00FF8FA8 /* ChainExplorerUseCase.swift */,
 				A19BFFC92C8DE2EF00E646CD /* GlobalEventUseCase.swift */,
 				A1E3FFC52C893558007EB73D /* ManageHDWalletUseCase.swift */,
 				A19FBF162CB57B1500058589 /* ManageTokensUseCase.swift */,
@@ -922,6 +925,7 @@
 				A15F27212CC1FD45009961C9 /* WalletViewModel.swift in Sources */,
 				A1A2072B2C7CA6EB0093CE47 /* CryptoWalletApp.swift in Sources */,
 				A19FBF0E2CB51FF900058589 /* SelectTokenViewModel.swift in Sources */,
+				A15239662D23FCA300FF8FA8 /* ChainExplorerUseCase.swift in Sources */,
 				A17425B32CA97DCF0022F0B1 /* Dismissable.swift in Sources */,
 				A1333F2D2D1BA67E0022B857 /* EnterPassPhraseViewModel.swift in Sources */,
 				A1A375802C8C33440012BF43 /* AlertViewModel.swift in Sources */,

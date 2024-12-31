@@ -5,7 +5,6 @@ import SwiftUI
 
 struct TransactionReceiptView: View {
     @ObservedObject private var viewModel: TransactionReceiptViewModel
-    @State private var shouldPresentSafariView: Bool = false
     
     private let onDismiss: (() -> Void)?
     
@@ -25,6 +24,16 @@ struct TransactionReceiptView: View {
     }
 }
 private extension TransactionReceiptView {
+    
+    var shouldPresentSafariView: Binding<Bool> {
+        .init(
+            get: { viewModel.url != nil },
+            set: { newValue in
+                if !newValue { viewModel.url = nil }
+            }
+        )
+    }
+    
     func buildDetailRow(
         isLoading: Bool,
         title: String,
@@ -47,7 +56,7 @@ private extension TransactionReceiptView {
                     .foregroundColor(Color.secondaryGreen1_900)
                     .fontWeight(.semibold)
                 
-                if let subtitle = subtitle, let url = viewModel.buildURL()  {
+                if let subtitle = subtitle {
                     HStack {
                         Text(subtitle.maskedHexString())
                             .font(.footnote)
@@ -55,15 +64,17 @@ private extension TransactionReceiptView {
                             .lineLimit(1)
                         
                         Button(action: {
-                            shouldPresentSafariView = true
+                            viewModel.fetchURL()
                         }, label: {
                             Image(systemName: "link")
                                 .fontWeight(.bold)
                                 .foregroundColor(Color.secondaryGreen1_800)
                         })
                     }
-                    .sheet(isPresented: $shouldPresentSafariView) {
-                        SafariView(url: url)
+                    .sheet(isPresented: shouldPresentSafariView) {
+                        if let url = viewModel.url {
+                            SafariView(url: url)
+                        }
                     }
                 }
             }
@@ -103,6 +114,7 @@ private extension TransactionReceiptView {
             .background(Color.secondaryGreen1_100)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .padding()
+            .modifier(AlertModifier(viewModel: viewModel))
         case .processingTransaction:
             VStack(alignment: .leading) {
                 HStack {
@@ -130,6 +142,7 @@ private extension TransactionReceiptView {
             .background(Color.secondaryGreen1_100)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .padding()
+            .modifier(AlertModifier(viewModel: viewModel))
         case .confirmedTransaction(let txHash):
             VStack {
                 HStack {
@@ -163,12 +176,13 @@ private extension TransactionReceiptView {
             .background(Color.secondaryGreen1_100)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .padding()
+            .modifier(AlertModifier(viewModel: viewModel))
         }
     }
 }
 
 #Preview {
-    let viewModel: TransactionReceiptViewModel = .init()
+    let viewModel: TransactionReceiptViewModel = .init(chainExplorerUseCase: ChainExplorerImp())
     viewModel.viewState = .confirmedTransaction(txHash: "0xb13ad63a8c483265eeaef613c833def0e44a196c464c60c0c953aa83c6ab52e5")
     return TransactionReceiptView(viewModel: viewModel)
 }
