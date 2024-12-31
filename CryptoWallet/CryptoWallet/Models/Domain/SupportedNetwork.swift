@@ -86,4 +86,20 @@ enum SupportedNetwork: Codable, Hashable {
             }
         }
     }
+    
+    var explorer: String {
+        switch self {
+        case .testnet(let testNetwork):
+            switch testNetwork {
+            case .sepolia: return "https://sepolia.etherscan.io/tx/"
+            }
+        case .mainnet(let mainnetNetwork):
+            switch mainnetNetwork {
+            case .ethereum: return "https://etherscan.io/tx/"
+            case .zksync: return "https://explorer.zksync.io/tx/"
+            case .arbitrum: return "https://arbiscan.io/tx/"
+            case .optimism: return "https://optimistic.etherscan.io/tx/"
+            }
+        }
+    }
 }
