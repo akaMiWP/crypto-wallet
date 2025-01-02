@@ -6,13 +6,14 @@ import Foundation
 // 0xd8da6bf26964af9d7eed9e03e53415d37aa96045: a sample address
 
 final class DashboardViewModel: Alertable {
-    
+    // Output properties
     @Published var state: ViewModelState = .loading
     @Published var walletViewModel: WalletViewModel = .default
     @Published var networkViewModel: NetworkViewModel = .default
     @Published var tokenViewModels: [TokenViewModel] = []
     @Published var shouldRefetchTokenBalances: Bool = false
     @Published var shouldShowToastMessage: Bool = false
+    @Published var accountAmount: String = "0 ETH"
     @Published var alertViewModel: AlertViewModel?
     
     var didAppear: Bool = false
@@ -21,7 +22,7 @@ final class DashboardViewModel: Alertable {
     private var allTokens: [AddressToTokenModel] = []
     private var offset: Int = 0
     
-    private var ethBalance: Double = 0
+    private let ethBalance: CurrentValueSubject<Double, Never> = .init(0)
     
     private var addressToTokenModelsDict:
     PassthroughSubject<[AddressToTokenModel: TokenMetadataModel], Never> = .init()
@@ -51,6 +52,7 @@ final class DashboardViewModel: Alertable {
         subscribeToAccountChange()
         subscribeToNetworkChange()
         subscribeToTransactionSent()
+        subscribeToAccountAmount()
     }
     
     func fetchData() {
@@ -77,7 +79,7 @@ final class DashboardViewModel: Alertable {
                 guard let self = self else { return }
                 self.networkViewModel = viewModel
                 self.allTokens = tokenModels
-                self.ethBalance = ethBalance
+                self.ethBalance.send(ethBalance)
                 self.fetchNextTokens()
                 self.didAppear = true
             }
@@ -148,7 +150,7 @@ private extension DashboardViewModel {
             .fetchSelectedChainIdPublisher()
             .flatMap { self.supportNetworksUseCase.fetchNetworkModel(from: $0) }
             .map { model -> NetworkViewModel in
-                return .init(name: model.chainName, chainId: model.chainId, isSelected: model.isSelected)
+                return .init(name: model.chainName, chainId: model.chainId, isSelected: model.isSelected, isMainnet: model.isMainnet)
             }
             .eraseToAnyPublisher()
     }
@@ -187,7 +189,7 @@ private extension DashboardViewModel {
             .flatMap { (dict, networkModel) in
                 self.manageTokensUseCase.createTokensModelPublisher(
                     dict: dict,
-                    ethBalance: self.ethBalance,
+                    ethBalance: self.ethBalance.value,
                     network: networkModel
                 )
             }
@@ -224,6 +226,17 @@ private extension DashboardViewModel {
                 self?.modelDidChange()
             }
             .store(in: &cancellables)
+    }
+    
+    func subscribeToAccountAmount() {
+        Publishers.CombineLatest($networkViewModel, ethBalance)
+            .map { (network, balance) in
+                if !network.isMainnet {
+                    return "\(balance) SepoliaETH"
+                }
+                return "\(balance) ETH"
+            }
+            .assign(to: &$accountAmount)
     }
     
     func handleError(completion: Subscribers.Completion<any Error>) {

@@ -19,7 +19,7 @@ struct DashboardView: View {
             makeTopBarView()
             
             ScrollView {
-                Text("$0.00")
+                Text(viewModel.accountAmount)
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(foregroundColor)
