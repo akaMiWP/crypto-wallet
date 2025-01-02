@@ -23,7 +23,8 @@ final class SupportNetworksImp: SupportNetworksUseCase {
                 chainName: chainName,
                 chainId: network.chainId,
                 coinType: network.coinType,
-                isSelected: true
+                isSelected: true,
+                isMainnet: true
             )
             return Just(model).setFailureType(to: Error.self).eraseToAnyPublisher()
         } else if let network = testnets.first(where: { $0.chainId == chainId }) {
@@ -38,7 +39,8 @@ final class SupportNetworksImp: SupportNetworksUseCase {
                 chainName: chainName,
                 chainId: chainId,
                 coinType: network.coinType,
-                isSelected: true
+                isSelected: true,
+                isMainnet: false
             )
             return Just(model).setFailureType(to: Error.self).eraseToAnyPublisher()
         } else {
@@ -58,7 +60,8 @@ final class SupportNetworksImp: SupportNetworksUseCase {
                 chainName: chainName,
                 chainId: coinType.chainId,
                 coinType: coinType,
-                isSelected: selectedChainId == coinType.chainId
+                isSelected: selectedChainId == coinType.chainId,
+                isMainnet: true
             )
         }
         
@@ -74,7 +77,8 @@ final class SupportNetworksImp: SupportNetworksUseCase {
                 chainName: chainName,
                 chainId: chainId,
                 coinType: network.coinType,
-                isSelected: selectedChainId == chainId
+                isSelected: selectedChainId == chainId,
+                isMainnet: false
             )
             
         }

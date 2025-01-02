@@ -9,13 +9,15 @@ struct NetworkViewModel: Identifiable, Equatable {
     let name: String
     let chainId: String
     let isSelected: Bool
+    let isMainnet: Bool
     
     static let `default`: NetworkViewModel = .init(name: "", chainId: "")
     
-    init(name: String, chainId: String, isSelected: Bool = false) {
+    init(name: String, chainId: String, isSelected: Bool = false, isMainnet: Bool = true) {
         self.name = name
         self.chainId = chainId
         self.isSelected = isSelected
+        self.isMainnet = isMainnet
         
         switch chainId {
         case ChainIdConstants.ethereum: self.image = .iconEthereum

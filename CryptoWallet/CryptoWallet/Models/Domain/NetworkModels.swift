@@ -7,6 +7,7 @@ struct NetworkModel {
     let chainId: String
     let coinType: CoinType
     let isSelected: Bool
+    let isMainnet: Bool
 }
 
 struct NetworkModels {
