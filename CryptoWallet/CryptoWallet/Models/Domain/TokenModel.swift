@@ -17,7 +17,7 @@ struct TokenModel {
         symbol: "ETH",
         tokenBalance: 0,
         totalAmount: 0,
-        network: .init(chainName: "Ethereum", chainId: "1", coinType: .ethereum, isSelected: true)
+        network: .init(chainName: "Ethereum", chainId: "1", coinType: .ethereum, isSelected: true, isMainnet: true)
     )
     
     init(
